@@ -1,0 +1,238 @@
+---
+import Icon from './Icon.astro';
+
+const nodes = [
+  { icon: 'node-file', label: 'Source file', spec: 'FLAC 24/192' },
+  { icon: 'node-engine', label: 'Bitperfect engine', spec: 'no resample' },
+  { icon: 'node-usb', label: 'UAC2 out', spec: 'exclusive' },
+  { icon: 'node-dac', label: 'Your DAC', spec: '24/192' },
+];
+---
+
+<div class="chain glass" id="signal-chain">
+  <ol class="nodes">
+    {
+      nodes.map((n, i) => (
+        <li class="node" style={`--i:${i}`}>
+          <span class="box">
+            <Icon name={n.icon} size={22} />
+          </span>
+          <span class="label">{n.label}</span>
+          <span class="spec font-mono tabular-nums">{n.spec}</span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="verdict">
+    <span class="v-mark"><Icon name="sig-bitperfect" size={16} /></span>
+    <span class="v-label">Bit-perfect</span>
+    <span class="v-note">Output identical to source. Nothing resampled, nothing mixed, nothing scaled.</span>
+  </div>
+</div>
+
+<script>
+  /* One-shot focal moment: the chain ships fully resolved (today's look) so a
+     failed or disabled script never hides anything. JS only dims it into a
+     "pending" state, and only before it's ever been visible, then lets the
+     already-defined resolved styles transition back in on scroll-into-view.
+     Skipped entirely under reduced motion — nothing to dim, nothing to catch up. */
+  const chain = document.getElementById('signal-chain');
+  if (chain && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    chain.classList.add('pending');
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            chain.classList.remove('pending');
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(chain);
+  }
+</script>
+
+<style>
+  .chain {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .nodes {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .node {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1rem;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Vertical connector on small screens — gold in transit, shifting to
+     bit-perfect green on the final hop into the DAC. */
+  .node:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 52px;
+    width: 2px;
+    height: calc(100% + 1.5rem - 52px);
+    background: linear-gradient(180deg, var(--color-gold) 0%, rgba(232, 184, 75, 0.8) 100%);
+    opacity: 0.85;
+    transform-origin: top;
+    transition:
+      opacity 0.3s var(--ease-out-expo),
+      transform 0.3s var(--ease-out-expo);
+    transition-delay: calc(var(--i) * 130ms + 90ms);
+  }
+  .node:nth-last-child(2)::after {
+    background: linear-gradient(180deg, var(--color-gold) 0%, var(--color-bitperfect) 100%);
+    opacity: 0.95;
+  }
+
+  .box {
+    grid-row: 1 / 3;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--color-border-subtle);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-gold);
+    transition:
+      border-color 0.22s var(--ease-out-expo),
+      color 0.22s var(--ease-out-expo),
+      background-color 0.22s var(--ease-out-expo);
+    transition-delay: calc(var(--i) * 130ms);
+  }
+
+  .node:last-child .box {
+    border-color: var(--color-bitperfect);
+    color: var(--color-bitperfect);
+    background: color-mix(in srgb, var(--color-bitperfect) 14%, transparent);
+  }
+
+  /* Dormant state — dimmed to the neutral text register until the chain
+     scrolls into view, matching the rest of the system's inactive tone. */
+  .chain.pending .box {
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-tertiary);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .chain.pending .node:last-child .box {
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-tertiary);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .chain.pending .node::after {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  .chain.pending .verdict {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .label {
+    align-self: end;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .spec {
+    align-self: start;
+    font-size: 0.6875rem;
+    letter-spacing: 0.07em;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+  }
+
+  .verdict {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-subtle);
+    transition:
+      opacity 0.3s var(--ease-out-expo),
+      transform 0.3s var(--ease-out-expo);
+    transition-delay: 800ms;
+  }
+  .v-mark {
+    display: inline-flex;
+    color: var(--color-bitperfect);
+  }
+  .v-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-bitperfect);
+  }
+  .v-note {
+    color: var(--color-text-tertiary);
+    font-size: 0.875rem;
+    flex: 1 1 16rem;
+  }
+
+  /* Horizontal chain once there is room */
+  @media (min-width: 640px) {
+    .chain {
+      padding: 2rem 1.75rem;
+    }
+  }
+
+  @media (min-width: 860px) {
+    .chain {
+      padding: 2.5rem 2rem;
+    }
+    .nodes {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .node {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      justify-items: center;
+      text-align: center;
+      row-gap: 0.5rem;
+    }
+    .box {
+      grid-row: auto;
+    }
+    .node:not(:last-child)::after {
+      left: calc(50% + 28px);
+      top: 26px;
+      width: calc(100% - 56px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-gold) 0%, rgba(232, 184, 75, 0.8) 100%);
+      transform-origin: left;
+      opacity: 0.85;
+    }
+    .node:nth-last-child(2)::after {
+      background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-bitperfect) 100%);
+      opacity: 0.95;
+    }
+    .chain.pending .node::after {
+      transform: scaleX(0);
+    }
+    .label {
+      align-self: auto;
+    }
+    .spec {
+      align-self: auto;
+    }
+  }
+</style>

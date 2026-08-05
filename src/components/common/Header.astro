@@ -1,0 +1,142 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+import MobileMenu from './MobileMenu.astro';
+import Logo from './Logo.astro';
+import { navLinks } from '../../data/navigation';
+import { site } from '../../data/site';
+import { isActive, resolveHref, withBase } from '../../utils/nav';
+
+const pathname = Astro.url.pathname;
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 right-0 left-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300"
+  style="border-bottom: 1px solid rgba(255,255,255,0);"
+>
+  <Container>
+    <nav class="flex h-16 items-center justify-between lg:h-20">
+      <!-- Logo -->
+      <a
+        href={withBase('/')}
+        class="group flex items-center gap-2.5 rounded-lg transition-opacity duration-200 hover:opacity-80 focus-visible:focus-ring"
+      >
+        <Logo size="md" />
+        {/* The wordmark must never wrap to two lines beside a 32px mark — on a
+            360-390px viewport "Bitperfect Player" did exactly that. Below `sm`
+            only the distinctive half of the name is shown; the mark plus
+            "Bitperfect" still identifies the product, and the full name stays in
+            the logo's alt text and the page title for assistive tech. */}
+        <span class="text-base font-bold whitespace-nowrap text-white sm:text-lg">
+          Bitperfect<span class="hidden sm:inline"> Player</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav (center) -->
+      <div class="hidden items-center gap-8 lg:flex">
+        {
+          navLinks.map((link) => {
+            const active = isActive(pathname, link.href);
+            return (
+              <a
+                href={resolveHref(link.href, pathname)}
+                class:list={[
+                  'nav-link rounded text-sm transition-colors duration-200 focus-visible:focus-ring',
+                  active ? 'nav-link-active text-white' : 'text-text-secondary hover:text-white',
+                ]}
+                aria-current={active ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <Button
+          href={site.playUrl}
+          rel="noopener"
+          variant="primary"
+          size="sm"
+          class="gap-1.5 whitespace-nowrap text-xs sm:text-sm"
+        >
+          <svg class="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M7.5 4.75 19 12 7.5 19.25Z" />
+          </svg>
+          Get the app
+        </Button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-toggle"
+          class="flex cursor-pointer flex-col gap-1.5 rounded p-2 focus-visible:focus-ring lg:hidden"
+          aria-label="Toggle navigation menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span
+            class="block h-0.5 w-6 origin-center bg-white transition-all duration-300"
+            id="burger-top"></span>
+          <span class="block h-0.5 w-6 bg-white transition-all duration-300" id="burger-mid"></span>
+          <span
+            class="block h-0.5 w-4 origin-center bg-white transition-all duration-300"
+            id="burger-bot"></span>
+        </button>
+      </div>
+    </nav>
+  </Container>
+</header>
+
+<MobileMenu pathname={pathname} />
+
+<style>
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.25s ease;
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+  .nav-link-active::after {
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+</style>
+
+<script>
+  // ── Header scroll effect ──
+  const header = document.getElementById('site-header');
+
+  function updateHeader() {
+    if (!header) return;
+    const style = header.style as CSSStyleDeclaration & { webkitBackdropFilter: string };
+    if (window.scrollY > 50) {
+      style.backgroundColor = 'rgba(23, 22, 30, 0.6)';
+      style.backdropFilter = 'blur(24px)';
+      style.webkitBackdropFilter = 'blur(24px)';
+      style.borderBottom = '1px solid rgba(255, 255, 255, 0.06)';
+    } else {
+      style.backgroundColor = '';
+      style.backdropFilter = '';
+      style.webkitBackdropFilter = '';
+      style.borderBottom = '1px solid rgba(255, 255, 255, 0)';
+    }
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+</script>

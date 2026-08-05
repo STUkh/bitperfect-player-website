@@ -1,0 +1,22 @@
+---
+interface Props {
+  eyebrow: string;
+  eyebrowColor?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'center' | 'left';
+  id?: string;
+}
+
+const { eyebrow, eyebrowColor = 'text-gold', title, subtitle, align = 'center', id } = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center max-w-2xl mx-auto' : 'text-left';
+---
+
+<div class={`${alignClass} mb-12 lg:mb-16`} data-animate="fade-up">
+  <p class={`text-eyebrow ${eyebrowColor} mb-4`}>{eyebrow}</p>
+  <h2 id={id} class="heading-section">
+    <Fragment set:html={title} />
+  </h2>
+  {subtitle && <p class="mt-4 text-base text-text-secondary sm:text-lg">{subtitle}</p>}
+</div>

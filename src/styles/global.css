@@ -1,0 +1,595 @@
+@import 'tailwindcss';
+
+/* ── Inter Variable Font ──
+   Hardcoded to astro.config.mjs's `base: '/bitperfect-player-website'` — Astro
+   does not rewrite url() in a plain CSS file, so this path must be updated by
+   hand if the base ever changes. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/bitperfect-player-website/fonts/Inter-Variable.woff2') format('woff2');
+}
+
+/* ── Tailwind 4 Theme Tokens ── */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Surfaces ── */
+  --color-surface-base: #0a0a0f;
+  --color-surface-raised: #121118;
+  --color-surface-overlay: #17161e;
+
+  /* ── Brand Accents — gold primary ── */
+  --color-gold: #e8b84b;
+  --color-gold-light: #f2c65e;
+  --color-amber: #ffb347;
+  --color-amber-light: #ffc87a;
+  --color-champagne: #fbe9c4;
+  --color-on-gold: #0a0a0f;
+
+  /* ── Signal States (mirrors the app's Color.kt Status* tokens) ── */
+  --color-bitperfect: #34d399;
+  --color-lossless: #00d2ff;
+  --color-hires: #818cf8;
+  --color-enhanced: #00e5ff;
+  --color-resampled: #fbbf24;
+  --color-lossy: #ef4444;
+
+  /* ── Text ── */
+  --color-text-primary: rgba(255, 255, 255, 0.9);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-text-tertiary: rgba(255, 255, 255, 0.4);
+
+  /* ── Borders ── */
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.12);
+
+  /* ── Shadows ── */
+  --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-elevated: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-float: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow-gold: 0 0 18px rgba(232, 184, 75, 0.2);
+  --shadow-glow-gold-lg: 0 0 50px rgba(232, 184, 75, 0.15);
+  --shadow-glow-bitperfect: 0 0 40px rgba(52, 211, 153, 0.07);
+  --shadow-glow-bitperfect-lg: 0 0 50px rgba(52, 211, 153, 0.15);
+  --shadow-glow-amber: 0 0 40px rgba(255, 179, 71, 0.15);
+
+  /* ── Border Radius ── */
+  --radius-card: 24px;
+  --radius-card-inner: 23px;
+  --radius-phone-outer: 3rem;
+  --radius-phone-inner: 2.5rem;
+  --radius-phone-screen: 2rem;
+
+  /* ── Typography ── */
+  --tracking-eyebrow: 3px;
+  --tracking-label: 2px;
+  --tracking-micro: 1.5px;
+  --leading-heading: 1.12;
+  --leading-hero: 1.08;
+  --text-micro: 7px;
+  --text-caption: 9px;
+  --text-label: 10px;
+  --text-overline: 11px;
+
+  /* ── Easing ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Blur (decorative orb/glow scale) ── */
+  --blur-orb-sm: 60px;
+  --blur-orb-md: 80px;
+  --blur-orb-lg: 100px;
+  --blur-orb-xl: 120px;
+  --blur-glow-sm: 40px;
+}
+
+/* ── Base Styles ── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── Ambient Background — subtle brand-colored radial glows for depth ──
+   Four-corner structure kept from the source layout: gold top-center,
+   lossless-cyan left, bit-perfect-green right, amber bottom. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232, 184, 75, 0.045) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 55%, rgba(0, 210, 255, 0.025) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 100% 75%, rgba(52, 211, 153, 0.025) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255, 179, 71, 0.025) 0%, transparent 50%);
+}
+
+/* ── Noise / Grain Texture Overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: rgba(232, 184, 75, 0.3);
+  color: #fff;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-base);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Glass Effect Utility ── */
+.glass {
+  background: rgba(23, 22, 30, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-hover:hover {
+  border-color: var(--color-glass-border-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ── Accent top glow — colored inset shadow for cards with --card-accent ── */
+.accent-glow {
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 color-mix(in srgb, var(--card-accent) 50%, transparent),
+    inset 0 8px 24px -12px color-mix(in srgb, var(--card-accent) 25%, transparent);
+}
+
+.accent-glow-hover:hover {
+  border-color: var(--card-accent);
+  box-shadow:
+    var(--shadow-card-hover),
+    inset 0 1px 0 var(--card-accent),
+    inset 0 12px 32px -10px color-mix(in srgb, var(--card-accent) 35%, transparent);
+}
+
+/* ── Glass Elevated — for hero stats, pricing popular, CTA ── */
+.glass-elevated {
+  background: rgba(23, 22, 30, 0.5);
+  box-shadow: var(--shadow-elevated);
+  position: relative;
+}
+.glass-elevated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* ── Grid Background ── */
+#grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+  /* No mask here by default — non-landing glows are centered and must
+     bleed to viewport edges freely. The grid lines get their own mask
+     on ::before. Landing page re-applies a mask (see html.is-landing below). */
+}
+
+/* Grid pattern on ::before so glow orbs (sibling divs) are not clipped by the mask. */
+#grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
+}
+
+/* ── Static glow orbs at viewport center ──
+   Three concentric orbs at different opacities create depth.
+   No border-radius — the radial-gradient defines the circle shape,
+   avoiding clip-boundary edge artifacts. Steep falloff fades to
+   zero well before the element edge. */
+.grid-cell-glow {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.glow-1 {
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(232,184,75,0.06) 0%, rgba(232,184,75,0.033) 20%, rgba(232,184,75,0.011) 40%, rgba(232,184,75,0.002) 60%, transparent 70%);
+}
+
+.glow-2 {
+  width: 65vw;
+  height: 65vw;
+  background: radial-gradient(circle, rgba(232,184,75,0.08) 0%, rgba(232,184,75,0.044) 20%, rgba(232,184,75,0.014) 40%, rgba(232,184,75,0.003) 60%, transparent 70%);
+}
+
+.glow-3 {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(232,184,75,0.11) 0%, rgba(232,184,75,0.06) 20%, rgba(232,184,75,0.02) 40%, rgba(232,184,75,0.004) 60%, transparent 70%);
+}
+
+
+/* ── Primary Button — machined gold key-cap, not a flat gradient ──
+   Two layered gradients build the metal face: a diagonal specular streak
+   (the "raked" highlight) sits over a vertical body gradient that reads
+   light cap → mid-gold → darker underbelly → a faint warm bounce at the
+   very bottom edge, as if lit from above. A 1px inset highlight at the
+   top and a 1px inset shadow at the bottom carve the face into a gently
+   domed surface. Dark ink only — never white on gold.
+   Contrast vs --color-on-gold (#0a0a0f), WCAG relative luminance:
+     lightest stop  --color-gold-light #f2c65e  → ~12.3:1
+     darkest stop   #b3812f (underbelly)        → ~5.5:1
+   Both clear 4.5:1 with margin; the darkest stop is the one that actually
+   approaches the floor, so it's tuned to stay a full point above it. */
+.btn-primary-gradient {
+  color: var(--color-on-gold);
+  border: none;
+  background-image:
+    linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.4) 36%, transparent 56%),
+    linear-gradient(
+      178deg,
+      var(--color-gold-light) 0%,
+      var(--color-gold) 27%,
+      var(--color-amber) 49%,
+      #b3812f 74%,
+      #c99248 100%
+    );
+  background-size: 220% 220%, 100% 100%;
+  background-position: 0% 0%, 0% 0%;
+  background-repeat: no-repeat;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 0 rgba(78, 46, 10, 0.55),
+    0 4px 20px rgba(232, 184, 75, 0),
+    0 4px 20px rgba(255, 179, 71, 0);
+  transition:
+    background-position 320ms var(--ease-out-expo),
+    box-shadow 200ms var(--ease-out-expo),
+    filter 150ms var(--ease-out-expo);
+}
+/* Hover: no lift/scale (Rule 1) — instead the specular streak slides across
+   the face and the ambient glow warms, as if the light source moved. */
+.btn-primary-gradient:hover {
+  background-position: 26% 8%, 0% 0%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 rgba(78, 46, 10, 0.55),
+    0 4px 20px rgba(232, 184, 75, 0.3),
+    0 4px 20px rgba(255, 179, 71, 0.2);
+}
+/* Active: the key depresses — highlight flattens, the top inset inverts to
+   a pressed shadow, overall brightness drops slightly. */
+.btn-primary-gradient:active {
+  background-position: 0% 0%, 0% 0%;
+  background-image:
+    linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 45%, transparent 62%),
+    linear-gradient(178deg, var(--color-gold) 0%, var(--color-gold) 45%, #b3812f 78%, #a8792d 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(46, 27, 6, 0.4),
+    inset 0 -1px 0 rgba(78, 46, 10, 0.3),
+    0 2px 8px rgba(232, 184, 75, 0.15);
+  filter: brightness(0.96);
+}
+
+/* ── Secondary Button — quieter machined surface, same family as the
+   primary. Same construction (inset top highlight / bottom shadow, a
+   press state) but in neutral glass tones so it reads as the secondary
+   voice, not a competing gold surface. ── */
+.btn-secondary-glow {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(232, 184, 75, 0);
+  transition: background-color 150ms, border-color 150ms, box-shadow 150ms;
+}
+.btn-secondary-glow:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(232, 184, 75, 0.2);
+}
+.btn-secondary-glow:active {
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(232, 184, 75, 0.12);
+}
+
+/* ── Button reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary-gradient,
+  .btn-secondary-glow {
+    transition-duration: 0ms;
+  }
+}
+
+/* ── Section Divider ── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  border: none;
+}
+
+/* ── Prose for legal pages ── */
+.prose-legal {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+.prose-legal h1 {
+  color: var(--color-text-primary);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: var(--leading-heading);
+}
+.prose-legal h2 {
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.prose-legal h3 {
+  color: var(--color-text-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-legal p {
+  margin-bottom: 1rem;
+}
+.prose-legal ul,
+.prose-legal ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.prose-legal ul {
+  list-style-type: disc;
+}
+.prose-legal ol {
+  list-style-type: decimal;
+}
+.prose-legal li {
+  margin-bottom: 0.5rem;
+}
+.prose-legal a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-legal a:hover {
+  color: var(--color-gold-light);
+}
+.prose-legal strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+.prose-legal table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  /* Prevent horizontal overflow on narrow viewports */
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.prose-legal th,
+.prose-legal td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border-subtle);
+  text-align: left;
+}
+.prose-legal th {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  background: rgba(23, 22, 30, 0.4);
+}
+.prose-legal blockquote {
+  border-left: 3px solid var(--color-gold);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+.prose-legal hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-subtle), transparent);
+  border: none;
+  margin: 2rem 0;
+}
+.prose-legal code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  color: var(--color-gold);
+  background: rgba(23, 22, 30, 0.7);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+.prose-legal pre {
+  background: rgba(23, 22, 30, 0.7);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.prose-legal pre code {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  color: var(--color-text-secondary);
+  font-size: inherit;
+}
+.prose-legal kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8em;
+  color: var(--color-text-primary);
+  background: rgba(23, 22, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 0.15em 0.45em;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.prose-legal figure {
+  margin: 1.5rem 0;
+}
+.prose-legal figcaption {
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.prose-legal img {
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Mobile viewport safe-area support (notched phones) ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  /* Cookie banner: ensure the dismiss buttons clear the home indicator */
+  .cookie-banner-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+  }
+  /* Footer bottom bar: avoid home indicator overlap when user scrolls to page end */
+  .footer-safe-bottom {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ── Custom Utilities ── */
+
+@utility flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@utility focus-ring {
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: var(--focus-ring-color, var(--color-gold));
+}
+
+@utility heading-section {
+  font-size: 1.875rem;
+  line-height: var(--leading-heading);
+  font-weight: 700;
+  color: white;
+  @media (min-width: 640px) {
+    font-size: 2.25rem;
+  }
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+  }
+}
+
+@utility text-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+@utility badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Consistent section vertical rhythm for main landing sections */
+@utility section-py {
+  padding-top: calc(var(--spacing) * 10);
+  padding-bottom: calc(var(--spacing) * 10);
+  @media (min-width: 640px) {
+    padding-top: calc(var(--spacing) * 12);
+    padding-bottom: calc(var(--spacing) * 12);
+  }
+  @media (min-width: 768px) {
+    padding-top: calc(var(--spacing) * 14);
+    padding-bottom: calc(var(--spacing) * 14);
+  }
+  @media (min-width: 1024px) {
+    padding-top: calc(var(--spacing) * 16);
+    padding-bottom: calc(var(--spacing) * 16);
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::after {
+    display: none;
+  }
+}

@@ -1,0 +1,127 @@
+---
+import { site } from '../../data/site';
+
+interface Props {
+  variant?: 'light' | 'dark';
+  class?: string;
+}
+
+const { variant = 'dark', class: className } = Astro.props;
+
+const isLight = variant === 'light';
+
+/** currentColor SVG paths — no external assets, no Icon.astro dependency. */
+const PLAY_PATH =
+  'M3 20.5V3.5c0-.59.34-1.11.84-1.35L13.69 12 3.84 21.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm3.35-4.31c.34.27.59.69.59 1.19 0 .5-.25.92-.59 1.19l-2.27 1.31-2.5-2.5 2.5-2.5 2.27 1.31zM6.05 2.66l10.76 6.22-2.27 2.27L6.05 2.66z';
+
+const APPLE_PATH =
+  'M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.207-2.98.804-.94 2.142-1.64 3.157-1.68.03.13.14.29.14.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.335-1.36-3.348-2.7-1.293-1.72-2.353-4.42-2.353-6.98 0-4.28 2.845-6.54 5.685-6.54 1.517 0 2.784.94 3.685.94.875 0 2.303-1.03 3.994-1.03.673 0 3.079.06 4.61 2.36-.13.08-2.716 1.61-2.716 4.65 0 3.61 3.207 4.9 3.207 4.94z';
+---
+
+<div class={`flex flex-col sm:flex-row gap-4 ${className ?? ''}`}>
+  {
+    isLight ? (
+      <>
+        <a
+          href={site.playUrl}
+          rel="noopener noreferrer"
+          class="store-badge-lg inline-flex min-w-[260px] items-center gap-3 rounded-2xl border border-white/15 bg-white/12 px-8 py-4 text-white transition duration-150 hover:border-white/25 hover:bg-white/18 focus-visible:focus-ring"
+        >
+          <svg class="h-8 w-8 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d={PLAY_PATH} />
+          </svg>
+          <div class="text-left">
+            <div class="text-xs leading-none text-white/70">Get it on</div>
+            <div class="text-xl leading-tight font-semibold">Google Play</div>
+          </div>
+        </a>
+        {site.appStoreUrl && (
+          <a
+            href={site.appStoreUrl}
+            rel="noopener noreferrer"
+            class="store-badge-lg inline-flex min-w-[260px] items-center gap-3 rounded-2xl border border-white/15 bg-white/12 px-8 py-4 text-white transition duration-150 hover:border-white/25 hover:bg-white/18 focus-visible:focus-ring"
+          >
+            <svg class="h-8 w-8 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={APPLE_PATH} />
+            </svg>
+            <div class="text-left">
+              <div class="text-xs leading-none text-white/70">Download on the</div>
+              <div class="text-xl leading-tight font-semibold">App Store</div>
+            </div>
+          </a>
+        )}
+        {site.apkUrl && (
+          <a
+            href={site.apkUrl}
+            rel="noopener noreferrer"
+            class="inline-flex min-w-[260px] items-center justify-center gap-2 rounded-2xl border border-white/15 px-8 py-4 text-white/80 transition duration-150 hover:border-white/30 hover:text-white focus-visible:focus-ring"
+          >
+            <span class="text-sm font-medium">Direct APK download</span>
+            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 12h14.5m0 0-5.5-5.5m5.5 5.5-5.5 5.5" />
+            </svg>
+          </a>
+        )}
+      </>
+    ) : (
+      <>
+        <a
+          href={site.playUrl}
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-xl border border-border-subtle bg-white/8 px-4 py-2.5 transition-colors duration-200 hover:bg-white/12 focus-visible:focus-ring"
+        >
+          <svg
+            class="h-5 w-5 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d={PLAY_PATH} />
+          </svg>
+          <div class="text-left">
+            <div class="text-label leading-none text-text-tertiary">Get it on</div>
+            <div class="text-sm leading-tight font-semibold text-white">Google Play</div>
+          </div>
+        </a>
+        {site.appStoreUrl && (
+          <a
+            href={site.appStoreUrl}
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-xl border border-border-subtle bg-white/8 px-4 py-2.5 transition-colors duration-200 hover:bg-white/12 focus-visible:focus-ring"
+          >
+            <svg
+              class="h-5 w-5 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d={APPLE_PATH} />
+            </svg>
+            <div class="text-left">
+              <div class="text-label leading-none text-text-tertiary">Download on the</div>
+              <div class="text-sm leading-tight font-semibold text-white">App Store</div>
+            </div>
+          </a>
+        )}
+        {site.apkUrl && (
+          <a
+            href={site.apkUrl}
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-xl border border-border-subtle px-4 py-2.5 text-text-secondary transition-colors duration-200 hover:border-glass-border-hover hover:text-white focus-visible:focus-ring"
+          >
+            <span class="text-sm font-medium">Direct APK</span>
+            <svg class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 12h14.5m0 0-5.5-5.5m5.5 5.5-5.5 5.5" />
+            </svg>
+          </a>
+        )}
+      </>
+    )
+  }
+</div>
+
+<style>
+  .store-badge-lg:hover {
+    box-shadow: var(--shadow-glow-gold);
+  }
+</style>

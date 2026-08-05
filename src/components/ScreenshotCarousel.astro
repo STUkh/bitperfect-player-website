@@ -1,0 +1,512 @@
+---
+/*
+ * Showcase carousel — JS-driven active index, ported from TinniTone's
+ * showcase-track/showcase-item model (see .port-origin notes / BRIEF2 §C):
+ * the centre slide sits at full scale and opacity, neighbours scale down and
+ * fade, and prev/next buttons + dots + swipe + arrow keys move the index.
+ *
+ * Slides come from `screens` in src/data/site.ts. Every `src` is null today,
+ * so each frame renders an in-world slot marker (icon node + caption's first
+ * word + a dashed "screenshot slot" chip — dashed means provisional, per the
+ * site's unresolved-content convention). The moment a slide gets a `src`, the
+ * frame swaps to the real capture automatically — nothing else below reads
+ * `src` conditionally beyond that one ternary. Captions stay in HTML below
+ * each frame, never baked into imagery.
+ *
+ * Progressive enhancement: the track ships as a plain scroll-snap row (no
+ * data-state, no controls) so content is fully reachable even if the script
+ * below never runs. `.js-ready` — added only once the script has found every
+ * element it needs and finished wiring up — is what switches the track from
+ * native scrolling to the transform-driven centred view and reveals the
+ * prev/next/dots controls.
+ *
+ * This is a fragment, not its own <section> — the caller (AppShowcase.astro)
+ * owns the section shell and heading; this component only renders the
+ * carousel.
+ */
+import Icon from './Icon.astro';
+import { screens } from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/* One existing icon per slide — reused from Icon.astro, never new glyphs. */
+const marks: Record<string, string> = {
+  'now-playing': 'play',
+  library: 'waveform',
+  eq: 'eq',
+  'ai-mix': 'sparkle',
+  cast: 'cast',
+  output: 'node-usb',
+};
+---
+
+<div
+  class="showcase-carousel relative"
+  id="showcase-carousel"
+  role="group"
+  aria-roledescription="carousel"
+  aria-label="App screenshots"
+>
+  <div class="showcase-track" id="showcase-track">
+    {
+      screens.map((s, i) => (
+        <div class="showcase-item shrink-0" data-index={i}>
+          <figure>
+            <div class="frame-wrap relative">
+              {/* Ambient glow — full strength on the centred slide, a touch brighter on hover/focus. */}
+              <div
+                class="frame-glow pointer-events-none absolute -inset-3 rounded-[2rem] bg-gold/15 blur-orb-sm"
+                aria-hidden="true"
+              />
+              <div class="frame glass relative aspect-[9/19.5] overflow-hidden rounded-phone-inner border border-border-subtle transition-colors duration-200 hover:border-glass-border-hover focus-within:border-glass-border-hover">
+                {/* Notch — decorative phone-frame craft, not a real status bar. */}
+                <div
+                  class="absolute top-2 left-1/2 z-10 h-3.5 w-16 -translate-x-1/2 rounded-full bg-surface-overlay/90"
+                  aria-hidden="true"
+                />
+                {s.src ? (
+                  <img
+                    src={`${base}${s.src}`}
+                    alt={s.caption}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div class="ph flex h-full w-full flex-col items-center justify-center gap-4 px-5 pt-4 pb-6 text-center" aria-hidden="true">
+                    <span class="flex-center h-13 w-13 rounded-2xl border border-border-subtle bg-surface-overlay text-gold">
+                      <Icon name={marks[s.id] ?? 'waveform'} size={24} />
+                    </span>
+                    <span class="text-base text-text-secondary">{s.caption.split(' — ')[0]}</span>
+                    <span class="ph-note badge border border-dashed border-glass-border-hover bg-surface-overlay/60 px-2.5 py-1 text-overline font-semibold tracking-wider text-text-tertiary uppercase">
+                      Screenshot slot
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <figcaption class="mt-4 text-center text-sm leading-relaxed text-text-secondary">{s.caption}</figcaption>
+          </figure>
+        </div>
+      ))
+    }
+  </div>
+
+  <button
+    type="button"
+    class="showcase-nav showcase-prev absolute top-1/2 left-0 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border-subtle bg-surface-overlay/80 text-text-secondary backdrop-blur-sm transition-colors duration-200 hover:border-glass-border-hover hover:text-gold focus-visible:focus-ring sm:left-2 lg:left-0"
+    id="showcase-prev"
+    aria-label="Previous screenshot"
+  >
+    <Icon name="arrow" size={18} class="rotate-180" />
+  </button>
+  <button
+    type="button"
+    class="showcase-nav showcase-next absolute top-1/2 right-0 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border-subtle bg-surface-overlay/80 text-text-secondary backdrop-blur-sm transition-colors duration-200 hover:border-glass-border-hover hover:text-gold focus-visible:focus-ring sm:right-2 lg:right-0"
+    id="showcase-next"
+    aria-label="Next screenshot"
+  >
+    <Icon name="arrow" size={18} />
+  </button>
+
+  <div class="showcase-dots mt-8 flex items-center justify-center gap-1" role="tablist" aria-label="Choose screenshot">
+    {
+      screens.map((s, i) => (
+        <button
+          type="button"
+          class="showcase-dot flex h-11 w-11 cursor-pointer items-center justify-center rounded-full focus-visible:focus-ring"
+          data-dot={i}
+          role="tab"
+          aria-label={`Go to ${s.caption.split(' — ')[0]}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+        >
+          <span class="showcase-dot-pip pointer-events-none block h-2 w-2 rounded-full bg-white/20 transition-[width,background-color] duration-300" aria-hidden="true" />
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .h-13 {
+    height: 3.25rem;
+  }
+  .w-13 {
+    width: 3.25rem;
+  }
+
+  .showcase-carousel {
+    --item-w: 178px;
+    --item-gap: 1.25rem;
+    overflow-x: clip;
+  }
+  @media (min-width: 640px) {
+    .showcase-carousel {
+      --item-w: 208px;
+      --item-gap: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .showcase-carousel {
+      --item-w: 232px;
+      --item-gap: 1.75rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .showcase-carousel {
+      --item-w: 252px;
+    }
+  }
+
+  /* JS sets tabindex once it has wired up keyboard handling (see script), so
+     a script-less page never leaves a focusable-but-inert div in the tab
+     order. Overflow-x:clip on this element only ever clips its children's
+     ink, never its own outline — safe to focus-ring right here. */
+  .showcase-carousel:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 6px;
+    border-radius: var(--radius-card);
+  }
+
+  /* Fallback: a plain, always-usable scroll-snap row. `.js-ready` (added by
+     the script once every element it needs exists) swaps this for the
+     transform-driven centred view. */
+  .showcase-track {
+    display: flex;
+    align-items: center;
+    gap: var(--item-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+    scrollbar-width: none;
+  }
+  .showcase-track::-webkit-scrollbar {
+    display: none;
+  }
+  .js-ready .showcase-track {
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding-inline: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .showcase-item {
+    scroll-snap-align: center;
+    width: var(--item-w);
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Active/inactive states — set as data-state by the script only, so these
+     rules are inert (and harmless) until JS actually assigns them. */
+  .showcase-item[data-state='center'] {
+    transform: scale(1.06);
+    opacity: 1;
+    z-index: 10;
+  }
+  .showcase-item[data-state='adjacent'] {
+    transform: scale(0.87);
+    opacity: 0.5;
+    z-index: 5;
+  }
+  .showcase-item[data-state='outer'] {
+    transform: scale(0.78);
+    opacity: 0.22;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .showcase-item[data-state='far'] {
+    transform: scale(0.72);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Glow responds to centring and to hover/focus — opacity only, no motion (RULE 1). */
+  .frame-glow {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  .showcase-item[data-state='center'] .frame-glow {
+    opacity: 0.7;
+  }
+  .frame-wrap:hover .frame-glow,
+  .frame-wrap:focus-within .frame-glow {
+    opacity: 0.85;
+  }
+
+  /* Controls require the script; keep them out of the way (and out of the
+     tab order, via [hidden]) until `.js-ready` proves it ran. */
+  .showcase-nav,
+  .showcase-dots {
+    display: none;
+  }
+  .js-ready .showcase-nav {
+    display: flex;
+  }
+  .js-ready .showcase-dots {
+    display: flex;
+  }
+
+  .showcase-dot[data-active='true'] .showcase-dot-pip {
+    background: var(--color-gold);
+    width: 20px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-track,
+    .showcase-item {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  /* Ported from TinniTone's showcase-track model: an infinite-feeling loop
+     built from a handful of cloned edge slides, a JS-computed translateX
+     that centres the active slide, and data-state attributes that drive the
+     centre/adjacent/outer/far scale+opacity in the <style> above. */
+  const carousel = document.getElementById('showcase-carousel');
+  const track = document.getElementById('showcase-track');
+  const prevBtn = document.getElementById('showcase-prev');
+  const nextBtn = document.getElementById('showcase-next');
+
+  if (carousel && track && prevBtn && nextBtn) {
+    const realItems = Array.from(track.querySelectorAll<HTMLElement>('.showcase-item'));
+    const realTotal = realItems.length;
+
+    // Need at least a couple of real slides for "centre + neighbours" to mean anything.
+    if (realTotal >= 2) {
+      const numClones = Math.max(1, Math.min(2, realTotal - 1));
+
+      const cloneOf = (el: HTMLElement): HTMLElement => {
+        const clone = el.cloneNode(true) as HTMLElement;
+        clone.setAttribute('aria-hidden', 'true');
+        clone.removeAttribute('data-index');
+        clone.querySelectorAll('[id]').forEach((node) => node.removeAttribute('id'));
+        return clone;
+      };
+
+      const headClones = realItems.slice(realTotal - numClones).map(cloneOf);
+      const tailClones = realItems.slice(0, numClones).map(cloneOf);
+      const headFragment = document.createDocumentFragment();
+      headClones.forEach((clone) => headFragment.appendChild(clone));
+      track.prepend(headFragment);
+      tailClones.forEach((clone) => track.appendChild(clone));
+
+      const allItems = Array.from(track.querySelectorAll<HTMLElement>('.showcase-item'));
+      const dots = Array.from(carousel.querySelectorAll<HTMLElement>('.showcase-dot'));
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let activeIndex = numClones; // first real slide
+      let isTransitioning = false;
+      let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+
+      function computeOffset(index: number): number {
+        const item = allItems[0];
+        if (!item) return 0;
+        const itemWidth = item.offsetWidth;
+        const gap = parseFloat(getComputedStyle(track!).gap) || 0;
+        const containerWidth = carousel!.offsetWidth;
+        return -(index * (itemWidth + gap)) + containerWidth / 2 - itemWidth / 2;
+      }
+
+      function applyCarouselState(): void {
+        track!.style.transform = `translateX(${computeOffset(activeIndex)}px)`;
+        allItems.forEach((el, i) => {
+          const d = Math.abs(i - activeIndex);
+          el.setAttribute('data-state', d === 0 ? 'center' : d === 1 ? 'adjacent' : d === 2 ? 'outer' : 'far');
+        });
+        const realIndex = ((activeIndex - numClones) % realTotal + realTotal) % realTotal;
+        dots.forEach((dot, i) => {
+          const active = i === realIndex;
+          dot.setAttribute('data-active', String(active));
+          dot.setAttribute('aria-selected', String(active));
+        });
+      }
+
+      // No-transition snap — used for the initial position, the loop-wrap
+      // jump, and every navigation step under reduced motion.
+      function applyInstant(): void {
+        track!.style.transition = 'none';
+        allItems.forEach((el) => {
+          el.style.transition = 'none';
+        });
+        applyCarouselState();
+        void track!.getBoundingClientRect(); // force reflow before restoring transitions
+        track!.style.transition = '';
+        allItems.forEach((el) => {
+          el.style.transition = '';
+        });
+        isTransitioning = false;
+      }
+
+      // Keeps activeIndex inside the clone padding; returns whether it moved.
+      function wrapIfNeeded(): boolean {
+        if (activeIndex < numClones) {
+          activeIndex += realTotal;
+          return true;
+        }
+        if (activeIndex >= numClones + realTotal) {
+          activeIndex -= realTotal;
+          return true;
+        }
+        return false;
+      }
+
+      track.addEventListener('transitionend', (e: TransitionEvent) => {
+        if (e.propertyName !== 'transform' || e.target !== track) return;
+        if (wrapIfNeeded()) {
+          applyInstant();
+        } else {
+          isTransitioning = false;
+        }
+      });
+
+      function navigate(delta: number): void {
+        if (isTransitioning) return;
+        activeIndex += delta;
+        if (prefersReducedMotion) {
+          wrapIfNeeded();
+          applyInstant();
+        } else {
+          isTransitioning = true;
+          applyCarouselState();
+        }
+      }
+      const next = () => navigate(1);
+      const prev = () => navigate(-1);
+
+      function startAutoplay(): void {
+        // Honours prefers-reduced-motion: no auto-advance under it, at all.
+        if (prefersReducedMotion) return;
+        stopAutoplay();
+        autoplayTimer = setInterval(next, 5000);
+      }
+      function stopAutoplay(): void {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      prevBtn.addEventListener('click', () => {
+        prev();
+        startAutoplay();
+      });
+      nextBtn.addEventListener('click', () => {
+        next();
+        startAutoplay();
+      });
+
+      // Dots jump directly to a real slide, aborting any in-flight transition first.
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          if (isTransitioning) {
+            const raw = getComputedStyle(track!).transform;
+            const currentX = raw && raw !== 'none' ? new DOMMatrix(raw).m41 : 0;
+            track!.style.transition = 'none';
+            allItems.forEach((el) => {
+              el.style.transition = 'none';
+            });
+            track!.style.transform = `translateX(${currentX}px)`;
+            void track!.getBoundingClientRect();
+            track!.style.transition = '';
+            allItems.forEach((el) => {
+              el.style.transition = '';
+            });
+          }
+          activeIndex = i + numClones;
+          if (prefersReducedMotion) {
+            applyInstant();
+          } else {
+            isTransitioning = true;
+            applyCarouselState();
+          }
+          startAutoplay();
+        });
+      });
+
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', (e: FocusEvent) => {
+        if (!carousel!.contains(e.relatedTarget as Node | null)) startAutoplay();
+      });
+
+      let touchStartX = 0;
+      carousel.addEventListener(
+        'touchstart',
+        (e: TouchEvent) => {
+          touchStartX = e.touches[0]?.clientX ?? 0;
+          stopAutoplay();
+        },
+        { passive: true },
+      );
+      carousel.addEventListener(
+        'touchend',
+        (e: TouchEvent) => {
+          const endX = e.changedTouches[0]?.clientX ?? touchStartX;
+          const delta = touchStartX - endX;
+          if (Math.abs(delta) > 40) {
+            delta > 0 ? next() : prev();
+          }
+          startAutoplay();
+        },
+        { passive: true },
+      );
+
+      carousel.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'ArrowRight') {
+          next();
+          startAutoplay();
+        }
+        if (e.key === 'ArrowLeft') {
+          prev();
+          startAutoplay();
+        }
+      });
+
+      let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+      window.addEventListener('resize', () => {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          track!.style.transition = 'none';
+          applyCarouselState();
+          void track!.getBoundingClientRect();
+          track!.style.transition = '';
+        }, 150);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+      });
+
+      // bfcache: freeze cleanly, restart on restore.
+      window.addEventListener(
+        'pagehide',
+        () => {
+          stopAutoplay();
+          if (resizeTimer) {
+            clearTimeout(resizeTimer);
+            resizeTimer = null;
+          }
+        },
+        { once: true },
+      );
+      window.addEventListener('pageshow', (e: PageTransitionEvent) => {
+        if (e.persisted) startAutoplay();
+      });
+
+      carousel.setAttribute('tabindex', '0');
+      carousel.classList.add('js-ready');
+      applyInstant();
+      startAutoplay();
+    }
+  }
+</script>

@@ -1,0 +1,41 @@
+---
+/**
+ * /policy is an alias of /privacy (confirmed with the user). Static hosting has
+ * no server redirect, so this is a meta-refresh plus canonical link plus a
+ * scripted replace — the belt-and-braces form GitHub Pages requires.
+ */
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/privacy`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Bitperfect Player</title>
+    <link rel="canonical" href={target} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target);
+    </script>
+    <style>
+      body {
+        background: #0a0a0f;
+        color: #cfccda;
+        font-family: system-ui, sans-serif;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      a {
+        color: #e8b84b;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Redirecting to the <a href={target}>privacy policy</a>…</p>
+  </body>
+</html>

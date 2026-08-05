@@ -1,0 +1,282 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import Icon from '../components/Icon.astro';
+import { Content, getHeadings } from '../PRIVACY_POLICY.md';
+import raw from '../PRIVACY_POLICY.md?raw';
+
+/** Top-level sections only — the index is for wayfinding, not an outline. */
+const sections = getHeadings().filter((h) => h.depth === 2);
+
+/**
+ * Detected, not asserted. Inventing an effective date or a support address on a
+ * legal page would be worse than showing the gap — but a hard-coded warning
+ * would also survive after the gap is closed. Fill the values in
+ * src/PRIVACY_POLICY.md and this banner disappears on the next build.
+ */
+const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw.includes(p));
+---
+
+<LegalLayout
+  title="Privacy Policy"
+  description="What Bitperfect Player collects, why, and what control you have over it. No analytics, no advertising identifiers, no account; AI processing runs on your device."
+  containerClass="max-w-6xl lg:max-w-7xl px-4 sm:px-6 lg:px-8"
+>
+  <div class="legal-grid">
+    <!-- Left Navigation Sidebar -->
+    <aside class="toc-wrapper">
+      <details class="toc-details" open>
+        <summary class="toc-summary">
+          <span class="toc-title">Table of Contents</span>
+          <svg class="toc-chevron h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <nav class="toc" aria-label="Sections">
+          <ul>
+            {
+              sections.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="toc-link">
+                    {h.text.replace(/^\d+\.\s*/, '')}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
+    </aside>
+
+    <!-- Main Content Column -->
+    <div class="md-content">
+      {
+        unresolved.length > 0 && (
+          <div class="notice" role="note">
+            <span class="text-resampled">
+              <Icon name="sig-resampled" size={16} />
+            </span>
+            <p>
+              <strong>Not yet publishable.</strong> This document still contains{' '}
+              {unresolved.map((p, i) => (
+                <>
+                  {i > 0 && ' and '}
+                  <code>{p}</code>
+                </>
+              ))}
+              . Fill {unresolved.length > 1 ? 'them' : 'it'} in at{' '}
+              <code>src/PRIVACY_POLICY.md</code> before submitting this URL to Play Console — a
+              policy with no effective date or contact address will not pass review.
+            </p>
+          </div>
+        )
+      }
+      <Content />
+    </div>
+  </div>
+</LegalLayout>
+
+<script>
+  function setupTocHighlighting() {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('.md-content h2[id]'));
+    if (!links.length || !sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            links.forEach((link) => {
+              const href = link.getAttribute('href');
+              if (href === `#${id}`) {
+                link.classList.add('is-active');
+              } else {
+                link.classList.remove('is-active');
+              }
+            });
+          }
+        });
+      },
+      { rootMargin: '-10% 0px -75% 0px' }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTocHighlighting);
+  } else {
+    setupTocHighlighting();
+  }
+</script>
+
+<style>
+  .legal-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  /* LegalLayout already renders a visible <h1>{title}</h1> above this slot —
+     the markdown's own leading h1 would duplicate it, including in the
+     accessibility tree. */
+  .md-content :global(h1) {
+    display: none;
+  }
+
+  /* Mobile TOC Disclosure Styling */
+  .toc-wrapper {
+    width: 100%;
+  }
+
+  .toc-details {
+    background: rgba(23, 22, 30, 0.6);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 12px;
+    padding: 0.875rem 1.25rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .toc-details[open] {
+    background: rgba(23, 22, 30, 0.8);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .toc-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .toc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toc-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .toc-chevron {
+    color: var(--color-text-tertiary);
+    transition: transform 0.2s ease;
+  }
+  .toc-details[open] .toc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-left: 2px solid var(--color-border-subtle);
+  }
+
+  .toc-link {
+    display: block;
+    padding: 0.375rem 1rem;
+    margin-left: -2px;
+    border-left: 2px solid transparent;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--color-text-tertiary);
+    border-radius: 0 6px 6px 0;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .toc-link:hover {
+    color: var(--color-text-primary);
+    border-left-color: rgba(232, 184, 75, 0.6);
+  }
+
+  .toc-link.is-active {
+    color: var(--color-gold);
+    border-left-color: var(--color-gold);
+    background: rgba(232, 184, 75, 0.08);
+    font-weight: 500;
+  }
+
+  /* Main Content Column styling */
+  .md-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .notice {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    border: 1px dashed var(--color-glass-border-hover);
+    border-radius: 12px;
+    background: var(--color-surface-overlay);
+    margin-bottom: 2.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-text-tertiary);
+  }
+  .notice :global(.icon) {
+    flex: none;
+    margin-top: 2px;
+  }
+  .notice strong {
+    color: var(--color-resampled);
+    font-weight: 600;
+  }
+  .notice code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875em;
+    color: var(--color-amber);
+    background: var(--color-surface-base);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+  }
+
+  /* Desktop Left Sidebar Grid Layout (≥ 1024px) */
+  @media (min-width: 1024px) {
+    .legal-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .toc-wrapper {
+      position: sticky;
+      top: 6.5rem;
+      max-height: calc(100vh - 8rem);
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .toc-details {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    .toc-summary {
+      cursor: default;
+      pointer-events: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .toc-chevron {
+      display: none;
+    }
+
+    .toc ul {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+

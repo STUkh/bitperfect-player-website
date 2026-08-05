@@ -1,0 +1,196 @@
+---
+/**
+ * Privacy. TinniTone's ResearchCards cited clinical studies for tinnitus
+ * therapy — none of that survives. The card-grid layout is kept; the content
+ * is Bitperfect's own privacy facts, lifted from the approved
+ * PrivacySpotlight.astro (now folded in here so the page carries exactly one
+ * privacy section, not two that repeat each other).
+ */
+import Container from '../common/Container.astro';
+import Icon from '../Icon.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const facts = [
+  {
+    title: 'No account',
+    body: 'No sign-in, no profile, no cloud sync. Nothing to create, nothing to lose.',
+    pill: 'None',
+    color: 'var(--color-bitperfect)',
+    textClass: 'text-bitperfect',
+    bgClass: 'bg-bitperfect/10',
+    borderClass: 'border-bitperfect/40',
+  },
+  {
+    title: 'No analytics',
+    body: 'No usage tracking, no behavioural telemetry, no third party watching how you listen.',
+    pill: 'Not present',
+    color: 'var(--color-lossless)',
+    textClass: 'text-lossless',
+    bgClass: 'bg-lossless/10',
+    borderClass: 'border-lossless/40',
+  },
+  {
+    title: 'No advertising',
+    body: 'No ad SDK, no ad network — nothing on the phone built to monetize your attention.',
+    pill: 'Not present',
+    color: 'var(--color-gold)',
+    textClass: 'text-gold',
+    bgClass: 'bg-gold/10',
+    borderClass: 'border-gold/40',
+  },
+  {
+    title: 'On-device AI',
+    body: "The AI Enhancer and AI Mix analysis run on the phone's own accelerator. The model downloads once; nothing about your library goes back out.",
+    pill: 'On device',
+    color: 'var(--color-enhanced)',
+    textClass: 'text-enhanced',
+    bgClass: 'bg-enhanced/10',
+    borderClass: 'border-enhanced/40',
+  },
+];
+
+const never = [
+  'Your listening history',
+  'Your music library contents',
+  'Your name, email, or account — there is no account',
+  'Advertising or tracking identifiers',
+  'Location',
+  'Contacts',
+];
+---
+
+<section id="privacy" class="section-py relative overflow-hidden">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div
+      class="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-gold/10 opacity-60 blur-orb-xl sm:h-96 sm:w-96"
+    >
+    </div>
+  </div>
+
+  <Container class="relative z-10">
+    <div class="mb-12 max-w-2xl lg:mb-16" data-animate="fade-up">
+      <p class="mb-4 text-eyebrow text-gold">Privacy</p>
+      <h2 class="heading-section">There is no server to send anything to.</h2>
+      <p class="mt-4 text-base text-text-secondary sm:text-lg">
+        No analytics, no advertising SDK, no tracking identifier, no account.
+        All that ever leaves the phone: crash reports and artwork lookups,
+        each behind its own switch, and the one-time AI model download. Your
+        library, your listening history, your audio — never.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+      {
+        facts.map((f, i) => (
+          <div
+            class="glass accent-glow accent-glow-hover flex flex-col rounded-2xl p-6 transition-[transform,box-shadow,border-color] duration-300 hover:scale-[1.01]"
+            style={`--card-accent: ${f.color}`}
+            data-animate="fade-up"
+          >
+            <div class={`mb-5 flex-center h-10 w-10 rounded-xl ${f.bgClass} ${f.textClass}`}>
+              {i === 0 && (
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="8.25" r="3.25" />
+                  <path d="M5.25 19.25c.9-3.6 3.6-5.5 6.75-5.5s5.85 1.9 6.75 5.5" />
+                  <path d="M3 21 21 3" />
+                </svg>
+              )}
+              {i === 1 && (
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4.75 19.25V13M12 19.25V8M19.25 19.25V4.75" />
+                  <path d="M3 21 21 3" />
+                </svg>
+              )}
+              {i === 2 && (
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3.75 9.5v5a1 1 0 0 0 1 1h1.5l7 4V4.5l-7 4H4.75a1 1 0 0 0-1 1Z" />
+                  <path d="M17.5 9.25a4 4 0 0 1 0 5.5" />
+                  <path d="M3 21 21 3" />
+                </svg>
+              )}
+              {i === 3 && <Icon name="sparkle" size={18} />}
+            </div>
+
+            <h3 class="mb-2 text-base font-semibold text-white">{f.title}</h3>
+            <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">{f.body}</p>
+
+            <span class={`self-start rounded-full border ${f.borderClass} ${f.textClass} px-3 py-1 text-overline font-medium tracking-label uppercase`}>
+              {f.pill}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-14 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+      <ul class="grid gap-3 sm:grid-cols-2" data-animate="fade-up">
+        {
+          never.map((n) => (
+            <li class="flex items-center gap-3 text-sm text-text-secondary">
+              <Icon name="bullet" size={14} class="text-text-tertiary" />
+              <span>{n}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href={`${base}/privacy`}
+        class="privacy-link inline-flex items-center gap-2 text-sm font-medium whitespace-nowrap text-gold"
+        data-animate="fade-up"
+      >
+        <span>Read the full privacy policy</span>
+        <Icon name="arrow" size={15} />
+      </a>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .privacy-link {
+    width: fit-content;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s var(--ease-out-expo);
+  }
+  .privacy-link:hover {
+    border-bottom-color: var(--color-gold);
+  }
+  .privacy-link :global(.icon) {
+    transition: transform 0.24s var(--ease-out-expo);
+  }
+  .privacy-link:hover :global(.icon) {
+    transform: translateX(3px);
+  }
+</style>

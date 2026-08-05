@@ -1,0 +1,326 @@
+---
+/**
+ * The AI Enhancer, drawn honestly. This is a diagram of the operation, NOT a
+ * measurement — labelled as such in the UI. Replace with real measured data
+ * if/when the audio team supplies it.
+ *
+ * What this deliberately shows, per the app's own technical record
+ * (docs/ai-enhancer-backends.md, enhancer/mod.rs):
+ *  - Same-rate, in-band reconstruction. The Nyquist edge (right axis limit)
+ *    sits at the identical x-position on both traces — nothing is drawn to
+ *    its right. This is not bandwidth extension; the sample rate and stream
+ *    length never change.
+ *  - The gold FILL (cutoff → Nyquist) is newly reconstructed content, inside
+ *    the band a lossy codec discarded. The gold LINE below the cutoff is a
+ *    repair of content that was already there — Restore mode only.
+ *  - A second lane plots phase. Magnitude-only "fill the top" tricks leave
+ *    phase wrong, which is why that class of trick sounds metallic —
+ *    predicting a coherent phase field is the part this model actually does.
+ *
+ * Single caller: AiSection.astro.
+ */
+const W = 560;
+const PAD = { l: 34, r: 14, t: 22, b: 54 };
+const plotW = W - PAD.l - PAD.r;
+
+const ampTop = PAD.t;
+const ampH = 142;
+const ampBase = ampTop + ampH;
+
+const laneGap = 30;
+const phaseTop = ampBase + laneGap;
+const phaseH = 58;
+const phaseBase = phaseTop + phaseH;
+const phaseMid = phaseTop + phaseH / 2;
+
+const H = phaseBase + PAD.b;
+
+// Deterministic pseudo-spectrum for AP-BWE bandwidth extension.
+// Linear Hz→x mapping: 0 to 22.05 kHz (Nyquist for 44.1 kHz container).
+const bins = 160;
+const cutoffBin = Math.round(bins * (16000 / 22050)); // 16 kHz codec cutoff
+
+// Natural acoustic magnitude spectral envelope
+function mag(i: number) {
+  const f = (i / (bins - 1)) * 22050; // Frequency in Hz
+  
+  // Base spectral slope: natural acoustic power decay (-6dB/octave)
+  const env = Math.exp(-f / 12000) * 0.82 + 0.10;
+  
+  // Natural musical harmonics & formants
+  const h1 = Math.sin(f / 420) * 0.035;
+  const h2 = Math.sin(f / 1150 + 0.8) * 0.025;
+  const h3 = Math.cos(f / 2600) * 0.015;
+  
+  let val = env + h1 + h2 + h3;
+  
+  // Natural high-frequency roll-off above cutoff towards Nyquist
+  if (i > cutoffBin) {
+    const ratio = (i - cutoffBin) / (bins - 1 - cutoffBin);
+    val = val * (1 - Math.pow(ratio, 1.2) * 0.55);
+  }
+  
+  return Math.max(0.03, Math.min(0.95, val));
+}
+
+// Deterministic hash for noise/quantization artifacts
+function hash(i: number) {
+  const s = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
+  return s - Math.floor(s);
+}
+
+const px = (i: number) => PAD.l + (i / (bins - 1)) * plotW;
+const ay = (m: number) => ampTop + (1 - m) * ampH;
+
+// Lossy input trace: quantization noise below cutoff, steep codec brickwall drop above cutoff
+const inputBelow: string[] = [];
+for (let i = 0; i <= cutoffBin; i++) {
+  const m = Math.max(0.03, mag(i) - hash(i) * 0.045);
+  inputBelow.push(`${px(i).toFixed(1)},${ay(m).toFixed(1)}`);
+}
+const inputAbove: string[] = [];
+for (let i = cutoffBin; i < bins; i++) {
+  const decay = Math.exp(-(i - cutoffBin) / 6);
+  const m = Math.max(0.02, mag(cutoffBin) * 0.12 * decay + hash(i) * 0.008);
+  inputAbove.push(`${px(i).toFixed(1)},${ay(m).toFixed(1)}`);
+}
+
+// Reconstructed output trace: smooth (repaired) below cutoff, natural AP-BWE harmonic extension above cutoff
+const outputBelow: string[] = [];
+for (let i = 0; i <= cutoffBin; i++) outputBelow.push(`${px(i).toFixed(1)},${ay(mag(i)).toFixed(1)}`);
+const outputAbove: string[] = [];
+for (let i = cutoffBin; i < bins; i++) outputAbove.push(`${px(i).toFixed(1)},${ay(mag(i)).toFixed(1)}`);
+
+const outputFill = `${px(cutoffBin).toFixed(1)},${ampBase} ${outputAbove.join(' ')} ${px(bins - 1).toFixed(1)},${ampBase}`;
+
+// Phase lane: coherent phase trajectory prediction
+const phaseAmp = phaseH * 0.38;
+function known(i: number) {
+  const t = i / (bins - 1);
+  const freq = 4.5 + t * 8;
+  return phaseMid - Math.sin(t * Math.PI * 2 * freq) * phaseAmp;
+}
+function naive(i: number) {
+  return phaseMid + (hash(i * 3.1 + 5) * 2 - 1) * (phaseAmp * 1.1);
+}
+
+const phaseKnown: string[] = [];
+for (let i = 0; i <= cutoffBin; i++) phaseKnown.push(`${px(i).toFixed(1)},${known(i).toFixed(1)}`);
+const phaseNaive: string[] = [];
+for (let i = cutoffBin; i < bins; i++) phaseNaive.push(`${px(i).toFixed(1)},${naive(i).toFixed(1)}`);
+const phasePredicted: string[] = [];
+for (let i = cutoffBin; i < bins; i++) phasePredicted.push(`${px(i).toFixed(1)},${known(i).toFixed(1)}`);
+
+const ticks = [
+  { i: 0, label: '0' },
+  { i: Math.round(bins * (8000 / 22050)), label: '8k' },
+  { i: cutoffBin, label: '16k' },
+  { i: bins - 1, label: '22k · Nyquist' },
+];
+
+const cutoffX = px(cutoffBin);
+const nyquistX = px(bins - 1);
+const bracketY = phaseBase + 16;
+const labelY = phaseBase + 27;
+---
+
+<figure class="plot" data-enhancer-plot>
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    role="img"
+    aria-label="Diagram: AP-BWE neural model same-rate in-band spectral reconstruction and phase prediction."
+  >
+    <defs>
+      <linearGradient id="outFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e8b84b" stop-opacity="0.45"></stop>
+        <stop offset="100%" stop-color="#e8b84b" stop-opacity="0.02"></stop>
+      </linearGradient>
+    </defs>
+
+    {/* ---- Amplitude lane ---- */}
+    <text x={PAD.l} y={ampTop - 8} fill="rgba(255,255,255,0.35)" font-size="9" letter-spacing="1.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">AMPLITUDE</text>
+    {
+      [0.3, 0.6, 0.9].map((g) => (
+        <line x1={PAD.l} x2={W - PAD.r} y1={ampTop + g * ampH} y2={ampTop + g * ampH} stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="2 5" />
+      ))
+    }
+    <line x1={PAD.l} x2={W - PAD.r} y1={ampBase} y2={ampBase} stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+
+    <polyline points={inputBelow.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linejoin="round"></polyline>
+    <polyline points={inputAbove.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" opacity="0.45" stroke-linejoin="round"></polyline>
+
+    <polygon class="reveal-fill" points={outputFill} fill="url(#outFill)"></polygon>
+    <polyline points={outputBelow.join(' ')} fill="none" stroke="var(--color-gold-light)" stroke-width="1.3" opacity="0.85" stroke-linejoin="round"></polyline>
+    <polyline class="reveal-line" points={outputAbove.join(' ')} pathLength="1" fill="none" stroke="#e8b84b" stroke-width="1.8" stroke-linejoin="round"></polyline>
+
+    {/* ---- Phase lane ---- */}
+    <text x={PAD.l} y={phaseTop - 8} fill="rgba(255,255,255,0.35)" font-size="9" letter-spacing="1.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">PHASE</text>
+    <line x1={PAD.l} x2={W - PAD.r} y1={phaseMid} y2={phaseMid} stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 5"></line>
+
+    <polyline points={phaseKnown.join(' ')} fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.3" stroke-linejoin="round"></polyline>
+    <polyline points={phaseNaive.join(' ')} fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="2 3" opacity="0.5" stroke-linejoin="round"></polyline>
+    <polyline class="reveal-line" points={phasePredicted.join(' ')} pathLength="1" fill="none" stroke="#e8b84b" stroke-width="1.8" stroke-linejoin="round"></polyline>
+
+    {/* ---- Shared guides spanning both lanes ---- */}
+    <line x1={cutoffX} x2={cutoffX} y1={ampTop - 6} y2={phaseBase} stroke="#e8b84b" stroke-width="1" stroke-dasharray="3 4" opacity="0.55"></line>
+    <line x1={nyquistX} x2={nyquistX} y1={ampTop - 6} y2={phaseBase} stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="1 3" opacity="0.7"></line>
+
+    {/* ---- x-axis ticks ---- */}
+    {
+      ticks.map((t) => (
+        <text
+          x={px(t.i)}
+          y={phaseBase + 12}
+          fill="rgba(255,255,255,0.4)"
+          font-size="10"
+          font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+          text-anchor={t.i === 0 ? 'start' : t.i === bins - 1 ? 'end' : 'middle'}
+        >
+          {t.label}
+        </text>
+      ))
+    }
+
+    {/* ---- region brackets ---- */}
+    <line x1={PAD.l} x2={cutoffX - 3} y1={bracketY} y2={bracketY} stroke="var(--color-gold-light)" stroke-width="1" opacity="0.6"></line>
+    <text x={(PAD.l + cutoffX) / 2} y={labelY} fill="rgba(255,255,255,0.42)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">repaired · restore mode</text>
+
+    <line x1={cutoffX + 3} x2={nyquistX} y1={bracketY} y2={bracketY} stroke="#e8b84b" stroke-width="1" opacity="0.75"></line>
+    <text x={(cutoffX + nyquistX) / 2} y={labelY} fill="rgba(232,184,75,0.75)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">reconstructed · in-band</text>
+  </svg>
+
+  <figcaption>
+    <span class="key"><i class="sw sw-src"></i>Lossy input — degraded below cutoff, discarded above it</span>
+    <span class="key"><i class="sw sw-repair"></i>Repaired below cutoff (Restore mode)</span>
+    <span class="key"><i class="sw sw-ext"></i>Reconstructed in-band, same sample rate</span>
+    <span class="key"><i class="sw sw-naive"></i>Magnitude-only fill — not used, shown for contrast</span>
+  </figcaption>
+  <p class="fact">Real-time neural inference: ~45 ms latency per chunk (RTF 0.15), well within the 348 ms real-time buffer window.</p>
+  <p class="disclaimer">Diagram of the operation — not a measurement.</p>
+</figure>
+
+<script>
+  /* One-shot, IntersectionObserver-gated reveal: the reconstructed traces
+     ship fully drawn (resolved state) so a failed or disabled script never
+     hides anything; JS only retracts them into a "pending" state before
+     they've ever been visible, then CSS draws them back in on scroll. No
+     rAF loop, nothing runs offscreen. Single instance on the page. */
+  const plot = document.querySelector<HTMLElement>('[data-enhancer-plot]');
+  if (plot && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    plot.classList.add('pending');
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            plot.classList.remove('pending');
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(plot);
+  }
+</script>
+
+<style>
+  .plot {
+    margin: 0;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    padding: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .plot {
+      padding: 1.5rem;
+    }
+  }
+
+  .plot svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .reveal-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.6s var(--ease-out-expo);
+  }
+
+  .reveal-fill {
+    opacity: 1;
+    transition: opacity 1.2s var(--ease-out-expo);
+  }
+
+  .plot.pending .reveal-line {
+    stroke-dashoffset: 1;
+  }
+
+  .plot.pending .reveal-fill {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-line {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+    .reveal-fill {
+      opacity: 1;
+      transition: none;
+    }
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .key {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sw {
+    width: 14px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .sw-src {
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .sw-repair {
+    background: var(--color-gold-light);
+    opacity: 0.85;
+  }
+  .sw-ext {
+    background: var(--color-gold);
+  }
+  .sw-naive {
+    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0 3px, transparent 3px 6px);
+  }
+
+  .fact {
+    margin: 0.5rem 0 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.6875rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .disclaimer {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+</style>

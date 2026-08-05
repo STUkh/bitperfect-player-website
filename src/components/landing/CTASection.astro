@@ -1,0 +1,97 @@
+---
+import Container from '../common/Container.astro';
+import StoreBadges from '../common/StoreBadges.astro';
+import { site } from '../../data/site';
+---
+
+<section id="cta" class="py-20 sm:py-24 md:py-28 lg:py-36">
+  <Container>
+    <div class="relative overflow-hidden rounded-card" data-animate="scale-in">
+      <!-- Animated Gradient Border — uses opacity crossfade for GPU compositing -->
+      <div class="absolute inset-0 rounded-card p-[1px]">
+        <div
+          class="absolute inset-0 rounded-card bg-gradient-to-r from-amber via-gold to-champagne"
+        >
+        </div>
+        <div
+          class="animated-border-overlay absolute inset-0 rounded-card bg-gradient-to-l from-gold via-bitperfect to-amber"
+        >
+        </div>
+        <div class="relative h-full w-full rounded-card-inner bg-surface-raised"></div>
+      </div>
+
+      <!-- Inner Glow -->
+      <div
+        class="cta-inner-glow pointer-events-none absolute inset-[1px] rounded-card-inner"
+        aria-hidden="true"
+      >
+      </div>
+
+      <!-- Content -->
+      <div class="relative z-10 px-6 py-14 text-center sm:px-12 sm:py-16 md:px-16 md:py-20">
+        <!-- Decorative Glow -->
+        <div
+          class="pointer-events-none absolute top-0 left-1/2 h-48 w-96 -translate-x-1/2 rounded-full bg-gold/10 blur-orb-lg"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="relative">
+          <h2 class="mb-4 heading-section">
+            Put it on the phone and listen for <span class="text-gold">yourself</span>.
+          </h2>
+          <p class="mx-auto mb-10 max-w-xl text-base text-text-secondary sm:text-lg">
+            Free to install, no account, nothing to sign up for. Plug in a DAC and watch the badge
+            go bit-perfect.
+          </p>
+
+          <!-- Download actions — StoreBadges is the single source for every
+               store button on the site; per-badge URL gating lives there. -->
+          <StoreBadges variant="light" class="justify-center items-center" />
+
+          <p class="mt-8 text-xs tracking-[0.1em] text-text-tertiary uppercase">
+            Android {site.minAndroid}+ <span aria-hidden="true">·</span> {site.packageId}
+          </p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .animated-border-overlay {
+    animation: border-fade 2.5s ease-in-out infinite alternate;
+    will-change: opacity;
+  }
+  @keyframes border-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .cta-inner-glow {
+    /* Static highlight — never animates, no repaint */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .cta-inner-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    /* Fixed gold glow value — animates opacity instead of box-shadow */
+    box-shadow: inset 0 0 40px rgba(232, 184, 75, 0.05);
+    animation: inner-pulse 2.5s ease-in-out infinite alternate;
+    will-change: opacity;
+    pointer-events: none;
+  }
+  @keyframes inner-pulse {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>

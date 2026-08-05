@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  isLanding?: boolean;
+}
+
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/common/Header.astro';
+import Footer from '../components/common/Footer.astro';
+
+const { title, description, isLanding = false } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Synchronous guard: sets the class before CSS is applied so [data-animate]
+       elements are hidden from first paint, not after a JS-load delay.
+       Without this, content is invisible until GSAP loads (FOIC on slow connections). -->
+  <script is:inline slot="head" define:vars={{ isLanding }}>
+    document.documentElement.classList.add('js-animations');
+    if (isLanding) document.documentElement.classList.add('is-landing');
+  </script>
+  <slot name="head-extra" slot="head" />
+  <Header />
+  <main id="main-content" class="relative">
+    <!-- Animated Grid Background -->
+    <div id="grid-bg" aria-hidden="true">
+      <div class="grid-cell-glow glow-1"></div>
+      <div class="grid-cell-glow glow-2"></div>
+      <div class="grid-cell-glow glow-3"></div>
+    </div>
+    <slot />
+  </main>
+  <Footer />
+  <script>
+    import '../scripts/animations';
+  </script>
+</BaseLayout>

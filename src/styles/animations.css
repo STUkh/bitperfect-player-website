@@ -1,0 +1,185 @@
+/* ── Reusable Keyframes ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-10px) translateZ(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes scroll-dot {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+@keyframes bar-grow {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--bar-width);
+  }
+}
+
+/* ── Animation Utility Classes ── */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: -2s;
+  will-change: transform;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.animate-scroll-dot {
+  animation: scroll-dot 2s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── Science bar animation ── */
+.science-bar {
+  width: var(--bar-width);
+  position: relative;
+  overflow: hidden; /* clips the ::after sweep */
+}
+.science-bar.animated {
+  animation: bar-grow 1.2s ease-out forwards;
+}
+.science-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%; /* narrow highlight stripe */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  animation: shimmer 3s ease-in-out infinite;
+  will-change: transform;
+  border-radius: inherit;
+}
+
+/* ── GSAP initial states (hidden until animated) ──
+   Gated behind .js-animations which LandingLayout sets synchronously via an
+   inline <script> in <head> before first paint. This means:
+   - JS enabled:  class is present → content hidden → GSAP animates it in
+   - JS disabled: class absent   → content always visible (no FOIC)
+   - Slow JS:     class is set before first paint so there's no visible flash */
+.js-animations [data-animate] {
+  opacity: 0;
+}
+
+.js-animations [data-animate='fade-up'] {
+  transform: translateY(40px);
+}
+
+.js-animations [data-animate='fade-in'] {
+  transform: none;
+}
+
+.js-animations [data-animate='scale-in'] {
+  transform: scale(0.5);
+}
+
+/* Horizontal reveals animate the two halves of a side-by-side layout toward each
+   other, so they only apply where that layout exists (>= lg). Below it the columns
+   stack and a 30px X offset would push past a phone viewport, giving the whole
+   document a horizontal scroll — the sections these live in have `overflow: visible`,
+   so it propagates to <html>. Keep these breakpoints in lockstep with the
+   `gsap.matchMedia()` branches in src/scripts/animations.ts. */
+@media (max-width: 1023.98px) {
+  .js-animations [data-animate='slide-left'],
+  .js-animations [data-animate='slide-right'] {
+    transform: translateY(24px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .js-animations [data-animate='slide-left'] {
+    transform: translateX(-30px);
+  }
+
+  .js-animations [data-animate='slide-right'] {
+    transform: translateX(30px);
+  }
+}
+
+/* ── Reduced motion: override the initial hidden state ──
+   Uses !important to beat the .js-animations specificity above.
+   CSS applies instantly, before GSAP runs — zero JS dependency. */
+@media (prefers-reduced-motion: reduce) {
+  .js-animations [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

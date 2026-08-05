@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - 'README.md'
+      - 'PRODUCT.md'
+      - 'DESIGN.md'
+      - '.gitignore'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx astro build
+
+      - name: Check Privacy Policy completeness
+        run: |
+          if grep -qE '\[FILL IN ON PUBLISH\]|\[SUPPORT_EMAIL\]' dist/privacy/index.html; then
+            echo "::warning title=Privacy policy incomplete::src/PRIVACY_POLICY.md still contains placeholders."
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

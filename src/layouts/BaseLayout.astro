@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+import SEOHead from '../components/common/SEOHead.astro';
+import { withBase } from '../utils/nav';
+import '../styles/global.css';
+import '../styles/animations.css';
+
+const { title, description, canonical, ogImage, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0f" />
+    <link rel="icon" type="image/png" href={withBase('favicon-96x96.png')} sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('apple-touch-icon.png')} />
+    <link rel="manifest" href={withBase('site.webmanifest')} />
+    <link
+      rel="preload"
+      href={withBase('fonts/Inter-Variable.woff2')}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <SEOHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      noindex={noindex}
+    />
+    <slot name="head" />
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:rounded-lg focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-gold"
+    >
+      Skip to main content
+    </a>
+    <slot />
+  </body>
+</html>
