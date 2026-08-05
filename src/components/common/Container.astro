@@ -1,0 +1,18 @@
+---
+// `Props` is consumed by the Astro compiler to type `Astro.props`, not by TS
+// directly — hence the ts(6196) "declared but never used" hint. Do not "fix" it
+// by casting `Astro.props as Props`: that severs the implicit binding and breaks
+// prop typing at every <Container class="..."> call site.
+interface Props {
+  class?: string;
+  as?: string;
+}
+
+import { cn } from '../../utils/cn';
+
+const { class: className, as: Tag = 'div' } = Astro.props;
+---
+
+<Tag class={cn('mx-auto w-full max-w-7xl px-5 sm:px-8', className)}>
+  <slot />
+</Tag>

@@ -1,0 +1,44 @@
+---
+/*
+ * Showcase — the section shell around ScreenshotCarousel.astro. Owns the
+ * heading, the ambient gold wash, and the phone-frame "craft" context; the
+ * carousel component itself owns only the track and the placeholder contract.
+ * Copy is lifted from the carousel's own pre-existing header rather than
+ * invented fresh, per the port brief's content-sourcing rule.
+ *
+ * The carousel now lives inside the same Container as the heading (unlike
+ * the old scroll-snap rail, which bled full-width past the container like
+ * FormatMarquee). The ported TinniTone interaction is a centred, clipped
+ * viewport with its own prev/next chrome anchored to the container edge —
+ * it doesn't want the extra bleed room.
+ */
+import Container from '../common/Container.astro';
+import SectionHeader from '../common/SectionHeader.astro';
+import ScreenshotCarousel from '../ScreenshotCarousel.astro';
+---
+
+<section id="showcase" class="section-py relative overflow-hidden">
+  <div
+    class="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-surface-overlay/20 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute top-1/2 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 opacity-40 blur-orb-xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container class="relative z-10">
+    <SectionHeader
+      eyebrow="App Preview"
+      eyebrowColor="text-gold"
+      title="The app, screen by screen."
+      subtitle="These frames hold the app's own portrait captures. Until those land, each slot is marked — nothing is mocked up in their place."
+    />
+
+    <div class="mt-2" data-animate="fade-up">
+      <ScreenshotCarousel />
+    </div>
+  </Container>
+</section>

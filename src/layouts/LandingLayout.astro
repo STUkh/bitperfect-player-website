@@ -1,0 +1,80 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+import ContentLayout from './ContentLayout.astro';
+import { site, pro } from '../data/site';
+import { withBase } from '../utils/nav';
+
+const { title, description } = Astro.props;
+
+/* Astro.site (astro.config.mjs) + the base path is the site's real deployed
+ * origin — site.ts has no `url` field, it only holds product constants. */
+const siteUrl = new URL(withBase(''), Astro.site).href;
+const logoUrl = new URL(withBase('brand/logo.png'), Astro.site).href;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: siteUrl,
+  logo: logoUrl,
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: siteUrl,
+};
+
+/* Pro is one entitlement, three billing periods — Play Console requires each
+ * billed option listed as its own Offer. No aggregateRating / ratingValue:
+ * inventing a rating is a structured-data policy violation (BRIEF.md §4.1). */
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.name,
+  description,
+  url: siteUrl,
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'Android 8.0+',
+  offers: pro.periods.map((period) => ({
+    '@type': 'Offer',
+    name: `${pro.name} — ${period.label}`,
+    price: period.price,
+    priceCurrency: pro.currency,
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: period.price,
+      priceCurrency: pro.currency,
+      billingDuration: period.months,
+      unitCode: 'MON',
+    },
+  })),
+};
+---
+
+<ContentLayout title={title} description={description} isLanding={true}>
+  <script
+    type="application/ld+json"
+    is:inline
+    slot="head-extra"
+    set:html={JSON.stringify(orgSchema)}
+  />
+  <script
+    type="application/ld+json"
+    is:inline
+    slot="head-extra"
+    set:html={JSON.stringify(websiteSchema)}
+  />
+  <script
+    type="application/ld+json"
+    is:inline
+    slot="head-extra"
+    set:html={JSON.stringify(softwareSchema)}
+  />
+  <slot />
+</ContentLayout>

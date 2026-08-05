@@ -1,0 +1,221 @@
+---
+import Container from './common/Container.astro';
+import Icon from './Icon.astro';
+import SpectrumPlot from './SpectrumPlot.astro';
+
+/* The enhancer's numbers, stated as counts a reader could verify:
+   nine supported accelerator generations, one model download per chip,
+   zero bytes uploaded. */
+const stats = [
+  { l: 'Model parameters', n: '17.6M' },
+  { l: 'Accelerator generations supported', n: '9' },
+  { l: 'Models your phone downloads', n: '1' },
+  { l: 'Audio uploaded', n: '0 bytes' },
+];
+
+/* Demo content, flagged per DESIGN.md: synthetic tags and track names,
+   Latin only, on the replacement list. "Slow Water / Ilse Vane" is the same
+   synthetic register the bento's similarity card uses. */
+const tags = [
+  { t: 'warm', on: true },
+  { t: 'late night', on: true },
+  { t: 'strings', on: true },
+  { t: '1970s', on: false },
+  { t: 'upbeat', on: false },
+];
+const mix = [
+  { n: '01', t: 'Slow Water', a: 'Ilse Vane', len: '4:12' },
+  { n: '02', t: 'Glass Harbour', a: 'Petra Lindt', len: '5:03' },
+  { n: '03', t: 'Vespers', a: 'The Anders Field', len: '3:47' },
+];
+---
+
+<section id="ai" class="section-py relative overflow-hidden">
+  <!-- Ambient glow — enhanced-violet, this section's own signal-state accent -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div
+      class="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-enhanced/15 opacity-60 blur-orb-xl sm:h-96 sm:w-96"
+    >
+    </div>
+  </div>
+
+  <Container class="relative z-10">
+    <div class="mb-12 max-w-2xl lg:mb-16" data-animate="fade-up">
+      <p class="mb-4 text-eyebrow text-enhanced">On-Device AI</p>
+      <h2 class="heading-section">
+        The models live <span class="text-enhanced">on the phone.</span>
+      </h2>
+      <p class="mt-4 text-base text-text-secondary sm:text-lg">
+        An enhancer that reconstructs what lossy encoding discarded, and a
+        mixer that maps your library. Both models execute on the device —
+        nothing is uploaded. No audio, no fingerprints, no titles.
+      </p>
+    </div>
+
+    <!-- Block 1 — AI Enhancer -->
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div data-animate="slide-left">
+        <h3 class="mb-4 text-xl font-semibold text-white sm:text-2xl">AI Enhancer</h3>
+        <p class="mb-4 max-w-prose text-base leading-relaxed text-text-secondary">
+          Lossy encoding throws away content between its cutoff and the
+          format's own ceiling, and roughens what it keeps. During playback,
+          the enhancer reconstructs a plausible estimate of that missing
+          content — in-band, at the same sample rate, never bolting a new
+          octave on top. It predicts phase as well as amplitude, which is
+          the part that naive "fill the top" tricks skip, and why those sound
+          metallic.
+        </p>
+        <p class="mb-4 max-w-prose text-sm leading-relaxed text-text-tertiary">
+          The engine runs a custom deep neural network optimized for direct on-device
+          hardware acceleration. An optimized model is automatically compiled and target-matched for your
+          device's specific hardware capability, downloading only what your phone requires.
+          In Restore mode, it repairs damage below the cutoff — quantization noise and smeared
+          transients — as well as reconstructing high-frequency detail.
+        </p>
+        <p class="max-w-prose text-sm leading-relaxed text-text-tertiary">
+          Before offering it, the app measures that accelerator and enables
+          only what runs in real time. If your phone can't, the enhancer stays
+          hidden and playback is untouched. When it's on, the signal state
+          re-reads as enhanced — the badge never claims a purity the DSP spent.
+        </p>
+
+        {/* Spec row, not stat tiles — counts stated plainly, not a hero-metric
+            template. */}
+        <ul
+          class="mt-6 divide-y divide-border-subtle border-t border-border-subtle"
+          aria-label="AI Enhancer in numbers"
+        >
+          {
+            stats.map((s) => (
+              <li class="flex items-baseline justify-between gap-4 py-3">
+                <span class="text-sm text-text-secondary">{s.l}</span>
+                <span class="font-mono text-sm text-text-primary">{s.n}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <a href="#compatibility" class="ai-link mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold">
+          <span>See which phones qualify</span>
+          <Icon name="arrow" size={15} />
+        </a>
+      </div>
+
+      <div data-animate="slide-right">
+        <SpectrumPlot />
+      </div>
+    </div>
+
+    <!-- Block 2 — AI Mix -->
+    <div class="mt-16 grid items-center gap-10 lg:mt-24 lg:grid-cols-2 lg:gap-16">
+      <div class="lg:order-2" data-animate="slide-right">
+        <h3 class="mb-4 text-xl font-semibold text-white sm:text-2xl">AI Mix</h3>
+        <p class="mb-4 max-w-prose text-base leading-relaxed text-text-secondary">
+          Pick a few tags — mood, era, energy — and it builds a mix from your
+          library. Not a stream, not other people's music. Tracks you already
+          own, re-sequenced.
+        </p>
+        <p class="mb-4 max-w-prose text-sm leading-relaxed text-text-tertiary">
+          Mixes also arrive on Home on their own: a favourites mix,
+          rediscoveries you haven't played in months, decade mixes. Any track
+          can start a radio of its neighbours, and AI search finds music by
+          description.
+        </p>
+        <p class="max-w-prose text-sm leading-relaxed text-text-tertiary">
+          The mechanism, plainly: two on-device models read every track at five
+          points — a similarity embedding and a 50-tag analyzer. Your library
+          gets a map. The map never leaves the phone.
+        </p>
+      </div>
+
+      <div class="lg:order-1" data-animate="slide-left">
+        <figure
+          class="glass accent-glow overflow-hidden rounded-2xl"
+          style="--card-accent: var(--color-enhanced)"
+          aria-label="Demo of AI Mix: the tags warm, late night and strings selected, producing a three-track mix from the library."
+        >
+          <div
+            class="flex items-center gap-2 border-b border-border-subtle bg-white/[0.03] px-5 py-3.5 text-xs font-semibold tracking-label text-enhanced uppercase"
+          >
+            <Icon name="sparkle" size={16} />
+            <span>New mix</span>
+          </div>
+
+          <div class="flex flex-wrap gap-2 p-5">
+            {tags.map((c) => <span class={`mix-tag ${c.on ? 'mix-tag-on' : 'mix-tag-off'}`}>{c.t}</span>)}
+          </div>
+
+          <div class="mix-connector" aria-hidden="true"></div>
+
+          <ol class="divide-y divide-border-subtle border-t border-border-subtle">
+            {
+              mix.map((m) => (
+                <li class="flex items-center gap-4 px-5 py-3">
+                  <span class="font-mono text-xs text-text-tertiary">{m.n}</span>
+                  <span class="mr-auto min-w-0">
+                    <span class="block truncate text-sm font-medium text-text-primary">{m.t}</span>
+                    <span class="block truncate text-xs text-text-tertiary">{m.a}</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-tertiary">{m.len}</span>
+                </li>
+              ))
+            }
+          </ol>
+
+          <figcaption class="px-5 pb-4 pt-3 text-xs leading-relaxed text-text-tertiary">
+            Demo — tags and titles are synthetic. A real mix is sequenced from
+            your own library.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p class="mt-16 max-w-prose border-l-2 border-gold pl-5 text-lg leading-relaxed text-text-primary lg:mt-20">
+      AI Enhancer and AI Mix are Pro features. <a
+        href="#pricing"
+        class="font-medium text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold"
+        >See pricing</a
+      >.
+    </p>
+  </Container>
+</section>
+
+<style>
+  .ai-link {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s var(--ease-out-expo);
+  }
+  .ai-link:hover {
+    border-bottom-color: var(--color-gold);
+  }
+
+  .mix-tag {
+    display: inline-block;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border-subtle);
+    padding: 5px 12px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .mix-tag-on {
+    border-color: var(--color-enhanced);
+    color: var(--color-enhanced);
+  }
+  .mix-tag-off {
+    color: var(--color-text-tertiary);
+  }
+
+  /* Gold-to-hairline vertical joint — tags feed the mix, same register as
+     the engine's signal-chain connectors. */
+  .mix-connector {
+    width: 1px;
+    height: 1.25rem;
+    margin-inline: auto;
+    background: linear-gradient(to bottom, var(--color-enhanced), var(--color-border-subtle));
+    opacity: 0.55;
+  }
+</style>

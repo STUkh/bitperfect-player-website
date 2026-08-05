@@ -1,0 +1,88 @@
+---
+import Container from './Container.astro';
+import Logo from './Logo.astro';
+import StoreBadges from './StoreBadges.astro';
+import { footerLinks } from '../../data/navigation';
+import { site } from '../../data/site';
+import { resolveHref, withBase } from '../../utils/nav';
+
+const pathname = Astro.url.pathname;
+const sections = Object.values(footerLinks);
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+<footer class="border-t border-border-subtle bg-surface-raised">
+  <Container>
+    <div class="py-12 lg:py-20">
+      <!--
+        Mobile (< 640px):   single column stack
+        Tablet (640-1023px): brand full-width row, then link cols side by side
+        Desktop (1024px+):   brand (2fr) + link cols (1fr each) in one row
+      -->
+      <div
+        class:list={[
+          'grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-12',
+          sections.length <= 1 ? 'lg:grid-cols-[2fr_1fr]' : 'lg:grid-cols-[2fr_1fr_1fr_1fr]',
+        ]}
+      >
+        <!-- Brand Column -->
+        <div class="col-span-2 sm:col-span-3 lg:col-span-1">
+          <a href={withBase('/')} class="mb-5 flex items-center gap-2.5">
+            <Logo size="md" />
+            <span class="text-lg font-bold text-white">{site.name}</span>
+          </a>
+          <p class="mb-6 max-w-sm text-sm leading-relaxed text-text-secondary">
+            {site.tagline}
+          </p>
+          <StoreBadges variant="dark" class="flex-row flex-wrap" />
+        </div>
+
+        <!-- Link Columns -->
+        {
+          sections.map((section) => (
+            <div>
+              <h3 class="mb-4 text-sm font-semibold tracking-label text-white uppercase">
+                {section.title}
+              </h3>
+              <ul class="space-y-3">
+                {section.links.map((link) => (
+                  <li>
+                    <a
+                      href={resolveHref(link.href, pathname)}
+                      rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
+                      class="footer-link rounded text-sm text-text-secondary transition-all duration-200 hover:text-white focus-visible:focus-ring"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <!-- footer-safe-bottom (defined in global.css) overrides py-6's padding-bottom on notched devices. -->
+    <div
+      class="footer-safe-bottom flex flex-col items-center justify-between gap-4 border-t border-border-subtle py-6 sm:flex-row"
+    >
+      <p class="text-sm text-text-tertiary">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+      <p class="mono text-sm text-text-tertiary">{site.packageId}</p>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer-link {
+    display: inline-block;
+  }
+  .footer-link:hover {
+    transform: translateX(3px);
+  }
+  .mono {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+</style>

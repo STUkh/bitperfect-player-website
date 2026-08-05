@@ -1,0 +1,56 @@
+---
+/**
+ * This section's job is the six signal states, not a second frequency plot —
+ * the AI section already owns the one chart on the page (SpectrumPlot.astro,
+ * the enhancer diagram). Duplicating a lookalike spectrum here just to fill
+ * the slot was the thing the user flagged; this section now stands on its
+ * own legend, with a decorative (non-data) path strip as the supporting
+ * visual instead of a second chart.
+ */
+import Container from '../common/Container.astro';
+import SectionHeader from '../common/SectionHeader.astro';
+import Icon from '../Icon.astro';
+import { signalStates } from '../../data/site';
+import { accentColors, type AccentColorKey } from '../../data/colors';
+
+const states = signalStates.map((s) => ({
+  ...s,
+  hex: accentColors[s.id as AccentColorKey].hex,
+}));
+---
+
+<section id="spectrum" class="section-py relative">
+  <Container>
+    <SectionHeader
+      eyebrow="Signal States"
+      title='Every track shows its <span class="text-gold">real signal state</span>.'
+      subtitle="Including the unflattering ones. Each state carries a mark as well as a colour, so it reads without colour vision."
+    />
+
+    <div class="glass rounded-3xl p-6 sm:p-8 lg:p-10" data-animate="fade-up">
+      <!-- Six-state legend — the key to the color coding used everywhere else on the page -->
+      <ul class="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          states.map((s) => (
+            <li
+              class="flex items-start gap-3.5 rounded-xl border border-border-subtle bg-white/[0.03] p-4.5 accent-glow accent-glow-hover transition-[box-shadow,border-color,background-color] duration-300 hover:bg-white/[0.06]"
+              style={`--card-accent: ${s.hex}`}
+            >
+              <span
+                class="flex-center h-10 w-10 shrink-0 rounded-xl"
+                style={`background: ${s.hex}20; color: ${s.hex}; border: 1px solid ${s.hex}35`}
+              >
+                <Icon name={`sig-${s.id}`} size={18} />
+              </span>
+              <span class="min-w-0 pt-0.5">
+                <span class="block text-base font-semibold text-white">{s.label}</span>
+                <span class="block mt-0.5 text-xs text-text-secondary leading-relaxed">{s.desc}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</section>
+

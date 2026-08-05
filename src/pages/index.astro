@@ -1,0 +1,47 @@
+---
+import LandingLayout from '../layouts/LandingLayout.astro';
+import HeroSection from '../components/landing/HeroSection.astro';
+import FeaturesGrid from '../components/landing/FeaturesGrid.astro';
+import HowItWorks from '../components/landing/HowItWorks.astro';
+import ScienceSection from '../components/landing/ScienceSection.astro';
+import AppShowcase from '../components/landing/AppShowcase.astro';
+import StatsBar from '../components/landing/StatsBar.astro';
+import SpectrumSection from '../components/landing/SpectrumSection.astro';
+import AiSection from '../components/AiSection.astro';
+import Compatibility from '../components/Compatibility.astro';
+import ResearchCards from '../components/landing/ResearchCards.astro';
+import PricingSection from '../components/landing/PricingSection.astro';
+import FAQPreview from '../components/landing/FAQPreview.astro';
+import CTASection from '../components/landing/CTASection.astro';
+---
+
+<LandingLayout
+  title="Bit-perfect audio on Android"
+  description="A music player, streamer and receiver built on a bit-perfect native audio engine with exclusive USB output — no resampling, no system mixer. On-device AI enhancement and mixes, no analytics, no ads, no account. Android 8.0 and up."
+>
+  <HeroSection />
+  <hr class="section-divider" aria-hidden="true" />
+  <FeaturesGrid />
+  <hr class="section-divider" aria-hidden="true" />
+  <HowItWorks />
+  <hr class="section-divider" aria-hidden="true" />
+  <ScienceSection />
+  <hr class="section-divider" aria-hidden="true" />
+  <AppShowcase />
+  <hr class="section-divider" aria-hidden="true" />
+  <StatsBar />
+  <hr class="section-divider" aria-hidden="true" />
+  <SpectrumSection />
+  <hr class="section-divider" aria-hidden="true" />
+  <AiSection />
+  <hr class="section-divider" aria-hidden="true" />
+  <Compatibility />
+  <hr class="section-divider" aria-hidden="true" />
+  <ResearchCards />
+  <hr class="section-divider" aria-hidden="true" />
+  <PricingSection />
+  <hr class="section-divider" aria-hidden="true" />
+  <FAQPreview />
+  <hr class="section-divider" aria-hidden="true" />
+  <CTASection />
+</LandingLayout>

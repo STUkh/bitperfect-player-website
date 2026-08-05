@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  /** A `var(--color-<accent>)` reference — one of the six signal-state tokens
+   *  (see src/data/colors.ts). Consumed by the `.accent-glow` mechanism via
+   *  the `--card-accent` custom property, so the same string drives the
+   *  border glow, the icon color and the icon-tile wash below. */
+  accentToken: string;
+  span?: string;
+  glowPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+}
+
+import { cn } from '../../utils/cn';
+import Icon from '../Icon.astro';
+
+const { title, description, icon, accentToken, span, glowPosition = 'top-right' } = Astro.props;
+
+const glowStyle: Record<string, string> = {
+  'top-left': 'top: 0; left: 0;',
+  'top-right': 'top: 0; right: 0;',
+  'bottom-left': 'bottom: 0; left: 0;',
+  'bottom-right': 'bottom: 0; right: 0;',
+};
+---
+
+<article
+  class={cn(
+    'glass accent-glow accent-glow-hover group relative overflow-hidden p-4 sm:p-6 lg:p-8 transition-all duration-300 ease-out hover:scale-[1.01]',
+    span,
+  )}
+  style={`--card-accent: ${accentToken};`}
+  data-animate="fade-up"
+>
+  <!-- Accent Glow (soft orb behind content) -->
+  <div
+    class="pointer-events-none absolute h-32 w-32 rounded-full opacity-15 blur-orb-sm transition-opacity duration-300 ease-out group-hover:opacity-30"
+    style={`background: ${accentToken}; ${glowStyle[glowPosition]}`}
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative z-10 flex items-start gap-3 sm:block">
+    <!-- Icon -->
+    <div
+      class="icon-container flex-center h-10 w-10 shrink-0 rounded-xl sm:mb-5 sm:h-12 sm:w-12 sm:rounded-2xl transition-all duration-300 ease-out group-hover:shadow-[0_0_16px_-2px_var(--card-accent)]"
+      style={`background: color-mix(in srgb, ${accentToken} 18%, transparent); color: ${accentToken};`}
+    >
+      <Icon name={icon} size={24} class="h-5 w-5 sm:h-6 sm:w-6" />
+    </div>
+
+    <div class="min-w-0">
+      <h3 class="mb-1 text-base font-semibold text-white sm:mb-3 sm:text-xl">{title}</h3>
+      <p class="text-sm leading-relaxed text-text-secondary sm:text-base">{description}</p>
+    </div>
+  </div>
+</article>

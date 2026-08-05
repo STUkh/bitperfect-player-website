@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+import { site } from '../../data/site';
+import { withBase } from '../../utils/nav';
+
+const { title, description, canonical, ogImage, noindex = false } = Astro.props;
+
+/* Social scrapers require absolute URLs for og:image/og:url; Astro.site is
+ * set in astro.config.mjs. */
+const resolvedCanonical = canonical || new URL(Astro.url.pathname, Astro.site).href;
+const resolvedOgImage = new URL(ogImage || withBase('og-image.png'), Astro.site).href;
+const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
+---
+
+<!-- Primary Meta -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<link rel="canonical" href={resolvedCanonical} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content={resolvedCanonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={resolvedOgImage} />
+<meta property="og:site_name" content={site.name} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={resolvedOgImage} />

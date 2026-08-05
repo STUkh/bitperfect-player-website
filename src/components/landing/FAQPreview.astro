@@ -1,0 +1,62 @@
+---
+import Container from '../common/Container.astro';
+import Accordion from '../faq/Accordion.astro';
+import { faqItems } from '../../data/faq';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<section id="faq" class="relative py-12 sm:py-16 md:py-20 lg:py-24">
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-transparent via-surface-overlay/20 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container class="relative z-10">
+    <div class="grid gap-8 lg:grid-cols-5 lg:gap-16">
+      <!-- Left: Header (sticky) -->
+      <div class="lg:sticky lg:top-32 lg:col-span-2 lg:self-start" data-animate="fade-up">
+        <p class="mb-4 text-eyebrow text-gold">FAQ</p>
+        <h2 class="mb-4 text-3xl leading-heading font-bold text-white sm:text-4xl">
+          Questions worth asking.
+        </h2>
+        <p class="text-text-secondary">
+          Straight answers about bit-perfect output, on-device AI, and what Pro actually costs.
+        </p>
+      </div>
+
+      <!-- Right: Accordion -->
+      <div class="lg:col-span-3" data-animate="fade-up">
+        {
+          faqItems.map((item, i) => (
+            <Accordion
+              question={item.q}
+              answer={item.a}
+              id={`faq-${i}`}
+              link={item.link}
+              open={i === 0}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+<script>
+  import '../../scripts/accordion.ts';
+</script>

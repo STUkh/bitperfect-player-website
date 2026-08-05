@@ -1,0 +1,108 @@
+---
+/*
+ * Specs — factual engineering numbers only.
+ * Every value below is sourced from src/data/site.ts.
+ */
+import Container from '../common/Container.astro';
+import SectionHeader from '../common/SectionHeader.astro';
+import { site, formats } from '../../data/site';
+import Icon from '../Icon.astro';
+
+const dsdFormats = formats.filter((f) => f.startsWith('DSD'));
+const dsdCeiling = dsdFormats[dsdFormats.length - 1];
+
+const stats: { icon: string; value: string; label: string; note: string; category: string }[] = [
+  {
+    icon: 'waveform',
+    value: `${formats.length}+`,
+    label: 'Formats decoded',
+    note: 'FLAC, ALAC, DSD, WAV & more',
+    category: 'AUDIO FORMATS',
+  },
+  {
+    icon: 'node-dac',
+    value: dsdCeiling,
+    label: 'Native DSD Rate',
+    note: dsdFormats.join(' · '),
+    category: 'DAC PASSTHROUGH',
+  },
+  {
+    icon: 'eq',
+    value: '32',
+    label: 'EQ bands',
+    note: 'Fully parametric, per channel',
+    category: 'DSP ENGINE',
+  },
+  {
+    icon: 'android',
+    value: `API ${site.minSdk}+`,
+    label: 'Minimum OS',
+    note: 'Broad hardware & device coverage',
+    category: 'SYSTEM OS',
+  },
+  {
+    icon: 'node-engine',
+    value: '3',
+    label: 'ABIs in single release',
+    note: 'arm64-v8a · armeabi-v7a · x86_64',
+    category: 'ARCHITECTURE',
+  },
+  {
+    icon: 'sparkle',
+    value: '9',
+    label: 'Accelerator generations',
+    note: 'Supported hardware NPU architectures',
+    category: 'AI HARDWARE',
+  },
+];
+---
+
+<section id="specs" class="section-py relative">
+  <Container>
+    <SectionHeader
+      eyebrow="Specs"
+      eyebrowColor="text-gold"
+      title="What's actually inside."
+      subtitle="Every number here ships in the app today — nothing modelled, nothing promised for later."
+    />
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6" data-animate="fade-up">
+      {
+        stats.map((stat) => {
+          const isWideValue = stat.value.length > 4;
+          return (
+            <div class="group relative flex items-start gap-4.5 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface-raised/60 p-5 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:border-gold/35 hover:bg-surface-raised/90 hover:shadow-[0_0_30px_rgba(232,184,75,0.08)]">
+              <!-- Left Column: Icon Badge -->
+              <span class="flex-center h-12 w-12 shrink-0 rounded-xl border border-gold/25 bg-gold/10 text-gold transition-transform duration-300 group-hover:scale-105 group-hover:bg-gold/20">
+                <Icon name={stat.icon} size={22} />
+              </span>
+
+              <!-- Right Column: Text Content -->
+              <div class="flex-1 min-w-0">
+                <div class="text-[10px] font-semibold tracking-wider uppercase text-text-tertiary/70 group-hover:text-text-tertiary mb-1">
+                  {stat.category}
+                </div>
+
+                <div
+                  class={`font-extrabold tracking-tight text-white transition-colors duration-300 ease-out group-hover:text-gold leading-none ${
+                    isWideValue ? 'text-2xl sm:text-3xl' : 'text-3xl sm:text-4xl'
+                  }`}
+                >
+                  {stat.value}
+                </div>
+
+                <div class="mt-1 text-sm font-semibold text-text-primary truncate">{stat.label}</div>
+
+                <div class="mt-2 pt-2 border-t border-white/[0.06] text-xs leading-relaxed text-text-tertiary">
+                  {stat.note}
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </Container>
+</section>
+
+

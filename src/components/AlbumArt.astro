@@ -1,0 +1,66 @@
+---
+/** Authored cover art for the demo track — synthetic content, on the user's
+ *  replacement list. Drawn as grooves so it belongs to the world rather than
+ *  standing in as a grey placeholder box. */
+export interface Props {
+  class?: string;
+  variant?: 1 | 2;
+}
+const { class: cls = '', variant = 1 } = Astro.props;
+const uid = `art${variant}`;
+---
+
+<svg class={cls} viewBox="0 0 300 300" role="img" aria-label="Album artwork (demo)">
+  <defs>
+    <linearGradient id={`${uid}bg`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color={variant === 1 ? '#241a0d' : '#1a1626'}></stop>
+      <stop offset="55%" stop-color={variant === 1 ? '#120d08' : '#111019'}></stop>
+      <stop offset="100%" stop-color="#0a0a0f"></stop>
+    </linearGradient>
+    <radialGradient id={`${uid}sheen`} cx="0.3" cy="0.22" r="0.85">
+      <stop offset="0%" style="stop-color: var(--color-gold); stop-opacity: 0.34"></stop>
+      <stop offset="45%" style="stop-color: var(--color-gold); stop-opacity: 0.07"></stop>
+      <stop offset="100%" style="stop-color: var(--color-gold); stop-opacity: 0"></stop>
+    </radialGradient>
+    <linearGradient id={`${uid}arc`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" style="stop-color: var(--color-champagne); stop-opacity: 0.9"></stop>
+      <stop offset="50%" style="stop-color: var(--color-gold); stop-opacity: 0.55"></stop>
+      <stop offset="100%" style="stop-color: var(--color-gold); stop-opacity: 0.2"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="300" height="300" fill={`url(#${uid}bg)`}></rect>
+  <rect width="300" height="300" fill={`url(#${uid}sheen)`}></rect>
+
+  {/* Grooves */}
+  <g fill="none" stroke={`url(#${uid}arc)`} stroke-width="0.75">
+    {Array.from({ length: 22 }, (_, i) => (
+      <circle cx="150" cy="150" r={34 + i * 5.4} opacity={0.5 - i * 0.017} />
+    ))}
+  </g>
+
+  {/* Label + spindle */}
+  <circle cx="150" cy="150" r="30" style="fill: var(--color-surface-base); stroke: var(--color-gold)" stroke-width="1" stroke-opacity="0.35"></circle>
+  <circle cx="150" cy="150" r="3.2" style="fill: var(--color-gold)" opacity="0.85"></circle>
+
+  {variant === 1 && (
+    <path
+      d="M150 34a116 116 0 0 1 106 68"
+      fill="none"
+      style="stroke: var(--color-gold)"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      opacity="0.7"
+    />
+  )}
+  {variant === 2 && (
+    <path
+      d="M44 150a106 106 0 0 0 96 105"
+      fill="none"
+      style="stroke: var(--color-enhanced)"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      opacity="0.65"
+    />
+  )}
+</svg>

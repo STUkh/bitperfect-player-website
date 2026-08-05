@@ -1,0 +1,132 @@
+---
+import { navLinks } from '../../data/navigation';
+import { site } from '../../data/site';
+import Button from './Button.astro';
+import { isActive, resolveHref } from '../../utils/nav';
+
+interface Props {
+  pathname?: string;
+}
+
+const { pathname = '/' } = Astro.props;
+---
+
+<div
+  id="mobile-menu"
+  class="pointer-events-none fixed inset-0 z-40 flex flex-col bg-surface-base/95 opacity-0 backdrop-blur-2xl transition-opacity duration-300 lg:hidden"
+  aria-hidden="true"
+>
+  <div class="flex flex-1 flex-col overflow-y-auto px-6 pt-24 pb-8">
+    <!-- Main nav links -->
+    <nav class="flex flex-col gap-6" aria-label="Sections">
+      {
+        navLinks.map((link) => {
+          const active = isActive(pathname, link.href);
+          return (
+            <a
+              href={resolveHref(link.href, pathname)}
+              class:list={[
+                'mobile-nav-link rounded text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold',
+                active ? 'mobile-nav-link-active text-white' : 'text-text-secondary',
+              ]}
+              aria-current={active ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <!-- CTA -->
+    <div class="mt-10 border-t border-white/[0.06] pt-8">
+      <Button
+        href={site.playUrl}
+        rel="noopener"
+        variant="primary"
+        size="lg"
+        class="w-full gap-2 text-center"
+      >
+        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7.5 4.75 19 12 7.5 19.25Z" />
+        </svg>
+        Get it on Google Play
+      </Button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mobile-nav-link {
+    position: relative;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+  .mobile-nav-link-active {
+    color: white;
+  }
+  .mobile-nav-link-active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-amber));
+    border-radius: 1px;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const burgerTop = document.getElementById('burger-top');
+  const burgerMid = document.getElementById('burger-mid');
+  const burgerBot = document.getElementById('burger-bot');
+  const menuLinks = menu?.querySelectorAll<HTMLAnchorElement>('a');
+  let isOpen = false;
+
+  function openMenu() {
+    isOpen = true;
+    menu?.classList.remove('opacity-0', 'pointer-events-none');
+    menu?.classList.add('opacity-100', 'pointer-events-auto');
+    menu?.setAttribute('aria-hidden', 'false');
+    toggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+
+    burgerTop?.classList.add('rotate-45', 'translate-y-[8px]');
+    burgerMid?.classList.add('opacity-0');
+    burgerBot?.classList.add('-rotate-45', '-translate-y-[8px]', 'w-6');
+
+    // Move focus into the menu so keyboard users land somewhere useful.
+    menuLinks?.[0]?.focus();
+  }
+
+  function closeMenu(returnFocus = false) {
+    isOpen = false;
+    menu?.classList.remove('opacity-100', 'pointer-events-auto');
+    menu?.classList.add('opacity-0', 'pointer-events-none');
+    menu?.setAttribute('aria-hidden', 'true');
+    toggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+
+    burgerTop?.classList.remove('rotate-45', 'translate-y-[8px]');
+    burgerMid?.classList.remove('opacity-0');
+    burgerBot?.classList.remove('-rotate-45', '-translate-y-[8px]', 'w-6');
+
+    if (returnFocus) toggle?.focus();
+  }
+
+  toggle?.addEventListener('click', () => {
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  menuLinks?.forEach((link) => {
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) closeMenu(true);
+  });
+</script>

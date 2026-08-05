@@ -1,0 +1,91 @@
+---
+import Container from '../common/Container.astro';
+import SectionHeader from '../common/SectionHeader.astro';
+import StoreBadges from '../common/StoreBadges.astro';
+import Icon from '../Icon.astro';
+
+const steps: { number: string; title: string; description: string; icon: string }[] = [
+  {
+    number: '01',
+    title: 'Install from Google Play',
+    description:
+      'Free to install, no account, nothing to sign up for. One APK, every ABI — Android 8.0 and up.',
+    icon: 'download',
+  },
+  {
+    number: '02',
+    title: 'Connect your DAC, or cast',
+    description:
+      'Plug in a USB DAC for exclusive output, or send audio to a renderer on your network — a TV, a streamer, another device.',
+    icon: 'cable',
+  },
+  {
+    number: '03',
+    title: 'Play',
+    description:
+      "The engine sends your file's own bits, untouched — no resampling, no system mixer, no silent conversion.",
+    icon: 'play',
+  },
+];
+---
+
+<section id="how-it-works" class="relative py-12 sm:py-16 md:py-20 lg:py-24">
+  <!-- Background Accent -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-surface-overlay/30 to-transparent">
+  </div>
+
+  <Container class="relative z-10">
+    <SectionHeader eyebrow="Getting Started" eyebrowColor="text-gold" title="How It Works" />
+
+    <!-- Steps -->
+    <div class="relative mx-auto max-w-4xl">
+      <div class="grid grid-cols-1 gap-0 lg:grid-cols-3 lg:gap-6">
+        {
+          steps.map((step) => (
+            <div class="how-step relative text-center" data-animate="fade-up">
+              {/* Number Circle */}
+              <div class="step-number relative z-10 mx-auto mb-6 flex-center h-12 w-12 rounded-full border-2 border-gold text-gold transition-shadow duration-300">
+                <span class="text-sm font-bold tabular-nums">{step.number}</span>
+              </div>
+
+              <h3 class="mb-3 flex items-center justify-center gap-2 text-xl font-semibold text-white">
+                <Icon name={step.icon} size={18} class="shrink-0 text-gold" />
+                <span>{step.title}</span>
+              </h3>
+              <p class="mb-10 text-base leading-relaxed text-text-secondary lg:mb-0">
+                {step.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-12 flex flex-col items-center gap-3 text-center" data-animate="fade-up">
+        <StoreBadges variant="dark" class="justify-center" />
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .how-step:hover .step-number {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-gold) 30%, transparent);
+  }
+
+  /* Vertical connector between steps on mobile.
+     Anchored to bottom of the circle (top: 100%) so it stays correct
+     even if the circle size or surrounding padding ever changes. */
+  @media (max-width: 1023px) {
+    .how-step:not(:last-child) .step-number::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 1.5rem;
+      border-left: 2px dashed var(--color-border-subtle);
+      pointer-events: none;
+    }
+  }
+</style>

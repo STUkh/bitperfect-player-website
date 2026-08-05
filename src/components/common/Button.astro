@@ -1,0 +1,36 @@
+---
+interface Props extends Omit<astroHTML.JSX.AnchorHTMLAttributes, 'class' | 'type'> {
+  variant?: 'primary' | 'secondary' | 'outline';
+  href?: string;
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+import { cn } from '../../utils/cn';
+
+const { variant = 'primary', href, class: className, size = 'md', ...rest } = Astro.props;
+
+const baseStyles =
+  'inline-flex items-center justify-center font-semibold rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold';
+
+const sizeStyles = {
+  sm: 'px-5 py-2 text-sm',
+  md: 'px-7 py-3 text-base',
+  lg: 'px-9 py-4 text-lg',
+};
+
+const variantStyles = {
+  primary: 'btn-primary-gradient',
+  secondary:
+    'btn-secondary-glow bg-white/10 text-white hover:bg-white/15 border border-white/10 hover:border-white/20',
+  outline:
+    'bg-transparent text-gold border-2 border-gold hover:bg-gold/10 transition-[background-color] duration-150',
+};
+
+const classes = cn(baseStyles, sizeStyles[size], variantStyles[variant], className);
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class={classes} {...rest}>
+  <slot />
+</Tag>

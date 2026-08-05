@@ -1,0 +1,31 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+import { cn } from '../../utils/cn';
+import { withBase } from '../../utils/nav';
+
+const { size = 'md', class: className } = Astro.props;
+
+const sizeMap = {
+  sm: 'h-6 w-6',
+  md: 'h-8 w-8',
+  lg: 'h-10 w-10',
+};
+
+const svgSrc = withBase('brand/logo.svg');
+const pngFallback = withBase('brand/logo.png');
+---
+
+<img
+  src={svgSrc}
+  alt="Bitperfect Player"
+  width="32"
+  height="32"
+  loading="eager"
+  decoding="async"
+  class={cn(sizeMap[size], className)}
+  onerror={`this.onerror=null;this.src='${pngFallback}';`}
+/>
