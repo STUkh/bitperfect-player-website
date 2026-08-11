@@ -35,32 +35,44 @@ const phaseMid = phaseTop + phaseH / 2;
 
 const H = phaseBase + PAD.b;
 
-// Deterministic pseudo-spectrum for AP-BWE bandwidth extension.
+// Deterministic pseudo-spectrum for dual-stream neural bandwidth extension & phase prediction.
 // Linear Hz→x mapping: 0 to 22.05 kHz (Nyquist for 44.1 kHz container).
 const bins = 160;
 const cutoffBin = Math.round(bins * (16000 / 22050)); // 16 kHz codec cutoff
 
-// Natural acoustic magnitude spectral envelope
+// Rich acoustic magnitude spectral envelope (reconstructed with full harmonic overtones)
 function mag(i: number) {
   const f = (i / (bins - 1)) * 22050; // Frequency in Hz
   
-  // Base spectral slope: natural acoustic power decay (-6dB/octave)
-  const env = Math.exp(-f / 12000) * 0.82 + 0.10;
+  // Base spectral slope (-6dB/octave decay)
+  const env = Math.exp(-f / 11000) * 0.80 + 0.08;
   
-  // Natural musical harmonics & formants
-  const h1 = Math.sin(f / 420) * 0.035;
-  const h2 = Math.sin(f / 1150 + 0.8) * 0.025;
-  const h3 = Math.cos(f / 2600) * 0.015;
+  // Rich musical harmonics, overtones & instrument formants
+  const h1 = Math.sin(f / 380) * 0.045;
+  const h2 = Math.sin(f / 920 + 0.6) * 0.035;
+  const h3 = Math.cos(f / 2100) * 0.025;
+  const h4 = Math.sin(f / 4800 + 1.2) * 0.018; // High-frequency overtone detail
   
-  let val = env + h1 + h2 + h3;
+  let val = env + h1 + h2 + h3 + h4;
   
   // Natural high-frequency roll-off above cutoff towards Nyquist
   if (i > cutoffBin) {
     const ratio = (i - cutoffBin) / (bins - 1 - cutoffBin);
-    val = val * (1 - Math.pow(ratio, 1.2) * 0.55);
+    val = val * (1 - Math.pow(ratio, 1.2) * 0.50);
   }
   
   return Math.max(0.03, Math.min(0.95, val));
+}
+
+// Lossy codec input spectrum (muffled, missing fine harmonic overtones & quantization drops)
+function lossyMag(i: number) {
+  const f = (i / (bins - 1)) * 22050;
+  const env = Math.exp(-f / 11000) * 0.74 + 0.07;
+  const h1 = Math.sin(f / 380) * 0.030;
+  const h2 = Math.sin(f / 920 + 0.6) * 0.015; // Muffled harmonics, missing h3 & h4
+  const notch = (i / cutoffBin) * 0.025 + hash(i) * 0.02;
+  
+  return Math.max(0.025, env + h1 + h2 - notch);
 }
 
 // Deterministic hash for noise/quantization artifacts
@@ -72,20 +84,21 @@ function hash(i: number) {
 const px = (i: number) => PAD.l + (i / (bins - 1)) * plotW;
 const ay = (m: number) => ampTop + (1 - m) * ampH;
 
-// Lossy input trace: quantization noise below cutoff, steep codec brickwall drop above cutoff
+// Lossy input trace: muffled harmonics & quantization drops below cutoff, steep codec brickwall drop above cutoff
 const inputBelow: string[] = [];
 for (let i = 0; i <= cutoffBin; i++) {
-  const m = Math.max(0.03, mag(i) - hash(i) * 0.045);
-  inputBelow.push(`${px(i).toFixed(1)},${ay(m).toFixed(1)}`);
+  inputBelow.push(`${px(i).toFixed(1)},${ay(lossyMag(i)).toFixed(1)}`);
 }
 const inputAbove: string[] = [];
 for (let i = cutoffBin; i < bins; i++) {
-  const decay = Math.exp(-(i - cutoffBin) / 6);
-  const m = Math.max(0.02, mag(cutoffBin) * 0.12 * decay + hash(i) * 0.008);
+  // Realistic codec low-pass filter roll-off slope into the quantization noise floor
+  const rollOff = Math.exp(-(i - cutoffBin) / 5.5);
+  const noiseFloor = (hash(i * 1.73 + 3) - 0.5) * 0.014;
+  const m = Math.max(0.01, lossyMag(cutoffBin) * rollOff + noiseFloor);
   inputAbove.push(`${px(i).toFixed(1)},${ay(m).toFixed(1)}`);
 }
 
-// Reconstructed output trace: smooth (repaired) below cutoff, natural AP-BWE harmonic extension above cutoff
+// Reconstructed output trace: rich restored harmonics below cutoff, natural overtone spectral extension above cutoff
 const outputBelow: string[] = [];
 for (let i = 0; i <= cutoffBin; i++) outputBelow.push(`${px(i).toFixed(1)},${ay(mag(i)).toFixed(1)}`);
 const outputAbove: string[] = [];
@@ -93,19 +106,27 @@ for (let i = cutoffBin; i < bins; i++) outputAbove.push(`${px(i).toFixed(1)},${a
 
 const outputFill = `${px(cutoffBin).toFixed(1)},${ampBase} ${outputAbove.join(' ')} ${px(bins - 1).toFixed(1)},${ampBase}`;
 
-// Phase lane: coherent phase trajectory prediction
+// Phase lane: coherent phase trajectory prediction & lossy phase distortion repair
 const phaseAmp = phaseH * 0.38;
 function known(i: number) {
   const t = i / (bins - 1);
   const freq = 4.5 + t * 8;
   return phaseMid - Math.sin(t * Math.PI * 2 * freq) * phaseAmp;
 }
+function distortedPhase(i: number) {
+  // Codec phase smearing & jitter below cutoff
+  const jitter = (hash(i * 2.7 + 1) * 2 - 1) * (phaseAmp * 0.4);
+  return known(i) + jitter;
+}
 function naive(i: number) {
   return phaseMid + (hash(i * 3.1 + 5) * 2 - 1) * (phaseAmp * 1.1);
 }
 
-const phaseKnown: string[] = [];
-for (let i = 0; i <= cutoffBin; i++) phaseKnown.push(`${px(i).toFixed(1)},${known(i).toFixed(1)}`);
+const phaseDistorted: string[] = [];
+for (let i = 0; i <= cutoffBin; i++) phaseDistorted.push(`${px(i).toFixed(1)},${distortedPhase(i).toFixed(1)}`);
+const phaseRestored: string[] = [];
+for (let i = 0; i <= cutoffBin; i++) phaseRestored.push(`${px(i).toFixed(1)},${known(i).toFixed(1)}`);
+
 const phaseNaive: string[] = [];
 for (let i = cutoffBin; i < bins; i++) phaseNaive.push(`${px(i).toFixed(1)},${naive(i).toFixed(1)}`);
 const phasePredicted: string[] = [];
@@ -128,7 +149,7 @@ const labelY = phaseBase + 27;
   <svg
     viewBox={`0 0 ${W} ${H}`}
     role="img"
-    aria-label="Diagram: AP-BWE neural model same-rate in-band spectral reconstruction and phase prediction."
+    aria-label="Diagram: Neural model same-rate in-band spectral reconstruction and phase prediction."
   >
     <defs>
       <linearGradient id="outFill" x1="0" y1="0" x2="0" y2="1">
@@ -146,20 +167,29 @@ const labelY = phaseBase + 27;
     }
     <line x1={PAD.l} x2={W - PAD.r} y1={ampBase} y2={ampBase} stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
 
+    {/* Lossy input trace: solid grey line showing degraded input & steep codec brickwall drop above 16k */}
     <polyline points={inputBelow.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linejoin="round"></polyline>
-    <polyline points={inputAbove.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" opacity="0.45" stroke-linejoin="round"></polyline>
+    <polyline points={inputAbove.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.3" opacity="0.65" stroke-linejoin="round"></polyline>
 
+    {/* Extension visual layer & output traces */}
     <polygon class="reveal-fill" points={outputFill} fill="url(#outFill)"></polygon>
-    <polyline points={outputBelow.join(' ')} fill="none" stroke="var(--color-gold-light)" stroke-width="1.3" opacity="0.85" stroke-linejoin="round"></polyline>
+    
+    <polyline points={outputBelow.join(' ')} fill="none" stroke="var(--color-gold-light)" stroke-width="1.8" opacity="0.9" stroke-linejoin="round"></polyline>
     <polyline class="reveal-line" points={outputAbove.join(' ')} pathLength="1" fill="none" stroke="#e8b84b" stroke-width="1.8" stroke-linejoin="round"></polyline>
 
     {/* ---- Phase lane ---- */}
-    <text x={PAD.l} y={phaseTop - 8} fill="rgba(255,255,255,0.35)" font-size="9" letter-spacing="1.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">PHASE</text>
-    <line x1={PAD.l} x2={W - PAD.r} y1={phaseMid} y2={phaseMid} stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 5"></line>
+    <text x={PAD.l} y={phaseTop - 8} fill="rgba(255,255,255,0.65)" font-size="9" letter-spacing="1.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">PHASE</text>
+    <line x1={PAD.l} x2={W - PAD.r} y1={phaseMid} y2={phaseMid} stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="2 5"></line>
 
-    <polyline points={phaseKnown.join(' ')} fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.3" stroke-linejoin="round"></polyline>
-    <polyline points={phaseNaive.join(' ')} fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="2 3" opacity="0.5" stroke-linejoin="round"></polyline>
-    <polyline class="reveal-line" points={phasePredicted.join(' ')} pathLength="1" fill="none" stroke="#e8b84b" stroke-width="1.8" stroke-linejoin="round"></polyline>
+    {/* Distorted lossy phase trace below 16k (dashed grey - enhanced contrast) */}
+    <polyline points={phaseDistorted.join(' ')} fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.8" stroke-linejoin="round"></polyline>
+    {/* Repaired coherent phase trace below 16k (solid bright gold) */}
+    <polyline points={phaseRestored.join(' ')} fill="none" stroke="#f3ca65" stroke-width="2.2" opacity="1.0" stroke-linejoin="round"></polyline>
+    
+    {/* Naive unaligned phase above 16k (dashed grey contrast) */}
+    <polyline points={phaseNaive.join(' ')} fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.75" stroke-linejoin="round"></polyline>
+    {/* Reconstructed high-frequency phase field above 16k (gold reveal - enhanced width) */}
+    <polyline class="reveal-line" points={phasePredicted.join(' ')} pathLength="1" fill="none" stroke="#f5cc68" stroke-width="2.4" stroke-linejoin="round"></polyline>
 
     {/* ---- Shared guides spanning both lanes ---- */}
     <line x1={cutoffX} x2={cutoffX} y1={ampTop - 6} y2={phaseBase} stroke="#e8b84b" stroke-width="1" stroke-dasharray="3 4" opacity="0.55"></line>
@@ -182,11 +212,11 @@ const labelY = phaseBase + 27;
     }
 
     {/* ---- region brackets ---- */}
-    <line x1={PAD.l} x2={cutoffX - 3} y1={bracketY} y2={bracketY} stroke="var(--color-gold-light)" stroke-width="1" opacity="0.6"></line>
-    <text x={(PAD.l + cutoffX) / 2} y={labelY} fill="rgba(255,255,255,0.42)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">repaired · restore mode</text>
+    <line x1={PAD.l} x2={cutoffX - 3} y1={bracketY} y2={bracketY} stroke="var(--color-gold-light)" stroke-width="1" opacity="0.85"></line>
+    <text x={(PAD.l + cutoffX) / 2} y={labelY} fill="rgba(232,184,75,0.85)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">repaired · restore mode</text>
 
-    <line x1={cutoffX + 3} x2={nyquistX} y1={bracketY} y2={bracketY} stroke="#e8b84b" stroke-width="1" opacity="0.75"></line>
-    <text x={(cutoffX + nyquistX) / 2} y={labelY} fill="rgba(232,184,75,0.75)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">reconstructed · in-band</text>
+    <line x1={cutoffX + 3} x2={nyquistX} y1={bracketY} y2={bracketY} stroke="#e8b84b" stroke-width="1" opacity="0.85"></line>
+    <text x={(cutoffX + nyquistX) / 2} y={labelY} fill="rgba(232,184,75,0.85)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">reconstructed · in-band</text>
   </svg>
 
   <figcaption>

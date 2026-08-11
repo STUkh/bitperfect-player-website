@@ -5,7 +5,7 @@
 export const site = {
   name: 'Bitperfect Player',
   packageId: 'com.bitperfect.player',
-  tagline: 'Bit-perfect Hi-Res audio with on-device AI.',
+  tagline: 'Bit-perfect Hi-Res audio with on-device AI',
 
   /** Confirmed by the user as the primary CTA target. */
   playUrl: 'https://play.google.com/store/apps/details?id=com.bitperfect.player',

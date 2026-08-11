@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: 'Bitperfect Player',
-  description: 'Bit-perfect Hi-Res audio with on-device AI.',
+  description: 'Bit-perfect Hi-Res audio with on-device AI',
   url: 'https://bit-perfect.com',
   ogImage: '/og-image.png',
   links: {
