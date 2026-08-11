@@ -8,6 +8,12 @@ export const navLinks = [
 ] as const;
 
 export const footerLinks = {
+  support: {
+    title: 'Support',
+    links: [
+      { label: 'Contact Support', href: 'mailto:support@bit-perfect.com' },
+    ],
+  },
   legal: {
     title: 'Legal',
     links: [

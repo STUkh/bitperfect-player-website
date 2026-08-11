@@ -2,10 +2,10 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub project pages: https://stukh.github.io/bitperfect-player-website/
+// Custom domain on GitHub Pages: https://bit-perfect.com/
 export default defineConfig({
-  site: 'https://stukh.github.io',
-  base: '/bitperfect-player-website',
+  site: 'https://bit-perfect.com',
+  base: '/',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   markdown: { shikiConfig: { theme: 'css-variables' } },

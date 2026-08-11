@@ -3,7 +3,7 @@
 Landing page and privacy policy for [Bitperfect Player](https://play.google.com/store/apps/details?id=com.bitperfect.player),
 an audiophile Android music player.
 
-**Live:** https://stukh.github.io/bitperfect-player-website/
+**Live:** https://bit-perfect.com/
 
 | Route | Purpose |
 |---|---|

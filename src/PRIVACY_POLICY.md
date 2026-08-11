@@ -23,7 +23,7 @@ This document sets forth both the Privacy Policy and Terms of Use for Bitperfect
 ("the App"), describing what the App collects, why, what control you have over your data,
 and the terms governing your use of the App.
 
-Contact: stukak+bitperfect@gmail.com
+Contact: support@bit-perfect.com
 
 ---
 
@@ -375,4 +375,4 @@ platform's own rules and dispute-resolution process.
 
 ## 10. Contact
 
-Questions about this policy or your data: stukak+bitperfect@gmail.com
+Questions about this policy or your data: support@bit-perfect.com

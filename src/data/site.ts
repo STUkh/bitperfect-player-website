@@ -20,13 +20,8 @@ export const site = {
    */
   appStoreUrl: null as string | null,
 
-  /**
-   * Deliberately null. The contact address is owned by PRIVACY_POLICY.md §10 —
-   * inventing one here would put a fabricated address in the footer while the
-   * policy body still said [SUPPORT_EMAIL]. Fill the address in the markdown;
-   * the footer links to that section rather than duplicating it.
-   */
-  contactEmail: null as string | null,
+  /** Official contact address for support and privacy inquiries. */
+  contactEmail: 'support@bit-perfect.com',
 
   minAndroid: '8.0',
   minSdk: 26,
