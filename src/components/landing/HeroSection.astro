@@ -10,7 +10,7 @@ const stats = [
 ];
 ---
 
-<section id="hero" class="relative overflow-hidden pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-28">
+<section id="hero" class="relative overflow-hidden pt-24 pb-16 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-28">
   {/* Local decorative glow, layered on top of the global ambient radials. */}
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
     <div class="absolute -top-24 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-gold/10 blur-[120px]">
@@ -20,36 +20,36 @@ const stats = [
   </div>
 
   <div class="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
-    <div class="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+    <div class="grid items-center gap-8 sm:gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
       {/* Content — shown second on mobile so the phone leads, first on desktop. */}
       <!-- Copy leads on every viewport. The device render is evidence for the claim,
            so it must not arrive before the claim it is evidence for. -->
       <div class="text-center lg:text-left">
         <p
-          class="badge mx-auto mb-6 gap-2 border border-border-subtle bg-glass-surface px-4 py-1.5 text-eyebrow text-gold lg:mx-0"
+          class="badge max-w-full mx-auto mb-5 sm:mb-6 gap-2 border border-border-subtle bg-glass-surface px-4 py-1.5 text-eyebrow text-gold lg:mx-0 whitespace-normal sm:whitespace-nowrap text-center"
         >
-          <span class="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true"></span>
-          {site.tagline}
+          <span class="hidden sm:inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true"></span>
+          <span>{site.tagline}</span>
         </p>
 
         <h1
-          class="text-balance text-5xl leading-[1.05] font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl"
+          class="text-balance text-4xl sm:text-6xl lg:text-7xl leading-[1.08] font-extrabold tracking-tight text-text-primary"
         >
           Nothing between the file and your
           <span class="text-gold">DAC</span>
         </h1>
 
-        <p class="mx-auto mt-6 max-w-[46ch] text-pretty text-lg text-text-secondary lg:mx-0">
+        <p class="mx-auto mt-4 sm:mt-6 max-w-[46ch] text-pretty text-base sm:text-lg text-text-secondary lg:mx-0">
           A Rust audio engine takes exclusive control of USB Audio Class&nbsp;2 output straight to
           your DAC — no resampling, no system mixer, no silent format conversion.
         </p>
 
-        <div class="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+        <div class="mt-6 sm:mt-8 hidden sm:flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
           <a
             href={site.playUrl}
             rel="noopener"
             style="--focus-ring-color: var(--color-gold)"
-            class="btn-primary-gradient focus-ring inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
+            class="btn-primary-gradient focus-ring inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 text-sm font-semibold text-white"
           >
             <Icon name="play" size={14} />
             <span>Get it on Google Play</span>
@@ -57,14 +57,14 @@ const stats = [
           <a
             href="#engine"
             style="--focus-ring-color: var(--color-gold)"
-            class="btn-secondary-glow glass glass-hover focus-ring inline-flex items-center gap-2 rounded-full border border-border-subtle px-7 py-3.5 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
+            class="btn-secondary-glow glass glass-hover focus-ring inline-flex items-center gap-2 rounded-full border border-border-subtle px-6 sm:px-7 py-3 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
           >
             <span>See the signal path</span>
             <Icon name="arrow" size={15} />
           </a>
         </div>
 
-        <ul class="mt-8 flex flex-wrap justify-center gap-2.5 lg:justify-start" role="list">
+        <ul class="mt-8 flex flex-wrap justify-center gap-2 sm:gap-2.5 lg:justify-start" role="list">
           <li
             class="badge gap-1.5 border border-border-subtle px-3 py-1.5 text-overline font-semibold tracking-[var(--tracking-micro)] text-text-secondary uppercase"
           >
@@ -101,15 +101,15 @@ const stats = [
 
     {/* Hero stat tiles — factual specs only. */}
     <div
-      class="glass glass-elevated relative mt-16 rounded-[var(--radius-card)] px-6 py-7 sm:mt-20 sm:px-10 sm:py-8"
+      class="glass glass-elevated relative mt-12 sm:mt-20 rounded-[var(--radius-card)] px-4 py-5 sm:px-10 sm:py-8"
     >
       <div class="grid grid-cols-1 divide-y divide-border-subtle sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         {
           stats.map((s) => (
-            <div class="flex flex-col items-center gap-1 py-4 text-center sm:px-6 sm:py-0">
-              <span class="text-3xl font-bold text-text-primary sm:text-4xl">{s.value}</span>
+            <div class="flex flex-col items-center gap-1 py-3 text-center sm:px-6 sm:py-0">
+              <span class="text-2xl font-bold text-text-primary sm:text-4xl">{s.value}</span>
               <span class="text-eyebrow text-gold">{s.label}</span>
-              <span class="text-sm text-text-tertiary">{s.detail}</span>
+              <span class="text-xs sm:text-sm text-text-tertiary">{s.detail}</span>
             </div>
           ))
         }
