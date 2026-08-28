@@ -31,12 +31,12 @@ const APPLE_PATH =
             rel="noopener noreferrer"
             class="store-badge-lg inline-flex w-fit min-w-[220px] items-center gap-3 rounded-2xl border border-white/15 bg-white/12 px-6 py-3.5 text-white transition duration-150 hover:border-white/25 hover:bg-white/18 focus-visible:focus-ring"
           >
-            <svg class="h-7 w-7 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="h-7 w-7 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={PLAY_PATH} />
             </svg>
             <div class="text-left">
-              <div class="text-xs leading-none text-white/70">Get it on</div>
-              <div class="text-lg leading-tight font-semibold">Google Play</div>
+              <div class="text-xs leading-none text-text-secondary">Get it on</div>
+              <div class="text-lg leading-tight font-semibold text-text-primary">Google Play</div>
             </div>
           </a>
         )}
@@ -47,12 +47,12 @@ const APPLE_PATH =
             rel="noopener noreferrer"
             class="store-badge-md inline-flex w-fit items-center gap-2.5 rounded-xl border border-white/15 bg-white/12 px-4 py-2.5 text-white transition duration-150 hover:border-white/25 hover:bg-white/18 focus-visible:focus-ring"
           >
-            <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={PLAY_PATH} />
             </svg>
             <div class="text-left">
-              <div class="text-[10px] leading-none text-white/70">Get it on</div>
-              <div class="text-sm leading-tight font-semibold">Google Play</div>
+              <div class="text-[11px] leading-none text-text-secondary">Get it on</div>
+              <div class="text-sm leading-tight font-semibold text-text-primary">Google Play</div>
             </div>
           </a>
         )}
@@ -67,7 +67,7 @@ const APPLE_PATH =
               <path d={PLAY_PATH} />
             </svg>
             <div class="text-left leading-none">
-              <div class="text-[9px] font-medium text-gold/90 tracking-wider uppercase">Get it on</div>
+              <div class="text-[11px] font-medium text-gold/90 tracking-wider uppercase">Get it on</div>
               <div class="text-xs font-semibold text-white mt-0.5 whitespace-nowrap">Google Play</div>
             </div>
           </a>
@@ -84,12 +84,12 @@ const APPLE_PATH =
               badgeSize === 'sm' && 'store-badge-sm gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-1.5 hover:border-white/25 hover:bg-white/15',
             ]}
           >
-            <svg class={badgeSize === 'lg' ? 'h-7 w-7 shrink-0' : badgeSize === 'md' ? 'h-5 w-5 shrink-0' : 'h-4 w-4 shrink-0'} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class={badgeSize === 'lg' ? 'h-7 w-7 shrink-0 text-gold' : badgeSize === 'md' ? 'h-5 w-5 shrink-0 text-gold' : 'h-4 w-4 shrink-0 text-gold'} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={APPLE_PATH} />
             </svg>
             <div class="text-left leading-none">
-              <div class={badgeSize === 'lg' ? 'text-xs text-white/70' : badgeSize === 'md' ? 'text-[10px] text-white/70' : 'text-[9px] text-white/70 uppercase tracking-wider'}>Download on the</div>
-              <div class={badgeSize === 'lg' ? 'text-lg font-semibold mt-0.5' : badgeSize === 'md' ? 'text-sm font-semibold mt-0.5' : 'text-xs font-semibold text-white mt-0.5 whitespace-nowrap'}>App Store</div>
+              <div class={badgeSize === 'lg' ? 'text-xs text-text-secondary' : badgeSize === 'md' ? 'text-[11px] text-text-secondary' : 'text-[11px] text-text-secondary uppercase tracking-wider'}>Download on the</div>
+              <div class={badgeSize === 'lg' ? 'text-lg font-semibold mt-0.5 text-text-primary' : badgeSize === 'md' ? 'text-sm font-semibold mt-0.5 text-text-primary' : 'text-xs font-semibold text-white mt-0.5 whitespace-nowrap'}>App Store</div>
             </div>
           </a>
         )}
@@ -104,7 +104,7 @@ const APPLE_PATH =
               badgeSize === 'sm' && 'gap-1.5 rounded-xl px-3 py-1.5 text-xs',
             ]}
           >
-            <span class="font-medium">Direct APK</span>
+            <span class="font-medium text-sm">Direct APK</span>
             <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 12h14.5m0 0-5.5-5.5m5.5 5.5-5.5 5.5" />
             </svg>
@@ -133,7 +133,7 @@ const APPLE_PATH =
             <path d={PLAY_PATH} />
           </svg>
           <div class="text-left leading-none">
-            <div class={badgeSize === 'lg' ? 'text-xs text-text-tertiary' : badgeSize === 'md' ? 'text-label text-text-tertiary' : 'text-[9px] text-text-tertiary uppercase tracking-wider'}>Get it on</div>
+            <div class={badgeSize === 'lg' ? 'text-xs text-text-secondary' : badgeSize === 'md' ? 'text-[11px] text-text-secondary' : 'text-[11px] text-text-secondary uppercase tracking-wider'}>Get it on</div>
             <div class={badgeSize === 'lg' ? 'text-lg font-semibold text-white mt-0.5' : badgeSize === 'md' ? 'text-sm font-semibold text-white mt-0.5' : 'text-xs font-semibold text-white mt-0.5 whitespace-nowrap'}>Google Play</div>
           </div>
         </a>
@@ -157,7 +157,7 @@ const APPLE_PATH =
               <path d={APPLE_PATH} />
             </svg>
             <div class="text-left leading-none">
-              <div class={badgeSize === 'lg' ? 'text-xs text-text-tertiary' : badgeSize === 'md' ? 'text-label text-text-tertiary' : 'text-[9px] text-text-tertiary uppercase tracking-wider'}>Download on the</div>
+              <div class={badgeSize === 'lg' ? 'text-xs text-text-secondary' : badgeSize === 'md' ? 'text-[11px] text-text-secondary' : 'text-[11px] text-text-secondary uppercase tracking-wider'}>Download on the</div>
               <div class={badgeSize === 'lg' ? 'text-lg font-semibold text-white mt-0.5' : badgeSize === 'md' ? 'text-sm font-semibold text-white mt-0.5' : 'text-xs font-semibold text-white mt-0.5 whitespace-nowrap'}>App Store</div>
             </div>
           </a>
@@ -190,4 +190,3 @@ const APPLE_PATH =
     box-shadow: var(--shadow-glow-gold);
   }
 </style>
-

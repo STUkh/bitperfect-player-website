@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bit-perfect.com/sitemap-index.xml

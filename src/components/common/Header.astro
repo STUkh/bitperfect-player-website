@@ -4,7 +4,6 @@ import StoreBadges from './StoreBadges.astro';
 import MobileMenu from './MobileMenu.astro';
 import Logo from './Logo.astro';
 import { navLinks } from '../../data/navigation';
-import { site } from '../../data/site';
 import { isActive, resolveHref, withBase } from '../../utils/nav';
 
 const pathname = Astro.url.pathname;
@@ -12,28 +11,27 @@ const pathname = Astro.url.pathname;
 
 <header
   id="site-header"
-  class="fixed top-0 right-0 left-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300"
-  style="border-bottom: 1px solid rgba(255,255,255,0);"
+  class="fixed top-0 right-0 left-0 z-50 border-b border-border-subtle/40 bg-surface-base/80 backdrop-blur-md transition-colors duration-200"
 >
   <Container>
-    <nav class="flex h-16 items-center justify-between lg:h-20">
-      <!-- Logo -->
+    <nav class="flex h-16 items-center justify-between lg:h-20" aria-label="Main Navigation">
+      {/* Logo */}
       <a
         href={withBase('/')}
-        class="group flex items-center gap-2.5 rounded-lg transition-opacity duration-200 hover:opacity-80 focus-visible:focus-ring"
+        class="group flex items-center gap-2.5 rounded-lg transition-opacity duration-200 hover:opacity-90 focus-visible:focus-ring"
       >
         <Logo size="md" />
-        {/* The wordmark must never wrap to two lines beside a 32px mark — on a
+        {/* The wordmark must never wrap to two lines beside a 32px mark: on a
             360-390px viewport "Bitperfect Player" did exactly that. Below `sm`
             only the distinctive half of the name is shown; the mark plus
             "Bitperfect" still identifies the product, and the full name stays in
             the logo's alt text and the page title for assistive tech. */}
-        <span class="text-base font-bold whitespace-nowrap text-white sm:text-lg">
+        <span class="text-base font-bold whitespace-nowrap text-text-primary sm:text-lg">
           Bitperfect<span class="hidden sm:inline"> Player</span>
         </span>
       </a>
 
-      <!-- Desktop Nav (center) -->
+      {/* Desktop Nav (center) */}
       <div class="hidden items-center gap-8 lg:flex">
         {
           navLinks.map((link) => {
@@ -42,8 +40,8 @@ const pathname = Astro.url.pathname;
               <a
                 href={resolveHref(link.href, pathname)}
                 class:list={[
-                  'nav-link rounded text-sm transition-colors duration-200 focus-visible:focus-ring',
-                  active ? 'nav-link-active text-white' : 'text-text-secondary hover:text-white',
+                  'nav-link rounded px-1.5 py-0.5 text-sm font-medium transition-colors duration-200 focus-visible:focus-ring',
+                  active ? 'nav-link-active text-text-primary' : 'text-text-secondary hover:text-text-primary',
                 ]}
                 aria-current={active ? 'page' : undefined}
               >
@@ -54,24 +52,24 @@ const pathname = Astro.url.pathname;
         }
       </div>
 
-      <!-- CTA + Mobile Toggle -->
+      {/* CTA + Mobile Toggle */}
       <div class="flex items-center gap-3">
-        <StoreBadges variant="light" size="sm" />
+        <StoreBadges variant="light" size="sm" class="hidden sm:inline-flex" />
 
-        <!-- Mobile Menu Button -->
+        {/* Mobile Menu Button */}
         <button
           id="mobile-menu-toggle"
-          class="flex cursor-pointer flex-col gap-1.5 rounded p-2 focus-visible:focus-ring lg:hidden"
+          class="flex cursor-pointer flex-col gap-1.5 rounded-lg p-2 text-text-primary focus-visible:focus-ring lg:hidden"
           aria-label="Toggle navigation menu"
           aria-controls="mobile-menu"
           aria-expanded="false"
         >
           <span
-            class="block h-0.5 w-6 origin-center bg-white transition-all duration-300"
+            class="block h-0.5 w-6 origin-center bg-text-primary transition-all duration-300"
             id="burger-top"></span>
-          <span class="block h-0.5 w-6 bg-white transition-all duration-300" id="burger-mid"></span>
+          <span class="block h-0.5 w-6 bg-text-primary transition-all duration-300" id="burger-mid"></span>
           <span
-            class="block h-0.5 w-4 origin-center bg-white transition-all duration-300"
+            class="block h-0.5 w-4 origin-center bg-text-primary transition-all duration-300"
             id="burger-bot"></span>
         </button>
       </div>
@@ -95,37 +93,13 @@ const pathname = Astro.url.pathname;
     background: var(--color-gold);
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 0.25s ease;
+    transition: transform 0.25s var(--ease-out-expo);
   }
   .nav-link:hover::after {
     transform: scaleX(1);
   }
   .nav-link-active::after {
     transform: scaleX(1);
-    opacity: 0.7;
+    opacity: 0.85;
   }
 </style>
-
-<script>
-  // ── Header scroll effect ──
-  const header = document.getElementById('site-header');
-
-  function updateHeader() {
-    if (!header) return;
-    const style = header.style as CSSStyleDeclaration & { webkitBackdropFilter: string };
-    if (window.scrollY > 50) {
-      style.backgroundColor = 'rgba(23, 22, 30, 0.6)';
-      style.backdropFilter = 'blur(24px)';
-      style.webkitBackdropFilter = 'blur(24px)';
-      style.borderBottom = '1px solid rgba(255, 255, 255, 0.06)';
-    } else {
-      style.backgroundColor = '';
-      style.backdropFilter = '';
-      style.webkitBackdropFilter = '';
-      style.borderBottom = '1px solid rgba(255, 255, 255, 0)';
-    }
-  }
-
-  window.addEventListener('scroll', updateHeader, { passive: true });
-  updateHeader();
-</script>

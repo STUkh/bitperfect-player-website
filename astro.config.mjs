@@ -8,6 +8,7 @@ export default defineConfig({
   base: '/',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
+  devToolbar: { enabled: false },
   markdown: { shikiConfig: { theme: 'css-variables' } },
   integrations: [
     sitemap({

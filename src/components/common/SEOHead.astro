@@ -19,13 +19,13 @@ const resolvedOgImage = new URL(ogImage || withBase('og-image.png'), Astro.site)
 const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
 ---
 
-<!-- Primary Meta -->
+{/* Primary Meta */}
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={resolvedCanonical} />
 
-<!-- Open Graph -->
+{/* Open Graph */}
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content={resolvedCanonical} />
@@ -34,7 +34,7 @@ const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
 <meta property="og:image" content={resolvedOgImage} />
 <meta property="og:site_name" content={site.name} />
 
-<!-- Twitter -->
+{/* Twitter */}
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />

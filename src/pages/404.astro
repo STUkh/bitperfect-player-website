@@ -6,7 +6,7 @@ import { withBase } from '../utils/nav';
 ---
 
 <ContentLayout
-  title="Page not found — Bitperfect Player"
+  title="Page not found | Bitperfect Player"
   description="This page does not exist. The player, the privacy policy and everything else are one tap away."
 >
   <section class="lost">
@@ -14,7 +14,7 @@ import { withBase } from '../utils/nav';
       <p class="text-xs text-text-tertiary uppercase tracking-widest font-mono">404</p>
       <h1 class="heading-section">Nothing on this path.</h1>
       <p class="text-text-secondary max-w-96">
-        Fitting, for a player that keeps the signal path empty — but this one is
+        Fitting, for a player that keeps the signal path empty: but this one is
         an actual dead end.
       </p>
       <div class="actions">
@@ -54,7 +54,7 @@ import { withBase } from '../utils/nav';
 
   /* The Icon component's arrow points right by default; rotate it to read
      as "back" without touching Icon.astro (read-only this pass).
-     Fully :global() — `btn-back` is a class forwarded through the Button
+     Fully :global(): `btn-back` is a class forwarded through the Button
      component, not a raw element in this file, so Astro's scope hash
      cannot be relied on to reach it. */
   :global(.btn-back .icon) {

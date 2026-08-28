@@ -4,12 +4,12 @@ import Icon from '../components/Icon.astro';
 import { Content, getHeadings } from '../PRIVACY_POLICY.md';
 import raw from '../PRIVACY_POLICY.md?raw';
 
-/** Top-level sections only — the index is for wayfinding, not an outline. */
+/** Top-level sections only: the index is for wayfinding, not an outline. */
 const sections = getHeadings().filter((h) => h.depth === 2);
 
 /**
  * Detected, not asserted. Inventing an effective date or a support address on a
- * legal page would be worse than showing the gap — but a hard-coded warning
+ * legal page would be worse than showing the gap: but a hard-coded warning
  * would also survive after the gap is closed. Fill the values in
  * src/PRIVACY_POLICY.md and this banner disappears on the next build.
  */
@@ -22,7 +22,7 @@ const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw
   containerClass="max-w-6xl lg:max-w-7xl px-4 sm:px-6 lg:px-8"
 >
   <div class="legal-grid">
-    <!-- Left Navigation Sidebar -->
+    {/* Left Navigation Sidebar */}
     <aside class="toc-wrapper">
       <details class="toc-details" open>
         <summary class="toc-summary">
@@ -47,7 +47,7 @@ const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw
       </details>
     </aside>
 
-    <!-- Main Content Column -->
+    {/* Main Content Column */}
     <div class="md-content">
       {
         unresolved.length > 0 && (
@@ -64,7 +64,7 @@ const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw
                 </>
               ))}
               . Fill {unresolved.length > 1 ? 'them' : 'it'} in at{' '}
-              <code>src/PRIVACY_POLICY.md</code> before submitting this URL to Play Console — a
+              <code>src/PRIVACY_POLICY.md</code> before submitting this URL to Play Console: a
               policy with no effective date or contact address will not pass review.
             </p>
           </div>
@@ -118,7 +118,7 @@ const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw
     align-items: stretch;
   }
 
-  /* LegalLayout already renders a visible <h1>{title}</h1> above this slot —
+  /* LegalLayout already renders a visible <h1>{title}</h1> above this slot:
      the markdown's own leading h1 would duplicate it, including in the
      accessibility tree. */
   .md-content :global(h1) {

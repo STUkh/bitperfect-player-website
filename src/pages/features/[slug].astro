@@ -1,0 +1,451 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import Container from '../../components/common/Container.astro';
+import SectionHeader from '../../components/common/SectionHeader.astro';
+import StoreBadges from '../../components/common/StoreBadges.astro';
+import Icon from '../../components/Icon.astro';
+import SignalChain from '../../components/SignalChain.astro';
+import SpectrumPlot from '../../components/SpectrumPlot.astro';
+import { features, type Feature } from '../../data/features';
+import { accentColors } from '../../data/colors';
+import { withBase } from '../../utils/nav';
+
+export function getStaticPaths() {
+  return features.map((feature, index) => {
+    const prevIndex = (index - 1 + features.length) % features.length;
+    const nextIndex = (index + 1) % features.length;
+    return {
+      params: { slug: feature.slug },
+      props: {
+        feature,
+        prevFeature: features[prevIndex],
+        nextFeature: features[nextIndex],
+      },
+    };
+  });
+}
+
+interface Props {
+  feature: Feature;
+  prevFeature: Feature;
+  nextFeature: Feature;
+}
+
+const { feature, prevFeature, nextFeature } = Astro.props;
+const accentToken = accentColors[feature.accent]?.token ?? 'var(--color-gold)';
+const accentHex = accentColors[feature.accent]?.hex ?? '#e8b84b';
+
+const filterTypes = [
+  'Peak (Bell)',
+  'Low Shelf',
+  'High Shelf',
+  'Low Pass',
+  'High Pass',
+  'Band Pass',
+  'Notch',
+];
+
+const libraryViews = [
+  { name: 'Albums', detail: 'Indexed releases with hi-res art' },
+  { name: 'Artists', detail: 'Tracked performers & catalog discography' },
+  { name: 'Songs', detail: 'Lossless audio tracks with tag search' },
+  { name: 'Genres', detail: 'Tagged acoustic genres & styles' },
+  { name: 'Folders', detail: 'Hierarchical filesystem storage tree' },
+  { name: 'Playlists', detail: 'Local custom queues (M3U/M3U8)' },
+];
+
+const dspModulesList = [
+  { name: 'Binaural Headphone Crossfeed', tag: 'Meier / Bauer', desc: 'Eliminates headphone acoustic fatigue by modeling natural room speaker inter-aural time differences.' },
+  { name: 'ReplayGain 2.0 Normalization', tag: 'EBU R128 / ITU-R', desc: 'Professional loudness matching (-14 to -23 LUFS) eliminates sudden volume jumps without peak compression.' },
+  { name: 'Stereo Balance & 180° Inversion', tag: '±12 dB / Phase', desc: 'Precision 0.1 dB channel balance compensation and acoustic phase reversal for vintage audio recordings.' },
+];
+---
+
+<ContentLayout
+  title={feature.title}
+  description={feature.description}
+>
+  <div class="relative overflow-hidden pt-28 sm:pt-36 pb-20 lg:pb-28">
+    {/* Background ambient glowing orb */}
+    <div
+      class="pointer-events-none absolute top-12 left-1/2 -translate-x-1/2 h-[32rem] w-[32rem] rounded-full opacity-20 blur-orb-xl"
+      style={`background: ${accentHex};`}
+      aria-hidden="true"
+    >
+    </div>
+
+    <Container class="relative z-10 space-y-16 sm:space-y-24">
+      {/* Breadcrumb Navigation */}
+      <nav aria-label="Breadcrumbs" class="flex items-center gap-2 text-xs sm:text-sm text-text-secondary">
+        <a href={withBase('/')} class="transition-colors hover:text-text-primary focus-visible:focus-ring">Home</a>
+        <span aria-hidden="true" class="text-border-subtle">/</span>
+        <a href={withBase('features')} class="transition-colors hover:text-text-primary focus-visible:focus-ring">Features</a>
+        <span aria-hidden="true" class="text-border-subtle">/</span>
+        <span class="text-text-primary font-medium truncate" aria-current="page">{feature.title}</span>
+      </nav>
+
+      {/* Feature Hero */}
+      <header class="max-w-3xl space-y-6" data-animate="fade-up">
+        <div class="flex flex-wrap items-center gap-3">
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+            style={`border-color: ${accentHex}40; background: ${accentHex}15; color: ${accentHex};`}
+          >
+            <Icon name={feature.icon} size={14} />
+            <span>{feature.badge}</span>
+          </span>
+          <span class="text-xs text-text-secondary font-mono">Bitperfect Core Architecture</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white text-balance leading-tight">
+          {feature.title}
+        </h1>
+
+        <p class="text-lg sm:text-xl font-medium text-gold leading-snug">
+          {feature.tagline}
+        </p>
+
+        <p class="text-base sm:text-lg leading-relaxed text-text-secondary max-w-2xl">
+          {feature.overview}
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <StoreBadges variant="light" size="sm" />
+          <a
+            href="#specs"
+            class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-surface-raised/80 px-5 py-2.5 text-xs sm:text-sm font-semibold text-text-secondary transition-colors hover:border-border-gold hover:text-text-primary focus-visible:focus-ring"
+          >
+            <span>Technical Specifications</span>
+            <Icon name="arrow" size={14} class="rotate-90" />
+          </a>
+        </div>
+      </header>
+
+      {/* Interactive Visual / Feature Simulation */}
+      <section aria-labelledby="feature-visual-heading" data-animate="fade-up">
+        <h2 id="feature-visual-heading" class="sr-only">Interactive Feature Architecture</h2>
+
+        {feature.interactiveType === 'eq-curve' && (
+          <div class="glass accent-glow rounded-3xl p-6 sm:p-10 relative overflow-hidden" style={`--card-accent: ${accentToken}`}>
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-hires">Interactive Topology Response</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">32-Band Parametric Response Curve</h3>
+              </div>
+              <span class="rounded-full border border-border-subtle bg-white/[0.04] px-3 py-1 font-mono text-xs text-text-secondary">
+                20 Hz – 20 kHz · 64-bit IEEE 754
+              </span>
+            </div>
+
+            <svg
+              viewBox="0 0 700 220"
+              class="w-full h-auto overflow-visible"
+              aria-label="32-band parametric equalizer frequency response curve"
+              role="img"
+            >
+              <defs>
+                <linearGradient id="eqHeroGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#818cf8" stop-opacity="0.35" />
+                  <stop offset="100%" stop-color="#818cf8" stop-opacity="0.0" />
+                </linearGradient>
+              </defs>
+
+              {/* Grid Lines */}
+              <line x1="0" y1="30" x2="700" y2="30" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3" />
+              <line x1="0" y1="75" x2="700" y2="75" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3" />
+              <line x1="0" y1="120" x2="700" y2="120" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+              <line x1="0" y1="165" x2="700" y2="165" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3" />
+
+              <path
+                d="M 0 120 C 70 120, 110 50, 175 50 C 240 50, 260 145, 330 145 C 400 145, 430 70, 510 70 C 580 70, 630 120, 700 120 L 700 120 L 0 120 Z"
+                fill="url(#eqHeroGrad)"
+              />
+              <path
+                d="M 0 120 C 70 120, 110 50, 175 50 C 240 50, 260 145, 330 145 C 400 145, 430 70, 510 70 C 580 70, 630 120, 700 120"
+                fill="none"
+                stroke="#818cf8"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+
+              {/* Interactive Peak Nodes */}
+              <circle cx="175" cy="50" r="6" fill="#0a0a0f" stroke="#818cf8" stroke-width="2.5" />
+              <circle cx="330" cy="145" r="6" fill="#0a0a0f" stroke="#818cf8" stroke-width="2.5" />
+              <circle cx="510" cy="70" r="6" fill="#0a0a0f" stroke="#818cf8" stroke-width="2.5" />
+            </svg>
+
+            <div class="mt-8 pt-6 border-t border-border-subtle">
+              <span class="mb-3 block text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                Seven Native Filter Topologies Supported
+              </span>
+              <div class="flex flex-wrap gap-2">
+                {filterTypes.map((type) => (
+                  <span class="rounded-lg border border-border-subtle bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-text-primary">
+                    {type}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {feature.interactiveType === 'library-views' && (
+          <div class="glass accent-glow rounded-3xl p-6 sm:p-10 relative overflow-hidden" style={`--card-accent: ${accentToken}`}>
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-lossless">Local Navigation Structure</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Six Dedicated Library Views</h3>
+              </div>
+              <span class="rounded-full border border-bitperfect/30 bg-bitperfect/10 px-3 py-1 font-mono text-xs text-bitperfect">
+                100% On-Device · Zero Network I/O
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {libraryViews.map((view) => (
+                <div class="rounded-xl border border-border-subtle bg-white/[0.02] p-4 transition-colors hover:border-lossless/40 hover:bg-white/[0.04]">
+                  <div class="flex items-center gap-2.5 text-lossless">
+                    <Icon name="waveform" size={16} />
+                    <h4 class="text-base font-bold text-white">{view.name}</h4>
+                  </div>
+                  <p class="mt-2 text-xs leading-relaxed text-text-secondary">{view.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {feature.interactiveType === 'streaming-nodes' && (
+          <div class="glass accent-glow rounded-3xl p-6 sm:p-10 relative overflow-hidden" style={`--card-accent: ${accentToken}`}>
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-resampled">Network Architecture</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Bi-Directional Streaming Pipeline</h3>
+              </div>
+              <span class="rounded-full border border-border-subtle bg-white/[0.04] px-3 py-1 font-mono text-xs text-text-secondary">
+                UPnP AV · DLNA MediaRenderer · 24/192
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="rounded-2xl border border-border-subtle bg-white/[0.02] p-6 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">
+                    <Icon name="cast" size={13} />
+                    <span>Transmitter Mode</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-secondary">Sender</span>
+                </div>
+                <h4 class="text-lg font-bold text-white">Stream to Network Renderers</h4>
+                <p class="text-sm text-text-secondary leading-relaxed">
+                  Pushes bit-exact audio streams across the LAN to UPnP/DLNA renderers, network players, and smart TVs with hardware volume lock.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-border-subtle bg-white/[0.02] p-6 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-bitperfect/30 bg-bitperfect/10 px-3 py-1 text-xs font-semibold text-bitperfect">
+                    <Icon name="node-usb" size={13} />
+                    <span>Receiver Mode</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-secondary">Audio Sink</span>
+                </div>
+                <h4 class="text-lg font-bold text-white">Turn Phone into a Network DAC</h4>
+                <p class="text-sm text-text-secondary leading-relaxed">
+                  Accepts uncompressed streams from computers or network controllers, driving your attached USB DAC as a dedicated endpoint.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {feature.interactiveType === 'dsp-modules' && (
+          <div class="glass accent-glow rounded-3xl p-6 sm:p-10 relative overflow-hidden" style={`--card-accent: ${accentToken}`}>
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-enhanced">Processing Suite</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">Studio Mastering DSP Modules</h3>
+              </div>
+              <span class="rounded-full border border-border-subtle bg-white/[0.04] px-3 py-1 font-mono text-xs text-text-secondary">
+                64-Bit Float · 0 ms Latency · Bit-Perfect Bypass
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {dspModulesList.map((m) => (
+                <div class="rounded-xl border border-border-subtle bg-white/[0.02] p-5 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-white text-base">{m.name}</h4>
+                    <span class="font-mono text-[11px] rounded bg-white/[0.05] px-2 py-0.5 text-text-secondary">{m.tag}</span>
+                  </div>
+                  <p class="text-xs leading-relaxed text-text-secondary">{m.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {feature.interactiveType === 'signal-chain' && (
+          <div class="glass accent-glow rounded-3xl p-6 sm:p-10 relative overflow-hidden" style={`--card-accent: ${accentToken}`}>
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-bitperfect">Direct Audio Chain</span>
+                <h3 class="text-xl font-bold text-white mt-0.5">UAC2 Hardware Bypass Pipeline</h3>
+              </div>
+              <span class="rounded-full border border-bitperfect/30 bg-bitperfect/10 px-3 py-1 font-mono text-xs text-bitperfect">
+                Bit-Perfect Locked
+              </span>
+            </div>
+            <SignalChain />
+          </div>
+        )}
+
+        {feature.interactiveType === 'spectrum-plot' && (
+          <div class="space-y-4">
+            <SpectrumPlot />
+          </div>
+        )}
+      </section>
+
+      {/* Key Benefits Grid */}
+      <section aria-labelledby="benefits-heading" class="space-y-8" data-animate="fade-up">
+        <SectionHeader
+          eyebrow="Core Advantages"
+          eyebrowColor="text-gold"
+          title="Engineered for bit-accurate fidelity"
+          subtitle="Every capability is implemented with native C++ algorithms to guarantee deterministic low-latency execution."
+        />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {feature.benefits.map((b) => (
+            <div class="glass accent-glow-hover rounded-2xl border border-border-subtle p-6 sm:p-8 space-y-3 transition-all duration-300 hover:border-gold/30">
+              <div class="flex items-center gap-3">
+                <span
+                  class="flex-center h-10 w-10 shrink-0 rounded-xl border"
+                  style={`border-color: ${accentHex}40; background: ${accentHex}15; color: ${accentHex};`}
+                >
+                  <Icon name={b.icon} size={20} />
+                </span>
+                <h3 class="text-lg font-bold text-white">{b.title}</h3>
+              </div>
+              <p class="text-sm leading-relaxed text-text-secondary">{b.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Technical Specifications & Facts */}
+      <section id="specs" aria-labelledby="specs-heading" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start scroll-mt-28" data-animate="fade-up">
+        <div class="lg:col-span-7 glass rounded-3xl p-6 sm:p-8 border border-border-subtle space-y-6">
+          <div class="flex items-center gap-2.5">
+            <Icon name="node-engine" size={20} class="text-gold" />
+            <h2 id="specs-heading" class="text-xl font-bold text-white">Technical Specifications</h2>
+          </div>
+
+          <div class="divide-y divide-border-subtle">
+            {feature.specs.map((s) => (
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <span class="text-sm font-medium text-text-secondary">{s.label}</span>
+                <span class="text-sm font-semibold font-mono text-text-primary text-left sm:text-right">{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 glass rounded-3xl p-6 sm:p-8 border border-border-subtle space-y-6">
+          <div class="flex items-center gap-2.5">
+            <Icon name="shield" size={20} class="text-bitperfect" />
+            <h3 class="text-xl font-bold text-white">Architectural Facts</h3>
+          </div>
+
+          <ul class="space-y-3.5">
+            {feature.facts.map((f) => (
+              <li class="flex items-start gap-3 text-sm text-text-secondary">
+                <span class="flex-center mt-0.5 h-4 w-4 shrink-0 rounded-full bg-bitperfect/20 text-bitperfect">
+                  <Icon name="bullet" size={10} />
+                </span>
+                <span class="leading-relaxed">{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Screenshots / UI Preview Slot Section */}
+      <section aria-labelledby="screenshots-heading" class="space-y-6" data-animate="fade-up">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-4">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-gold">User Interface</span>
+            <h2 id="screenshots-heading" class="text-2xl font-bold text-white mt-0.5">Interface Preview & Workflow</h2>
+          </div>
+          <span class="hidden sm:inline-flex rounded-full border border-border-subtle bg-white/[0.04] px-3 py-1 text-xs text-text-secondary font-mono">
+            Native Compose DOM
+          </span>
+        </div>
+
+        {feature.screenshots.map((shot) => (
+          <figure class="glass rounded-3xl border border-border-subtle p-6 sm:p-8 text-center space-y-4">
+            <div class="relative mx-auto max-w-sm rounded-2xl border border-dashed border-border-gold/40 bg-surface-overlay/80 p-8 sm:p-12 flex flex-col items-center justify-center gap-4">
+              <span class="flex-center h-14 w-14 rounded-2xl bg-gold/10 text-gold border border-gold/30">
+                <Icon name={feature.icon} size={28} />
+              </span>
+              <div class="space-y-1">
+                <span class="inline-flex rounded-full border border-border-subtle bg-white/5 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
+                  High-Resolution Capture Slot
+                </span>
+                <p class="text-xs text-text-secondary">
+                  Native Android 8.0+ layout rendered directly from app design tokens
+                </p>
+              </div>
+            </div>
+            <figcaption class="text-xs sm:text-sm text-text-secondary max-w-xl mx-auto leading-relaxed">
+              {shot.caption}
+            </figcaption>
+          </figure>
+        ))}
+      </section>
+
+      {/* Adjacent Features Navigation */}
+      <nav aria-label="Adjacent Features" class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-border-subtle pt-8" data-animate="fade-up">
+        <a
+          href={withBase(`features/${prevFeature.slug}`)}
+          class="glass group flex items-center gap-4 rounded-2xl border border-border-subtle p-5 transition-all duration-300 hover:border-gold/40 focus-visible:focus-ring"
+        >
+          <span class="flex-center h-10 w-10 shrink-0 rounded-xl bg-white/[0.04] text-text-secondary group-hover:text-gold transition-colors">
+            <Icon name="arrow" size={16} class="rotate-180" />
+          </span>
+          <div class="min-w-0">
+            <span class="block text-xs uppercase tracking-wider text-text-secondary">Previous Feature</span>
+            <span class="block font-bold text-white truncate group-hover:text-gold transition-colors">{prevFeature.title}</span>
+          </div>
+        </a>
+
+        <a
+          href={withBase(`features/${nextFeature.slug}`)}
+          class="glass group flex items-center justify-between gap-4 rounded-2xl border border-border-subtle p-5 text-right transition-all duration-300 hover:border-gold/40 focus-visible:focus-ring"
+        >
+          <div class="min-w-0 text-left sm:text-right">
+            <span class="block text-xs uppercase tracking-wider text-text-secondary">Next Feature</span>
+            <span class="block font-bold text-white truncate group-hover:text-gold transition-colors">{nextFeature.title}</span>
+          </div>
+          <span class="flex-center h-10 w-10 shrink-0 rounded-xl bg-white/[0.04] text-text-secondary group-hover:text-gold transition-colors">
+            <Icon name="arrow" size={16} />
+          </span>
+        </a>
+      </nav>
+
+      {/* Ready to listen bottom CTA */}
+      <aside aria-label="Download CTA" class="glass accent-glow rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden" style="--card-accent: var(--color-gold)" data-animate="fade-up">
+        <div class="max-w-xl mx-auto space-y-3">
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Experience bit-true playback today</h3>
+          <p class="text-sm sm:text-base text-text-secondary">
+            Free core engine with parametric EQ, bit-perfect USB output, and network casting. No account, no analytics.
+          </p>
+        </div>
+        <div class="flex justify-center">
+          <StoreBadges variant="light" size="lg" />
+        </div>
+      </aside>
+    </Container>
+  </div>
+</ContentLayout>

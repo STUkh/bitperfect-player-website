@@ -1,26 +1,26 @@
 ---
 /*
- * Showcase carousel — JS-driven active index, ported from TinniTone's
+ * Showcase carousel: JS-driven active index, ported from TinniTone's
  * showcase-track/showcase-item model (see .port-origin notes / BRIEF2 §C):
  * the centre slide sits at full scale and opacity, neighbours scale down and
  * fade, and prev/next buttons + dots + swipe + arrow keys move the index.
  *
  * Slides come from `screens` in src/data/site.ts. Every `src` is null today,
  * so each frame renders an in-world slot marker (icon node + caption's first
- * word + a dashed "screenshot slot" chip — dashed means provisional, per the
+ * word + a dashed "screenshot slot" chip: dashed means provisional, per the
  * site's unresolved-content convention). The moment a slide gets a `src`, the
- * frame swaps to the real capture automatically — nothing else below reads
+ * frame swaps to the real capture automatically: nothing else below reads
  * `src` conditionally beyond that one ternary. Captions stay in HTML below
  * each frame, never baked into imagery.
  *
  * Progressive enhancement: the track ships as a plain scroll-snap row (no
  * data-state, no controls) so content is fully reachable even if the script
- * below never runs. `.js-ready` — added only once the script has found every
- * element it needs and finished wiring up — is what switches the track from
+ * below never runs. `.js-ready` (added only once the script has found every
+ * element it needs and finished wiring up) is what switches the track from
  * native scrolling to the transform-driven centred view and reveals the
  * prev/next/dots controls.
  *
- * This is a fragment, not its own <section> — the caller (AppShowcase.astro)
+ * This is a fragment, not its own <section>: the caller (AppShowcase.astro)
  * owns the section shell and heading; this component only renders the
  * carousel.
  */
@@ -29,12 +29,12 @@ import { screens } from '../data/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/* One existing icon per slide — reused from Icon.astro, never new glyphs. */
+/* One existing icon per slide: reused from Icon.astro, never new glyphs. */
 const marks: Record<string, string> = {
   'now-playing': 'play',
   library: 'waveform',
   eq: 'eq',
-  'ai-mix': 'sparkle',
+  'similar-tracks': 'sparkle',
   cast: 'cast',
   output: 'node-usb',
 };
@@ -53,13 +53,13 @@ const marks: Record<string, string> = {
         <div class="showcase-item shrink-0" data-index={i}>
           <figure>
             <div class="frame-wrap relative">
-              {/* Ambient glow — full strength on the centred slide, a touch brighter on hover/focus. */}
+              {/* Ambient glow: full strength on the centred slide, a touch brighter on hover/focus. */}
               <div
                 class="frame-glow pointer-events-none absolute -inset-3 rounded-[2rem] bg-gold/15 blur-orb-sm"
                 aria-hidden="true"
               />
               <div class="frame glass relative aspect-[9/19.5] overflow-hidden rounded-phone-inner border border-border-subtle transition-colors duration-200 hover:border-glass-border-hover focus-within:border-glass-border-hover">
-                {/* Notch — decorative phone-frame craft, not a real status bar. */}
+                {/* Notch: decorative phone-frame craft, not a real status bar. */}
                 <div
                   class="absolute top-2 left-1/2 z-10 h-3.5 w-16 -translate-x-1/2 rounded-full bg-surface-overlay/90"
                   aria-hidden="true"
@@ -77,7 +77,7 @@ const marks: Record<string, string> = {
                     <span class="flex-center h-13 w-13 rounded-2xl border border-border-subtle bg-surface-overlay text-gold">
                       <Icon name={marks[s.id] ?? 'waveform'} size={24} />
                     </span>
-                    <span class="text-base text-text-secondary">{s.caption.split(' — ')[0]}</span>
+                    <span class="text-base text-text-secondary">{s.caption ? s.caption.split(': ')[0] : ''}</span>
                     <span class="ph-note badge border border-dashed border-glass-border-hover bg-surface-overlay/60 px-2.5 py-1 text-overline font-semibold tracking-wider text-text-tertiary uppercase">
                       Screenshot slot
                     </span>
@@ -117,7 +117,7 @@ const marks: Record<string, string> = {
           class="showcase-dot flex h-11 w-11 cursor-pointer items-center justify-center rounded-full focus-visible:focus-ring"
           data-dot={i}
           role="tab"
-          aria-label={`Go to ${s.caption.split(' — ')[0]}`}
+          aria-label={`Go to ${s.caption ? s.caption.split(': ')[0] : ''}`}
           aria-selected={i === 0 ? 'true' : 'false'}
         >
           <span class="showcase-dot-pip pointer-events-none block h-2 w-2 rounded-full bg-white/20 transition-[width,background-color] duration-300" aria-hidden="true" />
@@ -161,7 +161,7 @@ const marks: Record<string, string> = {
   /* JS sets tabindex once it has wired up keyboard handling (see script), so
      a script-less page never leaves a focusable-but-inert div in the tab
      order. Overflow-x:clip on this element only ever clips its children's
-     ink, never its own outline — safe to focus-ring right here. */
+     ink, never its own outline: safe to focus-ring right here. */
   .showcase-carousel:focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 6px;
@@ -200,7 +200,7 @@ const marks: Record<string, string> = {
       transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Active/inactive states — set as data-state by the script only, so these
+  /* Active/inactive states: set as data-state by the script only, so these
      rules are inert (and harmless) until JS actually assigns them. */
   .showcase-item[data-state='center'] {
     transform: scale(1.06);
@@ -225,7 +225,7 @@ const marks: Record<string, string> = {
     pointer-events: none;
   }
 
-  /* Glow responds to centring and to hover/focus — opacity only, no motion (RULE 1). */
+  /* Glow responds to centring and to hover/focus: opacity only, no motion (RULE 1). */
   .frame-glow {
     opacity: 0;
     transition: opacity 0.3s ease-out;
@@ -329,7 +329,7 @@ const marks: Record<string, string> = {
         });
       }
 
-      // No-transition snap — used for the initial position, the loop-wrap
+      // No-transition snap: used for the initial position, the loop-wrap
       // jump, and every navigation step under reduced motion.
       function applyInstant(): void {
         track!.style.transition = 'none';

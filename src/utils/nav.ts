@@ -2,7 +2,7 @@
  * The single choke point for every internal URL in the site chrome.
  *
  * astro.config.mjs sets `base: '/bitperfect-player-website'` (GitHub Pages
- * project site). Do NOT assume `import.meta.env.BASE_URL` ends in a slash —
+ * project site). Do NOT assume `import.meta.env.BASE_URL` ends in a slash:
  * with `trailingSlash: 'ignore'` and a base written without one, Astro yields
  * `/bitperfect-player-website` bare, so naive `${BASE}${path}` concatenation
  * produced `/bitperfect-player-websitebrand/logo.svg` and 404'd the logo,
@@ -18,7 +18,7 @@ export function withBase(path: string): string {
   return clean ? `${BASE}/${clean}` : `${BASE}/`;
 }
 
-/** True when `pathname` (Astro.url.pathname — already includes the base path
+/** True when `pathname` (Astro.url.pathname: already includes the base path
  *  once deployed) is the site's index route. */
 function isIndexPath(pathname: string): boolean {
   const normalized = pathname.replace(/\/+$/, '') || '/';
@@ -31,7 +31,7 @@ function isIndexPath(pathname: string): boolean {
  *  - external (http(s)/mailto/tel) → unchanged
  *  - in-page anchor ("#engine" or "/#engine") → a same-page hash on the
  *    index route, or a base-prefixed hash link back to the index from
- *    anywhere else (those sections only exist on "/" — a bare "#engine" is
+ *    anywhere else (those sections only exist on "/" : a bare "#engine" is
  *    dead on "/privacy")
  *  - internal page path ("/privacy") → base-prefixed page path
  */
@@ -50,7 +50,7 @@ export function resolveHref(href: string, pathname: string): string {
 }
 
 /** Active state for a page-level nav link (aria-current). Hash links are
- *  never "active" — they're in-page anchors on the index, not distinct
+ *  never "active" : they're in-page anchors on the index, not distinct
  *  routes. */
 export function isActive(pathname: string, href: string): boolean {
   if (href.includes('#')) return false;

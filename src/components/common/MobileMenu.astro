@@ -13,12 +13,25 @@ const { pathname = '/' } = Astro.props;
 
 <div
   id="mobile-menu"
-  class="pointer-events-none fixed inset-0 z-40 flex flex-col bg-surface-base/95 opacity-0 backdrop-blur-2xl transition-opacity duration-300 lg:hidden"
+  class="pointer-events-none invisible fixed inset-0 z-40 flex flex-col bg-surface-base/98 backdrop-blur-xl opacity-0 transition-opacity duration-200 lg:hidden"
   aria-hidden="true"
+  inert
 >
-  <div class="flex flex-1 flex-col overflow-y-auto px-6 pt-24 pb-8">
-    <!-- Main nav links -->
-    <nav class="flex flex-col gap-6" aria-label="Sections">
+  <div class="flex flex-1 flex-col overflow-y-auto px-6 pt-24 pb-8 relative">
+    {/* No-JS Close button fallback */}
+    <a
+      href="#"
+      class="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-[4px] border border-border-subtle text-text-primary lg:hidden focus-visible:focus-ring"
+      aria-label="Close menu"
+    >
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </a>
+
+    {/* Main nav links */}
+    <nav class="flex flex-col gap-6" aria-label="Mobile Navigation">
       {
         navLinks.map((link) => {
           const active = isActive(pathname, link.href);
@@ -26,8 +39,8 @@ const { pathname = '/' } = Astro.props;
             <a
               href={resolveHref(link.href, pathname)}
               class:list={[
-                'mobile-nav-link rounded text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold',
-                active ? 'mobile-nav-link-active text-white' : 'text-text-secondary',
+                'mobile-nav-link rounded-[4px] text-2xl font-semibold focus-visible:focus-ring',
+                active ? 'mobile-nav-link-active text-text-primary' : 'text-text-secondary hover:text-text-primary',
               ]}
               aria-current={active ? 'page' : undefined}
             >
@@ -38,11 +51,11 @@ const { pathname = '/' } = Astro.props;
       }
     </nav>
 
-    <!-- CTA -->
-    <div class="mt-10 border-t border-white/[0.06] pt-8">
+    {/* CTA */}
+    <div class="mt-10 border-t border-border-subtle pt-8">
       <Button
         href={site.playUrl}
-        rel="noopener"
+        rel="noopener noreferrer"
         variant="primary"
         size="lg"
         class="w-full gap-2 text-center"
@@ -57,23 +70,26 @@ const { pathname = '/' } = Astro.props;
 </div>
 
 <style>
+  #mobile-menu:target {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
   .mobile-nav-link {
     position: relative;
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
+    transition: color 0.2s ease;
   }
   .mobile-nav-link-active {
-    color: white;
+    color: var(--color-text-primary);
   }
   .mobile-nav-link-active::after {
     content: '';
     position: absolute;
     bottom: -4px;
     left: 0;
-    width: 40px;
+    width: 36px;
     height: 2px;
-    background: linear-gradient(90deg, var(--color-gold), var(--color-amber));
+    background: var(--color-gold);
     border-radius: 1px;
   }
 </style>
@@ -89,9 +105,10 @@ const { pathname = '/' } = Astro.props;
 
   function openMenu() {
     isOpen = true;
-    menu?.classList.remove('opacity-0', 'pointer-events-none');
+    menu?.classList.remove('opacity-0', 'pointer-events-none', 'invisible');
     menu?.classList.add('opacity-100', 'pointer-events-auto');
-    menu?.setAttribute('aria-hidden', 'false');
+    menu?.removeAttribute('aria-hidden');
+    menu?.removeAttribute('inert');
     toggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
 
@@ -106,8 +123,9 @@ const { pathname = '/' } = Astro.props;
   function closeMenu(returnFocus = false) {
     isOpen = false;
     menu?.classList.remove('opacity-100', 'pointer-events-auto');
-    menu?.classList.add('opacity-0', 'pointer-events-none');
+    menu?.classList.add('opacity-0', 'pointer-events-none', 'invisible');
     menu?.setAttribute('aria-hidden', 'true');
+    menu?.setAttribute('inert', '');
     toggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
 

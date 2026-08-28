@@ -1,33 +1,29 @@
 ---
 /**
- * The AI Enhancer, drawn honestly. This is a diagram of the operation, NOT a
- * measurement — labelled as such in the UI. Replace with real measured data
- * if/when the audio team supplies it.
+ * The AI Enhancer diagram. Same-rate, in-band amplitude reconstruction
+ * and coherent phase prediction.
  *
- * What this deliberately shows, per the app's own technical record
- * (docs/ai-enhancer-backends.md, enhancer/mod.rs):
- *  - Same-rate, in-band reconstruction. The Nyquist edge (right axis limit)
- *    sits at the identical x-position on both traces — nothing is drawn to
- *    its right. This is not bandwidth extension; the sample rate and stream
+ * What this illustrates:
+ *  - Same-rate, in-band reconstruction. The Nyquist edge sits at the
+ *    identical x-position on both traces. The sample rate and container
  *    length never change.
- *  - The gold FILL (cutoff → Nyquist) is newly reconstructed content, inside
- *    the band a lossy codec discarded. The gold LINE below the cutoff is a
- *    repair of content that was already there — Restore mode only.
- *  - A second lane plots phase. Magnitude-only "fill the top" tricks leave
- *    phase wrong, which is why that class of trick sounds metallic —
- *    predicting a coherent phase field is the part this model actually does.
+ *  - The gold fill (cutoff to Nyquist) is reconstructed high-frequency content
+ *    inside the band a lossy codec discarded. The gold line below the cutoff
+ *    is a repair of degraded content (Restore mode).
+ *  - The phase lane illustrates coherent phase trajectory prediction,
+ *    avoiding the metallic artifacts of magnitude-only algorithms.
  *
  * Single caller: AiSection.astro.
  */
 const W = 560;
-const PAD = { l: 34, r: 14, t: 22, b: 54 };
+const PAD = { l: 36, r: 16, t: 24, b: 56 };
 const plotW = W - PAD.l - PAD.r;
 
 const ampTop = PAD.t;
 const ampH = 142;
 const ampBase = ampTop + ampH;
 
-const laneGap = 30;
+const laneGap = 32;
 const phaseTop = ampBase + laneGap;
 const phaseH = 58;
 const phaseBase = phaseTop + phaseH;
@@ -35,47 +31,47 @@ const phaseMid = phaseTop + phaseH / 2;
 
 const H = phaseBase + PAD.b;
 
-// Deterministic pseudo-spectrum for dual-stream neural bandwidth extension & phase prediction.
-// Linear Hz→x mapping: 0 to 22.05 kHz (Nyquist for 44.1 kHz container).
+// Deterministic pseudo-spectrum for dual-stream neural in-band reconstruction & phase prediction.
+// Linear Hz to x mapping: 0 to 22.05 kHz (Nyquist for 44.1 kHz container).
 const bins = 160;
 const cutoffBin = Math.round(bins * (16000 / 22050)); // 16 kHz codec cutoff
 
-// Rich acoustic magnitude spectral envelope (reconstructed with full harmonic overtones)
+// Acoustic magnitude spectral envelope
 function mag(i: number) {
   const f = (i / (bins - 1)) * 22050; // Frequency in Hz
-  
+
   // Base spectral slope (-6dB/octave decay)
   const env = Math.exp(-f / 11000) * 0.80 + 0.08;
-  
-  // Rich musical harmonics, overtones & instrument formants
+
+  // Harmonic overtones and instrument formants
   const h1 = Math.sin(f / 380) * 0.045;
   const h2 = Math.sin(f / 920 + 0.6) * 0.035;
   const h3 = Math.cos(f / 2100) * 0.025;
-  const h4 = Math.sin(f / 4800 + 1.2) * 0.018; // High-frequency overtone detail
-  
+  const h4 = Math.sin(f / 4800 + 1.2) * 0.018;
+
   let val = env + h1 + h2 + h3 + h4;
-  
+
   // Natural high-frequency roll-off above cutoff towards Nyquist
   if (i > cutoffBin) {
     const ratio = (i - cutoffBin) / (bins - 1 - cutoffBin);
     val = val * (1 - Math.pow(ratio, 1.2) * 0.50);
   }
-  
+
   return Math.max(0.03, Math.min(0.95, val));
 }
 
-// Lossy codec input spectrum (muffled, missing fine harmonic overtones & quantization drops)
+// Lossy codec input spectrum
 function lossyMag(i: number) {
   const f = (i / (bins - 1)) * 22050;
   const env = Math.exp(-f / 11000) * 0.74 + 0.07;
   const h1 = Math.sin(f / 380) * 0.030;
-  const h2 = Math.sin(f / 920 + 0.6) * 0.015; // Muffled harmonics, missing h3 & h4
+  const h2 = Math.sin(f / 920 + 0.6) * 0.015;
   const notch = (i / cutoffBin) * 0.025 + hash(i) * 0.02;
-  
+
   return Math.max(0.025, env + h1 + h2 - notch);
 }
 
-// Deterministic hash for noise/quantization artifacts
+// Deterministic hash for noise/quantization visualization
 function hash(i: number) {
   const s = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
   return s - Math.floor(s);
@@ -84,21 +80,20 @@ function hash(i: number) {
 const px = (i: number) => PAD.l + (i / (bins - 1)) * plotW;
 const ay = (m: number) => ampTop + (1 - m) * ampH;
 
-// Lossy input trace: muffled harmonics & quantization drops below cutoff, steep codec brickwall drop above cutoff
+// Lossy input trace
 const inputBelow: string[] = [];
 for (let i = 0; i <= cutoffBin; i++) {
   inputBelow.push(`${px(i).toFixed(1)},${ay(lossyMag(i)).toFixed(1)}`);
 }
 const inputAbove: string[] = [];
 for (let i = cutoffBin; i < bins; i++) {
-  // Realistic codec low-pass filter roll-off slope into the quantization noise floor
   const rollOff = Math.exp(-(i - cutoffBin) / 5.5);
   const noiseFloor = (hash(i * 1.73 + 3) - 0.5) * 0.014;
   const m = Math.max(0.01, lossyMag(cutoffBin) * rollOff + noiseFloor);
   inputAbove.push(`${px(i).toFixed(1)},${ay(m).toFixed(1)}`);
 }
 
-// Reconstructed output trace: rich restored harmonics below cutoff, natural overtone spectral extension above cutoff
+// Reconstructed output trace
 const outputBelow: string[] = [];
 for (let i = 0; i <= cutoffBin; i++) outputBelow.push(`${px(i).toFixed(1)},${ay(mag(i)).toFixed(1)}`);
 const outputAbove: string[] = [];
@@ -106,7 +101,7 @@ for (let i = cutoffBin; i < bins; i++) outputAbove.push(`${px(i).toFixed(1)},${a
 
 const outputFill = `${px(cutoffBin).toFixed(1)},${ampBase} ${outputAbove.join(' ')} ${px(bins - 1).toFixed(1)},${ampBase}`;
 
-// Phase lane: coherent phase trajectory prediction & lossy phase distortion repair
+// Phase lane
 const phaseAmp = phaseH * 0.38;
 function known(i: number) {
   const t = i / (bins - 1);
@@ -114,7 +109,6 @@ function known(i: number) {
   return phaseMid - Math.sin(t * Math.PI * 2 * freq) * phaseAmp;
 }
 function distortedPhase(i: number) {
-  // Codec phase smearing & jitter below cutoff
   const jitter = (hash(i * 2.7 + 1) * 2 - 1) * (phaseAmp * 0.4);
   return known(i) + jitter;
 }
@@ -133,77 +127,195 @@ const phasePredicted: string[] = [];
 for (let i = cutoffBin; i < bins; i++) phasePredicted.push(`${px(i).toFixed(1)},${known(i).toFixed(1)}`);
 
 const ticks = [
-  { i: 0, label: '0' },
-  { i: Math.round(bins * (8000 / 22050)), label: '8k' },
-  { i: cutoffBin, label: '16k' },
-  { i: bins - 1, label: '22k · Nyquist' },
+  { i: 0, label: '0 Hz' },
+  { i: Math.round(bins * (8000 / 22050)), label: '8 kHz' },
+  { i: cutoffBin, label: '16 kHz (Cutoff)' },
+  { i: bins - 1, label: '22.05 kHz (Nyquist)' },
 ];
 
 const cutoffX = px(cutoffBin);
 const nyquistX = px(bins - 1);
 const bracketY = phaseBase + 16;
-const labelY = phaseBase + 27;
+const labelY = phaseBase + 28;
 ---
 
-<figure class="plot" data-enhancer-plot>
+<figure class="plot glass relative overflow-hidden" data-enhancer-plot>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-enhanced/40 to-transparent" aria-hidden="true"></div>
+
   <svg
     viewBox={`0 0 ${W} ${H}`}
     role="img"
     aria-label="Diagram: Neural model same-rate in-band spectral reconstruction and phase prediction."
   >
     <defs>
-      <linearGradient id="outFill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#e8b84b" stop-opacity="0.45"></stop>
-        <stop offset="100%" stop-color="#e8b84b" stop-opacity="0.02"></stop>
+      <linearGradient id="warmHarmonicFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.45"></stop>
+        <stop offset="50%" stop-color="#e5b842" stop-opacity="0.2"></stop>
+        <stop offset="100%" stop-color="#e5b842" stop-opacity="0.02"></stop>
+      </linearGradient>
+      <linearGradient id="goldLineGlow" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#e5b842"></stop>
+        <stop offset="100%" stop-color="#2dd4bf"></stop>
       </linearGradient>
     </defs>
 
-    {/* ---- Amplitude lane ---- */}
-    <text x={PAD.l} y={ampTop - 8} fill="rgba(255,255,255,0.35)" font-size="9" letter-spacing="1.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">AMPLITUDE</text>
+    {/* Amplitude lane background grid */}
+    <text
+      x={PAD.l}
+      y={ampTop - 8}
+      fill="rgba(251,246,233,0.6)"
+      font-size="10"
+      letter-spacing="1.5"
+      font-weight="600"
+      font-family="var(--font-sans)"
+    >
+      AMPLITUDE SPECTRUM
+    </text>
     {
       [0.3, 0.6, 0.9].map((g) => (
-        <line x1={PAD.l} x2={W - PAD.r} y1={ampTop + g * ampH} y2={ampTop + g * ampH} stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="2 5" />
+        <line
+          x1={PAD.l}
+          x2={W - PAD.r}
+          y1={ampTop + g * ampH}
+          y2={ampTop + g * ampH}
+          stroke="rgba(251,246,233,0.07)"
+          stroke-width="1"
+          stroke-dasharray="2 5"
+        />
       ))
     }
-    <line x1={PAD.l} x2={W - PAD.r} y1={ampBase} y2={ampBase} stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+    <line x1={PAD.l} x2={W - PAD.r} y1={ampBase} y2={ampBase} stroke="rgba(251,246,233,0.14)" stroke-width="1"></line>
 
-    {/* Lossy input trace: solid grey line showing degraded input & steep codec brickwall drop above 16k */}
-    <polyline points={inputBelow.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linejoin="round"></polyline>
-    <polyline points={inputAbove.join(' ')} fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.3" opacity="0.65" stroke-linejoin="round"></polyline>
+    {/* Lossy input trace */}
+    <polyline
+      points={inputBelow.join(' ')}
+      fill="none"
+      stroke="rgba(194,190,202,0.45)"
+      stroke-width="1.5"
+      stroke-linejoin="round"
+    />
+    <polyline
+      points={inputAbove.join(' ')}
+      fill="none"
+      stroke="rgba(194,190,202,0.3)"
+      stroke-width="1.3"
+      stroke-linejoin="round"
+    />
 
-    {/* Extension visual layer & output traces */}
-    <polygon class="reveal-fill" points={outputFill} fill="url(#outFill)"></polygon>
-    
-    <polyline points={outputBelow.join(' ')} fill="none" stroke="var(--color-gold-light)" stroke-width="1.8" opacity="0.9" stroke-linejoin="round"></polyline>
-    <polyline class="reveal-line" points={outputAbove.join(' ')} pathLength="1" fill="none" stroke="#e8b84b" stroke-width="1.8" stroke-linejoin="round"></polyline>
+    {/* Reconstructed high-frequency harmonic field & output traces */}
+    <polygon class="reveal-fill" points={outputFill} fill="url(#warmHarmonicFill)"></polygon>
 
-    {/* ---- Phase lane ---- */}
-    <text x={PAD.l} y={phaseTop - 8} fill="rgba(255,255,255,0.65)" font-size="9" letter-spacing="1.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">PHASE</text>
-    <line x1={PAD.l} x2={W - PAD.r} y1={phaseMid} y2={phaseMid} stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="2 5"></line>
+    {/* Repaired trace below cutoff (Restore mode) */}
+    <polyline
+      points={outputBelow.join(' ')}
+      fill="none"
+      stroke="#f5d47a"
+      stroke-width="1.8"
+      opacity="0.95"
+      stroke-linejoin="round"
+    />
+    {/* Reconstructed trace above cutoff (in-band extension) */}
+    <polyline
+      class="reveal-line"
+      points={outputAbove.join(' ')}
+      pathLength="1"
+      fill="none"
+      stroke="url(#goldLineGlow)"
+      stroke-width="2.2"
+      stroke-linejoin="round"
+    />
 
-    {/* Distorted lossy phase trace below 16k (dashed grey - enhanced contrast) */}
-    <polyline points={phaseDistorted.join(' ')} fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.8" stroke-linejoin="round"></polyline>
-    {/* Repaired coherent phase trace below 16k (solid bright gold) */}
-    <polyline points={phaseRestored.join(' ')} fill="none" stroke="#f3ca65" stroke-width="2.2" opacity="1.0" stroke-linejoin="round"></polyline>
-    
-    {/* Naive unaligned phase above 16k (dashed grey contrast) */}
-    <polyline points={phaseNaive.join(' ')} fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.75" stroke-linejoin="round"></polyline>
-    {/* Reconstructed high-frequency phase field above 16k (gold reveal - enhanced width) */}
-    <polyline class="reveal-line" points={phasePredicted.join(' ')} pathLength="1" fill="none" stroke="#f5cc68" stroke-width="2.4" stroke-linejoin="round"></polyline>
+    {/* Phase lane */}
+    <text
+      x={PAD.l}
+      y={phaseTop - 8}
+      fill="rgba(251,246,233,0.6)"
+      font-size="10"
+      letter-spacing="1.5"
+      font-weight="600"
+      font-family="var(--font-sans)"
+    >
+      COHERENT PHASE TRAJECTORY
+    </text>
+    <line
+      x1={PAD.l}
+      x2={W - PAD.r}
+      y1={phaseMid}
+      y2={phaseMid}
+      stroke="rgba(251,246,233,0.14)"
+      stroke-width="1"
+      stroke-dasharray="2 5"
+    />
 
-    {/* ---- Shared guides spanning both lanes ---- */}
-    <line x1={cutoffX} x2={cutoffX} y1={ampTop - 6} y2={phaseBase} stroke="#e8b84b" stroke-width="1" stroke-dasharray="3 4" opacity="0.55"></line>
-    <line x1={nyquistX} x2={nyquistX} y1={ampTop - 6} y2={phaseBase} stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="1 3" opacity="0.7"></line>
+    {/* Distorted lossy phase trace below 16k */}
+    <polyline
+      points={phaseDistorted.join(' ')}
+      fill="none"
+      stroke="rgba(194,190,202,0.45)"
+      stroke-width="1.3"
+      stroke-dasharray="3 3"
+      stroke-linejoin="round"
+    />
+    {/* Repaired coherent phase trace below 16k */}
+    <polyline
+      points={phaseRestored.join(' ')}
+      fill="none"
+      stroke="#f5d47a"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
 
-    {/* ---- x-axis ticks ---- */}
+    {/* Naive unaligned phase above 16k */}
+    <polyline
+      points={phaseNaive.join(' ')}
+      fill="none"
+      stroke="rgba(194,190,202,0.35)"
+      stroke-width="1.2"
+      stroke-dasharray="2 3"
+      stroke-linejoin="round"
+    />
+    {/* Reconstructed high-frequency phase field above 16k */}
+    <polyline
+      class="reveal-line"
+      points={phasePredicted.join(' ')}
+      pathLength="1"
+      fill="none"
+      stroke="#2dd4bf"
+      stroke-width="2.2"
+      stroke-linejoin="round"
+    />
+
+    {/* Shared vertical guides */}
+    <line
+      x1={cutoffX}
+      x2={cutoffX}
+      y1={ampTop - 6}
+      y2={phaseBase}
+      stroke="#e5b842"
+      stroke-width="1"
+      stroke-dasharray="3 4"
+      opacity="0.65"
+    />
+    <line
+      x1={nyquistX}
+      x2={nyquistX}
+      y1={ampTop - 6}
+      y2={phaseBase}
+      stroke="rgba(251,246,233,0.3)"
+      stroke-width="1"
+      stroke-dasharray="1 3"
+      opacity="0.75"
+    />
+
+    {/* x-axis ticks */}
     {
       ticks.map((t) => (
         <text
           x={px(t.i)}
-          y={phaseBase + 12}
-          fill="rgba(255,255,255,0.4)"
+          y={phaseBase + 13}
+          fill="rgba(251,246,233,0.5)"
           font-size="10"
-          font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+          font-family="var(--font-mono)"
           text-anchor={t.i === 0 ? 'start' : t.i === bins - 1 ? 'end' : 'middle'}
         >
           {t.label}
@@ -211,12 +323,48 @@ const labelY = phaseBase + 27;
       ))
     }
 
-    {/* ---- region brackets ---- */}
-    <line x1={PAD.l} x2={cutoffX - 3} y1={bracketY} y2={bracketY} stroke="var(--color-gold-light)" stroke-width="1" opacity="0.85"></line>
-    <text x={(PAD.l + cutoffX) / 2} y={labelY} fill="rgba(232,184,75,0.85)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">repaired · restore mode</text>
+    {/* Region brackets */}
+    <line
+      x1={PAD.l}
+      x2={cutoffX - 4}
+      y1={bracketY}
+      y2={bracketY}
+      stroke="var(--color-gold-light)"
+      stroke-width="1"
+      opacity="0.85"
+    />
+    <text
+      x={(PAD.l + cutoffX) / 2}
+      y={labelY}
+      fill="#f5d47a"
+      font-size="10"
+      text-anchor="middle"
+      font-weight="500"
+      font-family="var(--font-sans)"
+    >
+      repaired · restore mode
+    </text>
 
-    <line x1={cutoffX + 3} x2={nyquistX} y1={bracketY} y2={bracketY} stroke="#e8b84b" stroke-width="1" opacity="0.85"></line>
-    <text x={(cutoffX + nyquistX) / 2} y={labelY} fill="rgba(232,184,75,0.85)" font-size="9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">reconstructed · in-band</text>
+    <line
+      x1={cutoffX + 4}
+      x2={nyquistX}
+      y1={bracketY}
+      y2={bracketY}
+      stroke="#2dd4bf"
+      stroke-width="1"
+      opacity="0.85"
+    />
+    <text
+      x={(cutoffX + nyquistX) / 2}
+      y={labelY}
+      fill="#2dd4bf"
+      font-size="10"
+      text-anchor="middle"
+      font-weight="500"
+      font-family="var(--font-sans)"
+    >
+      reconstructed · in-band
+    </text>
   </svg>
 
   <figcaption>
@@ -225,16 +373,12 @@ const labelY = phaseBase + 27;
     <span class="key"><i class="sw sw-ext"></i>Reconstructed in-band, same sample rate</span>
     <span class="key"><i class="sw sw-naive"></i>Magnitude-only fill — not used, shown for contrast</span>
   </figcaption>
+
   <p class="fact">Real-time neural inference: ~45 ms latency per chunk (RTF 0.15), well within the 348 ms real-time buffer window.</p>
   <p class="disclaimer">Diagram of the operation — not a measurement.</p>
 </figure>
 
 <script>
-  /* One-shot, IntersectionObserver-gated reveal: the reconstructed traces
-     ship fully drawn (resolved state) so a failed or disabled script never
-     hides anything; JS only retracts them into a "pending" state before
-     they've ever been visible, then CSS draws them back in on scroll. No
-     rAF loop, nothing runs offscreen. Single instance on the page. */
   const plot = document.querySelector<HTMLElement>('[data-enhancer-plot]');
   if (plot && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     plot.classList.add('pending');
@@ -247,7 +391,7 @@ const labelY = phaseBase + 27;
           }
         }
       },
-      { threshold: 0.35 },
+      { threshold: 0.25 },
     );
     io.observe(plot);
   }
@@ -256,12 +400,12 @@ const labelY = phaseBase + 27;
 <style>
   .plot {
     margin: 0;
+    border-radius: var(--radius-card, 12px);
+    background: var(--color-glass-surface);
     border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-card);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(12px);
     padding: 1.25rem;
   }
+
   @media (min-width: 640px) {
     .plot {
       padding: 1.5rem;
@@ -306,13 +450,13 @@ const labelY = phaseBase + 27;
   figcaption {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1rem;
+    gap: 0.5rem 1.25rem;
     align-items: center;
     margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid var(--color-border-subtle);
-    font-size: 0.75rem;
-    color: var(--color-text-tertiary);
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
   }
 
   .key {
@@ -323,27 +467,30 @@ const labelY = phaseBase + 27;
 
   .sw {
     width: 14px;
-    height: 2px;
+    height: 2.5px;
     border-radius: 1px;
   }
+
   .sw-src {
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(194, 190, 202, 0.5);
   }
+
   .sw-repair {
-    background: var(--color-gold-light);
-    opacity: 0.85;
+    background: #f5d47a;
   }
+
   .sw-ext {
-    background: var(--color-gold);
+    background: #2dd4bf;
   }
+
   .sw-naive {
-    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0 3px, transparent 3px 6px);
+    background: repeating-linear-gradient(90deg, rgba(194, 190, 202, 0.5) 0 3px, transparent 3px 6px);
   }
 
   .fact {
-    margin: 0.5rem 0 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.6875rem;
+    margin: 0.75rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
     color: var(--color-text-tertiary);
   }
 

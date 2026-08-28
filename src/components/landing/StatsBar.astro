@@ -1,6 +1,6 @@
 ---
 /*
- * Specs — factual engineering numbers only.
+ * Specs: factual engineering numbers only.
  * Every value below is sourced from src/data/site.ts.
  */
 import Container from '../common/Container.astro';
@@ -63,7 +63,7 @@ const stats: { icon: string; value: string; label: string; note: string; categor
       eyebrow="Specs"
       eyebrowColor="text-gold"
       title="What's actually inside"
-      subtitle="Every number here ships in the app today — nothing modelled, nothing promised for later."
+      subtitle="Every number here ships in the app today: nothing modelled, nothing promised for later."
     />
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6" data-animate="fade-up">
@@ -72,14 +72,14 @@ const stats: { icon: string; value: string; label: string; note: string; categor
           const isWideValue = stat.value.length > 4;
           return (
             <div class="group relative flex items-start gap-4.5 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface-raised/60 p-5 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:border-gold/35 hover:bg-surface-raised/90 hover:shadow-[0_0_30px_rgba(232,184,75,0.08)]">
-              <!-- Left Column: Icon Badge -->
+              {/* Left Column: Icon Badge */}
               <span class="flex-center h-12 w-12 shrink-0 rounded-xl border border-gold/25 bg-gold/10 text-gold transition-transform duration-300 group-hover:scale-105 group-hover:bg-gold/20">
                 <Icon name={stat.icon} size={22} />
               </span>
 
-              <!-- Right Column: Text Content -->
+              {/* Right Column: Text Content */}
               <div class="flex-1 min-w-0">
-                <div class="text-[10px] font-semibold tracking-wider uppercase text-text-tertiary/70 group-hover:text-text-tertiary mb-1">
+                <div class="text-[10px] font-semibold tracking-wider uppercase text-text-tertiary group-hover:text-text-secondary mb-1">
                   {stat.category}
                 </div>
 

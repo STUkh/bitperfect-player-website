@@ -4,14 +4,14 @@ import PhoneNowPlaying from '../PhoneNowPlaying.astro';
 import { site, formats } from '../../data/site';
 
 const stats = [
-  { value: `${formats.length}`, label: 'Formats decoded', detail: 'FLAC to DSD128, WavPack & more' },
-  { value: '3 ABIs', label: 'Native Architecture', detail: 'arm64-v8a, armeabi-v7a & x86_64' },
-  { value: 'On-device', label: 'AI, search & mixes', detail: 'No server round-trip, ever' },
+  { value: `${formats.length}`, label: 'Formats decoded', detail: 'FLAC to DSD128 and WavPack' },
+  { value: '32', label: 'EQ bands', detail: 'Seven filter types' },
+  { value: 'On-device', label: 'AI', detail: 'Enhancer, Sonic Scan and Similar Tracks' },
 ];
 ---
 
-<section id="hero" class="relative overflow-hidden pt-24 pb-16 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-28">
-  {/* Local decorative glow, layered on top of the global ambient radials. */}
+<section id="hero" class="relative overflow-hidden pt-24 pb-16 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-28">
+  {/* Subtle ambient lighting — gold, cyan, and green glows */}
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
     <div class="absolute -top-24 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-gold/10 blur-[120px]">
     </div>
@@ -20,95 +20,101 @@ const stats = [
   </div>
 
   <div class="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
-    <div class="grid items-center gap-8 sm:gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-      {/* Content — shown second on mobile so the phone leads, first on desktop. */}
-      <!-- Copy leads on every viewport. The device render is evidence for the claim,
-           so it must not arrive before the claim it is evidence for. -->
-      <div class="text-center lg:text-left">
+    <div class="grid items-center gap-10 sm:gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      {/* Content Column */}
+      <div class="text-center lg:text-left" data-animate="slide-left">
         <p
-          class="badge max-w-full mx-auto mb-5 sm:mb-6 gap-2 border border-border-subtle bg-glass-surface px-4 py-1.5 text-eyebrow text-gold lg:mx-0 whitespace-normal sm:whitespace-nowrap text-center"
+          class="badge max-w-full mx-auto mb-5 sm:mb-6 gap-2 border border-border-subtle bg-glass-surface px-4 py-1.5 text-eyebrow text-gold lg:mx-0 whitespace-normal sm:whitespace-nowrap text-center shadow-sm"
         >
-          <span class="hidden sm:inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true"></span>
-          <span>{site.tagline}</span>
+          <span class="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gold shadow-[0_0_8px_var(--color-gold)]" aria-hidden="true"></span>
+          <span>Bit-perfect playback for Android</span>
         </p>
 
         <h1
-          class="text-balance text-4xl sm:text-6xl lg:text-7xl leading-[1.08] font-extrabold tracking-tight text-text-primary"
+          class="text-balance text-[2.625rem] sm:text-6xl lg:text-7xl leading-[1.06] font-extrabold tracking-tight text-text-primary"
         >
-          Nothing between the file and your
-          <span class="text-gold">DAC</span>
+          Pure sound.
+          <span class="text-gold">In its original light.</span>
         </h1>
 
-        <p class="mx-auto mt-4 sm:mt-6 max-w-[46ch] text-pretty text-base sm:text-lg text-text-secondary lg:mx-0">
-          A Rust audio engine takes exclusive control of USB Audio Class&nbsp;2 output straight to
-          your DAC — no resampling, no system mixer, no silent format conversion.
+        <p class="mx-auto mt-4 sm:mt-6 max-w-[48ch] text-pretty text-base sm:text-lg leading-relaxed text-text-secondary lg:mx-0">
+          Bitperfect Player bypasses the Android system mixer and delivers every sample directly to your
+          external USB DAC. Uncompressed, unmodified, bit for bit.
         </p>
 
-        <div class="mt-6 sm:mt-8 hidden sm:flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
+        {/* CTA Row — Visible in first mobile viewport */}
+        <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3.5 sm:gap-4 lg:justify-start">
           <a
             href={site.playUrl}
-            rel="noopener"
-            style="--focus-ring-color: var(--color-gold)"
-            class="btn-primary-gradient focus-ring inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 text-sm font-semibold text-white"
+            rel="noopener noreferrer"
+            class="btn-primary-gradient focus-visible:focus-ring inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-base font-semibold text-on-gold"
           >
-            <Icon name="play" size={14} />
+            <Icon name="play" size={16} />
             <span>Get it on Google Play</span>
           </a>
           <a
             href="#engine"
-            style="--focus-ring-color: var(--color-gold)"
-            class="btn-secondary-glow glass glass-hover focus-ring inline-flex items-center gap-2 rounded-full border border-border-subtle px-6 sm:px-7 py-3 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
+            class="btn-secondary-glow glass glass-hover focus-visible:focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-border-subtle px-6 py-3.5 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
           >
-            <span>See the signal path</span>
+            <span>Explore signal route</span>
             <Icon name="arrow" size={15} />
           </a>
         </div>
 
-        <ul class="mt-8 flex flex-wrap justify-center gap-2 sm:gap-2.5 lg:justify-start" role="list">
+        {/* Trust Badges */}
+        <ul class="mt-7 sm:mt-8 flex flex-wrap justify-center gap-2 sm:gap-2.5 lg:justify-start" role="list">
           <li
-            class="badge gap-1.5 border border-border-subtle px-3 py-1.5 text-overline font-semibold tracking-[var(--tracking-micro)] text-text-secondary uppercase"
+            class="badge gap-1.5 border border-border-subtle bg-white/[0.02] px-3 py-1.5 text-xs font-semibold tracking-wide text-text-secondary"
           >
-            <Icon name="android" size={13} class="text-text-tertiary" /><span
-              >Android {site.minAndroid}+</span
-            >
+            <Icon name="android" size={14} class="text-text-tertiary" />
+            <span>Android 8.0+</span>
           </li>
           <li
-            class="badge gap-1.5 border border-border-subtle px-3 py-1.5 text-overline font-semibold tracking-[var(--tracking-micro)] text-text-secondary uppercase"
+            class="badge gap-1.5 border border-border-subtle bg-white/[0.02] px-3 py-1.5 text-xs font-semibold tracking-wide text-text-secondary"
           >
-            <Icon name="shield" size={13} class="text-text-tertiary" /><span>No ads</span>
+            <Icon name="node-usb" size={14} class="text-text-tertiary" />
+            <span>Exclusive USB DAC</span>
           </li>
           <li
-            class="badge gap-1.5 border border-border-subtle px-3 py-1.5 text-overline font-semibold tracking-[var(--tracking-micro)] text-text-secondary uppercase"
+            class="badge gap-1.5 border border-border-subtle bg-white/[0.02] px-3 py-1.5 text-xs font-semibold tracking-wide text-text-secondary"
           >
-            <Icon name="shield" size={13} class="text-text-tertiary" /><span>No account</span>
+            <Icon name="shield" size={14} class="text-text-tertiary" />
+            <span>No resampling</span>
+          </li>
+          <li
+            class="badge gap-1.5 border border-border-subtle bg-white/[0.02] px-3 py-1.5 text-xs font-semibold tracking-wide text-text-secondary"
+          >
+            <Icon name="sparkle" size={14} class="text-text-tertiary" />
+            <span>On-device AI</span>
           </li>
         </ul>
       </div>
 
-      {/* Phone mockup — shown first on mobile, second on desktop. */}
-      <div class="relative flex justify-center">
+      {/* Phone Mockup Column */}
+      <div class="relative flex justify-center" data-animate="slide-right">
         <div class="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
           <div
-            class="h-72 w-72 rounded-full bg-gold/20 blur-[100px] sm:h-80 sm:w-80 lg:h-96 lg:w-96"
+            class="h-72 w-72 rounded-full bg-gold/15 blur-[90px] sm:h-80 sm:w-80 lg:h-96 lg:w-96"
           >
           </div>
         </div>
-        <div class="relative w-[240px] sm:w-[280px] lg:w-[320px]">
+        <div class="relative w-full max-w-[320px]">
           <PhoneNowPlaying />
         </div>
       </div>
     </div>
 
-    {/* Hero stat tiles — factual specs only. */}
+    {/* Hero stat tiles — Factual specs */}
     <div
-      class="glass glass-elevated relative mt-12 sm:mt-20 rounded-[var(--radius-card)] px-4 py-5 sm:px-10 sm:py-8"
+      class="glass glass-elevated relative mt-14 sm:mt-20 rounded-2xl px-4 py-6 sm:px-10 sm:py-8"
+      data-animate="fade-up"
     >
       <div class="grid grid-cols-1 divide-y divide-border-subtle sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         {
           stats.map((s) => (
-            <div class="flex flex-col items-center gap-1 py-3 text-center sm:px-6 sm:py-0">
-              <span class="text-2xl font-bold text-text-primary sm:text-4xl">{s.value}</span>
-              <span class="text-eyebrow text-gold">{s.label}</span>
+            <div class="flex flex-col items-center gap-1.5 py-4 text-center sm:px-6 sm:py-0">
+              <span class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary">{s.value}</span>
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold">{s.label}</span>
               <span class="text-xs sm:text-sm text-text-tertiary">{s.detail}</span>
             </div>
           ))

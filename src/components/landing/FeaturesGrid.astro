@@ -1,41 +1,121 @@
 ---
 import Container from '../common/Container.astro';
 import SectionHeader from '../common/SectionHeader.astro';
-import FeatureCard from './FeatureCard.astro';
+import Icon from '../Icon.astro';
+import SignalChain from '../SignalChain.astro';
 import { features } from '../../data/features';
 import { accentColors } from '../../data/colors';
+import { withBase } from '../../utils/nav';
 
-/* Icon selection is a presentation concern, not content — kept here rather
-   than in data/features.ts. Keyed by the feature `id`. */
-const iconByFeatureId: Record<string, string> = {
-  engine: 'node-engine',
-  usb: 'node-usb',
-  eq: 'eq',
-  plugins: 'plug',
-  casting: 'cast',
-  library: 'library',
-};
+const previewFeatures = features.slice(0, 4);
 ---
 
-<section id="features" class="section-py relative">
-  <Container>
-    <SectionHeader eyebrow="Core Capabilities" eyebrowColor="text-gold" title="Everything in the signal path" />
+<section id="features" class="section-py relative scroll-mt-20">
+  <Container class="space-y-14 sm:space-y-20">
+    {/* Direct Signal Engine Route (#engine) */}
+    <div id="engine" class="scroll-mt-28" data-animate="fade-up">
+      <div class="mb-6 max-w-2xl">
+        <p class="mb-2 text-eyebrow text-gold font-mono uppercase tracking-widest text-xs font-semibold">Native Audio Engine</p>
+        <h2 class="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+          Straight from the file to your DAC
+        </h2>
+        <p class="mt-2 text-base text-text-secondary">
+          Android's standard audio path passes through an OS mixer that resamples to 48 kHz.
+          Bitperfect drives the hardware DAC directly at the file's native sample rate and bit depth.
+        </p>
+      </div>
 
-    <!-- 1col phone → 2col tablet → 3col desktop -->
-    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
-      {
-        features.map((feature, i) => (
-          <FeatureCard
-            title={feature.title}
-            description={feature.description}
-            icon={iconByFeatureId[feature.id] ?? 'waveform'}
-            accentToken={accentColors[feature.accent].token}
-            glowPosition={
-              (['top-left', 'bottom-right', 'top-right', 'bottom-left'] as const)[i % 4]
-            }
-          />
-        ))
-      }
+      <SignalChain />
+    </div>
+
+    {/* Features Overview */}
+    <div class="space-y-10">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+        <SectionHeader
+          eyebrow="Core Features"
+          eyebrowColor="text-gold"
+          title="Modular audiophile toolkit"
+          subtitle="Engineered as independent C++ modules with zero latency and dedicated deep-dive architecture."
+        />
+
+        <a
+          href={withBase('features')}
+          class="hidden sm:inline-flex shrink-0 items-center gap-2 rounded-full border border-border-subtle bg-surface-raised px-5 py-2.5 text-xs sm:text-sm font-semibold text-gold transition-colors hover:border-border-gold hover:text-gold-light focus-visible:focus-ring"
+        >
+          <span>View all features</span>
+          <Icon name="arrow" size={14} />
+        </a>
+      </div>
+
+      {/* Lightweight Feature Cards Grid */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
+        {
+          previewFeatures.map((f) => {
+            const token = accentColors[f.accent]?.token ?? 'var(--color-gold)';
+            const hex = accentColors[f.accent]?.hex ?? '#e8b84b';
+            return (
+              <article
+                class="glass accent-glow accent-glow-hover group flex flex-col justify-between rounded-2xl p-6 sm:p-8 relative overflow-hidden transition-all duration-300 hover:scale-[1.01]"
+                style={`--card-accent: ${token}`}
+                data-animate="fade-up"
+              >
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="flex-center h-12 w-12 shrink-0 rounded-2xl border transition-transform duration-300 group-hover:scale-105"
+                      style={`border-color: ${hex}40; background: ${hex}15; color: ${hex};`}
+                    >
+                      <Icon name={f.icon} size={22} />
+                    </span>
+                    <span
+                      class="rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider"
+                      style={`border-color: ${hex}30; background: ${hex}10; color: ${hex};`}
+                    >
+                      {f.badge}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-white transition-colors">
+                      {f.title}
+                    </h3>
+                    <p class="mt-1 text-xs font-medium text-gold">
+                      {f.tagline}
+                    </p>
+                    <p class="mt-2.5 text-sm leading-relaxed text-text-secondary">
+                      {f.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-border-subtle flex items-center justify-between">
+                  <span class="text-xs font-mono text-text-tertiary">
+                    {f.specs.length} specs · 100% on-device
+                  </span>
+                  <a
+                    href={withBase(`features/${f.slug}`)}
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-1 focus-visible:focus-ring"
+                    style={`color: ${hex};`}
+                  >
+                    <span>Explore feature</span>
+                    <Icon name="arrow" size={14} />
+                  </a>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+
+      <div class="flex justify-center sm:hidden pt-2">
+        <a
+          href={withBase('features')}
+          class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-surface-raised px-6 py-3 text-sm font-semibold text-gold"
+        >
+          <span>View all features & architecture</span>
+          <Icon name="arrow" size={14} />
+        </a>
+      </div>
     </div>
   </Container>
 </section>

@@ -12,11 +12,14 @@
 /* ── Tailwind 4 Theme Tokens ── */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* ── Surfaces ── */
   --color-surface-base: #0a0a0f;
   --color-surface-raised: #121118;
   --color-surface-overlay: #17161e;
+  --color-glass-surface: rgba(23, 22, 30, 0.6);
+  --color-glass-elevated-surface: rgba(23, 22, 30, 0.5);
 
   /* ── Brand Accents — gold primary ── */
   --color-gold: #e8b84b;
@@ -35,12 +38,13 @@
   --color-lossy: #ef4444;
 
   /* ── Text ── */
-  --color-text-primary: rgba(255, 255, 255, 0.9);
-  --color-text-secondary: rgba(255, 255, 255, 0.6);
-  --color-text-tertiary: rgba(255, 255, 255, 0.4);
+  --color-text-primary: rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.72);
+  --color-text-tertiary: rgba(255, 255, 255, 0.55);
 
   /* ── Borders ── */
   --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-gold: rgba(232, 184, 75, 0.28);
   --color-glass-border-hover: rgba(255, 255, 255, 0.12);
 
   /* ── Shadows ── */
@@ -54,22 +58,22 @@
   --shadow-glow-bitperfect-lg: 0 0 50px rgba(52, 211, 153, 0.15);
   --shadow-glow-amber: 0 0 40px rgba(255, 179, 71, 0.15);
 
-  /* ── Border Radius ── */
+  /* ── Border Radius (soft 20-24px cards, rounded CTAs) ── */
   --radius-card: 24px;
   --radius-card-inner: 23px;
   --radius-phone-outer: 3rem;
   --radius-phone-inner: 2.5rem;
   --radius-phone-screen: 2rem;
 
-  /* ── Typography ── */
+  /* ── Typography Scale & Small Text Floors ── */
   --tracking-eyebrow: 3px;
   --tracking-label: 2px;
   --tracking-micro: 1.5px;
   --leading-heading: 1.12;
   --leading-hero: 1.08;
-  --text-micro: 7px;
-  --text-caption: 9px;
-  --text-label: 10px;
+  --text-micro: 11px;
+  --text-caption: 12px;
+  --text-label: 11px;
   --text-overline: 11px;
 
   /* ── Easing ── */
@@ -88,19 +92,22 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-surface-base);
 }
 
 body {
   font-family: var(--font-sans);
   background-color: var(--color-surface-base);
   color: var(--color-text-primary);
+  font-size: 1rem;
   line-height: 1.7;
   overflow-x: hidden;
+  min-width: 320px;
 }
 
 /* ── Ambient Background — subtle brand-colored radial glows for depth ──
-   Four-corner structure kept from the source layout: gold top-center,
-   lossless-cyan left, bit-perfect-green right, amber bottom. */
+   Four-corner structure: gold top-center, lossless-cyan left,
+   bit-perfect-green right, amber bottom. */
 body::before {
   content: '';
   position: fixed;
@@ -197,77 +204,7 @@ body::after {
   pointer-events: none;
 }
 
-/* ── Grid Background ── */
-#grid-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  contain: strict;
-  /* No mask here by default — non-landing glows are centered and must
-     bleed to viewport edges freely. The grid lines get their own mask
-     on ::before. Landing page re-applies a mask (see html.is-landing below). */
-}
-
-/* Grid pattern on ::before so glow orbs (sibling divs) are not clipped by the mask. */
-#grid-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 80px 80px;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
-}
-
-/* ── Static glow orbs at viewport center ──
-   Three concentric orbs at different opacities create depth.
-   No border-radius — the radial-gradient defines the circle shape,
-   avoiding clip-boundary edge artifacts. Steep falloff fades to
-   zero well before the element edge. */
-.grid-cell-glow {
-  position: absolute;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-
-.glow-1 {
-  width: 80vw;
-  height: 80vw;
-  background: radial-gradient(circle, rgba(232,184,75,0.06) 0%, rgba(232,184,75,0.033) 20%, rgba(232,184,75,0.011) 40%, rgba(232,184,75,0.002) 60%, transparent 70%);
-}
-
-.glow-2 {
-  width: 65vw;
-  height: 65vw;
-  background: radial-gradient(circle, rgba(232,184,75,0.08) 0%, rgba(232,184,75,0.044) 20%, rgba(232,184,75,0.014) 40%, rgba(232,184,75,0.003) 60%, transparent 70%);
-}
-
-.glow-3 {
-  width: 50vw;
-  height: 50vw;
-  background: radial-gradient(circle, rgba(232,184,75,0.11) 0%, rgba(232,184,75,0.06) 20%, rgba(232,184,75,0.02) 40%, rgba(232,184,75,0.004) 60%, transparent 70%);
-}
-
-
-/* ── Primary Button — machined gold key-cap, not a flat gradient ──
-   Two layered gradients build the metal face: a diagonal specular streak
-   (the "raked" highlight) sits over a vertical body gradient that reads
-   light cap → mid-gold → darker underbelly → a faint warm bounce at the
-   very bottom edge, as if lit from above. A 1px inset highlight at the
-   top and a 1px inset shadow at the bottom carve the face into a gently
-   domed surface. Dark ink only — never white on gold.
-   Contrast vs --color-on-gold (#0a0a0f), WCAG relative luminance:
-     lightest stop  --color-gold-light #f2c65e  → ~12.3:1
-     darkest stop   #b3812f (underbelly)        → ~5.5:1
-   Both clear 4.5:1 with margin; the darkest stop is the one that actually
-   approaches the floor, so it's tuned to stay a full point above it. */
+/* ── Primary Button — machined gold key-cap ── */
 .btn-primary-gradient {
   color: var(--color-on-gold);
   border: none;
@@ -294,8 +231,6 @@ body::after {
     box-shadow 200ms var(--ease-out-expo),
     filter 150ms var(--ease-out-expo);
 }
-/* Hover: no lift/scale (Rule 1) — instead the specular streak slides across
-   the face and the ambient glow warms, as if the light source moved. */
 .btn-primary-gradient:hover {
   background-position: 26% 8%, 0% 0%;
   box-shadow:
@@ -304,8 +239,6 @@ body::after {
     0 4px 20px rgba(232, 184, 75, 0.3),
     0 4px 20px rgba(255, 179, 71, 0.2);
 }
-/* Active: the key depresses — highlight flattens, the top inset inverts to
-   a pressed shadow, overall brightness drops slightly. */
 .btn-primary-gradient:active {
   background-position: 0% 0%, 0% 0%;
   background-image:
@@ -318,10 +251,7 @@ body::after {
   filter: brightness(0.96);
 }
 
-/* ── Secondary Button — quieter machined surface, same family as the
-   primary. Same construction (inset top highlight / bottom shadow, a
-   press state) but in neutral glass tones so it reads as the secondary
-   voice, not a competing gold surface. ── */
+/* ── Secondary Button ── */
 .btn-secondary-glow {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.14),
@@ -361,6 +291,7 @@ body::after {
 .prose-legal {
   color: var(--color-text-secondary);
   line-height: 1.8;
+  font-size: 1rem;
 }
 .prose-legal h1 {
   color: var(--color-text-primary);
@@ -418,7 +349,6 @@ body::after {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1.5rem;
-  /* Prevent horizontal overflow on narrow viewports */
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -500,13 +430,11 @@ body::after {
   height: auto;
 }
 
-/* ── Mobile viewport safe-area support (notched phones) ── */
+/* ── Mobile viewport safe-area support ── */
 @supports (padding: env(safe-area-inset-bottom)) {
-  /* Cookie banner: ensure the dismiss buttons clear the home indicator */
   .cookie-banner-safe {
     padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
   }
-  /* Footer bottom bar: avoid home indicator overlap when user scrolls to page end */
   .footer-safe-bottom {
     padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
@@ -517,7 +445,6 @@ body::after {
 }
 
 /* ── Custom Utilities ── */
-
 @utility flex-center {
   display: flex;
   align-items: center;
@@ -525,6 +452,7 @@ body::after {
 }
 
 @utility focus-ring {
+  outline-style: solid;
   outline-width: 2px;
   outline-offset: 2px;
   outline-color: var(--focus-ring-color, var(--color-gold));
@@ -574,6 +502,10 @@ body::after {
     padding-top: calc(var(--spacing) * 16);
     padding-bottom: calc(var(--spacing) * 16);
   }
+}
+
+@utility z-1 {
+  z-index: 1;
 }
 
 /* ── Reduced Motion ── */

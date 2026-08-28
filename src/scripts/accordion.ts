@@ -3,7 +3,7 @@
  * restricts each group to one open panel in current browsers (Chrome 120+,
  * Firefox 130+, Safari 17.2+) with zero script and full keyboard/AT support.
  * This closes sibling panels for browsers that don't implement that grouping
- * yet. It is additive and idempotent — the FAQ is fully readable and
+ * yet. It is additive and idempotent: the FAQ is fully readable and
  * operable with this script disabled or absent.
  */
 document.querySelectorAll<HTMLDetailsElement>('details[name]').forEach((details) => {

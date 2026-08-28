@@ -1,6 +1,6 @@
 ---
 /**
- * This section's job is the six signal states, not a second frequency plot —
+ * This section's job is the six signal states, not a second frequency plot:
  * the AI section already owns the one chart on the page (SpectrumPlot.astro,
  * the enhancer diagram). Duplicating a lookalike spectrum here just to fill
  * the slot was the thing the user flagged; this section now stands on its
@@ -28,7 +28,7 @@ const states = signalStates.map((s) => ({
     />
 
     <div class="glass rounded-3xl p-6 sm:p-8 lg:p-10" data-animate="fade-up">
-      <!-- Six-state legend — the key to the color coding used everywhere else on the page -->
+      {/* Six-state legend: the key to the color coding used everywhere else on the page */}
       <ul class="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
         {
           states.map((s) => (
