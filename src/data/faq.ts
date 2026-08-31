@@ -19,7 +19,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: 'What does the app send over the internet?',
-    a: 'Crash reports when enabled, artwork searches, store-backed subscription verification, and model downloads for AI features. Audio and listening history never leave the phone, and there are no ads or behavioral analytics.',
+    a: 'Crash diagnostics, artwork, lyrics and headphone-profile lookups, store-backed subscription and integrity checks, protected model downloads, and connections to network sources, streams, plugins or cast targets you choose. The app does not upload your library database, listening history or audio to Bitperfect-operated servers, and it has no ads or listening-profile analytics.',
   },
   {
     q: 'Which platforms and devices are supported?',

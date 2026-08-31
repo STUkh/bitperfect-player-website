@@ -22,8 +22,8 @@ const facts = [
     borderClass: 'border-bitperfect/40',
   },
   {
-    title: 'No analytics',
-    body: 'No usage tracking, no behavioural telemetry, no third party watching how you listen.',
+    title: 'No ad profiling',
+    body: 'No advertising ID, listening profile, or analytics built to track how you listen.',
     pill: 'Not present',
     color: 'var(--color-lossless)',
     textClass: 'text-lossless',
@@ -41,7 +41,7 @@ const facts = [
   },
   {
     title: 'On-device AI',
-    body: "The AI Enhancer and AI Mix analysis run on the phone's own accelerator. The model downloads once; nothing about your library goes back out.",
+    body: "The AI Enhancer and AI Mix analysis run on the phone. Protected models download as needed; audio and library data are not sent with them.",
     pill: 'On device',
     color: 'var(--color-enhanced)',
     textClass: 'text-enhanced',
@@ -55,7 +55,7 @@ const never = [
   'Your music library contents',
   'Your name, email, or account — there is no account',
   'Advertising or tracking identifiers',
-  'Location',
+  'GPS or Android location data',
   'Contacts',
 ];
 ---
@@ -71,12 +71,12 @@ const never = [
   <Container class="relative z-10">
     <div class="mb-12 max-w-2xl lg:mb-16" data-animate="fade-up">
       <p class="mb-4 text-eyebrow text-gold">Privacy</p>
-      <h2 class="heading-section">There is no server to send anything to</h2>
+      <h2 class="heading-section">Your listening stays private by design</h2>
       <p class="mt-4 text-base text-text-secondary sm:text-lg">
-        No analytics, no advertising SDK, no tracking identifier, no account.
-        All that ever leaves the phone: crash reports and artwork lookups,
-        each behind its own switch, and the one-time AI model download. Your
-        library, your listening history, your audio — never.
+        No ads, no account, and no listening-profile analytics. Only the disclosed
+        diagnostics, lookups, subscription checks, selected connections, and protected
+        model downloads use the network. Your library database, listening history, and
+        audio are not uploaded to Bitperfect-operated servers.
       </p>
     </div>
 
