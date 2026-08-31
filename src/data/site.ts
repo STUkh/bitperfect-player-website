@@ -38,35 +38,26 @@ export const nav = [
   { label: 'FAQ', hash: '#faq' },
 ];
 
-/**
- * Pro subscription — ONE plan, three billing periods (mirrors the app's single
- * Pro entitlement; purchases happen in-app through Google Play billing, the
- * site only informs). Prices are user-confirmed (2026-08-03). Keep in lockstep
- * with Play Console prices — a mismatched marketing price is a Play
- * "misleading claims" risk.
- */
+// One store-managed annual subscription for the complete app.
 export const pro = {
-  name: 'Pro',
+  name: 'Bitperfect Player',
   currency: 'USD',
+  trialDays: 7,
   periods: [
-    { id: 'yearly', label: 'Yearly', price: 12, per: 'year', months: 12, best: true, accent: 'var(--color-gold)', accentClass: 'text-gold', borderHover: 'hover:border-gold/50' },
-    { id: 'halfyear', label: '6 months', price: 9, per: '6 months', months: 6, best: false, accent: 'var(--color-lossless)', accentClass: 'text-lossless', borderHover: 'hover:border-lossless/50' },
-    { id: 'monthly', label: 'Monthly', price: 2, per: 'month', months: 1, best: false, accent: 'var(--color-bitperfect)', accentClass: 'text-bitperfect', borderHover: 'hover:border-bitperfect/50' },
+    { id: 'yearly', label: 'Annual', price: 35, per: 'year', months: 12, best: false, accent: 'var(--color-gold)', accentClass: 'text-gold', borderHover: 'hover:border-gold/50' },
   ],
-  /** What Pro unlocks — all of it runs on-device; the subscription unlocks
-   *  features, it never moves processing to a server. */
   unlocks: [
-    { name: 'AI Enhancer', desc: 'Real-time bandwidth extension and signal reconstruction running directly on your phone’s neural accelerator.' },
-    { name: 'AI Mix', desc: 'Smart guided mixes built from your local library — tag-based playlist generation and automatic discovery.' },
-    { name: 'App Development & Support', desc: 'Your subscription directly fuels ongoing independent development, research, and new features. Think of it like a patron membership to support the player.' },
+    { name: 'Playback and library', desc: 'Local and network libraries, playlists, search, radio and playback.' },
+    { name: 'Bit-perfect output and DSP', desc: 'Exclusive USB output, parametric EQ, processing and casting.' },
+    { name: 'On-device AI', desc: 'AI Enhancer, mixes, similar tracks and search, processed on your phone.' },
   ],
-  /** Trust line — the negative-option honesty the audience expects. */
-  freeForever: 'The player itself is not a subscription: playback, bit-perfect USB output, the full parametric EQ, casting and plugins are yours with the app.',
+  accessRequirement: 'The whole app requires an active free trial or annual subscription. There is no free tier.',
   disclosures: [
-    'Purchased in-app · billed by Google Play',
+    'Eligible new customers get 7 days free',
+    'Then USD 35 per year',
+    'Google Play shows and charges the regional price before purchase',
     'Renews automatically until cancelled',
     'Cancel anytime in Play subscriptions',
-    'Prices in USD — local pricing is set by Google Play',
   ],
 };
 

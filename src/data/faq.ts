@@ -15,11 +15,11 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: 'Is the AI processing optional?',
-    a: 'Yes. Every AI feature ships off and stays off until you enable it — they are part of Pro. The enhancer alters the signal by design, so switching it on re-labels the signal state as enhanced rather than bit-perfect. That is deliberate: the badge never claims a purity the DSP just spent.',
+    a: 'Yes. Every AI feature stays off until you enable it. The annual subscription includes the whole app, including AI. The enhancer alters the signal by design, so switching it on re-labels the signal state as enhanced rather than bit-perfect.',
   },
   {
     q: 'What does the app send over the internet?',
-    a: 'Three things. Crash reports — on by default, and one switch turns them off. Artwork lookups — on by default, also switchable — which send artist and album names to public image sources and nothing more. And a one-time download of model files when you enable an AI feature. That is the whole list: no analytics, no ads, no account, no listening history. Audio never leaves the phone.',
+    a: 'Crash reports when enabled, artwork searches, store-backed subscription verification, and model downloads for AI features. Audio and listening history never leave the phone, and there are no ads or behavioral analytics.',
   },
   {
     q: 'Which platforms and devices are supported?',
@@ -31,11 +31,11 @@ export const faqItems: FAQItem[] = [
     a: "Through plugins, which are separate signed apps. A plugin resolves a stream URL and hands it back — it never receives decoded audio, and none of its code runs inside the player's process.",
   },
   {
-    q: 'What does Pro cost?',
-    a: "$2 a month, $9 for six months, or $12 a year — which works out to $1 a month. You buy it in-app; Google Play handles the billing. It renews automatically until cancelled, and you can cancel anytime in Play's subscriptions screen. The player, the EQ, casting, and plugins never need Pro.",
+    q: 'What does the subscription cost?',
+    a: "There is one annual subscription at USD 35 per year. Eligible new customers get a 7-day free trial. Google Play shows and charges the regional price before purchase, renews the subscription automatically, and handles cancellation.",
   },
   {
     q: 'Do AI features work offline?',
-    a: 'Yes. The models download once, when you first enable a feature. After that everything — enhancement, mixes, similar tracks, search — runs on the phone with no connection at all. There is no server side to be offline from.',
+    a: 'After the initial model download, AI processing runs on the phone. The first download and periodic subscription verification require a network connection.',
   },
 ];

@@ -6,28 +6,28 @@ import Icon from '../Icon.astro';
 import { pro } from '../../data/site';
 ---
 
-<section id="pricing" class="section-py relative">
+<section id="pricing" class="section-py relative scroll-mt-28">
   <Container>
-    <SectionHeader
-      eyebrow="Pricing"
-      eyebrowColor="text-gold"
-      title="One subscription. Only for the AI"
-      subtitle="Pro unlocks the AI Enhancer and AI Mix. Your subscription directly supports independent development and future research — like a patron membership for the player."
-    />
+    <div class="pt-24">
+      <SectionHeader
+        eyebrow="Pricing"
+        eyebrowColor="text-gold"
+        title="One annual subscription. The whole app."
+        subtitle={`Eligible new customers can try Bitperfect Player free for ${pro.trialDays} days. Google Play confirms eligibility and shows the exact regional price before purchase.`}
+      />
+    </div>
 
     <div class="mx-auto max-w-5xl space-y-8">
-      <!-- Free Forever Guarantee Banner -->
       <div
         class="glass accent-glow rounded-2xl px-6 py-5 flex items-center gap-4 text-base leading-relaxed text-text-primary"
         style="--card-accent: var(--color-bitperfect)"
         data-animate="fade-up"
       >
         <Icon name="sig-bitperfect" size={20} class="text-bitperfect shrink-0" />
-        <p class="text-sm text-center sm:text-base">{pro.freeForever}</p>
+        <p class="text-sm text-center sm:text-base">{pro.accessRequirement}</p>
       </div>
 
-      <!-- 3 Billing Period Cards (Columns) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" data-animate="fade-up">
+      <div class="mx-auto grid max-w-md grid-cols-1 gap-6 items-stretch" data-animate="fade-up">
         {
           pro.periods.map((p) => (
             <div
@@ -60,18 +60,17 @@ import { pro } from '../../data/site';
               </div>
 
               <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs text-text-secondary">
-                Billed via Google Play · Cancel anytime
+                Billed yearly via Google Play · Cancel anytime
               </div>
             </div>
           ))
         }
       </div>
 
-      <!-- What Pro Unlocks Card -->
       <div class="glass accent-glow rounded-2xl p-6 sm:p-8" style="--card-accent: var(--color-gold)" data-animate="fade-up">
         <div class="flex items-center gap-2 mb-6 pb-4 border-b border-white/[0.08]">
           <Icon name="sparkle" size={18} class="text-gold" />
-          <h3 class="text-base font-bold uppercase tracking-wider text-white">What Pro Unlocks</h3>
+          <h3 class="text-base font-bold uppercase tracking-wider text-white">Everything included</h3>
         </div>
 
         <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -100,7 +99,6 @@ import { pro } from '../../data/site';
         </ul>
       </div>
 
-      <!-- Disclosures & Store Badges -->
       <div class="flex flex-col items-center gap-6" data-animate="fade-up">
         <ul class="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs text-text-tertiary">
           {

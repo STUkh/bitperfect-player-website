@@ -30,9 +30,7 @@ const websiteSchema = {
   url: siteUrl,
 };
 
-/* Pro is one entitlement, three billing periods — Play Console requires each
- * billed option listed as its own Offer. No aggregateRating / ratingValue:
- * inventing a rating is a structured-data policy violation (BRIEF.md §4.1). */
+// The store manages one annual offer; aggregate ratings are intentionally absent.
 const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
