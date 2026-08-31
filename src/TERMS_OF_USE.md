@@ -1,8 +1,4 @@
-<!-- No `# ` title here. LegalLayout renders the visible <h1> from its `title`
-     prop, and the product name is already in the header and the <title>. Two
-     h1s on one document is the defect this removes. -->
-
-**Effective date:** August 31, 2026
+**Effective date:** August 5, 2026
 
 **Last updated:** August 31, 2026
 

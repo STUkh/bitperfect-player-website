@@ -1,13 +1,7 @@
-/**
- * Header nav. The home page carries no technical sections any more (DESIGN.md's
- * information architecture: hero, statement band, features teaser, privacy band,
- * pricing, closing CTA), so `#showcase`, `#ai` and `#faq` were dead fragments and are
- * gone. The technical depth lives on `/features` and the six feature routes.
- */
+// Primary header navigation; legal links remain in the footer.
 export const navLinks = [
   { label: 'Features', href: '/features' },
   { label: 'Pricing', href: '/#pricing' },
-  { label: 'Privacy', href: '/privacy' },
 ] as const;
 
 /**
