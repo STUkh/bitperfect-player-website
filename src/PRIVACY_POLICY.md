@@ -1,266 +1,370 @@
-**Effective date:** August 5, 2026
+**Originally effective:** August 5, 2026
+
+**Current version effective:** August 31, 2026
 
 **Last updated:** August 31, 2026
 
-This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
-collects it, and what control you have over your data. The terms governing your use of the
-App — including the subscription, the free trial, billing, cancellation and refunds — are a
-separate document: see the [Terms of Use](/terms).
+This Privacy Policy explains how the Bitperfect Player Android app (the "App") and this
+website handle data. The data controller is the individual or legal entity identified as the
+developer in the App's live Google Play listing ("we", "us"). That listing contains the
+controller's verified legal and geographic contact details. Privacy contact:
+support@bit-perfect.com.
 
-Contact: support@bit-perfect.com
+The [Terms of Use](/terms) separately govern the subscription, trial, billing, cancellation,
+refunds, licence, and limits of the service.
 
 ---
 
-## 1. Summary (non-binding: the full sections below govern)
+## 1. Summary
 
-- The App is a local/network music player. Your music library, playback
-  history, and settings stay on your device.
-- We use a third-party crash-reporting service to receive technical
-  diagnostic reports when the App crashes or hits an internal error. This is
-  **on by default** and can be turned off at any time in Settings → About →
-  "Crash debug info."
-- Network-source credentials (FTP/WebDAV/SMB/DLNA logins you enter) are
-  stored **encrypted on this device only** (using platform hardware-backed encryption,
-  such as Android Keystore or Apple Keychain) and are **never transmitted to us**.
-  They go only to the server you configured them for.
-- The on-device AI audio enhancer processes audio **entirely on your device**.
-  No audio is ever uploaded, streamed, or transmitted anywhere for
-  enhancement.
-- We do not run ads and do not use any third-party analytics or advertising
-  SDK beyond the crash-reporting described below.
-- We do not require account creation or sign-in to use the App.
+- The music-library database, playback history, playlists, favorites, settings, and AI audio
+  processing remain on your device. Limited search terms leave the device only when an
+  online lookup described below is used.
+- Production crash and reliability reporting is enabled by default and can be turned off in
+  Settings → About → "Crash debug info."
+- Network-source credentials are encrypted in App storage using Android Keystore-backed
+  encryption. Whether key material is hardware-backed depends on the device. The App does
+  not intentionally route those credentials to us; they are used to contact the source you
+  configure. Section 2.1 explains the residual risk of accidental diagnostic inclusion.
+- AI inference runs on your device. Licence verification and protected AI-model downloads
+  use the network but do not send your audio or audio-derived model inputs or outputs.
+- We do not run ads, sell personal data, use advertising identifiers, or use diagnostic
+  session and breadcrumb data for advertising, listening profiles, or general product-
+  behavior analytics.
+- No registration account, name, email, or password is required. The App does create a
+  persistent **pseudonymous installation identifier** for entitlement and abuse prevention.
 
-## 2. What we collect and why
+## 2. Data handled by the App and website
 
-### 2.1 Crash and diagnostic data
+### 2.1 Crash, reliability, and manual bug-report data
 
-When crash reporting is enabled (default: on), we automatically receive a
-diagnostic event (when the App crashes, when it encounters an internal
-error it flags for reporting, or when you manually send a bug report via
-Settings → About → "Send bug report") containing some or all of:
+The current Google Play production build uses **Sentry** for crash and reliability
+reporting. Reporting starts enabled by default and may send:
 
-- Stack traces and error messages (from the application logic, UI, and audio/network engine).
-- Device information: manufacturer, model, OS version, available memory,
-  screen configuration.
-- App information: version, build type, session length up to the crash.
-- Breadcrumbs: a short trail of recent in-app navigation/events leading up
-  to the crash. File paths and similar potentially sensitive strings are
-  scrubbed or anonymized where feasible before they are sent.
-- Your device's IP address, which our crash-reporting provider may log as
-  part of standard network request handling. We do not use IP address for
-  identification or tracking purposes ourselves.
-- If you use the in-app "Send bug report" feature, the report includes the
-  App's own recent diagnostic logs and a snapshot of the device's system log
-  filtered to this App's process, with file paths scrubbed, so we can
-  reproduce the issue, not just the optional text field. If you choose to
-  describe the issue in the provided text field, that description is sent to
-  our crash-reporting provider attached to the same event. The description
-  field is optional: leaving it blank still sends the logs.
+- errors, stack traces, native crash information, and limited performance information;
+- App version, build type, installer source, session information, and recent in-App
+  breadcrumbs;
+- manufacturer, model, Android version, memory, screen configuration, and CPU-load data;
+- a diagnostic snapshot limited to audio-output and App-configuration fields; and
+- ordinary network-request data, including an IP address visible to Sentry and network
+  providers.
 
-We consider stack traces, breadcrumbs, device identifiers, and IP address to
-be personal data under GDPR/UK GDPR and similar frameworks, and we treat them
-that way even though no name, email, or account identifier is attached.
+We do not intentionally attach your name, email, advertising ID, Android location data, a
+screenshot, network credential, or pseudonymous subscription identifier to a Sentry event.
+Breadcrumbs and logs can contain screen names, actions, errors, URLs, server or connected-
+device labels, media metadata, file names, or paths generated during operation. We attempt
+to remove common Android storage paths, but automated redaction cannot guarantee removal of
+every user-entered or device-generated sensitive string.
 
-**Data processor:** a third-party crash-reporting service, with
-infrastructure for this App hosted in the European Union, acts as our data
-processor for this data.
+If you choose \"Send bug report\", the App sends a compressed attachment to Sentry. It can
+include two rotating App-log files, a current system-log snapshot filtered to the App
+process, device and build information, and any optional description you enter. Leaving the
+description blank can still send the technical attachment. Do not enter secrets in the
+description.
 
-**Retention:** diagnostic events are retained per our crash-reporting plan's
-data retention setting (typically on the order of 90 days), after which they
-are automatically deleted by the provider.
+Purpose: diagnose crashes, freezes, compatibility problems, and serious reliability faults;
+protect service quality; and respond to a report you initiate. Sentry processes this data on
+our behalf under its service terms. See [Sentry's Privacy Policy](https://sentry.io/privacy/).
 
-**Turning it off:** Settings → About → "Crash debug info" toggle. Turning
-this off stops all future diagnostic events from being sent. It does not
-retroactively delete events already sent (see Section 5 for how to request
-deletion).
+Turn future reporting off in Settings → About → \"Crash debug info.\" Turning it off does
+not delete an event already sent. Session and breadcrumb data are used for diagnosis, not
+advertising, listening profiles, or general product-behavior analytics.
 
-**We do not** currently collect any other analytics, usage statistics,
-telemetry, or behavioral tracking of any kind. If that changes in a future
-version, this policy will be updated first and, where required by law or
-platform policy, we will ask for your consent before the change takes effect.
+### 2.2 Music library and local App data
 
-### 2.2 Music library data
+The App scans the audio locations and network sources you authorize and stores track
+metadata, embedded artwork, file locations, playlists, favorites, playback history, analysis
+results, and settings in its private local database or App storage. We do not operate a
+cloud backup for this database and do not receive its full contents.
 
-Your music library (track metadata: title, artist, album, genre, embedded
-artwork, file paths, playback history, favorites, playlists) is scanned
-from your device's storage and/or the network sources you configure, and is
-stored **only in a local database on your device**. It is never transmitted
-to us. Uninstalling the App or clearing its data deletes this information.
+Clearing App data or uninstalling normally removes the private App database and local
+caches. It does not delete your original music files unless you separately confirm a delete
+action, and it cannot delete copies held by a store, source, cast target, Android, or another
+provider. Exported files and data written to a music file or user-selected location remain
+until deleted there.
 
-### 2.3 Network-source credentials
+Specific artist, album, track, or headphone terms can be sent to third parties when you use
+the lookup features in Sections 2.6 and 2.7. That limited disclosure does not upload the
+local database or playback history.
 
-If you add a network source (FTP, WebDAV, SMB, or a DLNA/UPnP device) and
-provide a username/password, that credential is stored using platform-native,
-hardware-backed encrypted storage (such as Android Keystore or Apple Keychain)
-**on your device only**. It is transmitted only to the server/device you configured it
-for, using the protocol you selected, and is never sent to us or to any
-third party we control.
+### 2.3 Network sources and credentials
 
-Some network protocols the App supports (e.g. FTP, WebDAV to a server you
-specify) may transmit data unencrypted over your local network, depending on
-how the server you're connecting to is configured. This is a property of
-the protocol and the server, not something the App adds; encrypted variants
-(FTPS, HTTPS-based WebDAV) are supported where the server offers them and we
-recommend using them. You are responsible for the security configuration of
-any server you choose to connect the App to.
+If you enter a credential for a source such as FTP, SFTP, WebDAV, SMB, LMS, or another
+supported server, the App encrypts it in private App storage using a key managed through
+Android Keystore. Android does not guarantee hardware-backed key storage on every device.
+The App does not intentionally route the credential to us; it sends it to the server or
+device you configure using the selected protocol. A credential could nevertheless appear
+in user-entered support text or an unexpected diagnostic string, subject to the warnings
+and controls in Sections 2.1 and 2.10.
 
-### 2.4 AI audio enhancer
+Protocol and server security are your choice. Plain FTP and some server configurations may
+transmit credentials, metadata, or content without transport encryption. Use an encrypted
+protocol and a trusted network where available. A server, VPN, router, DNS provider, or
+network operator can process connection data under its own terms.
 
-The AI enhancer runs entirely on-device (using local CPU, GPU, or Neural Processing
-Unit (NPU) hardware inference, depending on your device). No audio data, model input, or model
-output is ever uploaded, streamed, or transmitted off your device for this
-feature, under any circumstance.
+### 2.4 On-device AI and protected model delivery
 
-### 2.5 Casting and receiving (DLNA / UPnP / Chromecast)
+The App performs AI audio inference on the device. It does not send audio, audio-derived
+model inputs, or model outputs to us or to a service provider for AI inference.
 
-When you cast to a device on your local network, track metadata and a
-temporary local-network media URL are sent to that device so it can fetch
-and play the audio. This communication stays on your local network between
-your phone and the cast target; it is not routed through us or any server we
-operate.
+This does not mean model delivery is offline. To authorize a protected model download, the
+App uses the subscription, integrity, verification, and content-delivery services described
+in Section 2.9. Those requests contain licence and technical security data, not audio. The
+model file itself is downloaded to App storage and may be deleted by clearing App data,
+uninstalling, or Android storage management.
 
-The App can also act as a DLNA/UPnP renderer and FCast receiver, letting
-other devices on your local network cast audio *to* your phone. Like
-outbound casting, this traffic stays on your local network and is not
-routed through us.
+### 2.5 Casting, receiving, and online streams
 
-### 2.6 Artist and album artwork lookups
+For a local-source cast, the App sends the target track metadata and a temporary
+local-network media URL so the target can fetch the audio. If you cast an online radio,
+plugin, or other remote stream, the target may receive the remote stream URL and contact
+that source directly. A receiving mode lets another device send a media URL or stream to the
+App.
 
-By default, the App looks up artist and album artwork for the tracks in
-your library from public, third-party artwork/metadata catalogs. This is a
-retrieval, not a collection: the App is pulling public images into your
-device, not sending your library or any personal data out. The only
-information involved is the artist/album name being looked up and your
-device's IP address, which any standard HTTP request inherently includes and
-which we do not receive, log, or retain ourselves. This lookup is **on by
-default** and can be turned off in Settings (library/appearance settings,
-artist-image fetching). No other information about you or your library is
-sent as part of this lookup.
+We do not route cast audio or metadata through a Bitperfect-operated media relay. Your cast
+target, remote source, plugin, router, VPN, and network provider may process IP addresses,
+metadata, media URLs, and request data under their own policies.
 
-### 2.7 Plugins (separate apps)
+### 2.6 Artist photos and album-art searches
 
-The App supports an optional plugin architecture where plugins are
-**separate, independently-installed applications or plugins** (e.g. streaming-source plugins)
-that communicate with the App over a restricted, signature-verified IPC
-channel. Plugins can return track metadata, stream URLs, or cover-art URLs to
-the App. They never receive your raw audio, and audio never crosses the
-IPC boundary in either direction.
+Artist-photo fetching is enabled by default. When enabled, the App sends a normalized artist
+name to **Wikidata**, **Wikimedia Commons**, and, if needed, **Deezer** to request an image.
+You can turn automatic artist-image fetching off in Settings.
 
-**Plugins are not covered by this policy.** Each plugin is its own
-application with its own developer, its own permissions, and, if it
-contacts any external service (e.g. a streaming provider's API), its own
-data practices. Review a plugin's own privacy policy and permissions before
-installing it. We are not responsible for data practices of third-party
-plugins.
+Album-art search occurs when you choose to update artwork. It can send the artist and album
+search terms to **Apple/iTunes Search**, **Deezer**, **MusicBrainz**, and **Cover Art
+Archive**. These providers receive the query plus ordinary request data such as IP address,
+user-agent, and request time and process it under their own policies. We do not receive those
+lookup requests and do not send them audio files or playback history.
 
-### 2.8 What we do NOT collect
+### 2.7 Lyrics, headphone profiles, radio, and user-selected online content
 
-We do not collect, and the App does not request: your name, email address,
-phone number, precise or approximate location, contacts, calendar,
-photos/videos outside the music-library scan scope you grant, biometric
-data, or any advertising identifier. We do not run any advertising SDK. We
-do not sell personal data, and we do not share personal data with third
-parties for their own marketing or advertising purposes. The only outbound
-data flows to third parties are the ones disclosed elsewhere in Section 2
-(crash/diagnostic reporting per 2.1, and the artist/album artwork lookups
-per 2.6). Both exist to run a feature you use, not to monetize your data,
-and neither third party receives it for their own marketing use as far as
-their published terms describe.
+When you request online lyrics, the App can send track title, artist, album, duration, or a
+search phrase to **LRCLIB**. When you browse or apply an online headphone correction profile,
+the App contacts **AutoEq** and can send the selected headphone, measurement, and target
+parameters. When you play an internet-radio station, plugin stream, or URL you select, the
+App or cast target contacts that source and necessarily discloses ordinary network data.
 
-### 2.9 Purchases (subscription)
+These are user-requested feature connections. The external provider, not us, controls its
+response, logs, retention, and own data use. Do not put personal or secret information into
+a public catalog search field.
 
-The App is a subscription app, and the subscription is purchased **in-app** through the
-store. The commercial terms — price, free trial, renewal, cancellation and refunds — are in
-the [Terms of Use](/terms). What follows is only what happens to your data when you buy.
+### 2.8 Plugins are separate apps
 
-- **Payment is processed entirely by the store (Google Play or Apple App Store).** We never receive or store
-  your card number, billing address, or payment identity. The store's own
-  privacy policy governs the payment transaction.
-- **Entitlement management.** To know whether your subscription is
-  active, the App uses a third-party subscription-management service, based
-  in the United States, which processes your purchase token and
-  an anonymous app-instance identifier. This is the minimum needed to answer
-  "is this install entitled?" It is not linked to your name, email, or
-  listening data (the App has none of these).
-- **On this device.** A signed record of your entitlement is stored locally
-  so the App keeps working offline; it contains no payment details.
-- **No account with us.** There is nothing to sign up for and nothing to close.
-  Cancelling happens in your store account and needs nothing from us.
+A plugin is separately installed software with its own developer, permissions, terms, and
+privacy practices. The App limits the plugin interface and does not carry raw audio across
+that interface, but a plugin can return metadata, artwork URLs, or stream URLs and can
+contact its own provider. This policy does not cover a third-party plugin's independent data
+handling. Review it before installation.
 
-## 3. Permissions the App requests, and why
+### 2.9 Subscription verification, installation integrity, and model access
 
-Permissions requested by the App depend on the platform (Android or iOS/macOS) and the features you use:
+No registration account is required, but the App creates a cryptographic installation key
+in Android Keystore and derives a persistent pseudonymous identifier from its public key.
+The identifier is not your name, email, advertising ID, or Google password, but it can link
+verification and subscription events from the same App installation and is therefore treated
+as personal data where applicable.
 
-| Permission | Why |
+The following data may be processed to verify access, prevent fraud and replay, and authorize
+protected model downloads:
+
+- the pseudonymous installation identifier, installation public key, and a per-request
+  cryptographic signature;
+- App package name, one-time nonce or request hash, request time, and requested model file;
+- a Google Play Integrity token and the resulting App, licence, account, and device-integrity
+  verdicts;
+- Google Play purchase and entitlement information, including product, status, expiry, and
+  renewal state; and
+- IP address, user-agent, request identifiers, timing, rate-limit events, and other ordinary
+  security and network logs visible to the involved providers.
+
+**Google Play** processes the purchase. **RevenueCat** processes the pseudonymous identifier
+and purchase-entitlement history for subscription management. **Google Play Integrity** and
+our verification service hosted on **Google Cloud** evaluate App, licence, and device
+integrity. **Cloudflare** authorizes and delivers protected model files. Their current
+privacy notices are available at [Google](https://policies.google.com/privacy),
+[RevenueCat](https://www.revenuecat.com/privacy/), and
+[Cloudflare](https://www.cloudflare.com/privacypolicy/).
+
+The verification service stores a hash of a successfully used integrity token with a
+10-minute expiry marker to prevent replay; infrastructure deletion can occur asynchronously.
+A model-access token expires within 15 minutes and no later than the entitlement that
+justified it. Positive server-side entitlement results are cached for no more than 60
+seconds. The signed on-device entitlement cache can support offline use for no more than 14
+days after successful verification. Security and request logs are retained according to the
+minimum period reasonably needed for abuse prevention, incident investigation, service
+operation, and legal obligations; provider security logs may follow the provider's own
+retention policy.
+
+### 2.10 Website visits and support email
+
+This is a static website delivered through **GitHub Pages**. We do not place first-party
+advertising or analytics scripts, tracking pixels, forms, or cookies on it. GitHub and
+network providers necessarily receive the requested URL, IP address, browser and device
+headers, request time, and security logs to deliver and protect the site. See the
+[GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+
+If you email support, we and our email provider process your address, message, attachments,
+and related headers to answer, investigate, prevent abuse, keep a support record, and meet
+legal obligations. Email is not a secure channel for passwords, payment-card data, private
+keys, or network credentials; do not send them.
+
+### 2.11 Data we do not use for monetization
+
+The App does not request Android's location permission or intentionally read GPS or
+operating-system location data. IP addresses visible to network providers can still reveal
+an approximate region. The App does not request contacts, calendar, biometric data, or an
+advertising identifier. It does not run ads, sell personal data, or share personal data for
+another party's targeted advertising or marketing. We do not build a listening profile for
+advertising.
+
+This section is not a claim that no data ever leaves the device. The operational and
+user-requested flows are disclosed in Sections 2.1 through 2.10.
+
+## 3. Android permissions and access
+
+Permissions and system capabilities depend on Android version and the feature used:
+
+| Permission or capability | Purpose |
 |---|---|
-| Notifications (`POST_NOTIFICATIONS`) | To show the required persistent playback-controls notification while music plays in the background (standard Android media-app requirement). |
-| Audio/media files (`READ_MEDIA_AUDIO` or legacy storage) | To find and play your local music files. |
-| Bluetooth (`BLUETOOTH_CONNECT`) | To detect and report the actual Bluetooth audio codec (e.g. aptX-HD, LDAC) in use for connected headphones/speakers, for the fidelity display. |
-| Battery optimization exemption (`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`) | Bit-perfect USB DAC audio requires an unbroken background audio feed; if the OS suspends the App's process mid-playback to save battery, this causes audible dropouts or glitches on external DACs. This is requested once, is entirely optional, and only affects battery behavior while music is actively playing. |
-| Foreground service (media playback / connected device / data sync) | Required by Android to keep audio playing and a USB/network device connection alive while the App is in the background, with a visible ongoing notification as required by the OS; also used to download the optional AI-enhancement model with visible progress. |
-| Wake lock | Held only while music is actively playing, to prevent the device from sleeping mid-playback. |
-| Delete media files (Android 9 and older) | To delete a track from your device when you choose to remove it, on OS versions that require this permission for that action. |
-| Local network access (internet + Wi-Fi state) | To discover and connect to DLNA/UPnP/Chromecast devices and network shares (FTP/WebDAV/SMB) on your own network, and to reach crash reporting, artwork lookups, and AI-model downloads described elsewhere in this policy. |
-| USB device access | To communicate directly with a connected USB DAC for bit-perfect audio output. Granted via a runtime USB-permission prompt, not a manifest permission. |
+| Internet, network state, Wi-Fi state, and Wi-Fi multicast | Remote services in Section 2, network sources, LAN discovery, casting, streams, verification, and downloads. |
+| Audio/media files or legacy storage | Find, read, play, edit, or delete audio only within the access Android grants and actions you select. |
+| Notifications | Show playback controls and required foreground-operation status. |
+| Foreground service | Keep active playback, connected-device work, casting, and visible model or analysis work running as Android permits. |
+| Bluetooth connect | Read information about a connected Bluetooth audio route and codec for the fidelity display. |
+| Wake lock | Reduce playback interruption while audio is active. |
+| Battery-optimization exemption | Optional system request intended to reduce background interruption during active playback. |
+| USB device access | Communicate with a USB audio device after the Android USB permission prompt. |
 
-We request each permission only for the feature it supports; declining a
-permission disables only that feature, not the App as a whole (with the
-exception of local media playback, which needs audio-file access to
-function at all).
+Declining a permission disables or limits the feature that needs it. Because the whole App
+also requires a verified subscription, declining a permission does not create a free or
+reduced tier.
 
-## 4. Children's privacy
+## 4. Purposes and legal bases
 
-The App is not directed at children under 13 (or the equivalent minimum age
-in your jurisdiction) and we do not knowingly collect personal data from
-children. If you believe a child has provided us data through the App (e.g.
-via a crash report), contact us at the address above and we will delete it.
+Where GDPR, UK GDPR, or similar law applies, we rely on the following legal bases:
 
-## 5. Your rights and choices
+| Processing | Purpose | Legal basis |
+|---|---|---|
+| Subscription purchase status, restoration, and ordinary model delivery | Provide the paid App access and download the user requests | Performance of the subscription contract |
+| Installation identity, integrity verdicts, replay prevention, rate limits, and security logs | Prevent fraud, protect licensed assets, users, providers, and infrastructure | Legitimate interests in security, abuse prevention, and enforcing the licence; legal obligation where applicable |
+| Crash and reliability reporting | Diagnose failures and maintain a reliable, compatible product | Legitimate interests in reliability and security; you can object by turning reporting off |
+| Automatic artist-photo lookup | Display expected library artwork without uploading the library database | Legitimate interests in product functionality and presentation; you can object by turning artist-image fetching off |
+| Manual artwork, lyrics, headphone profiles, casting, network sources, streams, and downloads | Perform the feature or connection you select | Performance of the subscription contract or steps you request |
+| Support email | Answer and document your request and prevent support abuse | Performance of the subscription contract where the request concerns access or support; otherwise legitimate interests in support and defence of claims |
+| Required records, lawful requests, disputes, and enforcement | Comply with law and establish, exercise, or defend claims | Legal obligation or legitimate interests in legal claims, depending on the record |
 
-Depending on where you live, you may have rights to access, correct, delete,
-restrict, or port data we hold about you, and to object to or withdraw
-consent for its processing. Because most App data lives only on your device
-and is never sent to us, most of these rights are exercised simply by using
-the in-app controls (deleting your library, revoking permissions,
-uninstalling the App) or by turning off crash reporting.
+We do not use consent as a basis where the processing is necessary to perform the
+subscription. Withdrawing consent affects future consent-based processing, not processing
+that was lawful before withdrawal.
 
-For diagnostic data already sent to our crash-reporting provider, contact us
-at the address above with enough detail to identify the relevant event(s)
-(approximate date/time, device model, what you were doing) and we will
-submit a deletion request to that provider on your behalf, or direct you to
-its own data-subject-request process.
+## 5. Retention
 
-## 6. International data transfer
+- Local App data remains until you delete it, clear App storage, or uninstall, subject to any
+  file or export you intentionally save elsewhere.
+- Sentry diagnostic events are retained for up to 90 days under the current project
+  configuration. We may configure a shorter period. Sentry may retain separate service and
+  security logs under its own policy. A verified deletion request can shorten retention
+  unless a lawful exception applies.
+- The pseudonymous subscription customer and purchase-entitlement record remains while
+  needed to provide or restore the subscription and until a verified deletion request is
+  completed, except for transaction, fraud, accounting, dispute, or store-reconciliation
+  records that law or a live claim requires us or a provider to retain.
+- Short-lived verification records and caches use the fixed periods in Section 2.9.
+- Support correspondence remains until the issue and reasonable follow-up are complete, and
+  longer only where needed for abuse prevention, legal compliance, or an existing or
+  reasonably anticipated claim.
+- External catalogs, sources, hosting, network, and independent service providers apply
+  their own retention policies to data they receive directly.
 
-Our crash-reporting provider's infrastructure for this App is hosted in the
-European Union. If you are located outside the EU/EEA, using the App with
-crash reporting enabled means limited diagnostic data as described in
-Section 2.1 may be processed in the EU.
+Where no fixed period applies, deletion is tied to the end of the stated purpose, the
+verified request process, resolution of a security or legal matter, and expiry of mandatory
+record-keeping.
 
-If you purchase the subscription, the entitlement-management provider
-described in Section 2.9 is based in the United States; a purchase token and
-an anonymous app-instance identifier may be processed there.
+## 6. Automated access decisions
 
-## 7. Security
+Licence and integrity checks are automated security controls selected by us. They use the
+entitlement, installation proof, App recognition, account licensing, device-integrity,
+freshness, replay, and rate-limit signals described above to return licensed, rejected,
+rate-limited, or temporarily unavailable. The result can lock the App or refuse a protected
+model download.
 
-We use industry-standard protections for the data we do handle: hardware-backed
-encryption (such as Android Keystore or Apple Keychain) for credentials, HTTPS/TLS for any network
-request we control, and no plaintext storage of secrets. No method of
-storage or transmission is 100% secure, and we cannot guarantee absolute
-security of data you choose to transmit to third-party servers or devices
-you configure the App to connect to (Section 2.3).
+These checks are not used for advertising or listening-profile scoring. If you believe a
+valid purchase was rejected, contact support@bit-perfect.com with the time, App version,
+device model, and non-secret error shown by the App. A person can review the available
+entitlement and verification outcome, help correct an account or installation mismatch,
+request a restore through Google Play, and investigate a false rejection. We cannot grant
+access without a verifiable active entitlement and security result, but this does not limit
+any right applicable law gives you concerning a solely automated decision or paid access.
 
-## 8. Changes to this policy
+## 7. Your rights and choices
 
-We may update this policy as the App changes. Material changes will be
-reflected by an updated "Last updated" date above. Your continued use of the App
-following the posting of an updated policy constitutes your acceptance of it.
-Where required by applicable law or platform policies, we will provide
-additional notice or seek explicit consent before material changes take effect.
+Depending on applicable law, you may have rights to access, correct, delete, restrict, or
+port personal data, object to processing based on legitimate interests, withdraw consent,
+and complain to a data-protection authority. You may complain to the supervisory authority
+where you live or work or where you believe an infringement occurred.
 
-## 9. Contact
+Most library and listening data is only on your device. Use App controls, revoke Android
+permissions, clear App data, delete exported data at its location, or uninstall to control
+it. Turn off future crash reporting in Settings.
 
-Questions about this policy or your data: support@bit-perfect.com
+For server-side pseudonymous records, diagnostics, or support email, contact
+support@bit-perfect.com. Include enough non-secret detail to locate the record. We may need
+to verify that a request relates to your installation or correspondence. Because the App has
+no name-based account and intentionally avoids directly identifying you, we may be unable to
+link a person to a particular pseudonymous or crash record; we will explain that result and
+any lawful retention or refusal. Store transaction records must be requested from Google
+Play where it controls them.
 
-For the terms governing your use of the App and your subscription, see the
+We respond within the period required by applicable law. Exercising a privacy right does not
+cancel a Google Play subscription; cancel it separately in Google Play.
+
+## 8. International processing and service providers
+
+The providers named in Section 2 can process data in the European Economic Area, the United
+States, and other countries where they or their subprocessors operate. Those countries may
+have different privacy laws. Where GDPR or UK GDPR restricts a transfer to a provider, the
+transfer is covered, as applicable, by an adequacy decision or by standard contractual
+clauses incorporated into the provider's accepted data-processing terms, together with
+supplementary security measures where required. You may contact us for information about
+the mechanism relevant to a particular provider.
+
+Third-party catalogs, servers, plugins, radio providers, cast targets, and URLs you choose
+can receive data directly from your device and act under their own privacy terms; we do not
+control their processing.
+
+## 9. Security
+
+We use reasonable technical and organizational measures appropriate to the limited data we
+handle, including Android Keystore-backed credential encryption, signed installation proofs,
+short-lived model-access tokens, replay protection, rate limits, access controls, and TLS for
+requests to services we operate.
+
+No storage or transmission method is completely secure. We cannot guarantee a third-party
+server, plugin, device, network, protocol, email provider, or user configuration. Plain or
+misconfigured network protocols can expose data despite local credential encryption.
+
+## 10. Children's privacy
+
+The App is not directed to children under 13 or the higher minimum age applicable to the
+service in their country. We do not knowingly request a child's name or contact details. If
+you believe a child sent personal data in a diagnostic report or support message, contact us
+so we can assess and delete it where required.
+
+## 11. Changes to this Policy
+
+We may update this Policy when the App, website, providers, or legal requirements change.
+The "Last updated" date identifies the current version. Material changes will receive any
+additional notice or consent required by applicable law or platform policy before the new
+purpose or consent-based processing applies.
+
+Continued use is not treated as consent where law requires an affirmative choice. A policy
+update does not retroactively make an incompatible earlier use of data lawful.
+
+## 12. Contact
+
+Privacy questions and rights requests: **support@bit-perfect.com**.
+
+For the controller's verified legal and geographic details, see the developer-contact
+section of the App's live Google Play listing. For subscription terms, see the
 [Terms of Use](/terms).

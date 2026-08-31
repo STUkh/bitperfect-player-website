@@ -1,406 +1,383 @@
-**Effective date:** August 5, 2026
+**Originally effective:** August 5, 2026
+
+**Current version effective:** August 31, 2026
 
 **Last updated:** August 31, 2026
 
-These Terms of Use ("Terms") govern your use of the Bitperfect Player app ("the App").
-They cover the subscription, the free trial, billing, cancellation and refunds, and the
-limits of what is promised. How the App handles your data is a separate document: see the
-[Privacy Policy](/privacy).
+These Terms of Use ("Terms") govern the Bitperfect Player Android app (the "App"). The
+contracting developer is the individual or legal entity identified as the developer in the
+App's live Google Play listing (the "Developer", "we", "us"). That listing contains the
+Developer's verified legal and geographic contact details. Subscription and legal questions:
+support@bit-perfect.com.
 
-Contact: support@bit-perfect.com
+The [Privacy Policy](/privacy) separately explains how the App and this website handle data.
 
 ---
 
 ## 1. Summary (non-binding: the full sections below govern)
 
-- Bitperfect Player is a **subscription app**. There is one plan: an
-  **auto-renewing annual subscription at USD 35 per year**.
-- New customers who have not used it before are eligible for a **7-day free
-  trial**. If you do not cancel before the trial ends, the first year is
-  charged automatically.
-- Everything is billed by the app store you downloaded the App from, never by
-  us and never on this website. The store shows you the price in your own
-  currency before you confirm.
-- **Cancel any time in your store account.** Cancelling stops the next
-  renewal; you keep access until the end of the period you already paid for.
-- Refunds are requested from the store, because the store is who took the
-  payment.
-- Without an active trial or subscription, the App is not usable. There is no
-  free tier and no cut-down version.
-- The App is provided as is. Audio hardware, phones, and operating systems
-  vary, and no particular result on your particular equipment is promised.
-- Questions or problems: email support@bit-perfect.com.
+- Bitperfect Player is a **subscription app** with one **auto-renewing annual plan**.
+- The US price is currently **USD 35 per year**. Google Play shows the binding local price,
+  currency, tax, trial eligibility, and billing date before purchase.
+- Customers who have not previously used a Bitperfect Player trial or subscription may be
+  offered a **7-day free trial** under the offer we configure. A trial applies only if
+  Google Play confirms eligibility and displays it at checkout.
+- Unless cancelled before the time shown by Google Play, a trial converts to a paid annual
+  subscription and each paid year renews automatically.
+- Cancel through Google Play. Deleting the App does not cancel the subscription.
+- We do not offer a voluntary pro-rata refund for unused time. Google Play's refund rules and
+  any mandatory consumer rights still apply.
+- Without a verified active trial or subscription, the whole App is locked. Online licence
+  and device-integrity verification is required initially, after certain changes, and at
+  least once every 14 days.
+- Device, operating-system, network, and audio-hardware differences affect compatibility and
+  results. No particular result on particular equipment is promised.
 
-## 2. Accepting these Terms
+## 2. Accepting these Terms and order of precedence
 
-By downloading, installing, or using the App, you agree to these Terms. If you do not agree
-to them, do not use the App. If you are under the minimum age required to hold an account
-with your app store, do not use the App or purchase a subscription.
+By downloading, installing, purchasing, or using the App, you agree to these Terms. If you
+do not agree, do not use the App. If you are below the minimum age required to enter this
+agreement or hold a Google Play account in your country, do not use the App or purchase a
+subscription.
 
-Your purchase is also governed by the terms of the store you buy through (Google Play, or
-the Apple App Store where the App is offered there). Where a store's own rules give you
-more than these Terms do, the store's rules apply.
+The purchase transaction is also governed by Google Play's checkout terms. The following
+order applies where documents conflict: mandatory law; the price, billing date, trial, and
+transaction terms displayed by Google Play for your purchase; these Terms; then general
+website or promotional descriptions. Nothing in these Terms excludes a pre-contractual
+statement, statutory guarantee, or consumer right that applicable law makes binding.
 
-**These Terms are the whole agreement.** Nothing said elsewhere — on this website, in the
-store listing, in screenshots, in release notes, in a review, in a support reply, or in any
-promotional material — forms part of this agreement or creates a warranty. Descriptions of
-what the App does are descriptions, not guarantees, and you should not rely on them as
-promises of any specific outcome on your equipment.
+Except for information that law makes binding, product descriptions explain general
+functionality rather than guarantee compatibility, availability, or a particular result on
+every device. A support reply does not amend these Terms unless the Developer expressly
+states in writing that it does so.
 
-## 3. What you may do with the App
+## 3. Licence and prohibited use
 
-You are granted a personal, non-exclusive, non-transferable, non-sublicensable, revocable
-licence to install and use the App on devices you own or control, for your own listening,
-for as long as your trial or subscription is active. All rights not expressly granted are
-reserved.
+While your verified trial or subscription is active, you receive a personal, limited,
+non-exclusive, non-transferable, and non-sublicensable licence to install and use the App
+on eligible devices you own or control for personal listening. The licence ends with the
+entitlement or may be suspended or terminated only under Section 15 and applicable law.
+All rights not expressly granted are reserved.
 
-You may not resell, rent, lease, sublicense, or redistribute the App; you may not copy,
-modify, translate, decompile, disassemble, or reverse-engineer it or attempt to derive its
-source code, except to the extent applicable law expressly permits despite this
-restriction; and you may not bypass, disable, or interfere with the subscription check, the
-licence check, or any security measure.
+You may not resell, rent, lease, sublicense, redistribute, copy, modify, translate,
+decompile, disassemble, reverse-engineer, or attempt to derive the source code of the App,
+except to the extent applicable law expressly permits despite this restriction.
 
-The App plays music you already have: files on your device and on network sources you
-configure yourself. You are responsible for having the right to play, store, and copy that
-music. The App is not a music store, supplies no music, and provides no content of its own.
+You also may not:
 
-## 4. Subscription, free trial and price
+- bypass, disable, falsify, or interfere with subscription, licence, device-integrity,
+  rate-limit, or other security checks;
+- extract, redistribute, or provide unauthorized access to protected model files, licence
+  records, access tokens, keys, or other App assets;
+- scrape, automate, overload, probe, or misuse the App's verification, download, support, or
+  third-party services; or
+- use the App to infringe rights, distribute unlawful material, or violate applicable law.
 
-### 4.1 One plan
+The App plays files and streams that you or a separate provider make available. You are
+responsible for having the necessary rights to play, store, copy, cast, or transfer that
+content. The App is not a music store and does not grant rights to third-party content.
 
-Bitperfect Player is offered as a **single auto-renewing annual subscription**. There are
-no tiers, no add-ons, and nothing is switched off to sell you an upgrade: the subscription
-carries the whole App.
+## 4. Subscription, trial, price, and renewal
 
-### 4.2 Free trial for eligible new customers
+### 4.1 One annual plan
 
-Eligible new customers get a **7-day free trial**. Eligibility is determined by the app
-store, not by us: broadly, the trial is offered once per store account, and an account that
-has already used a trial or held a subscription for the App is not eligible. The store
-tells you before you confirm whether a trial applies to you and when it ends. Where no
-trial is offered, the subscription begins immediately and is charged at the price shown.
-The trial may be changed or withdrawn for future customers at any time; that does not
-affect a trial already running.
+The Android App is offered through Google Play as one auto-renewing annual subscription.
+There is no free tier. The subscription unlocks the App; availability of particular features
+still depends on compatibility, permissions, security checks, and the requirements below.
 
-### 4.3 Price and currency
+### 4.2 Trial eligibility
 
-The subscription is **USD 35 per year**. If your store account is set to another currency,
-the store charges the **regional equivalent it sets for your country**, which may differ
-from a direct conversion of the US price and may include local taxes.
+Customers who have not previously used a Bitperfect Player trial or subscription may
+receive a 7-day trial under the new-customer offer we configure. Google Play applies the
+offer rules and displays the result. If Google Play does not show a trial at checkout, the
+paid subscription starts immediately. We may change or withdraw the offer for future
+customers; this does not shorten a trial already confirmed by Google Play.
 
-**The exact amount and the exact billing date shown by the store before you confirm are the
-ones that govern** — always the amount you will actually be charged. Prices on this website
-are for information and may lag behind the store.
+### 4.3 Binding checkout information
 
-### 4.4 Automatic renewal and automatic charge after the trial
+The current US list price is USD 35 per year. Regional prices, currencies, and taxes may
+differ. **The exact price, currency, tax treatment, trial status, and billing date displayed
+by Google Play when you confirm are the terms that govern that transaction.** Website prices
+are informational and may not reflect a recent store change.
 
-The subscription renews automatically:
+### 4.4 Automatic renewal
 
-- **After a free trial:** unless you cancel **before the trial ends**, your payment method
-  is charged for the first year automatically, at the price the store showed you, on the
-  day the trial ends. To be safe, cancel at least 24 hours before the trial ends — stores
-  begin processing renewals shortly before the period expires.
-- **After a paid year:** your subscription renews for another year and is charged
-  automatically on the renewal date, unless you cancel before it.
+If Google Play grants a trial, the subscription converts to a paid annual subscription when
+the trial ends unless you cancel before the deadline shown in Google Play. A paid annual
+subscription renews and is charged each year unless cancelled before the renewal is
+processed. Google Play controls the precise processing time.
 
-Renewal continues until you cancel. Prices may change for future renewal periods; where
-they do, the store will notify you in advance as its rules require, and you can cancel
-before the change takes effect.
+A future renewal price may change. Any notice or consent flow required for a price change
+may be delivered through Google Play on our behalf. We remain responsible for any notice
+that applicable law assigns to us. You can cancel before a changed price takes effect.
 
-### 4.5 Payment is taken by the store, not by us
+### 4.5 Payment and subscription records
 
-Payment is handled entirely by the app store, which is the seller of record for your
-purchase in most countries. **This website and the App never take a payment, and we never
-see or store your card details or billing address.** What is received in order to know that
-an install is entitled is described in the [Privacy Policy](/privacy).
+Google Play and its payment providers process the purchase. We do not receive or store your
+card number or billing address. We and our service providers do process a pseudonymous
+installation identifier, purchase-entitlement information, and security-verification data to
+operate access, as detailed in the [Privacy Policy](/privacy).
 
-Because the store takes the payment, the store's billing terms, tax handling, payment
-methods, and dispute process apply to the transaction.
+## 5. Cancellation
 
-## 5. Cancelling
+Cancel through Google Play:
 
-You can cancel at any time, and you cancel **through your app store account**, not through
-us:
+**Play Store app → profile icon → Payments & subscriptions → Subscriptions → Bitperfect
+Player → Cancel subscription.**
 
-- **Google Play:** Play Store app → your profile icon → Payments & subscriptions →
-  Subscriptions → Bitperfect Player → Cancel subscription.
-- **Apple App Store:** Settings → your name → Subscriptions → Bitperfect Player → Cancel
-  subscription.
+Cancellation normally stops the next renewal and leaves the Google Play entitlement active
+until the end of the already-paid period, subject to successful periodic verification under
+Section 8. Cancelling before a trial deadline normally prevents the first charge, subject to
+the exact deadline and status Google Play displays. Deleting the App, clearing its data, or
+not using it does not cancel the subscription.
 
-Cancelling takes effect **at the end of the period you have already paid for**: you keep
-full access until then, and you are not charged again. Cancelling during the free trial
-ends access when the trial ends and means no charge is taken. There is no account on our
-side to close, and deleting the App does not cancel a subscription on its own. Keeping
-track of your renewal date is your responsibility; the store shows it in your subscriptions
-screen.
+Google Play controls cancellation status and timing. Keep the confirmation Google Play
+provides and verify the subscription status in your Google Play account.
 
-## 6. Refunds
+## 6. Refunds and consumer remedies
 
-Cancellation ends the subscription at the end of the paid period, so **a subscription is
-not refundable part-way through a period and there is no refund for unused time**, whether
-the unused time comes from cancelling, from uninstalling the App, from changing devices, or
-from simply not using it.
+We do not offer a voluntary partial or pro-rata refund for cancellation, uninstallation,
+device changes, loss of compatibility, or unused time. Ordinary Google Play policy refund
+requests should be submitted through Google Play. We do not process the original payment
+and cannot promise that Google Play will approve a request. Where law gives you a direct
+remedy against the Developer, you may also contact support@bit-perfect.com.
 
-Refunds are requested **from the store that took your payment**, under that store's own
-refund policy and process. We do not process payments and so cannot issue, promise, or
-guarantee a refund; where a store chooses to grant one, that is the store's decision under
-its own rules.
+Some jurisdictions provide a cooling-off or withdrawal period, often 14 days. Where such a
+right applies, its start, end, and any effect of requesting immediate digital supply or
+acknowledging performance are determined by mandatory law and the checkout confirmation.
+You may exercise an applicable right by sending us a clear statement at the support address
+and by using Google Play's cancellation or refund process. This paragraph does not create a
+withdrawal right where the law does not provide one.
 
-This section does not affect any right to a refund, cancellation, or withdrawal that
-mandatory consumer-protection law in your country of residence gives you, and nothing here
-is intended to exclude a remedy that cannot lawfully be excluded.
+Nothing in this section limits a refund, withdrawal, repair, replacement, price reduction,
+termination, conformity remedy, or other right that mandatory law or Google Play's binding
+transaction rules give you.
 
-Feature performance varies across phones, audio hardware, and music libraries, and that
-variation is normal rather than a defect. Examples of things that are not defects: your
-device not appearing on the AI Enhancer's list of supported devices, the Sonic Scan
-analysis of your library taking longer than you expected, a particular DAC or adapter
-behaving differently from another, or the audible result differing from what you hoped for.
+Phones, operating systems, audio devices, adapters, networks, and libraries vary. A feature
+taking longer than expected, an unsupported device, a different result between two hardware
+setups, or a subjective audio result does not by itself establish that the App is defective
+or non-conforming. Mandatory legal standards still apply.
 
-If something looks broken, email support@bit-perfect.com first — see Section 9.
+## 7. Restoring a purchase
 
-## 7. Restoring and managing your subscription
+A Google Play purchase may be restored on another eligible device using the same Google Play
+account after successful online entitlement and device-integrity verification. Restoration
+requires Google Play, our verification service, a working network connection, compatible
+software, and an account in good standing. Device and family-sharing coverage is determined
+by Google Play.
 
-Your subscription belongs to your store account, not to a particular handset. If you
-reinstall the App, change phones, or clear the App's data, open the App and use the restore
-option on the subscription screen (or sign in to the same store account) and your existing
-subscription is recognised again. The store does not charge you twice for the same
-subscription, and you never need an account with us to get your access back. Which devices
-one subscription covers is set by your store account's own family- and device-sharing
-rules, not by us.
+No registration account or password with us is required. We nevertheless create and use a
+pseudonymous per-installation identifier to verify entitlement and protect the App and its
+model files. This is explained in the [Privacy Policy](/privacy).
 
-Restoring requires the store's services to be reachable and your store account to be in
-good standing; neither is within our control.
+## 8. Access, periodic verification, and protected downloads
 
-## 8. Access to the App
+Without a verified active trial or subscription, playback and App features are locked. The
+subscription check does not intentionally delete your music files or local App database.
+Access being restored does not recover data independently deleted by you, Android, another
+app, storage failure, or a third-party source.
 
-Bitperfect Player is a subscription app. **Without an active free trial or an active
-subscription, the App is not available for use**: playback and its features are locked, and
-there is no free tier or reduced version. Your music files, your settings, and anything
-else stored locally are untouched and become available again as soon as a trial or
-subscription is active.
+### 8.1 Periodic online verification
 
-Access also depends on things outside our control — your device, its operating system, its
-storage and permissions, your network, your audio hardware, and the app store's own
-services. Interruptions caused by any of those are not a failure of the subscription.
+To prevent fraud and confirm entitlement, the App must successfully verify an active Google
+Play entitlement and device integrity online at first use, after restoration or certain
+device, installation, account, security, or clock changes, and at least once every 14 days.
+A verified local entitlement cache can allow offline use for **up to 14 days after the last
+successful verification**.
+
+After that period, or if verification rejects or cannot match the installation, device, or
+store entitlement, the App is locked until verification succeeds, even if the billing period
+shown by Google Play has not yet ended. Internet access, accurate device time, Google Play
+services, and our verification service may therefore be required during a paid period. This
+does not limit a mandatory remedy for a failure attributable to us.
+
+### 8.2 Protected model files
+
+Some AI features require a separate model download. Download authorization can require an
+active subscription, a genuine supported Google Play installation, a successful integrity
+check, sufficient storage, a compatible device, and network access. Models may need to be
+re-downloaded after an App, model, security, or device change. No model file may be
+extracted, shared, or accessed outside the App, except to the extent applicable law
+expressly permits despite this restriction.
 
 ## 9. Support
 
-Support is provided by email at support@bit-perfect.com on a **reasonable-efforts basis**.
-No response time, resolution time, uptime, or outcome is guaranteed, no service level is
-promised, and no separate support contract is created by these Terms or by the
-subscription. Support may be provided in English only.
+Support is available at support@bit-perfect.com on a reasonable-efforts basis. No response
+time, resolution time, uptime, or outcome is guaranteed, and the subscription does not
+create a separate service-level agreement. Support may be provided in English only.
 
 ## 10. Your responsibilities
 
-- **Your music and your sources.** You are responsible for the legality of the music you
-  play and for the servers, shares, and cast targets you connect the App to, including
-  their security configuration.
-- **Your backups.** You are solely responsible for backing up your audio files and for how
-  your network storage (FTP/WebDAV/SMB) is set up. Keep your own backups.
-- **Your hearing and your equipment.** You are responsible for the volume levels you set
-  and for the equipment you connect, particularly external amplifiers, DACs, and
-  headphones.
-- **Your device.** You are responsible for keeping your device, its operating system, and
-  its storage in a state where the App can run.
-- **No misuse.** Do not attempt to break, bypass, or reverse the App's subscription or
-  licence checks, do not interfere with its operation or with the stores' services, and do
-  not use the App to infringe anyone's rights or to break any law that applies to you.
+You are responsible for:
 
-## 11. Third-party plugins, stores and services
+- the legality of content and sources you use;
+- securing and backing up your files, playlists, network storage, and credentials;
+- configuring your servers, shares, VPN, router, cast targets, and network protocols;
+- device permissions, available storage, operating-system updates, and compatible equipment;
+- safe listening volume and safe connection, power, firmware, and operation of external
+  audio equipment; and
+- losses caused by disclosing your credentials, disabling security protections, using an
+  insecure protocol, or ignoring device, store, or equipment warnings.
 
-The App supports optional plugins, which are **separate applications with their own
-developers, permissions, and terms**, and it relies on third-party services such as
-app-store billing, subscription management, artwork catalogs, and crash reporting.
+## 11. Third-party stores, plugins, content, devices, and services
 
-We do not inspect, audit, endorse, control, or take responsibility for the safety,
-accuracy, functionality, availability, pricing, or data practices of any third-party
-plugin, store, device, or service, and we are not liable for anything they do or fail to
-do, including outages, account suspensions, billing errors, policy changes, or the
-withdrawal of a service the App depends on. Review a plugin's own terms and privacy policy
-before installing it.
+Google Play, optional plugins, content providers, network servers, cast targets, artwork and
+metadata catalogs, subscription management, crash reporting, integrity verification,
+hosting, and content-delivery services are supplied by third parties with their own terms,
+permissions, availability, and data practices.
 
-## 12. The App is provided "as is"
+We do not control and do not promise the safety, accuracy, legality, pricing, continued
+availability, or performance of a third party. To the maximum extent permitted by law, we
+are not responsible for a third party's independent acts or omissions, including outages,
+billing decisions, account restrictions, content, security failures, or policy changes.
+This does not exclude responsibility that mandatory law assigns to us for our own acts,
+selection, integration, instructions, or data processing.
 
-The App and all of its features are provided **"as is" and "as available"**, with all
-faults, and **without warranty or condition of any kind**, express, implied, or statutory,
-including any implied warranty of merchantability, satisfactory quality, fitness for a
-particular purpose, accuracy, quiet enjoyment, or non-infringement. To the maximum extent
-permitted by applicable law, all such warranties are disclaimed.
+Review a plugin's permissions, terms, and privacy policy before installing it. A plugin is a
+separate app and can contact its own services. We do not grant you rights to a plugin or its
+content.
 
-In particular, and without limiting the above, there is **no guarantee**:
+## 12. Availability, compatibility, and warranties
 
-- that the App will be uninterrupted, timely, secure, error-free, or free of defects, or
-  that defects will be corrected;
-- that any feature will work, or continue to work, on your device, your operating-system
-  version, your audio hardware, or your file formats — **compatibility with any particular
-  phone, DAC, adapter, driver, cable, dock, cast target, network share, or plugin is not
-  promised**;
-- that any specific audio path, output mode, sample rate, bit depth, latency, or audible
-  result will be achieved on your equipment, since that depends on your device, its
-  operating system, its drivers, and the hardware you attach;
-- that any feature will remain available: features may be changed, limited, or withdrawn,
-  including where a third-party service or platform capability they depend on changes or
-  disappears.
+Nothing in these Terms excludes a statutory guarantee, digital-content conformity duty,
+required update, or consumer remedy that cannot lawfully be excluded.
 
-**External hardware.** The App uses standard operating-system audio APIs (such as Android
-USB Host APIs or Apple CoreAudio) and USB Audio Class protocols to talk to external
-digital-to-analog converters. Hardware variation, power delivery over USB or Lightning, OTG
-adapter quality, custom audio drivers, and third-party DAC firmware behaviour all carry
-inherent risk. **You connect external hardware and control your listening equipment at your
-own risk.** To the maximum extent permitted by law, no liability is accepted for any
-hardware malfunction, electrical damage, firmware corruption, physical defect, overheating,
-battery drain, or failure of external USB DACs, amplifiers, headphones, speakers, or
-connected devices, nor for hearing loss, tinnitus, or acoustic trauma resulting from your
-use of the App or from audio playback.
+Subject to those mandatory rights, the App is provided **"as is" and "as available"**. To
+the maximum extent permitted by law, we disclaim implied warranties or conditions of
+merchantability, satisfactory quality, fitness for a particular purpose, accuracy, quiet
+enjoyment, and non-infringement.
 
-**Data and storage.** To the maximum extent permitted by law, no liability is accepted for
-any file deletion, modification, corruption, or loss occurring on your device storage,
-external media, or remote network shares, or for any loss of settings, playlists, library
-data, or playback history.
+We do not guarantee that:
 
-**Pre-release and optional features.** Features labelled beta, experimental, preview, or
-optional are provided for evaluation, may be unstable or incomplete, and may be withdrawn
-without notice or liability.
+- the App, support, verification service, or download service will be uninterrupted,
+  error-free, secure, or available at a particular time;
+- every defect will be corrected;
+- any feature will work or continue to work with a particular device, operating-system
+  version, file format, network, server, plugin, cast target, phone, DAC, adapter, driver,
+  cable, dock, amplifier, headphone, or speaker;
+- any particular audio path, output mode, sample rate, bit depth, latency, measurement, AI
+  result, or audible result will be achieved; or
+- an optional, preview, experimental, or third-party-dependent feature will remain available.
+
+External hardware varies in power requirements, firmware, electrical behavior, and volume.
+You are responsible for following its instructions and using safe volume and connections.
+Keep independent backups: the App is not a backup service and cannot protect files stored on
+your device, removable media, or third-party network storage from every loss or corruption.
 
 ## 13. Limitation of liability
 
-To the maximum extent permitted by applicable law:
+Nothing in these Terms excludes or limits liability that applicable law does not permit to
+be excluded or limited, including liability for fraud or fraudulent misrepresentation,
+wilful misconduct, gross negligence where non-excludable, breach of data-protection or
+confidentiality duties where non-excludable, death or personal injury caused by negligence,
+or mandatory digital-content and consumer remedies.
 
-- **(a)** we are not liable for any indirect, incidental, special, consequential,
-  exemplary, or punitive damages, or for any loss of data, revenue, profits, goodwill,
-  business, or anticipated savings, or for damage to hardware or other property, arising
-  from or connected with the App or these Terms, whether in contract, tort (including
-  negligence), strict liability, or any other theory, and even if the possibility of such
-  damages was known or foreseeable; and
-- **(b)** total aggregate liability for all claims arising from or connected with the App
-  or these Terms is limited to the total amount you actually paid for the App in the
-  **1 month** preceding the event giving rise to the claim, or, if you have paid nothing,
-  to zero.
+Subject to the paragraph above and to the maximum extent permitted by applicable law:
 
-These limits apply to every claim in aggregate, not per claim, and they survive any failure
-of an essential purpose of any limited remedy.
+- we are not liable for indirect, incidental, special, consequential, exemplary, or punitive
+  damages, or for loss of data, revenue, profit, goodwill, business, or anticipated savings,
+  under any legal theory, even if the possibility was foreseeable; and
+- total aggregate liability for all other claims connected with the App or these Terms is
+  limited to the greater of **USD 35** and the amount you actually paid for the App during
+  the 12 months before the event giving rise to the claim.
 
-Nothing in these Terms excludes or limits liability where such an exclusion or limitation
-is not permitted by applicable law, including liability for death or personal injury caused
-by negligence, for fraud or fraudulent misrepresentation, or under mandatory
-consumer-protection law. Nothing in these Terms affects your mandatory rights as a
-consumer, and where a term is unlawful in your country, it applies only to the extent it
-lawfully can.
+These limits apply to all claims in aggregate, not per incident or theory, and only where a
+contractual limitation is legally effective.
 
-## 14. Indemnification
+## 14. Indemnification for unlawful use
 
-To the extent permitted by applicable law, you agree to defend, indemnify, and hold
-harmless the developer and any contributors, licensors, and service providers from and
-against any claims, liabilities, damages, losses, costs, or expenses (including reasonable
-legal fees) arising out of or in connection with your use of the App, your breach of these
-Terms, your use of third-party plugins, hardware, or services, the music or files you play,
-store, or transfer, or your infringement of any third-party rights (including copyright or
-other intellectual-property rights).
+To the extent permitted by applicable law, you are responsible for a third-party claim,
+final judgment, or settlement directly caused by your intentional unlawful use of the App,
+your deliberate material breach of Section 3, or your infringement of that third party's
+intellectual-property rights. You do not control a settlement or admission made without your
+written approval, which may not be unreasonably withheld. This section does not apply to the
+extent a claim was caused by us or by a defect for which law makes us responsible.
 
-## 15. Individual claims only
+## 15. Suspension and termination
 
-To the maximum extent permitted by applicable law, all claims must be brought in the
-parties' individual capacity, and not as a plaintiff or class member in any purported
-class, collective, consolidated, or representative proceeding.
+Your licence ends when the trial or subscription entitlement ends. We may suspend or
+terminate access where we reasonably believe this is necessary to address fraud, unlawful
+use, a material breach of these Terms, a threat to the App or another service, or an attempt
+to bypass or misuse licence, integrity, model, token, or rate-limit controls.
 
-## 16. Suspension and termination
+Where reasonable, we will provide notice and an opportunity to stop or cure the issue.
+Immediate action may be taken where delay could create security, legal, operational, or
+third-party harm. Termination for your material breach does not create a voluntary refund,
+but mandatory remedies and Google Play's binding rules remain unaffected.
 
-Your licence ends automatically when your trial or subscription ends. Access may also be
-suspended or terminated, without notice and without liability, if you breach these Terms —
-in particular if you attempt to bypass the subscription or licence checks, interfere with
-the App or a store's services, or use the App unlawfully. Termination for breach does not
-entitle you to a refund of any amount already paid, except where mandatory law requires
-one, and it does not limit any other remedy available.
+Cancelling normally prevents renewal; it does not end the licence before the existing
+entitlement expires. You may end the agreement sooner only where a statutory termination or
+refund right applies. Sections intended by their nature to survive, including ownership,
+restrictions, liability, and dispute provisions, continue after termination.
 
-You may end this agreement at any time by cancelling your subscription (Section 5) and
-uninstalling the App.
+## 16. Changes to the App and these Terms
 
-## 17. Changes to the App and to these Terms
+We may update, replace, limit, suspend, or discontinue features for valid reasons such as
+security, legal or store requirements, compatibility, maintenance, abuse prevention,
+technical constraints, or a third-party dependency. We do not charge an extra fee under the
+current plan merely for an App update.
 
-The App changes as it is developed: features may be added, altered, suspended, or withdrawn
-at any time, and support for particular devices, operating-system versions, protocols, or
-formats may end, without liability.
+We will not intentionally remove core paid functionality during a current paid period
+solely to reduce what was purchased. If a non-temporary change materially and adversely
+affects paid access, we will give advance notice where reasonably possible. You may cancel
+without an extra fee and request a proportionate remedy for the unused paid period through
+Google Play or directly from us where applicable law makes us responsible. Urgent security,
+legal, or third-party failures may require immediate action.
 
-These Terms may be updated as that happens. Material changes will be reflected by an
-updated "Last updated" date above and, where required by applicable law or store policy,
-additional notice will be given or consent sought before they take effect. Continuing to
-use the App after an update takes effect means you accept the revised Terms. If you do not
-accept them, cancel your subscription as described in Section 5 and stop using the App.
+We may update these Terms prospectively. Material changes will be identified by the
+"Last updated" date and, where required, by additional notice or affirmative consent. A
+revision does not retroactively remove an accrued claim, reduce mandatory rights, or
+materially reduce the current paid period without the remedy above. Continued use after an
+updated version takes effect constitutes acceptance only where applicable law recognizes
+that method. Otherwise, the existing terms govern the current paid period and the revised
+terms apply no earlier than the next renewal unless you affirmatively agree.
 
-## 18. Governing law and resolving disputes
+## 17. Governing law and disputes
 
-These Terms, and any dispute arising from them or from your use of the App, are governed by
-the laws of Ukraine, without regard to conflict-of-law principles, and are subject to the
-exclusive jurisdiction of the courts of Ukraine — **except** where mandatory
-consumer-protection law of your own country of residence gives you the right to bring a
-claim in your local courts or under your local law instead, in which case that law controls
-to that extent.
+The laws of Ukraine govern these Terms without regard to conflict-of-law rules, except that
+a consumer retains the mandatory protections of the law of their habitual residence and any
+right that law gives them to bring proceedings in local courts or another competent forum.
 
-Before starting any formal proceeding, you agree to contact support@bit-perfect.com first,
-describe the issue, and allow a reasonable period — at least 30 days — to resolve it
-informally. Billing, purchase, and refund disputes are handled directly between you and the
-store you purchased through, under that store's own rules and dispute-resolution process.
+Before starting a formal dispute, you are encouraged to contact support@bit-perfect.com and
+allow up to 30 days for an informal solution. This is not a condition where urgent relief, a
+limitation period, a regulator or store process, or a mandatory consumer right requires
+otherwise. Ordinary billing, purchase, cancellation, and store-policy refund requests
+should use Google Play's process; direct statutory claims may also be sent to us.
 
-## 19. Apple App Store: additional terms
+## 18. General
 
-Where you obtained the App from the Apple App Store, the following also applies and, on
-these points, prevails:
+**Severability.** If a provision is invalid or unenforceable, it will be modified only to the
+minimum extent necessary to make it enforceable or, if that is impossible, severed. The
+remaining provisions continue.
 
-- These Terms are between you and the developer only, **not with Apple**. Apple is not
-  responsible for the App or its content.
-- **Apple has no obligation to provide any maintenance or support** for the App.
-- If the App fails to conform to any applicable warranty, you may notify Apple, and Apple
-  may refund the purchase price; to the maximum extent permitted by law, Apple has no other
-  warranty obligation with respect to the App, and any other claims, losses, liabilities,
-  damages, costs, or expenses attributable to a failure to conform to a warranty are the
-  developer's responsibility, subject to the limits in Section 13.
-- The developer, not Apple, is responsible for addressing any claim by you or a third party
-  relating to the App, including product-liability claims, claims that the App fails to
-  conform to a legal or regulatory requirement, and claims under consumer-protection or
-  similar legislation, and for the investigation, defence, settlement, and discharge of any
-  third-party intellectual-property infringement claim relating to the App.
-- You represent that you are not located in a country subject to a U.S. Government embargo
-  or designated as a "terrorist supporting" country, and that you are not on any U.S.
-  Government list of prohibited or restricted parties.
-- **Apple and its subsidiaries are third-party beneficiaries of these Terms** and, upon
-  your acceptance, have the right to enforce them against you.
+**No waiver.** A failure or delay in enforcement is not a waiver. A partial exercise of a
+right does not prevent a later exercise.
 
-## 20. General
+**Assignment.** You may not transfer these Terms or your subscription except where mandatory
+law or Google Play permits. We may assign these Terms in connection with a transfer of the
+App or the Developer's business, provided the assignee assumes the relevant obligations and
+the transfer does not remove mandatory rights.
 
-**Severability.** If any provision of these Terms is held invalid, illegal, or
-unenforceable under applicable law, it will be modified to the minimum extent necessary to
-make it valid and enforceable — or, if it cannot be, severed — and the remaining provisions
-continue in full force.
+**Events outside reasonable control.** To the extent permitted by law, we are not liable for
+a failure or delay caused by events outside reasonable control, including network or power
+failures, natural events, war or armed conflict, changes in law, cyberattacks despite
+reasonable safeguards, or platform, store, infrastructure, or third-party outages. This does
+not remove a mandatory cancellation, refund, or other remedy.
 
-**No waiver.** A failure or delay in enforcing any provision is not a waiver of it, and no
-single or partial exercise of any right prevents any further exercise of it.
+**Export and sanctions.** You may not use or export the App in violation of applicable
+export-control or sanctions law.
 
-**Assignment.** You may not assign or transfer these Terms or your subscription without
-prior written consent. These Terms may be assigned freely, including in connection with a
-transfer of the App.
+**Trademarks.** Third-party names and marks belong to their owners. Reference to them does
+not imply affiliation, sponsorship, endorsement, or approval.
 
-**Events outside reasonable control.** No liability is accepted for any failure or delay
-caused by events outside reasonable control, including network or power failures, acts of
-war or armed conflict, natural events, changes in law, or the acts, outages, or policy
-changes of any platform, store, or third-party service the App depends on.
+**Language.** These Terms are written in English. A translation is for convenience; the
+English version governs to the extent permitted by applicable law.
 
-**Export and sanctions.** You agree not to use or export the App in violation of any
-applicable export-control or sanctions law.
+## 19. Contact
 
-**Survival.** Sections 6, 10 to 16, 18, and 20 survive the end of your subscription and of
-this agreement.
+Terms, subscription, or support questions: **support@bit-perfect.com**.
 
-**Trademarks.** All third-party trademarks, service marks, product names, and brand names
-(including Chromecast, DLNA, UPnP, Android, iOS, macOS, Google Play, and Apple App Store)
-referenced in the App or in these Terms are the property of their respective owners.
-Reference to them does not imply affiliation, sponsorship, endorsement, or approval.
-
-**Language.** These Terms are written in English. Any translation is provided for
-convenience, and the English version governs to the extent permitted by applicable law.
-
-## 21. Contact
-
-Questions about these Terms or about your subscription: **support@bit-perfect.com**.
-
-Cancellation, billing, and refund requests go to the store you purchased through — see
-Sections 5 and 6.
+For the Developer's verified legal and geographic details, see the developer-contact section
+of the App's live Google Play listing. Ordinary cancellation, billing, and store-policy
+refund requests should use Google Play as described above. Direct statutory notices or
+claims may be sent to the support address.
