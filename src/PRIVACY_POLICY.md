@@ -128,22 +128,23 @@ metadata, media URLs, and request data under their own policies.
 ### 2.6 Artist photos and album-art searches
 
 Artist-photo fetching is enabled by default. When enabled, the App sends a normalized artist
-name to **Wikidata**, **Wikimedia Commons**, and, if needed, **Deezer** to request an image.
-You can turn automatic artist-image fetching off in Settings.
+name to one or more third-party artwork and metadata providers to request an image. You can
+turn automatic artist-image fetching off in Settings.
 
 Album-art search occurs when you choose to update artwork. It can send the artist and album
-search terms to **Apple/iTunes Search**, **Deezer**, **MusicBrainz**, and **Cover Art
-Archive**. These providers receive the query plus ordinary request data such as IP address,
-user-agent, and request time and process it under their own policies. We do not receive those
-lookup requests and do not send them audio files or playback history.
+search terms to third-party artwork and metadata providers. These providers receive the
+query plus ordinary request data such as IP address, user-agent, and request time and process
+it under their own policies. We do not receive those lookup requests and do not send them
+audio files or playback history.
 
 ### 2.7 Lyrics, headphone profiles, radio, and user-selected online content
 
 When you request online lyrics, the App can send track title, artist, album, duration, or a
-search phrase to **LRCLIB**. When you browse or apply an online headphone correction profile,
-the App contacts **AutoEq** and can send the selected headphone, measurement, and target
-parameters. When you play an internet-radio station, plugin stream, or URL you select, the
-App or cast target contacts that source and necessarily discloses ordinary network data.
+search phrase to a third-party lyrics provider. When you browse or apply an online headphone
+correction profile, the App can send the selected headphone, measurement, and target
+parameters to a third-party headphone-profile provider. When you play an internet-radio
+station, plugin stream, or URL you select, the App or cast target contacts that source and
+necessarily discloses ordinary network data.
 
 These are user-requested feature connections. The external provider, not us, controls its
 response, logs, retention, and own data use. Do not put personal or secret information into
