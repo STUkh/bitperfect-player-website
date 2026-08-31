@@ -1,0 +1,23 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import LegalDocument from '../components/legal/LegalDocument.astro';
+import { Content, getHeadings } from '../TERMS_OF_USE.md';
+import raw from '../TERMS_OF_USE.md?raw';
+
+/**
+ * Same detection as /privacy: the banner is a build-time check on the source
+ * document, not an assertion about it. Fill the values in src/TERMS_OF_USE.md
+ * and it disappears on the next build.
+ */
+const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw.includes(p));
+---
+
+<LegalLayout
+  title="Terms of Use"
+  description="The terms you agree to when you use Bitperfect Player, including the subscription, the free trial, billing, cancellation and refunds."
+  containerClass="max-w-6xl lg:max-w-7xl px-4 sm:px-6 lg:px-8"
+>
+  <LegalDocument headings={getHeadings()} unresolved={unresolved} source="src/TERMS_OF_USE.md">
+    <Content />
+  </LegalDocument>
+</LegalLayout>

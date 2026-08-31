@@ -1,0 +1,329 @@
+---
+/**
+ * The shell both legal routes render: a sticky section index on the left, the
+ * rendered markdown on the right, and a build-time banner when the source
+ * document still carries an unfilled placeholder.
+ *
+ * It lives here rather than in each page because /privacy and /terms are the
+ * same document type twice. When it sat inline in `privacy.astro`, adding
+ * `/terms` meant a second copy of three hundred lines of the same CSS — the
+ * only kind of copy that can drift.
+ */
+import Icon from '../Icon.astro';
+
+interface Props {
+  /** `getHeadings()` from the imported markdown module. */
+  headings: { depth: number; slug: string; text: string }[];
+  /** Placeholder tokens still present in the source, detected by the caller. */
+  unresolved?: string[];
+  /** Repo path of the markdown, named in the banner so the gap is fixable. */
+  source: string;
+}
+
+const { headings, unresolved = [], source } = Astro.props;
+
+/** Top-level sections only: the index is for wayfinding, not an outline. */
+const sections = headings.filter((h) => h.depth === 2);
+---
+
+<div class="legal-grid">
+  {/* Left Navigation Sidebar */}
+  <aside class="toc-wrapper">
+    <details class="toc-details" open>
+      <summary class="toc-summary focus-visible:focus-ring">
+        <span class="toc-title">Table of Contents</span>
+        <svg
+          class="toc-chevron h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <nav class="toc" aria-label="Sections">
+        <ul>
+          {
+            sections.map((h) => (
+              <li>
+                <a href={`#${h.slug}`} class="toc-link focus-visible:focus-ring">
+                  {h.text.replace(/^\d+\.\s*/, '')}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </details>
+  </aside>
+
+  {/* Main Content Column */}
+  <div class="md-content">
+    {
+      unresolved.length > 0 && (
+        <div class="notice" role="note">
+          <span class="text-resampled">
+            <Icon name="sig-resampled" size={20} />
+          </span>
+          <p>
+            <strong>Not yet publishable.</strong> This document still contains{' '}
+            {unresolved.map((p, i) => (
+              <>
+                {i > 0 && ' and '}
+                <code>{p}</code>
+              </>
+            ))}
+            . Fill {unresolved.length > 1 ? 'them' : 'it'} in at <code>{source}</code> before
+            submitting this URL to a store console: a legal document with no effective date or
+            contact address will not pass review.
+          </p>
+        </div>
+      )
+    }
+    <slot />
+  </div>
+</div>
+
+<script>
+  function setupTocHighlighting() {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('.md-content h2[id]'));
+    if (!links.length || !sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            links.forEach((link) => {
+              const href = link.getAttribute('href');
+              if (href === `#${id}`) {
+                link.classList.add('is-active');
+              } else {
+                link.classList.remove('is-active');
+              }
+            });
+          }
+        });
+      },
+      { rootMargin: '-10% 0px -75% 0px' }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTocHighlighting);
+  } else {
+    setupTocHighlighting();
+  }
+</script>
+
+<style>
+  .legal-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  /* LegalLayout already renders a visible <h1>{title}</h1> above this slot:
+     the markdown's own leading h1 would duplicate it, including in the
+     accessibility tree. */
+  .md-content :global(h1) {
+    display: none;
+  }
+
+  /* Mobile TOC Disclosure Styling */
+  .toc-wrapper {
+    width: 100%;
+  }
+
+  .toc-details {
+    background: rgba(23, 22, 30, 0.6);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 12px;
+    padding: 0.875rem 1.25rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .toc-details[open] {
+    background: rgba(23, 22, 30, 0.8);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .toc-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* The one control on this page at mobile widths, and it measured 316x23:
+       one pixel under SC 2.5.8's 24px floor. The row is centred, so the box
+       grows around the label without moving it. */
+    min-height: 2.75rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    border-radius: var(--radius-sm);
+    transition:
+      background-color var(--d-ui) var(--ease-ui),
+      color var(--d-ui) var(--ease-ui);
+  }
+  .toc-summary:hover .toc-title,
+  .toc-summary:hover .toc-chevron {
+    color: var(--color-text-primary);
+  }
+  .toc-summary:active .toc-title {
+    color: var(--color-gold);
+  }
+  .toc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toc-title {
+    transition: color var(--d-ui) var(--ease-ui);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .toc-chevron {
+    color: var(--color-text-tertiary);
+    transition:
+      transform var(--d-ui) var(--ease-ui),
+      color var(--d-ui) var(--ease-ui);
+  }
+  .toc-details[open] .toc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-left: 2px solid var(--color-border-subtle);
+  }
+
+  .toc-link {
+    display: block;
+    padding: 0.375rem 1rem;
+    margin-left: -2px;
+    border-left: 2px solid transparent;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--color-text-tertiary);
+    /* Square on the left so the 2px border rail stays a straight line; the `sm`
+       step on the right. It was 6px, which is on no ladder. */
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    cursor: pointer;
+    transition:
+      color var(--d-ui) var(--ease-ui),
+      border-color var(--d-ui) var(--ease-ui),
+      background-color var(--d-ui) var(--ease-ui);
+  }
+
+  .toc-link:hover {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    border-left-color: rgba(232, 184, 75, 0.6);
+  }
+  .toc-link:active {
+    color: var(--color-gold);
+    background: rgba(232, 184, 75, 0.08);
+    border-left-color: var(--color-gold);
+  }
+
+  .toc-link.is-active {
+    color: var(--color-gold);
+    border-left-color: var(--color-gold);
+    background: rgba(232, 184, 75, 0.08);
+    font-weight: 500;
+  }
+
+  /* Main Content Column styling */
+  .md-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .notice {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    /* The Border Discipline Rule: every container gets a crisp 1px hairline.
+       No dashed decoration, even on a build-time warning. */
+    border: 1px solid var(--color-glass-border-hover);
+    border-radius: 12px;
+    background: var(--color-surface-overlay);
+    margin-bottom: 2.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-text-tertiary);
+  }
+  .notice :global(.icon) {
+    flex: none;
+    margin-top: 2px;
+  }
+  .notice strong {
+    color: var(--color-resampled);
+    font-weight: 600;
+  }
+  .notice code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875em;
+    color: var(--color-amber);
+    background: var(--color-surface-base);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+  }
+
+  /* Desktop Left Sidebar Grid Layout (≥ 1024px) */
+  @media (min-width: 1024px) {
+    .legal-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .toc-wrapper {
+      position: sticky;
+      top: 6.5rem;
+      max-height: calc(100vh - 8rem);
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .toc-details {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    /* The disclosure collapses into a plain sidebar heading at this width:
+       it toggles nothing, so it claims neither a pointer nor a hover. */
+    .toc-summary {
+      cursor: default;
+      pointer-events: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .toc-chevron {
+      display: none;
+    }
+
+    .toc ul {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+

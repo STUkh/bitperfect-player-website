@@ -34,10 +34,13 @@ jobs:
 
       - run: npx astro build
 
-      - name: Check Privacy Policy completeness
+      - name: Check legal document completeness
         run: |
           if grep -qE '\[FILL IN ON PUBLISH\]|\[SUPPORT_EMAIL\]' dist/privacy/index.html; then
             echo "::warning title=Privacy policy incomplete::src/PRIVACY_POLICY.md still contains placeholders."
+          fi
+          if grep -qE '\[FILL IN ON PUBLISH\]|\[SUPPORT_EMAIL\]' dist/terms/index.html; then
+            echo "::warning title=Terms of Use incomplete::src/TERMS_OF_USE.md still contains placeholders."
           fi
 
       - uses: actions/upload-pages-artifact@v3
