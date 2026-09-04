@@ -20,10 +20,9 @@ Contact: support@bit-perfect.com
   **on by default** and can be turned off at any time in Settings → About →
   "Crash debug info."
 - Network-source credentials (FTP/WebDAV/SMB/DLNA logins you enter) are
-  stored **encrypted on this device only** (using platform hardware-backed encryption:
-  Android Keystore, or Apple Keychain on Apple devices where the App is distributed through
-  the Apple App Store) and are **never transmitted to us**.
-  They go only to the server you configured them for.
+  stored **encrypted on this device only** (using platform-native, hardware-backed
+  encryption) and are **never transmitted to us**. They go only to the server you
+  configured them for.
 - The on-device AI audio enhancer processes audio **entirely on your device**.
   No audio is ever uploaded, streamed, or transmitted anywhere for
   enhancement.
@@ -32,11 +31,10 @@ Contact: support@bit-perfect.com
 - We do not require account creation or sign-in to use the App.
 - An active subscription registers your App installations: five with the base
   subscription, or 10, 15, or 20 with active device-capacity packs. A secure device
-  registry hosted in the European Union holds a provider-issued pseudonymous customer
-  reference, a one-way subscription group, an app-generated installation identifier,
-  a short device label, verification dates, authorization expiry, and a bounded removal
-  marker. An authorized installation can see sibling device labels and last-verification
-  dates to manage old installations.
+  registry hosted in the European Union holds pseudonymous device verification
+  records (including device label, registration and verification dates, and
+  authorization status). An authorized installation can see sibling device labels
+  and last-verification dates to manage old installations.
 
 ## 2. What we collect and why
 
@@ -65,8 +63,8 @@ Settings → About → "Send bug report") containing some or all of:
   our crash-reporting provider attached to the same event. The description
   field is optional: leaving it blank still sends the logs.
 - If you choose "Send feedback & continue" before cancelling a subscription,
-  we send your selected reason and optional, bounded comment to Sentry as
-  user-initiated feedback. We do not add your account, purchase,
+  we send your selected reason and optional, bounded comment to our crash-reporting
+  provider as user-initiated feedback. We do not add your account, purchase,
   installation, or device identifier to this feedback. Choosing "Continue
   without feedback" sends no survey feedback and opens cancellation in the
   store.
@@ -105,11 +103,9 @@ to us. Uninstalling the App or clearing its data deletes this information.
 
 If you add a network source (FTP, WebDAV, SMB, or a DLNA/UPnP device) and
 provide a username/password, that credential is stored using platform-native,
-hardware-backed encrypted storage (Android Keystore, or Apple Keychain on Apple devices
-where the App is distributed through the Apple App Store)
-**on your device only**. It is transmitted only to the server/device you configured it
-for, using the protocol you selected, and is never sent to us or to any
-third party we control.
+hardware-backed encrypted storage **on your device only**. It is transmitted
+only to the server/device you configured it for, using the protocol you selected,
+and is never sent to us or to any third party we control.
 
 Some network protocols the App supports (e.g. FTP, WebDAV to a server you
 specify) may transmit data unencrypted over your local network, depending on
@@ -121,10 +117,9 @@ any server you choose to connect the App to.
 
 ### 2.4 AI audio enhancer
 
-The AI enhancer runs entirely on-device (using local CPU, GPU, or Neural Processing
-Unit (NPU) hardware inference, depending on your device). No audio data, model input, or model
-output is ever uploaded, streamed, or transmitted off your device for this
-feature, under any circumstance.
+The AI enhancer runs entirely on-device using local hardware processing.
+No audio data, model input, or model output is ever uploaded, streamed, or
+transmitted off your device for this feature, under any circumstance.
 
 ### 2.5 Casting and receiving (DLNA / UPnP)
 
@@ -156,10 +151,10 @@ sent as part of this lookup.
 
 The App supports an optional plugin architecture where plugins are
 **separate, independently-installed applications or plugins** (e.g. streaming-source plugins)
-that communicate with the App over a restricted, signature-verified IPC
-channel. Plugins can return track metadata, stream URLs, or cover-art URLs to
-the App. They never receive your raw audio, and audio never crosses the
-IPC boundary in either direction.
+that communicate with the App over a restricted, signature-verified interface.
+Plugins can return track metadata, stream URLs, or cover-art URLs to
+the App. They never receive your raw audio, and audio never crosses
+this boundary in either direction.
 
 **Plugins are not covered by this policy.** Each plugin is its own
 application with its own developer, its own permissions, and, if it
@@ -196,31 +191,26 @@ to your data when the App verifies that access.
   the United States processes the store purchase token and an app-generated installation
   identifier to report whether the subscription is active, in a trial, or due to renew.
 - **Installation verification.** The platform's integrity service checks that the
-  installed App and device meet the release requirements. Our verification service
-  receives its signed result together with the app-generated installation identifier,
-  device label, and cryptographic proof belonging to that installation. We do not receive
-  your Google account name, email address, password, card details, or advertising ID.
+  installed App and device meet release security requirements. Our verification service
+  receives the verification result and device details needed to confirm authorization.
+  We do not receive your store account name, email address, password, card details,
+  or advertising ID.
 - **Device registry.** To enforce the personal device limit (five installations with the
   base subscription, or 10, 15, or 20 with active device-capacity packs) and let you
   remove old installations, a secure device registry hosted in the European Union
-  stores a pseudonymous customer reference issued by the subscription-management service;
-  a one-way subscription-group value; the app-generated installation identifier; a short
-  label based on the device manufacturer and model; registration and last-verification dates;
-  current authorization expiry; and a temporary removal marker when you remove an installation.
-  These values are not your Google account name or email. An installation with a valid
-  authorization and matching cryptographic proof receives sibling device labels, registration
-  and last-verification dates, and current-device status for management. The device-management
-  response includes each app-generated installation identifier as an internal routing value
-  needed to remove that installation. The App does not display another installation's identifier;
-  it displays the device label, last-verification date, and current-device status. The
-  service does not store the store account identifier, purchase token, payment data, raw
-  cryptographic key, music, library data, or playback history.
+  maintains pseudonymous records for your subscription. These records include device
+  labels (such as manufacturer and model), registration dates, last-verification dates,
+  authorization expiry, and a temporary deactivation marker when an installation is
+  removed. These values contain no personal identity, store credentials, payment details,
+  or music library data. An authorized device can view registered device labels and
+  last-verification dates to manage old installations and remove them when needed. The
+  service never stores your payment data, store account credentials, library content, or
+  listening history.
 - **Location and retention.** The device registry is hosted in the European Union. Active
   records are scheduled for automatic deletion after authorization expires. Removing an
-  installation makes it inactive immediately on the service and keeps a removal marker for
-  up to 90 days so the same installation cannot silently register itself again. An authorization
-  already held offline on that device can remain usable for no longer than 14 days as
-  explained in the Terms.
+  installation makes it inactive immediately and retains a deactivation marker for up to
+  90 days to prevent unauthorized re-registration. An authorization already held offline
+  on that device can remain usable for no longer than 14 days as explained in the Terms.
 - **On the device.** A signed authorization record is stored locally so the App keeps
   working offline; it contains no payment details.
 - **No account with us.** There is nothing to sign up for or close. Cancelling happens
@@ -228,7 +218,7 @@ to your data when the App verifies that access.
 
 ## 3. Permissions the App requests, and why
 
-Permissions requested by the App depend on the platform (Android today; iOS/macOS where the App is offered there) and the features you use:
+Permissions requested by the App depend on the platform and the features you use:
 
 | Permission                                                              | Why                                                                                                                                                                                                                                                                                                                  |
 | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -272,8 +262,8 @@ its own data-subject-request process.
 Registered installations can be reviewed from the App's subscription screen. You can
 remove an old installation there. To request access to or deletion of registry data when
 you cannot use a registered device, contact support@bit-perfect.com. Because the registry
-uses pseudonymous installation identifiers rather than a name or email, we may need a
-signed request from an installation or other information sufficient to verify the request
+uses pseudonymous identifiers rather than a name or email, we may need verification
+from an authorized device or other information sufficient to verify the request
 without exposing another subscriber's records.
 
 ## 6. International data transfer
@@ -290,13 +280,12 @@ services described in Section 2.9 are hosted in the European Union.
 
 ## 7. Security
 
-We use industry-standard protections for the data we handle: hardware-backed encryption
-(Android Keystore, or Apple Keychain on Apple devices where the App is distributed through
-the Apple App Store) for credentials, HTTPS/TLS for network requests we control,
-cryptographic installation proofs, access controls for the device registry, and no
-plaintext storage of service secrets. No method of storage or transmission is 100% secure,
-and we cannot guarantee absolute security of data you choose to transmit to third-party
-servers or devices you configure the App to connect to (Section 2.3).
+We use industry-standard protections for the data we handle: platform-native,
+hardware-backed encryption for credentials, HTTPS/TLS for network communications,
+access controls for the device registry, and secure key management. No method of
+storage or transmission is 100% secure, and we cannot guarantee absolute security
+of data you choose to transmit to third-party servers or devices you configure the
+App to connect to (Section 2.3).
 
 ## 8. Changes to this policy
 

@@ -287,12 +287,11 @@ In particular, and without limiting the above, there is **no guarantee**:
   including where a third-party service or platform capability they depend on changes or
   disappears.
 
-**External hardware.** The App uses standard operating-system audio APIs (Android
-USB Host APIs, or Apple CoreAudio on Apple devices where the App is offered there) and USB Audio Class protocols to talk to external
-digital-to-analog converters. Hardware variation, power delivery over USB or Lightning, OTG
-adapter quality, custom audio drivers, and third-party DAC firmware behaviour all carry
-inherent risk. **You connect external hardware and control your listening equipment at your
-own risk.** To the maximum extent permitted by law, no liability is accepted for any
+**External hardware.** The App uses standard operating-system audio interfaces and standard
+USB audio protocols to communicate with external digital-to-analog converters. Hardware
+variation, power delivery, cabling and adapter quality, custom audio drivers, and
+third-party DAC firmware behaviour all carry inherent risk. **You connect external hardware
+and control your listening equipment at your own risk.** To the maximum extent permitted by law, no liability is accepted for any
 hardware malfunction, electrical damage, firmware corruption, physical defect, overheating,
 battery drain, or failure of external USB DACs, amplifiers, headphones, speakers, or
 connected devices, nor for hearing loss, tinnitus, or acoustic trauma resulting from your
