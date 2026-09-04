@@ -1,41 +1,97 @@
+import { pro, site } from "./site";
+
+/**
+ * The questions this site is actually asked.
+ *
+ * This file was unreachable and was very nearly deleted with the other eighteen
+ * dead modules. It earned a different decision for two reasons.
+ *
+ * The first is that four of its entries are content that exists nowhere else:
+ * what leaves the phone, what is in the DSP rack, what the subscription costs and
+ * whether the AI works offline. Deleting those would have meant rewriting them
+ * later from memory.
+ *
+ * The second is that it was not inert. Its cost answer still said "$2 per month,
+ * $9 for six months, or $12 per year" against a shipping price of $15 / $25 / $35,
+ * and it linked to a `#compatibility` section that no longer exists. An unrendered
+ * file with wrong prices in it is not an archive, it is a landmine waiting for
+ * whoever renders it next.
+ *
+ * So it is now LIVE and it is the single source: the features index renders every
+ * entry, and the cost answer is BUILT from `pro.periods` rather than typed, so it
+ * cannot drift from the pricing card again. The answers are cut to the house voice
+ * the rest of the redesign uses — no em-dash, ranges use "to", and no claim that
+ * anything is free.
+ */
 export interface FAQItem {
   q: string;
   a: string;
-  link?: { href: string; text: string };
 }
 
+/**
+ * Built from `pro.periods`, never typed, so the answer cannot drift from the
+ * pricing card. The array holds ONE term now (the app sells the annual package
+ * alone), and the sort and join are kept rather than flattened so that restoring
+ * a second term needs no edit here.
+ */
+const terms = [...pro.periods]
+  .sort((a, b) => a.months - b.months)
+  .map((p) => `$${p.price} for ${p.label}`)
+  .join(", ");
+
+/**
+ * The trial, stated for NEW customers only: eligibility is the store's decision,
+ * roughly one per store account, so this answer must not promise it to the person
+ * reading. Silences itself when `pro.trialDays` is null.
+ */
+const trialSentence = pro.trialDays
+  ? `, with the first ${pro.trialDays} days free for new customers.`
+  : ".";
+
+/**
+ * `What does the app send over the internet?` is written against
+ * `src/PRIVACY_POLICY.md`, not from memory. It said THREE optional calls; the
+ * policy discloses four flows, and two of the three it did name (crash reporting
+ * §2.1, artwork lookup §2.6) are ON BY DEFAULT rather than opt-in, while the
+ * fourth, the entitlement check of §2.9, is not optional at all in a
+ * subscription-only app. When that section of the policy changes, this answer
+ * changes with it.
+ */
 export const faqItems: FAQItem[] = [
   {
-    q: 'What does "bit-perfect" actually mean here?',
-    a: "That the samples reaching your DAC are numerically identical to the ones in the audio file. Bitperfect opens the USB audio device directly and drives it at the file's own native sample rate and bit depth, so nothing resamples, remixes, or dithers on the way out. When direct hardware access is not achievable on a particular connection, the app clearly displays the real state rather than claiming otherwise.",
+    q: "What does bit-perfect actually mean here?",
+    a: "The samples reaching your DAC are numerically identical to the ones in the file. Where direct hardware access is not achievable, the app shows the real state instead of claiming otherwise.",
   },
   {
-    q: 'Do I need an external DAC?',
-    a: "No. Bitperfect plays through your phone's internal output as well. Because the standard Android path routes through the system mixer, the bit-perfect indicator specifically marks direct USB Audio Class 2 output to an external DAC. The app always labels whichever path is actively in use.",
+    q: "Do I need an external DAC?",
+    a: "No. The phone's own output works too, but it goes through the system mixer, so the bit-perfect badge is reserved for direct USB output to an external DAC.",
   },
   {
-    q: 'Is the AI processing optional?',
-    a: 'Yes. Every AI feature is optional and disabled by default as part of Pro. When enabled on lossy material, the AI Enhancer reconstructs in-band amplitude and phase, which intentionally updates the signal state indicator to Enhanced rather than Bit-perfect. The badge never claims a bit-exact purity that DSP has modified.',
+    q: "What audio formats does it play?",
+    a: "Fifteen. FLAC, ALAC, WAV, AIFF and DSD (DSF and DFF, via DoP or native), plus DSD disc images, Monkey's Audio, WavPack, True Audio, TAK, Musepack, Opus, Ogg Vorbis, MP3 and AAC. If you have an archive full of the formats other players refuse, it will most likely open it.",
   },
   {
-    q: 'What does the app send over the internet?',
-    a: 'Only three optional items: crash reports (switchable), album artwork lookups from public sources (switchable), and the one-time neural model download when you choose to enable an AI feature. There are no analytics, no ads, no user accounts, and no telemetry. Your audio files and listening activity never leave your phone.',
+    q: "Can I turn off the AI processing?",
+    a: "Yes, and it is off by default. Turning it on moves the badge to Enhanced rather than Bit-perfect, because the samples have changed.",
   },
   {
-    q: 'Which platforms and devices are supported?',
-    a: 'Android 8.0 (API 26) and newer across all major device architectures (arm64-v8a, armeabi-v7a, and x86_64). Core playback, bit-perfect USB output, EQ, casting, and Sonic Scan library intelligence run on any supported phone. The AI Enhancer requires dedicated hardware neural acceleration, and the app probes your device at runtime before offering the feature.',
-    link: { href: '#compatibility', text: 'See compatibility tiers' },
+    q: "Will it work on my phone?",
+    a: `Android ${site.minAndroid} and newer. Every feature runs on any phone that meets that, except the AI Enhancer, which needs a phone with a neural chip. The app checks for one before offering it.`,
   },
   {
-    q: 'What audio effects and DSP processing are available?',
-    a: 'The engine includes a 32-band parametric EQ with seven filter types, binaural headphone crossfeed (Meier & Bauer algorithms), per-channel balance and 180° polarity inversion, ReplayGain 2.0 (EBU R128) loudness normalization, and a transparent true-peak limiter. All DSP processes in 64-bit float with zero latency, and can be instantly bypassed for bit-perfect output.',
+    q: "What does the app send over the internet?",
+    a: "Four things, and no more. Crash reports and album artwork lookups, both on by default and switchable in Settings, the one-time model download when you turn on an AI feature, and the check that says your subscription is active. No analytics, no ads, no account. Your files and your listening never leave the phone.",
   },
   {
-    q: 'What does Pro cost?',
-    a: '$2 per month, $9 for six months, or $12 per year (equal to $1 per month). All purchases are handled securely through Google Play billing and can be cancelled anytime in your Google Play subscriptions. The core player, bit-perfect USB output, parametric EQ, casting, and DSP effects are free forever.',
+    q: "What is in the DSP rack?",
+    a: "A 32-band parametric EQ with seven filter types, headphone crossfeed in three strengths, ReplayGain read from your file tags, and a true-peak limiter at a -0.6 dBTP ceiling. The whole rack switches off for bit-perfect output.",
   },
   {
-    q: 'Do AI features work offline?',
-    a: 'Yes. Neural models download once when you first enable a feature. After that, all processing (AI Enhancer, Sonic Scan, and Similar Tracks) executes entirely on-device with zero internet connection required.',
+    q: "What does it cost?",
+    a: `${terms}${trialSentence} One subscription covers the whole app, there is no higher tier, and nothing is switched off to sell you one. Billed through Google Play and cancellable there at any time.`,
+  },
+  {
+    q: "Do the AI features work offline?",
+    a: "Yes. A model downloads once, the first time you enable the feature. Everything after that runs on the device with no network call.",
   },
 ];

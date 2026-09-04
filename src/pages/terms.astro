@@ -1,0 +1,29 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import LegalDocument from '../components/legal/LegalDocument.astro';
+import { Content, getHeadings } from '../TERMS_OF_USE.md';
+import raw from '../TERMS_OF_USE.md?raw';
+
+/**
+ * Same detection as /privacy: the banner is a build-time check on the source
+ * document, not an assertion about it. Fill the values in src/TERMS_OF_USE.md
+ * and it disappears on the next build.
+ *
+ * `src/TERMS_OF_USE.md` deliberately carries NO `# ` title: the visible <h1> is
+ * rendered by LegalLayout from the `title` below, and a second one in the
+ * markdown would duplicate it in the accessibility tree. That note used to live
+ * as an HTML comment at the top of the markdown, where Astro published it into
+ * the page source of a legal document; it belongs here instead.
+ */
+const unresolved = ['[FILL IN ON PUBLISH]', '[SUPPORT_EMAIL]'].filter((p) => raw.includes(p));
+---
+
+<LegalLayout
+  title="Terms of Use"
+  description="Bitperfect Player's Terms of Use: an annual subscription with a 7-day free trial, and how billing, cancellation and refunds work."
+  containerClass="max-w-6xl lg:max-w-7xl px-4 sm:px-6 lg:px-8"
+>
+  <LegalDocument headings={getHeadings()} unresolved={unresolved} source="src/TERMS_OF_USE.md">
+    <Content />
+  </LegalDocument>
+</LegalLayout>

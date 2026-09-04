@@ -15,10 +15,11 @@ const pathname = Astro.url.pathname;
 >
   <Container>
     <nav class="flex h-16 items-center justify-between lg:h-20" aria-label="Main Navigation">
-      {/* Logo */}
+      {/* Logo. The -mx/-my pair cancels the padding, so the hover wash gets
+          room to breathe without moving the wordmark by a pixel. */}
       <a
         href={withBase('/')}
-        class="group flex items-center gap-2.5 rounded-lg transition-opacity duration-200 hover:opacity-90 focus-visible:focus-ring"
+        class="group -mx-2 -my-1 flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1 transition-colors duration-[var(--d-ui)] ease-ui hover:bg-white/[0.045] active:bg-white/[0.07] focus-visible:focus-ring"
       >
         <Logo size="md" />
         {/* The wordmark must never wrap to two lines beside a 32px mark: on a
@@ -26,7 +27,7 @@ const pathname = Astro.url.pathname;
             only the distinctive half of the name is shown; the mark plus
             "Bitperfect" still identifies the product, and the full name stays in
             the logo's alt text and the page title for assistive tech. */}
-        <span class="text-base font-bold whitespace-nowrap text-text-primary sm:text-lg">
+        <span class="text-body-sm font-bold whitespace-nowrap text-text-primary sm:text-body-lg">
           Bitperfect<span class="hidden sm:inline"> Player</span>
         </span>
       </a>
@@ -40,8 +41,10 @@ const pathname = Astro.url.pathname;
               <a
                 href={resolveHref(link.href, pathname)}
                 class:list={[
-                  'nav-link rounded px-1.5 py-0.5 text-sm font-medium transition-colors duration-200 focus-visible:focus-ring',
-                  active ? 'nav-link-active text-text-primary' : 'text-text-secondary hover:text-text-primary',
+                  'nav-link cursor-pointer rounded px-1.5 py-0.5 text-sm font-medium transition-colors duration-[var(--d-ui)] ease-ui focus-visible:focus-ring',
+                  active
+                    ? 'nav-link-active text-text-primary'
+                    : 'text-text-secondary hover:text-text-primary active:text-gold',
                 ]}
                 aria-current={active ? 'page' : undefined}
               >
@@ -54,12 +57,18 @@ const pathname = Astro.url.pathname;
 
       {/* CTA + Mobile Toggle */}
       <div class="flex items-center gap-3">
+        {/* Labelled from 640px up; icon-only below it, where the wordmark and
+            the burger leave no room for a label. Never nothing. */}
+        <StoreBadges variant="light" size="icon" class="sm:hidden" />
         <StoreBadges variant="light" size="sm" class="hidden sm:inline-flex" />
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button. 44x44: it measured 40x34, and it is the ONLY
+            navigation affordance below 1024px, so it was the smallest target on
+            the site carrying the most weight. The bars are unchanged; the box
+            around them grew. */}
         <button
           id="mobile-menu-toggle"
-          class="flex cursor-pointer flex-col gap-1.5 rounded-lg p-2 text-text-primary focus-visible:focus-ring lg:hidden"
+          class="flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-lg text-text-primary transition-colors duration-[var(--d-ui)] ease-ui hover:bg-white/[0.055] active:bg-white/[0.09] focus-visible:focus-ring lg:hidden"
           aria-label="Toggle navigation menu"
           aria-controls="mobile-menu"
           aria-expanded="false"
@@ -93,9 +102,11 @@ const pathname = Astro.url.pathname;
     background: var(--color-gold);
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 0.25s var(--ease-out-expo);
+    /* Interaction feedback runs on the UI curve, not the reveal curve. */
+    transition: transform var(--d-ui) var(--ease-ui);
   }
-  .nav-link:hover::after {
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
     transform: scaleX(1);
   }
   .nav-link-active::after {

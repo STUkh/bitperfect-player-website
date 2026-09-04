@@ -5,12 +5,12 @@ an audiophile Android music player.
 
 **Live:** https://bit-perfect.com/
 
-| Route | Purpose |
-|---|---|
-| `/` | Landing page |
+| Route      | Purpose                                               |
+| ---------- | ----------------------------------------------------- |
+| `/`        | Landing page                                          |
 | `/privacy` | Privacy policy — the URL Google Play Console requires |
-| `/policy` | Alias; redirects to `/privacy` |
-| `/404` | Not found page |
+| `/policy`  | Alias; redirects to `/privacy`                        |
+| `/404`     | Not found page                                        |
 
 ## Develop
 

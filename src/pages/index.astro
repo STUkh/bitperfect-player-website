@@ -1,32 +1,38 @@
 ---
-import LandingLayout from '../layouts/LandingLayout.astro';
-import HeroSection from '../components/landing/HeroSection.astro';
-import AppShowcase from '../components/landing/AppShowcase.astro';
-import FeaturesGrid from '../components/landing/FeaturesGrid.astro';
-import AiSection from '../components/AiSection.astro';
-import ResearchCards from '../components/landing/ResearchCards.astro';
-import PricingSection from '../components/landing/PricingSection.astro';
-import FAQPreview from '../components/landing/FAQPreview.astro';
-import CTASection from '../components/landing/CTASection.astro';
+/**
+ * The site is parked. Everything except `/privacy`, `/terms` and the `/policy`
+ * alias renders the holding page.
+ *
+ * The real home page is `src/pages/_index.astro` and the six feature routes are
+ * `src/pages/_features/`. Astro does not route a path whose file or folder starts
+ * with an underscore, so nothing was deleted and bringing the site back is two
+ * renames: drop the underscores, and restore the two navigation lists in
+ * `src/data/navigation.ts` from the note left there.
+ *
+ * The headline is the picture in words. A cartridge held above the groove is a
+ * record that has not started, which is what this page is actually reporting, and
+ * it lets the page say it without a countdown, a percentage or a launch date
+ * nobody has committed to.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HoldingPage from '../components/HoldingPage.astro';
 ---
 
-<LandingLayout
-  title="Bit-perfect audio on Android"
-  description="A music player, streamer and receiver built on a bit-perfect native audio engine with exclusive USB output. No resampling, no system mixer. On-device AI enhancement, no analytics, no ads, no account. Android 8.0 and up."
+{/*
+  The title is BARE. `SEOHead` appends ` | ${site.name}` to anything that is not
+  exactly the site name, so a suffix here would ship it twice.
+
+  No `noindex`. This is the real front door for as long as it is up, it names the
+  product and it links to the store, so a crawler should have it. The pages that
+  no longer build simply leave the sitemap, which they already have.
+*/}
+<BaseLayout
+  title="Under construction"
+  description="The Bitperfect Player site is being rebuilt. The player is on Google Play, and the privacy policy and terms of use are still here."
 >
-  <HeroSection />
-  <hr class="section-divider" aria-hidden="true" />
-  <AppShowcase />
-  <hr class="section-divider" aria-hidden="true" />
-  <FeaturesGrid />
-  <hr class="section-divider" aria-hidden="true" />
-  <AiSection />
-  <hr class="section-divider" aria-hidden="true" />
-  <ResearchCards />
-  <hr class="section-divider" aria-hidden="true" />
-  <PricingSection />
-  <hr class="section-divider" aria-hidden="true" />
-  <FAQPreview />
-  <hr class="section-divider" aria-hidden="true" />
-  <CTASection />
-</LandingLayout>
+  <HoldingPage
+    eyebrow="Under construction"
+    headline="The needle is still up."
+    lede="We are rebuilding this site. The player is unchanged and still on Google Play."
+  />
+</BaseLayout>

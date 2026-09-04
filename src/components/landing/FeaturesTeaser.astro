@@ -1,0 +1,163 @@
+---
+/**
+ * Features teaser, graphite.
+ *
+ * Six hairline-separated rows in two columns, not cards and not one hue per
+ * item. The items are told apart by their mark and their content, never by
+ * colour. The eyebrow here is monospace neutral: on graphite, gold belongs to
+ * the primary action and almost nothing else.
+ *
+ * This section runs taller than its neighbours on purpose. It is the densest band
+ * on the page, twelve items in two columns against three facts either side of it,
+ * and four consecutive sections at an identical vertical rhythm read as a template
+ * even when each one is good on its own.
+ *
+ * The marks come from FeatureMark rather than being inlined here. They used to
+ * be six Lucide defaults, and the one for the AI Enhancer was the four-pointed
+ * sparkle every generated product page has used since 2023.
+ */
+import Container from '../common/Container.astro';
+import FeatureMark from '../feature/FeatureMark.astro';
+import { withBase } from '../../utils/nav';
+import { featureName } from '../../data/navigation';
+
+/*
+  One line each. The NAME is not written here: this list carried its own titles,
+  and three of them disagreed with the nav link pointing at the same route
+  (`Studio DSP` against `DSP rack`, `Network streaming` against `Network
+  casting`, `Local lossless library` against `Local library`).
+  See `featureRoutes` in src/data/navigation.ts.
+*/
+const items = [
+  { slug: 'usb-dac', desc: "Your DAC, driven at the file's own rate. Up to 768 kHz and DSD512." },
+  { slug: 'ai-enhancer', desc: "Rebuilds what compression discarded, on your phone's own hardware." },
+  { slug: 'eq', desc: 'Seven filter shapes, one tap back to bit-perfect.' },
+  { slug: 'library', desc: 'Albums to folders, indexed on device. Nothing travels.' },
+  { slug: 'casting', desc: 'Send to any UPnP renderer, or become one.' },
+  { slug: 'dsp', desc: 'Crossfeed, ReplayGain, true-peak guard. All optional.' },
+];
+
+const allFeaturesHref = withBase('features');
+---
+
+<section id="features" class="relative scroll-mt-20 bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38">
+  <Container class="lg:px-20">
+    <div class="flex items-end justify-between gap-12 lg:mb-15">
+      {/*
+        No eyebrow. `Features` restated the section: the nav says it, the anchor
+        says it, and the headline underneath says it a third time. The heading now
+        opens the section on its own. DESIGN.md, "The Eyebrow Budget Rule".
+      */}
+      <div class="max-w-[620px]">
+        <h2
+          class="r-rise text-headline-sm-m text-balance text-text-primary lg:text-headline-sm"
+          style="--i: 0"
+        >
+          Six things it does, each worth a page of its own
+        </h2>
+      </div>
+      <a
+        href={allFeaturesHref}
+        class="focus-visible:focus-ring r-fade all-features hidden shrink-0 cursor-pointer items-center gap-2 pb-1.5 text-[15px] font-semibold text-gold hover:text-gold-light active:text-gold-deep lg:inline-flex"
+        style="--i: 1"
+      >
+        <span>All features</span>
+        <FeatureMark name="arrow-right" size={18} class="all-features-arrow" />
+      </a>
+    </div>
+
+    <div class="mt-7 grid grid-cols-1 lg:mt-0 lg:grid-cols-2 lg:gap-x-[72px]">
+      {
+        items.map((item, i) => (
+          <a
+            href={withBase(`features/${item.slug}`)}
+            class="focus-visible:focus-ring r-rise feature-row group flex cursor-pointer items-start justify-between gap-6 border-t border-border-subtle py-6 hover:border-glass-border-hover lg:gap-[22px] lg:py-8"
+            style={`--i: ${i % 2}`}
+          >
+            <div>
+              {/* No mark. See the note in src/pages/features/index.astro. */}
+              <div class="text-title-sm tracking-[-0.01em] text-text-primary lg:text-title">
+                {featureName(item.slug)}
+              </div>
+              <p class="mt-2 max-w-[31ch] text-body-sm text-pretty text-text-secondary transition-colors duration-[var(--d-ui)] ease-ui group-hover:text-text-primary lg:mt-2.5">
+                {item.desc}
+              </p>
+            </div>
+            {/*
+              The affordance. These six rows are the most valuable destinations on
+              the home page and they carried NO cue that they were destinations: a
+              title, a paragraph, a hairline, and nothing else until the pointer
+              happened to land on one. A visitor read them as bullets and left
+              having never seen the pages the heading promises. Nobody hovers on a
+              touchscreen, so a hover-only affordance is no affordance at all.
+
+              The arrow is the same mark the two `All features` links already use,
+              at rest in the quiet ink and answering the pointer with the section's
+              own gold-and-3px idiom, so it reads as one vocabulary rather than a
+              seventh widget.
+            */}
+            <FeatureMark
+              name="arrow-right"
+              size={18}
+              class="feature-row-arrow mt-1 shrink-0 text-text-tertiary lg:mt-1.5"
+            />
+          </a>
+        ))
+      }
+
+      <a
+        href={allFeaturesHref}
+        class="focus-visible:focus-ring all-features inline-flex cursor-pointer items-center gap-2 border-t border-border-subtle pt-6 text-[15px] font-semibold text-gold hover:text-gold-light active:text-gold-deep lg:hidden"
+      >
+        <span>All features</span>
+        <FeatureMark name="arrow-right" size={18} class="all-features-arrow" />
+      </a>
+    </div>
+  </Container>
+</section>
+
+<style>
+  /* Interaction feedback runs on the UI curve. The row answers with its top
+     hairline lifting to the hover border value, its mark and its paragraph
+     coming up to full ink: three real changes, no second hue. */
+  .feature-row,
+  .all-features {
+    transition:
+      color var(--d-ui) var(--ease-ui),
+      border-color var(--d-ui) var(--ease-ui);
+  }
+
+  /* The row's arrow shares the `All features` idiom: gold, and 3px along. */
+  .feature-row-arrow {
+    transition:
+      color var(--d-ui) var(--ease-ui),
+      transform var(--d-ui) var(--ease-ui);
+  }
+  .feature-row:hover .feature-row-arrow {
+    color: var(--color-gold);
+    transform: translateX(3px);
+  }
+  .feature-row:active .feature-row-arrow {
+    transform: translateX(1px);
+  }
+
+  .all-features-arrow {
+    transition: transform var(--d-ui) var(--ease-ui);
+  }
+  .all-features:hover .all-features-arrow {
+    transform: translateX(2px);
+  }
+  .all-features:active .all-features-arrow {
+    transform: translateX(0);
+  }
+
+  /* The Reduced Motion Rule: the colour change carries the hover on its own. */
+  @media (prefers-reduced-motion: reduce) {
+    .all-features:hover .all-features-arrow,
+    .all-features:active .all-features-arrow,
+    .feature-row:hover .feature-row-arrow,
+    .feature-row:active .feature-row-arrow {
+      transform: none;
+    }
+  }
+</style>

@@ -1,20 +1,29 @@
 ---
 /**
- * Authored icon set. One geometry system: 24x24 box, 1.5 stroke, round caps,
- * 9px nominal radius for every circular form so the signal-path marks read as
- * one family at any size.
+ * Authored icon set. One geometry system: 24x24 box, round caps, 9px nominal
+ * radius for every circular form so the signal-path marks read as one family at
+ * any size.
+ *
+ * Stroke is never passed by hand: `iconStroke` derives it from the size so the
+ * rendered weight stays optically level from a 15px chip glyph to a 36px
+ * identity mark. See `src/utils/icon.ts`.
  *
  * The `sig-*` icons are the app's signal-path status vocabulary
  * (Color.kt / AGENTS.md) redrawn as vectors. The app pairs every status colour
  * with a mark for colourblind accessibility; the site inherits that rule.
  */
+import { iconStroke } from '../utils/icon';
+
 export interface Props {
   name: string;
   size?: number | string;
   class?: string;
+  /** Escape hatch. Leave unset so the size-derived weight applies. */
   stroke?: number;
 }
-const { name, size = 24, class: cls = '', stroke = 1.5 } = Astro.props;
+const { name, size = 20, class: cls = '', stroke } = Astro.props;
+const box = typeof size === 'number' ? size : Number.parseFloat(size);
+const strokeWidth = stroke ?? iconStroke(box);
 ---
 
 <svg
@@ -24,7 +33,7 @@ const { name, size = 24, class: cls = '', stroke = 1.5 } = Astro.props;
   viewBox="0 0 24 24"
   fill="none"
   stroke="currentColor"
-  stroke-width={stroke}
+  stroke-width={strokeWidth}
   stroke-linecap="round"
   stroke-linejoin="round"
   aria-hidden="true"
@@ -37,13 +46,13 @@ const { name, size = 24, class: cls = '', stroke = 1.5 } = Astro.props;
       <circle cx="12" cy="12" r="4.25" fill="currentColor" stroke="none" />
     </>
   )}
-  {name === 'sig-lossless' && (
-    <>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="4.25" />
-    </>
-  )}
-  {name === 'sig-hires' && <circle cx="12" cy="12" r="9" fill="currentColor" stroke="none" />}
+  {/*
+    No `sig-lossless` and no `sig-hires`. Both were drawn here and neither was ever
+    asked for, because neither can be: `src/data/colors.ts` records them as tokens
+    the app declares in `Color.kt` and never maps in `signalQualityColor()`, so the
+    app has no such runtime state and the site must never show one. A glyph for a
+    state that cannot occur is an invitation to render it.
+  */}
   {name === 'sig-resampled' && (
     <>
       <circle cx="12" cy="12" r="9" />
@@ -181,8 +190,9 @@ const { name, size = 24, class: cls = '', stroke = 1.5 } = Astro.props;
 </svg>
 
 <style>
+  /* `vector-effect` is not an inherited property, so setting it here never
+     reached the shapes below. Weight is solved in `iconStroke` instead. */
   .icon {
     flex: none;
-    vector-effect: non-scaling-stroke;
   }
 </style>

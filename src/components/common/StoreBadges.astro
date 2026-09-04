@@ -3,7 +3,12 @@ import { site } from '../../data/site';
 
 interface Props {
   variant?: 'light' | 'dark';
-  size?: 'sm' | 'md' | 'lg';
+  /**
+   * `icon` is Play only, 44x44, no label: the narrow header, where a labelled
+   * badge does not fit beside the wordmark and the burger. Every other size
+   * renders whichever stores have a URL.
+   */
+  size?: 'icon' | 'sm' | 'md' | 'lg';
   class?: string;
 }
 
@@ -29,9 +34,9 @@ const APPLE_PATH =
           <a
             href={site.playUrl}
             rel="noopener noreferrer"
-            class="store-badge-lg inline-flex w-fit min-w-[220px] items-center gap-3 rounded-2xl border border-white/15 bg-white/12 px-6 py-3.5 text-white transition duration-150 hover:border-white/25 hover:bg-white/18 focus-visible:focus-ring"
+            class="store-badge inline-flex w-fit min-w-[220px] cursor-pointer items-center gap-3 rounded-2xl border border-white/15 bg-white/12 px-6 py-3.5 text-white hover:border-glass-border-hover hover:bg-white/18 focus-visible:focus-ring"
           >
-            <svg class="h-7 w-7 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="h-8 w-8 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={PLAY_PATH} />
             </svg>
             <div class="text-left">
@@ -45,9 +50,9 @@ const APPLE_PATH =
           <a
             href={site.playUrl}
             rel="noopener noreferrer"
-            class="store-badge-md inline-flex w-fit items-center gap-2.5 rounded-xl border border-white/15 bg-white/12 px-4 py-2.5 text-white transition duration-150 hover:border-white/25 hover:bg-white/18 focus-visible:focus-ring"
+            class="store-badge inline-flex w-fit cursor-pointer items-center gap-2.5 rounded-xl border border-white/15 bg-white/12 px-4 py-2.5 text-white hover:border-glass-border-hover hover:bg-white/18 focus-visible:focus-ring"
           >
-            <svg class="h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="h-6 w-6 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={PLAY_PATH} />
             </svg>
             <div class="text-left">
@@ -56,14 +61,34 @@ const APPLE_PATH =
             </div>
           </a>
         )}
+        {/*
+          Icon Light Badge (narrow header). Below 640px the header shipped NO
+          store link at all: the labelled badge was `hidden sm:inline-flex` and
+          the only route to Play was behind the burger. On a 7,796px page the
+          primary action then appeared at y=390 and not again until y=7,100.
+          Same chassis as the small badge, square, and 44x44 so it clears the
+          tap-target floor with room over.
+        */}
+        {badgeSize === 'icon' && (
+          <a
+            href={site.playUrl}
+            rel="noopener noreferrer"
+            aria-label="Get it on Google Play"
+            class="store-badge inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-gold/35 bg-gold/10 text-white hover:border-gold/60 hover:bg-gold/20 focus-visible:focus-ring"
+          >
+            <svg class="h-5 w-5 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={PLAY_PATH} />
+            </svg>
+          </a>
+        )}
         {/* Small Light Badge (Header) */}
         {badgeSize === 'sm' && (
           <a
             href={site.playUrl}
             rel="noopener noreferrer"
-            class="store-badge-sm inline-flex w-fit items-center gap-2 rounded-xl border border-gold/35 bg-gold/10 px-3 py-1.5 text-white transition-all duration-200 hover:border-gold/60 hover:bg-gold/20 hover:shadow-[0_0_12px_rgba(232,184,75,0.3)] focus-visible:focus-ring"
+            class="store-badge inline-flex w-fit cursor-pointer items-center gap-2 rounded-xl border border-gold/35 bg-gold/10 px-3 py-1.5 text-white hover:border-gold/60 hover:bg-gold/20 focus-visible:focus-ring"
           >
-            <svg class="h-4 w-4 shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="h-[18px] w-[18px] shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={PLAY_PATH} />
             </svg>
             <div class="text-left leading-none">
@@ -73,18 +98,18 @@ const APPLE_PATH =
           </a>
         )}
 
-        {site.appStoreUrl && (
+        {badgeSize !== 'icon' && site.appStoreUrl && (
           <a
             href={site.appStoreUrl}
             rel="noopener noreferrer"
             class:list={[
-              'inline-flex w-fit items-center text-white transition duration-150 focus-visible:focus-ring',
-              badgeSize === 'lg' && 'store-badge-lg min-w-[220px] gap-3 rounded-2xl border border-white/15 bg-white/12 px-6 py-3.5 hover:border-white/25 hover:bg-white/18',
-              badgeSize === 'md' && 'store-badge-md gap-2.5 rounded-xl border border-white/15 bg-white/12 px-4 py-2.5 hover:border-white/25 hover:bg-white/18',
-              badgeSize === 'sm' && 'store-badge-sm gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-1.5 hover:border-white/25 hover:bg-white/15',
+              'store-badge inline-flex w-fit cursor-pointer items-center text-white focus-visible:focus-ring',
+              badgeSize === 'lg' && 'min-w-[220px] gap-3 rounded-2xl border border-white/15 bg-white/12 px-6 py-3.5 hover:border-glass-border-hover hover:bg-white/18',
+              badgeSize === 'md' && 'gap-2.5 rounded-xl border border-white/15 bg-white/12 px-4 py-2.5 hover:border-glass-border-hover hover:bg-white/18',
+              badgeSize === 'sm' && 'gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-1.5 hover:border-glass-border-hover hover:bg-white/15',
             ]}
           >
-            <svg class={badgeSize === 'lg' ? 'h-7 w-7 shrink-0 text-gold' : badgeSize === 'md' ? 'h-5 w-5 shrink-0 text-gold' : 'h-4 w-4 shrink-0 text-gold'} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class={badgeSize === 'lg' ? 'h-8 w-8 shrink-0 text-gold' : badgeSize === 'md' ? 'h-6 w-6 shrink-0 text-gold' : 'h-[18px] w-[18px] shrink-0 text-gold'} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d={APPLE_PATH} />
             </svg>
             <div class="text-left leading-none">
@@ -93,19 +118,19 @@ const APPLE_PATH =
             </div>
           </a>
         )}
-        {site.apkUrl && (
+        {badgeSize !== 'icon' && site.apkUrl && (
           <a
             href={site.apkUrl}
             rel="noopener noreferrer"
             class:list={[
-              'inline-flex w-fit items-center justify-center border border-white/15 text-white/80 transition duration-150 hover:border-white/30 hover:text-white focus-visible:focus-ring',
+              'store-badge inline-flex w-fit cursor-pointer items-center justify-center border border-white/15 text-white/80 hover:border-glass-border-hover hover:bg-white/[0.06] hover:text-white focus-visible:focus-ring',
               badgeSize === 'lg' && 'min-w-[220px] gap-2 rounded-2xl px-6 py-3.5',
               badgeSize === 'md' && 'gap-2 rounded-xl px-4 py-2.5',
               badgeSize === 'sm' && 'gap-1.5 rounded-xl px-3 py-1.5 text-xs',
             ]}
           >
             <span class="font-medium text-sm">Direct APK</span>
-            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-[18px] w-[18px] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 12h14.5m0 0-5.5-5.5m5.5 5.5-5.5 5.5" />
             </svg>
           </a>
@@ -118,14 +143,14 @@ const APPLE_PATH =
           href={site.playUrl}
           rel="noopener noreferrer"
           class:list={[
-            'inline-flex w-fit items-center border border-border-subtle bg-white/8 transition-colors duration-200 hover:bg-white/12 focus-visible:focus-ring',
+            'store-badge inline-flex w-fit cursor-pointer items-center border border-border-subtle bg-white/8 hover:border-glass-border-hover hover:bg-white/12 focus-visible:focus-ring',
             badgeSize === 'lg' && 'gap-3 rounded-2xl px-6 py-3.5',
             badgeSize === 'md' && 'gap-2 rounded-xl px-4 py-2.5',
             badgeSize === 'sm' && 'gap-2 rounded-xl px-3 py-1.5',
           ]}
         >
           <svg
-            class={badgeSize === 'lg' ? 'h-7 w-7 text-white shrink-0' : badgeSize === 'md' ? 'h-5 w-5 text-white shrink-0' : 'h-4 w-4 text-white shrink-0'}
+            class={badgeSize === 'lg' ? 'h-8 w-8 text-white shrink-0' : badgeSize === 'md' ? 'h-6 w-6 text-white shrink-0' : 'h-[18px] w-[18px] text-white shrink-0'}
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -142,14 +167,14 @@ const APPLE_PATH =
             href={site.appStoreUrl}
             rel="noopener noreferrer"
             class:list={[
-              'inline-flex w-fit items-center border border-border-subtle bg-white/8 transition-colors duration-200 hover:bg-white/12 focus-visible:focus-ring',
+              'store-badge inline-flex w-fit cursor-pointer items-center border border-border-subtle bg-white/8 hover:border-glass-border-hover hover:bg-white/12 focus-visible:focus-ring',
               badgeSize === 'lg' && 'gap-3 rounded-2xl px-6 py-3.5',
               badgeSize === 'md' && 'gap-2 rounded-xl px-4 py-2.5',
               badgeSize === 'sm' && 'gap-2 rounded-xl px-3 py-1.5',
             ]}
           >
             <svg
-              class={badgeSize === 'lg' ? 'h-7 w-7 text-white shrink-0' : badgeSize === 'md' ? 'h-5 w-5 text-white shrink-0' : 'h-4 w-4 text-white shrink-0'}
+              class={badgeSize === 'lg' ? 'h-8 w-8 text-white shrink-0' : badgeSize === 'md' ? 'h-6 w-6 text-white shrink-0' : 'h-[18px] w-[18px] text-white shrink-0'}
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -167,14 +192,14 @@ const APPLE_PATH =
             href={site.apkUrl}
             rel="noopener noreferrer"
             class:list={[
-              'inline-flex w-fit items-center border border-border-subtle text-text-secondary transition-colors duration-200 hover:border-glass-border-hover hover:text-white focus-visible:focus-ring',
+              'store-badge inline-flex w-fit cursor-pointer items-center border border-border-subtle text-text-secondary hover:border-glass-border-hover hover:bg-white/[0.06] hover:text-white focus-visible:focus-ring',
               badgeSize === 'lg' && 'gap-2 rounded-2xl px-6 py-3.5',
               badgeSize === 'md' && 'gap-2 rounded-xl px-4 py-2.5',
               badgeSize === 'sm' && 'gap-1.5 rounded-xl px-3 py-1.5 text-xs',
             ]}
           >
             <span class="text-sm font-medium">Direct APK</span>
-            <svg class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-[18px] w-[18px] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 12h14.5m0 0-5.5-5.5m5.5 5.5-5.5 5.5" />
             </svg>
           </a>
@@ -185,8 +210,34 @@ const APPLE_PATH =
 </div>
 
 <style>
-  .store-badge-lg:hover,
-  .store-badge-md:hover {
-    box-shadow: var(--shadow-glow-gold);
+  /* One interaction recipe for every badge, light or dark, at every size.
+     A hover is a 1px lift over a NEUTRAL shadow plus a border-colour change:
+     the Gold Emits Nothing Rule means a gold badge never gets a gold halo,
+     and the rule this replaces referenced a --shadow-glow-gold token that
+     does not exist in the theme, so it painted nothing at all. */
+  .store-badge {
+    transition:
+      color var(--d-ui) var(--ease-ui),
+      background-color var(--d-ui) var(--ease-ui),
+      border-color var(--d-ui) var(--ease-ui),
+      box-shadow var(--d-ui) var(--ease-ui),
+      transform var(--d-ui) var(--ease-ui);
+  }
+  .store-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .store-badge:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* The Reduced Motion Rule: the border and the ground carry the hover on
+     their own when a visitor has asked for no movement. */
+  @media (prefers-reduced-motion: reduce) {
+    .store-badge:hover,
+    .store-badge:active {
+      transform: none;
+    }
   }
 </style>

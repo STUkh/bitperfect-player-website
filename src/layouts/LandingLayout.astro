@@ -30,9 +30,16 @@ const websiteSchema = {
   url: siteUrl,
 };
 
-/* Pro is one entitlement, three billing periods: Play Console requires each
- * billed option listed as its own Offer. No aggregateRating / ratingValue:
- * inventing a rating is a structured-data policy violation (BRIEF.md §4.1). */
+/* ONE offer, because there is one plan: an auto-renewing annual subscription at
+ * USD 35 (src/TERMS_OF_USE.md §4.1 and §4.3). The three-period map this built
+ * from is kept as a map so a restored second term needs no edit here, and the
+ * word `Pro` is gone from the description with the tier it named.
+ *
+ * The 7-day trial is deliberately NOT modelled here. Eligibility is the store's
+ * decision, one trial per store account (Terms §4.2), so a rich result promising
+ * it to every searcher would be a claim the store refuses to honour for
+ * returning customers. No aggregateRating / ratingValue either: inventing a
+ * rating is a structured-data policy violation (BRIEF.md §4.1). */
 const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',

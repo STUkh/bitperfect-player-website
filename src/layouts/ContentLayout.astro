@@ -12,13 +12,42 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <slot name="head-extra" slot="head" />
+  <Fragment slot="head">
+    {/*
+      The reveal CSS hides on `html.js` so a no-JS visitor is never left on a
+      blank page. Setting it INLINE IN THE HEAD is the whole point: added any
+      later, the page paints its resting state first and then blinks it away.
+    */}
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <slot name="head-extra" />
+  </Fragment>
   <Header />
-  <main id="main-content" class="relative">
+  {/*
+    The header is `position: fixed`, so it takes no space in the flow and the
+    first thing in `main` starts at y=0 underneath it. Every content route was
+    losing its opening element to that: the feature routes' breadcrumb sat at
+    y=44 with the header's bottom edge at y=81, so the trail was invisible on
+    all six of them.
+
+    The clearance belongs here, once, rather than in each page's hero padding,
+    because the number it has to match is the header's own height and that is
+    not a page's business to know: 64px + a 1px rule on mobile, 80px + 1px from
+    `lg`. Pages keep their own top padding on top of this, which is now the
+    optical gap they actually asked for.
+  */}
+  <main id="main-content" class="relative pt-[65px] lg:pt-[81px]">
     <slot />
   </main>
   <Footer />
   <script>
-    import '../scripts/animations';
+    /* One call site for the whole site. It was two — the feature routes — and the
+       home page was not one of them, so its entrance motion never ran.
+
+       This replaced `scripts/animations.ts`, which was imported here on every
+       page load and observed `[data-animate]` and `[data-route-visual]`: two
+       attributes that appear in no markup anywhere on the site. Fifty-six lines
+       of dead observer shipped on every route. */
+    import { initFeatureMotion } from '../scripts/reveal';
+    initFeatureMotion();
   </script>
 </BaseLayout>

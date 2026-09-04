@@ -1,74 +1,26 @@
 ---
-import ContentLayout from '../layouts/ContentLayout.astro';
-import Icon from '../components/Icon.astro';
-import Button from '../components/common/Button.astro';
-import { withBase } from '../utils/nav';
+/**
+ * Every path that is not `/`, `/privacy`, `/terms` or `/policy` lands here while
+ * the site is parked, which is most of the site: the six feature routes and the
+ * features index no longer build. So the 404 is not a dead end with a joke on it
+ * any more, it is the holding page with an extra sentence, and its three exits
+ * are the three destinations that still exist.
+ *
+ * The page it replaces is kept at `src/pages/_404.astro` and comes back with the
+ * rest of the site.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HoldingPage from '../components/HoldingPage.astro';
 ---
 
-<ContentLayout
-  title="Page not found | Bitperfect Player"
-  description="This page does not exist. The player, the privacy policy and everything else are one tap away."
+<BaseLayout
+  title="Page not found"
+  description="This page is not here while the Bitperfect Player site is being rebuilt. The player, the privacy policy and the terms of use are."
+  noindex
 >
-  <section class="lost">
-    <div class="inner">
-      <p class="text-xs text-text-tertiary uppercase tracking-widest font-mono">404</p>
-      <h1 class="heading-section">Nothing on this path.</h1>
-      <p class="text-text-secondary max-w-96">
-        Fitting, for a player that keeps the signal path empty: but this one is
-        an actual dead end.
-      </p>
-      <div class="actions">
-        <Button href={withBase('/')} variant="primary" class="gap-2 btn-back">
-          <Icon name="arrow" size={15} />
-          <span>Back to the start</span>
-        </Button>
-        <a class="btn-link" href={withBase('privacy')}>Privacy policy</a>
-      </div>
-    </div>
-  </section>
-</ContentLayout>
-
-<style>
-  .lost {
-    min-height: 70vh;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding-block: 6rem;
-  }
-
-  .inner {
-    display: grid;
-    justify-items: center;
-    gap: 1rem;
-  }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  /* The Icon component's arrow points right by default; rotate it to read
-     as "back" without touching Icon.astro (read-only this pass).
-     Fully :global(): `btn-back` is a class forwarded through the Button
-     component, not a raw element in this file, so Astro's scope hash
-     cannot be relied on to reach it. */
-  :global(.btn-back .icon) {
-    transform: rotate(180deg);
-  }
-
-  .btn-link {
-    color: var(--color-text-tertiary);
-    font-size: 0.875rem;
-    border-bottom: 1px solid transparent;
-    transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .btn-link:hover {
-    color: var(--color-gold);
-    border-bottom-color: var(--color-gold);
-  }
-</style>
+  <HoldingPage
+    eyebrow="Under construction"
+    headline="Nothing on this path."
+    lede="This page is parked while the site is rebuilt. The player, the privacy policy and the terms of use are still here."
+  />
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+/**
+ * One app screen inside a device frame.
+ *
+ * A capture of the shipping Android app, named by the manifest that
+ * `design/screens.mjs` generates. Naming a screen that has not been captured
+ * renders nothing rather than a broken image — the frame is still a frame, and
+ * the page still stands up. Same contract as `ImageSlot`, for the same reason:
+ * an asset arriving or leaving is a script run, not a page edit.
+ *
+ * `alt` defaults to EMPTY and that is deliberate. These sit beside copy that
+ * already states what the screen shows — a beat headline and a paragraph on a
+ * feature route, a group label in the home lineup — so a description here is the
+ * same sentence read twice. Pass a real `alt` only where the image is the only
+ * place the information exists.
+ *
+ * `priority` is for the one screen above the fold. Everything else is lazy: the
+ * home page alone carries three of these inside a scroll-driven section, and
+ * they must not compete with the hero for the first megabyte.
+ */
+import { screens } from '../../data/screens';
+import { withBase } from '../../utils/nav';
+
+interface Props {
+  /** A key from `src/data/screens.ts`. */
+  name: string;
+  alt?: string;
+  priority?: boolean;
+  class?: string;
+}
+
+const { name, alt = '', priority = false, class: className } = Astro.props;
+const known = screens.has(name);
+---
+
+{
+  known && (
+    <img
+      src={withBase(`screens/${name}.webp`)}
+      alt={alt}
+      width="556"
+      height="1236"
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchpriority={priority ? 'high' : undefined}
+      class:list={['h-full w-full object-cover object-top', className]}
+    />
+  )
+}

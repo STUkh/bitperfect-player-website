@@ -1,233 +1,140 @@
-/* ── Reusable Keyframes ── */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ══ Reveal system ══
+   Motion is restrained: the brand's promise is that nothing is embellished,
+   and the animation has to agree with that. One curve, five primitives, one
+   IntersectionObserver (src/scripts/animations.ts).
+
+   Three rules hold the whole thing together:
+
+   1. Hidden states are gated on `html.js`, set by an inline head script. A
+      crawler, a browser with JS off and a blocked bundle all see a finished
+      page rather than an empty one.
+   2. Stagger is a custom property, not an nth-child ladder: an element sets
+      `style="--i: 2"` and inherits the step from `--stagger`.
+   3. Under prefers-reduced-motion the HIDDEN state is neutralised as well as
+      the transition. Killing only the transition leaves those users on a
+      permanently invisible page.
+
+   Short distance takes the long duration: 20px over 720ms is a settle, 56px
+   over 900ms is an arrival. The naive mapping is the other way round and it
+   reads cheap. Each primitive also holds still for roughly the first tenth of
+   its timeline, which removes the lurch as an element crosses the threshold. */
+
+/* Every reveal target shares one delay contract. */
+.r-fade,
+.r-rise,
+.r-rise-lg,
+.r-mask,
+.r-rule {
+  --i: 0;
+  --delay: calc(var(--i) * var(--stagger));
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) translateZ(0);
-  }
-  50% {
-    transform: translateY(-10px) translateZ(0);
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-@keyframes scroll-dot {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 0.3;
-    transform: translateY(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(300%);
-  }
-}
-
-@keyframes bar-grow {
-  from {
-    width: 0%;
-  }
-  to {
-    width: var(--bar-width);
-  }
-}
-
-@keyframes conduit-draw {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes thermal-filament-breathe {
-  0%,
-  100% {
-    opacity: 0.7;
-    filter: drop-shadow(0 0 4px rgba(232, 184, 75, 0.3));
-  }
-  50% {
-    opacity: 1;
-    filter: drop-shadow(0 0 12px rgba(232, 184, 75, 0.65));
-  }
-}
-
-/* ── Animation Utility Classes ── */
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-  will-change: transform;
-}
-
-.animate-float-delayed {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: -2s;
-  will-change: transform;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
+/* ── r-fade: opacity only, --d-long ── */
+html.js .r-fade {
+  opacity: 0;
+  transition: opacity var(--d-long) var(--ease-reveal) calc(var(--delay) + 90ms);
   will-change: opacity;
 }
-
-.animate-scroll-dot {
-  animation: scroll-dot 2s ease-in-out infinite;
-  will-change: transform;
+html.js .r-fade.is-visible {
+  opacity: 1;
+  will-change: auto;
 }
 
-/* ── Science bar animation ── */
-.science-bar {
-  width: var(--bar-width);
-  position: relative;
-  overflow: hidden;
-}
-.science-bar.animated {
-  animation: bar-grow 1.2s ease-out forwards;
-}
-.science-bar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    transparent 100%
-  );
-  animation: shimmer 3s ease-in-out infinite;
-  will-change: transform;
-  border-radius: inherit;
-}
-
-/* ── Route drawing animation ── */
-.route-draw {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-}
-
-.is-route-live .route-draw {
-  animation: conduit-draw 1.2s var(--ease-out-expo) forwards;
-}
-
-.route-node-pulse {
-  transform-origin: center;
-}
-
-.is-route-live .route-node-pulse {
-  animation: thermal-filament-breathe 2.4s var(--ease-out-expo) 0.8s infinite;
-}
-
-/* ── Progressive reveals (No-JS safe) ──
-   Content is fully visible when JS is disabled.
-   When JS initializes, it adds .js-animations and observes intersections. */
-.js-animations [data-animate] {
+/* ── r-rise: 20px settle over --d-rise ── */
+html.js .r-rise {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(var(--rise-sm));
   transition:
-    opacity 0.6s var(--ease-out-expo),
-    transform 0.6s var(--ease-out-expo);
+    opacity var(--d-rise) var(--ease-reveal) calc(var(--delay) + 72ms),
+    transform var(--d-rise) var(--ease-reveal) calc(var(--delay) + 72ms);
   will-change: opacity, transform;
 }
-
-.js-animations [data-animate='fade-in'] {
-  transform: none;
-}
-
-.js-animations [data-animate='scale-in'] {
-  transform: scale(0.96);
-}
-
-.js-animations [data-animate='slide-left'] {
-  transform: translateX(-24px);
-}
-
-.js-animations [data-animate='slide-right'] {
-  transform: translateX(24px);
-}
-
-.js-animations [data-animate].is-visible {
+html.js .r-rise.is-visible {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
 
-@media (max-width: 767px) {
-  .js-animations [data-animate='slide-left'],
-  .js-animations [data-animate='slide-right'] {
-    transform: translateY(16px);
-  }
+/* ── r-rise-lg: 56px arrival over --d-long ── */
+html.js .r-rise-lg {
+  opacity: 0;
+  transform: translateY(var(--rise-lg));
+  transition:
+    opacity var(--d-long) var(--ease-reveal) calc(var(--delay) + 90ms),
+    transform var(--d-long) var(--ease-reveal) calc(var(--delay) + 90ms);
+  will-change: opacity, transform;
+}
+html.js .r-rise-lg.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
 }
 
-/* ── Reduced motion: always visible, no animations ── */
+/* ── r-mask: the masked line reveal ──
+   overflow: hidden on a wrapper around a translateY(100%) span. No clip-path,
+   no text splitting, no measuring, no library. The padding/margin pair keeps
+   descenders out of the clipping box; without it a "g" loses its tail.
+
+   Markup:
+     <span class="r-mask"><span>Pure sound.</span></span> */
+.r-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.r-mask > * {
+  display: block;
+}
+html.js .r-mask > * {
+  transform: translateY(100%);
+  transition: transform 800ms var(--ease-reveal) calc(var(--delay) + 80ms);
+  will-change: transform;
+}
+html.js .r-mask.is-visible > * {
+  transform: none;
+  will-change: auto;
+}
+
+/* ── r-rule: a hairline drawing itself from the left ── */
+.r-rule {
+  transform-origin: left center;
+}
+html.js .r-rule {
+  transform: scaleX(0);
+  transition: transform 700ms var(--ease-reveal) calc(var(--delay) + 70ms);
+  will-change: transform;
+}
+html.js .r-rule.is-visible {
+  transform: scaleX(1);
+  will-change: auto;
+}
+
+/*
+  The `[data-animate]` family that used to live here is GONE, and it had to go
+  rather than being left harmless. Nine rules hid an element on `html.js` and
+  un-hid it on `.is-visible`, and both halves were dead: no markup anywhere on the
+  site carries the attribute, and `scripts/animations.ts`, the only observer that
+  ever added `.is-visible` to one, has been deleted with them.
+
+  Leaving them would have been worse than untidy from today. `html.js` used to be
+  set on two routes; it is now set on every one, so a stray `data-animate` would
+  have been hidden site-wide with nothing left alive to reveal it. A dead rule that
+  cannot fire is clutter; a dead rule that can is a trap.
+*/
+
+/* ── Reduced motion ──
+   The hidden state goes as well as the transition. */
 @media (prefers-reduced-motion: reduce) {
-  .js-animations [data-animate],
-  .js-animations [data-animate].is-visible {
+  html.js .r-fade,
+  html.js .r-rise,
+  html.js .r-rise-lg,
+  html.js .r-rule,
+  html.js .r-mask > * {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
     animation: none !important;
-  }
-
-  .animate-fade-in-up,
-  .animate-fade-in,
-  .animate-float,
-  .animate-float-delayed,
-  .animate-pulse-glow,
-  .animate-scroll-dot,
-  .science-bar.animated,
-  .is-route-live .route-draw,
-  .is-route-live .route-node-pulse {
-    animation: none !important;
-    transform: none !important;
+    will-change: auto !important;
   }
 }

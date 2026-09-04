@@ -1,0 +1,161 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 8511,
+      "title": "Home"
+    },
+    {
+      "file": "FeaturesIndex.dc.html",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 5613,
+      "title": "Features index"
+    },
+    {
+      "file": "FeatureUsbDac.dc.html",
+      "x": 3120,
+      "y": 0,
+      "w": 1440,
+      "h": 9583,
+      "title": "Feature: USB DAC"
+    },
+    {
+      "file": "FeatureEq.dc.html",
+      "x": 4680,
+      "y": 0,
+      "w": 1440,
+      "h": 6889,
+      "title": "Feature: 32-band EQ"
+    },
+    {
+      "file": "FeatureLibrary.dc.html",
+      "x": 6240,
+      "y": 0,
+      "w": 1440,
+      "h": 6865,
+      "title": "Feature: Library"
+    },
+    {
+      "file": "FeatureCasting.dc.html",
+      "x": 7800,
+      "y": 0,
+      "w": 1440,
+      "h": 6885,
+      "title": "Feature: Streaming"
+    },
+    {
+      "file": "FeatureDsp.dc.html",
+      "x": 9360,
+      "y": 0,
+      "w": 1440,
+      "h": 7016,
+      "title": "Feature: Studio DSP"
+    },
+    {
+      "file": "FeatureAiEnhancer.dc.html",
+      "x": 10920,
+      "y": 0,
+      "w": 1440,
+      "h": 6922,
+      "title": "Feature: AI Enhancer"
+    },
+    {
+      "file": "Privacy.dc.html",
+      "x": 12480,
+      "y": 0,
+      "w": 1440,
+      "h": 9558,
+      "title": "Privacy Policy"
+    },
+    {
+      "file": "Terms.dc.html",
+      "x": 14040,
+      "y": 0,
+      "w": 1440,
+      "h": 12843,
+      "title": "Terms of Use"
+    },
+    {
+      "file": "MainMobile.dc.html",
+      "x": 0,
+      "y": 13043,
+      "w": 390,
+      "h": 7873,
+      "title": "Home at 390"
+    },
+    {
+      "file": "FeatureMobile.dc.html",
+      "x": 510,
+      "y": 13043,
+      "w": 390,
+      "h": 10384,
+      "title": "Feature at 390"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "what-changed",
+      "x": 0,
+      "y": -1020,
+      "w": 400,
+      "text": "WHAT CHANGED\n\nBIG, and less of it. Where a block has one number to make, that number is now IN the drawing and not in a sentence beside it.\n\nThe features index was six full-width rows of body copy, which is a table of contents rather than a page. It is now 2 x 3, and the top of every card is a drawn plate carrying the one figure the feature is about: 768 kHz, 32 bands, 12 formats, 4 protocols, 64-bit, 16 kHz and up. Once the number is in the art the card needs a name and one line, so the paragraph and the three mono facts are gone.\n\nThe signal path was eleven rows of 13px mono. Accurate, and small dense type is what a cheap technical page looks like however true the numbers are. It now DRAWS the loss: every stage is a bar whose height is the data rate still surviving, so Android's row collapses to a quarter of its height at the mixer and a sixth at the HAL, to scale, with nothing to read.\n\nThe price was 72px on a left-aligned baseline with three other objects strung along it. It is now 128px and centred, and the footnote went from 22 words to 8.\n\nProse lives on the six feature routes, which is where a reader has already chosen to go deeper."
+    },
+    {
+      "id": "contrast-rhythm",
+      "x": 460,
+      "y": -1020,
+      "w": 400,
+      "text": "THE LIGHT-BAND GOLD, REMEASURED\n\n#7D5A12 is gone. It read khaki, and the reason is measurable: OKLCH L=0.492, and at that lightness the sRGB chroma ceiling is low, so it was a dark colour starved of the exact saturation that makes gold look like gold. It also measured 6.3:1 on white when the requirement is 4.5:1, which sounds like a safety margin and is actually a cost.\n\n#A16C00 is the LIGHTEST step that still clears 4.5:1, taking the maximum chroma available there: C=0.121 against the brand gold's 0.136, and 27% more than the value it replaces. Its hue, 75, falls between gold at 84.7 and amber at 72.1, so it is a member of the two warms the palette already owns rather than a third colour smuggled in.\n\nThe second, lighter band-gold-hi is deleted. It existed to give large text a richer gold than the muddy one could manage, and with the muddy one gone it had no job. One gold ink now covers all six light-band roles with no pair under 4.5:1.\n\nThe dark side stays as it was: neutral #191919 / #222222 / #2A2A2A / #333333 / #3C3C3C, about 3.5 L* a step."
+    },
+    {
+      "id": "alternating-band",
+      "x": 920,
+      "y": -1020,
+      "w": 400,
+      "text": "THE FEATURE PAGE PATTERN\n\nYou asked for one section graphite with the art at left, the next white with the art at right, and so on. That is what the six routes do now.\n\nEach beat is its own full-width band. The split is 7/5, never 50/50, because equal columns leave a dead gutter down the middle where the eye falls through. Dark bands run shorter than white ones: identical vertical rhythm on every band is what turns an alternation into stripes. And the LAST beat breaks the pattern and goes full width, because four identical flips is a zigzag.\n\nThe art in each band is the app's own screen for that beat. Every route already had four screens and they already mapped one to one onto the four beats.\n\nThis replaced a sticky phone rail, where one pinned device sat in a left column while four copy beats scrolled past it. The rail was more elegant on paper but it gave the page one visual event and then asked you to read four blocks of prose beside something that had stopped moving.\n\nThese artboards are no longer hand-drawn. Hand-porting is exactly how they drifted last time: the code moved to alternating bands and the canvas kept drawing the retired rail. Each one is now CUT FROM THE SHIPPING PAGE, so the artboard is a transcript of what the browser actually renders and the two cannot disagree again. Editing the layout here changes the drawing, not the site."
+    },
+    {
+      "id": "motion-spec",
+      "x": 1380,
+      "y": -1020,
+      "w": 400,
+      "text": "MOTION\n\nOne curve for every reveal: cubic-bezier(0.165, 0.84, 0.44, 1). Rise 20px over 720ms, or 56px over 900ms. Short distance takes the LONG duration, which is the part that reads expensive. Stagger 60ms. One IntersectionObserver, threshold 0.15, unobserve after firing.\n\nTHE PINNED MOMENT, rebuilt.\n\nThe centre phone arrives large and high, then DESCENDS and shrinks into the row, so it reads as travelling on to the next section rather than just getting smaller.\n\nBoth siblings start stacked off to the RIGHT, behind it, and sweep LEFT. The right one has a short journey. The left one starts later, travels twice as far, and passes BEHIND the centre phone, vanishing under it and coming out the far side. That pass is the trick, and it only works because the centre phone was made opaque: the shared chassis is translucent glass, so without that the sibling shows straight through the device.\n\nTrack 280vh. Peak scale 1.2, and the LAYOUT reserves it, or a phone at 1.2x grows straight up through the heading. outExpo on the sweeps, outCubic on the centre. Smoothing 0.10, a ~180ms lag: at 0.15 it tracked the scroll almost exactly, which is accurate and reads as cheap.\n\nNo smooth-scroll library, no springs, no count-up on specs, and the gold never moves."
+    },
+    {
+      "id": "open-questions",
+      "x": 1840,
+      "y": -1020,
+      "w": 400,
+      "text": "STILL TO DECIDE\n\n1. Where the FAQ lives. Eight questions now render on the features index, on the light band. Say if it should have its own route.\n\n2. A free trial. Nothing on the site claims one. If there is one it belongs in the pricing card and on the closing action, and it changes the button copy.\n\n3. Nothing is committed. Everything is working-tree changes on main. Say the word and it gets a branch and a commit.\n\nRESOLVED SINCE THE LAST REVISION\n\nThe nineteen unreachable modules are gone. They were not inert: one was throwing nine typecheck errors from a malformed interface, another still carried the retired #e5b842 gold, and most were built on the pre-redesign palette and ramp. A dead component is how a design system rots, because it survives every audit until someone imports it.\n\nOne of them was content rather than code. src/data/faq.ts held nine questions against the four the index rendered, AND its cost answer still said \"$2 per month, $9 for six months, $12 per year\" against a shipping price of $15 / $25 / $35. An unrendered file with wrong prices in it is a landmine, not an archive. It is now live, it is the single source, the index renders all of it, and the cost sentence is BUILT from pro.periods so it cannot drift from the pricing card again."
+    },
+    {
+      "id": "open-calls",
+      "x": 2300,
+      "y": -1020,
+      "w": 400,
+      "text": "SUBSCRIPTION ONLY\n\nEvery mention of a free tier is gone. One subscription, no higher tier, nothing switched off to sell an upgrade. That keeps the anti-crippleware honesty the brand had, which was the strongest thing about the old free-forever framing.\n\nPricing is now ONE card with a term selector, not three cards competing. $35 for 12 months, $25 for 6, $15 for 3. The 12-month term works out at $2.92 a month against $5.00 on the shortest term, so the saving is real and is stated as a percentage rather than implied.\n\nI did not invent a free trial. If there is one it belongs in the pricing card and on the closing action, and it changes the button copy."
+    },
+    {
+      "id": "typography",
+      "x": 2760,
+      "y": -1020,
+      "w": 400,
+      "text": "TYPOGRAPHY\n\nManrope, self-hosted, 40 KB for the whole 200 to 800 axis across two subsets, against Inter's 352 KB.\n\nThe ramp grew a lot: hero 78 to 128, section headings 46 to 56 and 72, lede 19 to 24, body 16 to 17. Big type is most of what reads as expensive, and this face holds together at 128 where the old one was already working hard.\n\nThree things measured off the binary rather than assumed. Manrope is 1% SMALLER than Inter at the same px, not bigger. Its spacing is flat across the weight axis, so display needs hand-applied negative tracking and body needs none. And its variable default is ExtraLight, so font-weight has to be set explicitly or an OG image renders the whole page at 200.\n\nEvery display step also carries word-spacing. Negative tracking eats a word space that was only 0.200 em to begin with, and without the correction a 96px headline reads as one long word."
+    },
+    {
+      "id": "imagery",
+      "x": 3220,
+      "y": -1020,
+      "w": 400,
+      "text": "THE SIX PLATES\n\nDrawing six pictures is easy. Making six pictures read as a FAMILY is the work. Five things are held constant and nothing else is:\n\nOne ground, the same radial for all six, so they sit on the page like one material. One horizon, y=286 of a 640x360 stage, because six drawings that each find their own baseline read as a collage. One ink: gold draws the SUBJECT and only the subject, and everything it is measured against is white at 8 to 14%. One weight. And one idea per plate, each carrying one real number out of src/data/features.ts. No plate is decorative and no plate invents a figure.\n\nThey RECALCULATE rather than rescale. The subject stays inside the middle 78% of the stage and the SVG slices inside an aspect-ratio box, so the drawing re-fits its frame at any width. The art is geometry, not a bitmap.\n\nTwenty-five photographic slots still exist for the interstitial bands, with prompts and safe areas in design/SECTION-IMAGES.md. What you see there is a registration frame, not a broken image."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

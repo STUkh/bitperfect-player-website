@@ -1,12 +1,11 @@
-# Bitperfect Player - Privacy Policy
-
 **Effective date:** August 5, 2026
 
-**Last updated:** August 5, 2026
+**Last updated:** September 2, 2026
 
-This document sets forth both the Privacy Policy and Terms of Use for Bitperfect Player
-("the App"), describing what the App collects, why, what control you have over your data,
-and the terms governing your use of the App.
+This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
+collects it, and what control you have over your data. The terms governing your use of the
+App (including the subscription, the free trial, billing, cancellation and refunds) are a
+separate document: see the [Terms of Use](/terms).
 
 Contact: support@bit-perfect.com
 
@@ -21,8 +20,9 @@ Contact: support@bit-perfect.com
   **on by default** and can be turned off at any time in Settings → About →
   "Crash debug info."
 - Network-source credentials (FTP/WebDAV/SMB/DLNA logins you enter) are
-  stored **encrypted on this device only** (using platform hardware-backed encryption,
-  such as Android Keystore or Apple Keychain) and are **never transmitted to us**.
+  stored **encrypted on this device only** (using platform hardware-backed encryption:
+  Android Keystore, or Apple Keychain on Apple devices where the App is distributed through
+  the Apple App Store) and are **never transmitted to us**.
   They go only to the server you configured them for.
 - The on-device AI audio enhancer processes audio **entirely on your device**.
   No audio is ever uploaded, streamed, or transmitted anywhere for
@@ -30,6 +30,13 @@ Contact: support@bit-perfect.com
 - We do not run ads and do not use any third-party analytics or advertising
   SDK beyond the crash-reporting described below.
 - We do not require account creation or sign-in to use the App.
+- An active subscription registers your App installations: five with the base
+  subscription, or 10, 15, or 20 with active device-capacity packs. A Cloudflare
+  Worker uses a Cloudflare D1 registry in the European Union to hold a provider-issued
+  pseudonymous customer reference, a one-way subscription group, an app-generated
+  installation identifier, a short device label, verification dates, authorization
+  expiry, and a bounded removal marker. An authorized installation can see sibling
+  device labels and last-verification dates to manage old installations.
 
 ## 2. What we collect and why
 
@@ -57,6 +64,12 @@ Settings → About → "Send bug report") containing some or all of:
   describe the issue in the provided text field, that description is sent to
   our crash-reporting provider attached to the same event. The description
   field is optional: leaving it blank still sends the logs.
+- If you choose "Send feedback & continue" before cancelling a subscription,
+  we send your selected reason and optional, bounded comment to Sentry as
+  user-initiated feedback. We do not add your account, purchase,
+  installation, or device identifier to this feedback. Choosing "Continue
+  without feedback" sends no survey feedback and opens cancellation in the
+  store.
 
 We consider stack traces, breadcrumbs, device identifiers, and IP address to
 be personal data under GDPR/UK GDPR and similar frameworks, and we treat them
@@ -92,7 +105,8 @@ to us. Uninstalling the App or clearing its data deletes this information.
 
 If you add a network source (FTP, WebDAV, SMB, or a DLNA/UPnP device) and
 provide a username/password, that credential is stored using platform-native,
-hardware-backed encrypted storage (such as Android Keystore or Apple Keychain)
+hardware-backed encrypted storage (Android Keystore, or Apple Keychain on Apple devices
+where the App is distributed through the Apple App Store)
 **on your device only**. It is transmitted only to the server/device you configured it
 for, using the protocol you selected, and is never sent to us or to any
 third party we control.
@@ -112,7 +126,7 @@ Unit (NPU) hardware inference, depending on your device). No audio data, model i
 output is ever uploaded, streamed, or transmitted off your device for this
 feature, under any circumstance.
 
-### 2.5 Casting and receiving (DLNA / UPnP / Chromecast)
+### 2.5 Casting and receiving (DLNA / UPnP)
 
 When you cast to a device on your local network, track metadata and a
 temporary local-network media URL are sent to that device so it can fetch
@@ -121,7 +135,7 @@ your phone and the cast target; it is not routed through us or any server we
 operate.
 
 The App can also act as a DLNA/UPnP renderer and FCast receiver, letting
-other devices on your local network cast audio *to* your phone. Like
+other devices on your local network cast audio _to_ your phone. Like
 outbound casting, this traffic stays on your local network and is not
 routed through us.
 
@@ -161,57 +175,73 @@ phone number, precise or approximate location, contacts, calendar,
 photos/videos outside the music-library scan scope you grant, biometric
 data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
-parties for their own marketing or advertising purposes. The only outbound
-data flows to third parties are the ones disclosed elsewhere in Section 2
-(crash/diagnostic reporting per 2.1, and the artist/album artwork lookups
-per 2.6). Both exist to run a feature you use, not to monetize your data,
-and neither third party receives it for their own marketing use as far as
-their published terms describe.
+parties for their own marketing or advertising purposes. The outbound data
+flows are the feature and service flows disclosed in this Section 2: crash reporting
+in 2.1, artwork lookups in 2.6, and subscription verification and protected-component
+delivery in 2.9. They exist to operate features you use, not to monetize your data,
+and no recipient receives the data for its own advertising as far as its published
+terms describe.
 
-### 2.9 Purchases (Pro subscription)
+### 2.9 Purchases, installation verification, and device registration
 
-The App offers an optional subscription ("Pro") purchased **in-app**.
+The App is a subscription app, and the subscription is purchased **in-app** through the
+store. The commercial terms (price, free trial, renewal, cancellation, refunds, and
+device limits) are in the [Terms of Use](/terms). What follows is what happens
+to your data when the App verifies that access.
 
-- **Payment is processed entirely by the store (Google Play or Apple App Store).** We never receive or store
-  your card number, billing address, or payment identity. The store's own
-  privacy policy governs the payment transaction.
-- **Entitlement management.** To know whether your Pro subscription is
-  active, the App uses a third-party subscription-management service, based
-  in the United States, which processes your purchase token and
-  an anonymous app-instance identifier. This is the minimum needed to answer
-  "is this install entitled?" It is not linked to your name, email, or
-  listening data (the App has none of these).
-- **On this device.** A signed record of your entitlement is stored locally
-  so Pro keeps working offline; it contains no payment details.
-- Cancelling: subscriptions renew automatically until cancelled in your
-  store account's subscriptions screen. Cancellation needs nothing from us: there is
-  no account on our side to close.
-- **Refunds.** The Pro subscription is non-refundable, except where the App
-  genuinely malfunctions (does not work as described) or where support we
-  explicitly promised as part of Pro is not delivered, and except where
-  the applicable store's refund policy or mandatory consumer-protection law in
-  your jurisdiction otherwise entitles you to a refund. In particular, none
-  of the following are, on their own, grounds for a refund: your device not
-  appearing on the AI enhancer's list of supported devices, or the AI Sonic
-  Scan feature analyzing your library slower than you expected: these reflect
-  normal variation in feature performance across devices and libraries, not
-  malfunctions.
+- **Payment is processed entirely by the store.** We never receive or store your card
+  number, billing address, or payment identity. The store's own privacy policy governs
+  the payment transaction.
+- **Subscription management.** A third-party subscription-management service based in
+  the United States processes the store purchase token and an app-generated installation
+  identifier to report whether the subscription is active, in a trial, or due to renew.
+- **Installation verification.** The platform's integrity service checks that the
+  installed App and device meet the release requirements. Our verification service
+  receives its signed result together with the app-generated installation identifier,
+  device label, and cryptographic proof belonging to that installation. We do not receive
+  your Google account name, email address, password, card details, or advertising ID.
+- **Device registry.** To enforce the personal device limit (five installations with the
+  base subscription, or 10, 15, or 20 with active device-capacity packs) and let you
+  remove old installations, our Cloudflare Worker uses a Cloudflare D1 registry in the
+  European Union. The registry stores a pseudonymous customer reference issued by the
+  subscription-management service; a one-way subscription-group value; the
+  app-generated installation identifier; a short label based on the device manufacturer
+  and model; registration and last-verification dates; current authorization expiry; and
+  a temporary removal marker when you remove an installation. These values are not your
+  Google account name or email. An installation with a valid authorization and matching
+  cryptographic proof receives sibling device labels, registration and last-verification
+  dates, and current-device status for management. The device-management response includes
+  each app-generated installation identifier as an internal routing value needed to remove
+  that installation. The App does not display another installation's identifier; it
+  displays the device label, last-verification date, and current-device status. The
+  service does not store the store account identifier, purchase token, payment data, raw
+  cryptographic key, music, library data, or playback history.
+- **Location and retention.** The Cloudflare D1 registry is stored in the European
+  Union. Active records are scheduled for automatic deletion after authorization expires.
+  Removing an installation makes it inactive immediately on the service and keeps a
+  removal marker for up to 90 days so the same installation cannot silently register
+  itself again. An authorization already held offline on that device can remain usable for
+  no longer than 14 days as explained in the Terms.
+- **On the device.** A signed authorization record is stored locally so the App keeps
+  working offline; it contains no payment details.
+- **No account with us.** There is nothing to sign up for or close. Cancelling happens
+  in your store account.
 
 ## 3. Permissions the App requests, and why
 
-Permissions requested by the App depend on the platform (Android or iOS/macOS) and the features you use:
+Permissions requested by the App depend on the platform (Android today; iOS/macOS where the App is offered there) and the features you use:
 
-| Permission | Why |
-|---|---|
-| Notifications (`POST_NOTIFICATIONS`) | To show the required persistent playback-controls notification while music plays in the background (standard Android media-app requirement). |
-| Audio/media files (`READ_MEDIA_AUDIO` or legacy storage) | To find and play your local music files. |
-| Bluetooth (`BLUETOOTH_CONNECT`) | To detect and report the actual Bluetooth audio codec (e.g. aptX-HD, LDAC) in use for connected headphones/speakers, for the fidelity display. |
+| Permission                                                              | Why                                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Notifications (`POST_NOTIFICATIONS`)                                    | To show the required persistent playback-controls notification while music plays in the background (standard Android media-app requirement).                                                                                                                                                                         |
+| Audio/media files (`READ_MEDIA_AUDIO` or legacy storage)                | To find and play your local music files.                                                                                                                                                                                                                                                                             |
+| Bluetooth (`BLUETOOTH_CONNECT`)                                         | To detect and report the actual Bluetooth audio codec in use for connected headphones and speakers, for the fidelity display.                                                                                                                                                                                        |
 | Battery optimization exemption (`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`) | Bit-perfect USB DAC audio requires an unbroken background audio feed; if the OS suspends the App's process mid-playback to save battery, this causes audible dropouts or glitches on external DACs. This is requested once, is entirely optional, and only affects battery behavior while music is actively playing. |
-| Foreground service (media playback / connected device / data sync) | Required by Android to keep audio playing and a USB/network device connection alive while the App is in the background, with a visible ongoing notification as required by the OS; also used to download the optional AI-enhancement model with visible progress. |
-| Wake lock | Held only while music is actively playing, to prevent the device from sleeping mid-playback. |
-| Delete media files (Android 9 and older) | To delete a track from your device when you choose to remove it, on OS versions that require this permission for that action. |
-| Local network access (internet + Wi-Fi state) | To discover and connect to DLNA/UPnP/Chromecast devices and network shares (FTP/WebDAV/SMB) on your own network, and to reach crash reporting, artwork lookups, and AI-model downloads described elsewhere in this policy. |
-| USB device access | To communicate directly with a connected USB DAC for bit-perfect audio output. Granted via a runtime USB-permission prompt, not a manifest permission. |
+| Foreground service (media playback / connected device / data sync)      | Required by Android to keep audio playing and a USB/network device connection alive while the App is in the background, with a visible ongoing notification as required by the OS; also used to download the optional AI-enhancement model with visible progress.                                                    |
+| Wake lock                                                               | Held only while music is actively playing, to prevent the device from sleeping mid-playback.                                                                                                                                                                                                                         |
+| Delete media files (Android 9 and older)                                | To delete a track from your device when you choose to remove it, on OS versions that require this permission for that action.                                                                                                                                                                                        |
+| Local network access (internet + Wi-Fi state)                           | To discover and connect to DLNA/UPnP and other cast-enabled devices, and network shares (FTP/WebDAV/SMB), on your own network, and to reach crash reporting, artwork lookups, and AI-model downloads described elsewhere in this policy.                                                                             |
+| USB device access                                                       | To communicate directly with a connected USB DAC for bit-perfect audio output. Granted via a runtime USB-permission prompt, not a manifest permission.                                                                                                                                                               |
 
 We request each permission only for the feature it supports; declining a
 permission disables only that feature, not the App as a whole (with the
@@ -240,6 +270,13 @@ at the address above with enough detail to identify the relevant event(s)
 submit a deletion request to that provider on your behalf, or direct you to
 its own data-subject-request process.
 
+Registered installations can be reviewed from the App's subscription screen. You can
+remove an old installation there. To request access to or deletion of registry data when
+you cannot use a registered device, contact support@bit-perfect.com. Because the registry
+uses pseudonymous installation identifiers rather than a name or email, we may need a
+signed request from an installation or other information sufficient to verify the request
+without exposing another subscriber's records.
+
 ## 6. International data transfer
 
 Our crash-reporting provider's infrastructure for this App is hosted in the
@@ -247,110 +284,32 @@ European Union. If you are located outside the EU/EEA, using the App with
 crash reporting enabled means limited diagnostic data as described in
 Section 2.1 may be processed in the EU.
 
-If you purchase the Pro subscription, the entitlement-management provider
-described in Section 2.9 is based in the United States; a purchase token and
-an anonymous app-instance identifier may be processed there.
+If you purchase the subscription, the subscription-management provider described in
+Section 2.9 is based in the United States; a purchase token and an app-generated
+installation identifier may be processed there. Our Cloudflare Worker uses the
+European Union-based Cloudflare D1 device registry described in Section 2.9.
 
 ## 7. Security
 
-We use industry-standard protections for the data we do handle: hardware-backed
-encryption (such as Android Keystore or Apple Keychain) for credentials, HTTPS/TLS for any network
-request we control, and no plaintext storage of secrets. No method of
-storage or transmission is 100% secure, and we cannot guarantee absolute
-security of data you choose to transmit to third-party servers or devices
-you configure the App to connect to (Section 2.3).
+We use industry-standard protections for the data we handle: hardware-backed encryption
+(Android Keystore, or Apple Keychain on Apple devices where the App is distributed through
+the Apple App Store) for credentials, HTTPS/TLS for network requests we control,
+cryptographic installation proofs, access controls for the device registry, and no
+plaintext storage of service secrets. No method of storage or transmission is 100% secure,
+and we cannot guarantee absolute security of data you choose to transmit to third-party
+servers or devices you configure the App to connect to (Section 2.3).
 
 ## 8. Changes to this policy
 
-We may update this policy and terms as the App changes. Material changes will be
+We may update this policy as the App changes. Material changes will be
 reflected by an updated "Last updated" date above. Your continued use of the App
-following the posting of an updated policy constitutes your acceptance of the
-revised terms. Where required by applicable law or platform policies, we will provide
+following the posting of an updated policy constitutes your acceptance of it.
+Where required by applicable law or platform policies, we will provide
 additional notice or seek explicit consent before material changes take effect.
 
-## 9. Disclaimer and limitation
-
-This App and its features are provided "as is" and "as available," without
-warranty of any kind, express or implied, including but not limited to
-implied warranties of merchantability, fitness for a particular purpose, and
-non-infringement. We do not guarantee uninterrupted, error-free, or lossless
-operation of any feature, including but not limited to audio playback,
-network-source connectivity, casting, or the AI enhancer, and we are not
-responsible for the availability, accuracy, or data practices of any
-third-party service the App relies on (crash reporting, entitlement
-management, artwork lookup, Google Play billing), which are governed by
-that provider's own terms.
-
-To the maximum extent permitted by applicable law: (a) we are not liable for
-any indirect, incidental, special, consequential, or punitive damages, or
-for any loss of data, revenue, or profits, arising from your use of or
-inability to use the App, even if advised of the possibility of such
-damages; and (b) our total liability for any claim arising from the App is
-limited to the total amount you paid for the App (including any Pro
-subscription) in the 1 month preceding the claim, or, if you have paid us
-nothing, to zero. Nothing in this section limits liability where such a
-limitation is not permitted by applicable law.
-
-**USB DAC & hardware disclaimer.** The App utilizes standard operating system audio APIs
-(such as Android USB Host APIs or Apple CoreAudio) and USB Audio Class protocols to communicate
-with external digital-to-analog converters (USB DACs) for bit-perfect audio output. However, hardware
-variations, power delivery over USB/Lightning, OTG adapter quality, custom audio drivers, and third-party DAC
-firmware behavior carry inherent operational risks. You acknowledge and agree that you connect external
-hardware and control your listening equipment at your own risk. To the maximum extent permitted by law, we
-are not liable for any hardware malfunction, electrical damage, firmware corruption, physical defect, or
-failure of external USB DACs, amplifiers, headphones, speakers, or connected devices, nor for any hearing
-loss or acoustic trauma resulting from your use of the App or audio playback.
-
-**Data integrity & storage disclaimer.** You are solely responsible for backing up
-your audio files and configuring network storage (FTP/WebDAV/SMB). We are not liable for
-any file deletion, modification, corruption, or loss occurring on your device storage,
-external media, or remote network shares.
-
-**Third-party plugins & external services.** The App may interact with third-party
-plugins (separate applications) or external metadata/streaming sources. We do not inspect, audit,
-endorse, or assume responsibility for the safety, accuracy, functionality, or data practices
-of any third-party plugin or service.
-
-**Indemnification.** You agree to defend, indemnify, and hold harmless the developer from
-and against any claims, liabilities, damages, losses, costs, or expenses (including reasonable
-legal fees) arising out of or in connection with your use of the App, your violation of this
-policy, your use of third-party plugins, or your infringement of any third-party rights
-(including copyright or intellectual property rights).
-
-**Class action waiver.** To the maximum extent permitted by applicable law, all claims
-must be brought in the parties' individual capacity, and not as a plaintiff or class member in
-any purported class, collective, or representative proceeding.
-
-**Severability.** If any provision of this document is held to be invalid, illegal, or
-unenforceable under applicable law, such provision shall be modified to the minimum extent
-necessary to make it valid and enforceable, and the remaining provisions shall continue in full
-force and effect.
-
-**Trademarks.** All third-party trademarks, service marks, product names, and brand names
-(including Chromecast, DLNA, UPnP, Android, iOS, macOS, Google Play, Apple App Store, Sentry) referenced in
-the App or this document are the property of their respective owners. Reference to them does not imply
-affiliation, sponsorship, endorsement, or approval by their respective holders.
-
-**Who you're dealing with.** The App is developed and offered by an
-individual developer, not through a registered company.
-
-**Governing law.** This policy, and any dispute arising from it or from your
-use of the App that is not resolved informally by contacting us first, is
-governed by the laws of Ukraine, without regard to conflict-of-law
-principles, and subject to the jurisdiction of the courts of Ukraine, except
-where mandatory consumer-protection or data-protection law of your own
-country of residence gives you the right to bring a claim in your local
-courts or under your local law instead, in which case that mandatory law
-controls to that extent.
-
-**Resolving disputes.** Any dispute is to be resolved directly between you
-and us: contact us first at the address in Section 10 and give us a
-reasonable opportunity to resolve it before pursuing any other action.
-Billing, purchase, and refund disputes (Section 2.9) are handled directly
-between you and the platform you obtained the App or the Pro subscription
-through (Google Play or the Apple App Store, as applicable) under that
-platform's own rules and dispute-resolution process.
-
-## 10. Contact
+## 9. Contact
 
 Questions about this policy or your data: support@bit-perfect.com
+
+For the terms governing your use of the App and your subscription, see the
+[Terms of Use](/terms).

@@ -9,20 +9,20 @@
  * fonts and favicons. Both ends are normalised here instead, so every caller
  * gets exactly one separating slash regardless of how base is configured.
  */
-const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '');
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 
 /** Prefix an internal path ("privacy", "/privacy", "fonts/x.woff2") with the
  *  configured base. Safe with or without a leading slash on `path`. */
 export function withBase(path: string): string {
-  const clean = path.replace(/^\/+/, '');
+  const clean = path.replace(/^\/+/, "");
   return clean ? `${BASE}/${clean}` : `${BASE}/`;
 }
 
 /** True when `pathname` (Astro.url.pathname: already includes the base path
  *  once deployed) is the site's index route. */
 function isIndexPath(pathname: string): boolean {
-  const normalized = pathname.replace(/\/+$/, '') || '/';
-  const baseNormalized = BASE.replace(/\/+$/, '') || '/';
+  const normalized = pathname.replace(/\/+$/, "") || "/";
+  const baseNormalized = BASE.replace(/\/+$/, "") || "/";
   return normalized === baseNormalized;
 }
 
@@ -36,7 +36,11 @@ function isIndexPath(pathname: string): boolean {
  *  - internal page path ("/privacy") → base-prefixed page path
  */
 export function resolveHref(href: string, pathname: string): string {
-  if (/^([a-z]+:)?\/\//i.test(href) || href.startsWith('mailto:') || href.startsWith('tel:')) {
+  if (
+    /^([a-z]+:)?\/\//i.test(href) ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:")
+  ) {
     return href;
   }
 
@@ -53,14 +57,15 @@ export function resolveHref(href: string, pathname: string): string {
  *  never "active" : they're in-page anchors on the index, not distinct
  *  routes. */
 export function isActive(pathname: string, href: string): boolean {
-  if (href.includes('#')) return false;
+  if (href.includes("#")) return false;
 
-  const base = BASE.replace(/\/+$/, '');
-  const currentPath = (pathname.startsWith(base) ? pathname.slice(base.length) : pathname).replace(
-    /\/+$/,
-    ''
-  ) || '/';
-  const linkPath = `/${href.replace(/^\/+|\/+$/g, '')}`;
+  const base = BASE.replace(/\/+$/, "");
+  const currentPath =
+    (pathname.startsWith(base)
+      ? pathname.slice(base.length)
+      : pathname
+    ).replace(/\/+$/, "") || "/";
+  const linkPath = `/${href.replace(/^\/+|\/+$/g, "")}`;
 
   return currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
 }

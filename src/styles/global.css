@@ -1,90 +1,427 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-/* ── Inter Variable Font ── */
+/* ── Manrope Variable Font ──
+   Two subsets rather than one 350 KB file: latin covers the whole site, latin-ext
+   only loads if an accented glyph actually appears. 40 KB total against Inter's
+   352 KB, which is most of the reason the switch was free.
+
+   Measured from the binaries rather than assumed. Manrope's x-height is 0.5400 em
+   against Inter's 0.5459, so the switch reads about 1% SMALLER at the same px, and
+   its set width is 5% narrower at 400. None of the extra size below comes from the
+   face; all of it comes from the ramp.
+
+   The one property that genuinely differs is spacing across the weight axis:
+   Inter tightens its sidebearings as weight climbs, Manrope does not. Its letter
+   gap is flat at ~0.129 em from 200 to 800, which is 16% TIGHTER than Inter at
+   400 and 3% LOOSER at 700. That is the whole explanation for "Manrope looks loose
+   at display": it is spaced for ExtraLight at every weight, and display type runs
+   at 700 and 800. So the display steps take hand-applied negative tracking, and the
+   body steps take none at all, where the Inter ramp took a little. */
 @font-face {
-  font-family: 'Inter';
+  font-family: "Manrope";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 200 800;
   font-display: swap;
-  src: url('/fonts/Inter-Variable.woff2') format('woff2');
+  src: url("/fonts/Manrope-Variable.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/Manrope-Variable-ext.woff2") format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* ── Tailwind 4 Theme Tokens ── */
+/* ── Tailwind 4 Theme Tokens ──
+   Mirrors the front matter of DESIGN.md. Every value here is measured from the
+   approved artboards in design/*.dc.html; nothing is invented. */
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* ── Surfaces ── */
-  --color-surface-base: #0a0a0f;
-  --color-surface-raised: #121118;
-  --color-surface-overlay: #17161e;
-  --color-glass-surface: rgba(23, 22, 30, 0.6);
-  --color-glass-elevated-surface: rgba(23, 22, 30, 0.5);
+  /* ── Surfaces (graphite, never black) ──
+     The Not-Black Rule: the page ground sits in the same tonal family as the
+     white bands. A true near-black beside #ffffff reads as a hole punched in
+     the page rather than as the other half of one system. */
+  --color-surface-base: #191919;
+  --color-surface-raised: #222222;
+  --color-surface-overlay: #3c3c3c;
+  --color-glass-surface: #2a2a2a;
+  --color-glass-elevated-surface: #333333;
+  /* The device is the one place a true near-black belongs: a real screen is one. */
+  --color-phone-screen: #0d0d0d;
+  --color-plot-surface: #121212;
 
-  /* ── Brand Accents — gold primary ── */
+  /* Placeholder album art: a warm ember falling into the screen's near-black. */
+  --color-art-core: #3a2f1c;
+  --color-art-mid: #1c1814;
+  --color-art-edge: #121110;
+
+  /* ── Brand accent — gold, and gold only ── */
   --color-gold: #e8b84b;
   --color-gold-light: #f2c65e;
+  --color-gold-deep: #b3812f;
+  --color-gold-warm: #c99248;
   --color-amber: #ffb347;
-  --color-amber-light: #ffc87a;
   --color-champagne: #fbe9c4;
-  --color-on-gold: #0a0a0f;
+  --color-on-gold: #191919;
+  --color-gold-shadow-ink: rgba(78, 46, 10, 0.55);
 
-  /* ── Signal States (mirrors the app's Color.kt Status* tokens) ── */
+  /* ── The light contrast band ──
+     The Ink Never Crosses Rule: these appear only inside a light band, and the
+     dark text tokens only outside one.
+
+     The ground is PURE WHITE. It was a cream #f4eee2, which made the light bands
+     read as aged paper rather than as the other half of the system, and put a warm
+     cast under every photograph that will eventually sit on them. White also buys
+     back contrast everywhere: the deep gold ink gains half a point against it.
+
+     The token is still called `band-ivory` and should be renamed. Left for the
+     palette pass so the rename happens once rather than twice. */
+  --color-band-ivory: #ffffff;
+  --color-band-ink: #171717;
+  --color-band-ink-muted: #5e5a55;
+  /* The gold, darkened only as far as legibility on white demands and no further.
+     It was #7d5a12, which read as khaki: OKLCH L=0.492, C=0.095, and at that
+     lightness the sRGB chroma ceiling is low, so it was a dark colour starved of
+     the very saturation that makes gold look like gold. It also measured 6.3:1
+     when the requirement is 4.5:1, so it was paying for contrast it did not need.
+
+     This sits at L=0.572, the lightest step that still clears 4.5:1 on #ffffff,
+     and takes the maximum chroma available there: C=0.121 against the brand
+     gold's C=0.136. 27% more chroma than the value it replaces. Hue 75 falls
+     between `gold` at 84.7 and `amber` at 72.1, so it is a member of the two
+     warms the palette already has rather than a third one. 4.51:1. */
+  --color-band-gold-ink: #a16c00;
+  --color-band-rule: rgba(23, 23, 23, 0.13);
+  --color-band-well: rgba(23, 23, 23, 0.05);
+
+  /* ── Image-slot placeholder tones ──
+     The registration frame that stands in for a plate until it is generated. On
+     white the dark card chassis cannot be reused: #2a2a2a on #ffffff is a hole
+     punched in the paper, so the slot is half a step DOWN from the band instead,
+     and its label runs in `band-gold-ink`, because #e8b84b measures 1.60:1 on
+     ivory and disappears. */
+  --color-slot-ivory-hi: #f2f2f1;
+  --color-slot-ivory: #eaeae8;
+  --color-slot-ivory-lo: #e2e2e0;
+  --color-slot-dark-lo: #1e1e1e;
+
+  /* ── Signal telemetry indicators (the app's own Color.kt values) ──
+     Only five ever render: SignalQuality.kt maps BIT_PERFECT, ENHANCED,
+     RESAMPLED, LOSSY and UNKNOWN. `lossless` and `hires` are declared tokens
+     with no enum mapping: never show either as a runtime state. */
   --color-bitperfect: #34d399;
-  --color-lossless: #00d2ff;
-  --color-hires: #818cf8;
-  --color-enhanced: #00e5ff;
+  --color-enhanced: #9582d9;
   --color-resampled: #fbbf24;
-  --color-lossy: #ef4444;
+  --color-lossy: #94a3b8;
+  --color-unknown: #8e8e93;
+
+  /* ── Secondary accents (illustration and diagram use only) ── */
 
   /* ── Text ── */
   --color-text-primary: rgba(255, 255, 255, 0.95);
   --color-text-secondary: rgba(255, 255, 255, 0.72);
   --color-text-tertiary: rgba(255, 255, 255, 0.55);
 
-  /* ── Borders ── */
-  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  /* ── Borders — lifted from 6% to 9% so a hairline survives on graphite ── */
+  --color-border-subtle: rgba(255, 255, 255, 0.09);
   --color-border-gold: rgba(232, 184, 75, 0.28);
   --color-glass-border-hover: rgba(255, 255, 255, 0.12);
 
-  /* ── Shadows ── */
-  --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-elevated: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-float: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow-gold: 0 0 18px rgba(232, 184, 75, 0.2);
-  --shadow-glow-gold-lg: 0 0 50px rgba(232, 184, 75, 0.15);
-  --shadow-glow-bitperfect: 0 0 40px rgba(52, 211, 153, 0.07);
-  --shadow-glow-bitperfect-lg: 0 0 50px rgba(52, 211, 153, 0.15);
-  --shadow-glow-amber: 0 0 40px rgba(255, 179, 71, 0.15);
+  /* ── Shadows ──
+     The No Floating Glow Rule and the Gold Emits Nothing Rule: depth comes from
+     the surface ladder, a 1px top-rim specular and one directional gradient per
+     section. Nothing on this site casts a coloured shadow. */
+  --shadow-card:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-elevated:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-float:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 40px rgba(0, 0, 0, 0.5);
+  /* A physical key-cap casts a shadow; it does not emit light. */
+  --shadow-key: 0 6px 16px rgba(0, 0, 0, 0.45);
+  --shadow-key-hover: 0 8px 22px rgba(0, 0, 0, 0.5);
+  --shadow-device: 0 24px 70px rgba(0, 0, 0, 0.72);
+  /* What a device chassis actually casts. Indirect so a band can null it: the
+     white bands set this to `none`, see the rule beside `focus-ring`. */
+  --shadow-device-cast: var(--shadow-device);
 
-  /* ── Border Radius (soft 20-24px cards, rounded CTAs) ── */
+  /* ── Border Radius ── */
+  /* A 1px radius on a 2px-tall hairline bar: it rounds the two ends without
+     reading as a pill. Used by the scroll rails and the meter bars. */
+  --radius-hairline: 1px;
+  /* Half of the 6px scrollbar track: a fully rounded thumb. Browser chrome scaled
+     to its own track, not a page shape. */
+  --radius-thumb: 3px;
+  /* An inline chip about 22px tall: inline `code`, `kbd`, and the carousel's small
+     controls. The ladder's next step up, 8px, reads as a pill at that height. */
+  --radius-chip: 4px;
+  /* Declared by the design system from the start and never defined here, while
+     three files asked for it by name. `border-radius: var(--radius-sm)` with no
+     variable behind it is an invalid declaration: the browser drops it without a
+     warning, so the legal layout and both privacy blocks rendered square against a
+     system that said 8px. Nothing reports this class of failure; only defining
+     every step you document does. */
+  --radius-sm: 8px;
+  /* The spec chips and inline readout tiles on the feature routes. */
+  --radius-note: 10px;
+  /* Plot frames, the AI screen's panels, the ivory placeholder frame. */
+  --radius-tile: 14px;
   --radius-card: 24px;
-  --radius-card-inner: 23px;
-  --radius-phone-outer: 3rem;
-  --radius-phone-inner: 2.5rem;
-  --radius-phone-screen: 2rem;
+  --radius-card-sm: 20px;
+  --radius-card-inner: 16px;
+  --radius-icon-tile: 16px;
+  /* ── The device radii, and why they came down ──
+     The screen radius is now bounded by the CAPTURE, not by taste. The screens are
+     screenshots of a real Android build whose status bar starts 24 of 1080 pixels
+     in from the edge, because the emulator draws square corners and does not inset
+     for a rounded display. At 38px on a 322px screen the corner curve reached 40
+     capture-pixels inward at the clock's baseline and sliced the 9 off `9:41` —
+     visible at a glance, and the exact kind of detail that reads as sloppy on a
+     page arguing for precision. 26 and 24 put the curve at 14 and 17 pixels, clear
+     of the status bar at every size the frame is drawn.
 
-  /* ── Typography Scale & Small Text Floors ── */
+     They are also now geometrically correct, which they were not: a nested radius
+     has to be the outer radius MINUS the bezel or the two curves are not concentric.
+     48/11/38 was off by one and 44/10/35 by one the other way. 37 - 11 = 26 and
+     34 - 10 = 24. */
+  --radius-phone-outer: 37px;
+  --radius-phone-inner: 30px;
+  --radius-phone-screen: 26px;
+  --radius-phone-outer-sm: 34px;
+  --radius-phone-screen-sm: 24px;
+
+  /* ── Type ramp — 20 steps, 12px to 128px ──
+     Rescaled for Manrope and for the brief's "bigger fonts read more premium".
+     Desktop values; components step down with responsive utilities.
+
+     Tracking follows from the flat-spacing finding above: negative and hand-applied
+     from 24px up, zero through the body band where Manrope is already tighter than
+     Inter was, and positive again below 15px where a face with no optical sizing
+     never opens up on its own.
+
+     Display steps also need WORD-spacing, which Tailwind's theme cannot carry: see
+     the `.text-display` block further down. Negative tracking shrinks the word space
+     too, and Manrope's is only 0.200 em to begin with, so a heavy headline without
+     the correction reads as one long word. */
+  --text-display: 128px;
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 800;
+
+  --text-headline-xl: 96px;
+  --text-headline-xl--line-height: 1.04;
+  --text-headline-xl--letter-spacing: -0.03em;
+  --text-headline-xl--font-weight: 800;
+
+  --text-headline: 72px;
+  --text-headline--line-height: 1.06;
+  --text-headline--letter-spacing: -0.025em;
+  --text-headline--font-weight: 700;
+
+  --text-headline-sm: 56px;
+  --text-headline-sm--line-height: 1.1;
+  --text-headline-sm--letter-spacing: -0.02em;
+  --text-headline-sm--font-weight: 700;
+
+  --text-section-lg: 48px;
+  --text-section-lg--line-height: 1.14;
+  --text-section-lg--letter-spacing: -0.018em;
+  --text-section-lg--font-weight: 700;
+
+  --text-section: 40px;
+  --text-section--line-height: 1.2;
+  --text-section--letter-spacing: -0.015em;
+  --text-section--font-weight: 600;
+
+  --text-section-sm: 34px;
+  --text-section-sm--line-height: 1.24;
+  --text-section-sm--letter-spacing: -0.012em;
+  --text-section-sm--font-weight: 600;
+
+  --text-title-lg: 28px;
+  --text-title-lg--line-height: 1.3;
+  --text-title-lg--letter-spacing: -0.01em;
+  --text-title-lg--font-weight: 600;
+
+  --text-title: 24px;
+  --text-title--line-height: 1.34;
+  --text-title--letter-spacing: -0.008em;
+  --text-title--font-weight: 600;
+
+  --text-title-sm: 21px;
+  --text-title-sm--line-height: 1.36;
+  --text-title-sm--letter-spacing: -0.006em;
+  --text-title-sm--font-weight: 600;
+
+  /* The pricing numeral. Its own step because it is a number, not a heading:
+     600 rather than 700 so the digits stay open, and tabular figures are
+     mandatory (Manrope's default digits are proportional and a `1` is 0.390 em
+     against a `6` at 0.620, so a proportional price twitches on every change). */
+  /* The price is the largest thing on the pricing band and the second largest on
+     the site, behind only the hero. It was 72px in a 520px card, which is a
+     heading, not a price: it read as one more line of the card rather than as the
+     answer the whole band exists to give. 128 reuses the `display` size step, so
+     the ramp gains a role and not a step. Tracking goes past display's -0.035em
+     because tabular figures set solid at 128 need it. */
+  --text-price: 128px;
+  --text-price--line-height: 0.92;
+  --text-price--letter-spacing: -0.04em;
+  --text-price--font-weight: 600;
+
+  /* 64px, not the original 72. Measured at 360px, the width Android hands us more
+     often than any other: the lockup has to fit inside a 275px box, and at 72 a
+     five-glyph figure ran 280.6px and broke the term away from the numeral — the
+     one thing the inline rule in DESIGN.md exists to prevent. `$35 / year` fits at
+     either size, so this is headroom rather than a fix, kept because a type step
+     sized for one particular figure is a step that breaks the next time the price
+     changes. At 64 the price is still the largest thing on the band by four times. */
+  --text-price-sm: 64px;
+  --text-price-sm--line-height: 1;
+  --text-price-sm--letter-spacing: -0.035em;
+  --text-price-sm--font-weight: 600;
+
+  /* ── The 390px band ──
+     Not a scale factor on the desktop ramp: display compresses hard (0.47) while
+     text barely moves (0.94), because a hero has to lose weight on a phone and a
+     paragraph does not. Write them as a pair, `text-display-m lg:text-display`.
+
+     The mobile display ceiling is a real constraint, not a preference. At 60px/800
+     Manrope holds about 11.6 characters on a 350px line, so the longest single word
+     in a mobile hero must be 11 characters or fewer. "Bitperfect" is 10. */
+  /* 46px, not 60px. At 60 the hero set `Pure sound. / In its / original / light.`
+     across four lines at 390px, and a four-line hero headline is a size that was
+     never chosen for the measure it has to fit. 350px of content at weight 800 holds
+     `In its original` on one line at 46 and breaks it at 48, so this is the largest
+     step that lands the accent line in two and the headline in three.
+     DESIGN.md, "The hero headline sets to fit, not to a step". */
+  --text-display-m: 46px;
+  --text-display-m--line-height: 1.06;
+  --text-display-m--letter-spacing: -0.035em;
+  --text-display-m--font-weight: 800;
+
+  --text-headline-xl-m: 48px;
+  --text-headline-xl-m--line-height: 1.08;
+  --text-headline-xl-m--letter-spacing: -0.03em;
+  --text-headline-xl-m--font-weight: 800;
+
+  --text-headline-m: 40px;
+  --text-headline-m--line-height: 1.1;
+  --text-headline-m--letter-spacing: -0.025em;
+  --text-headline-m--font-weight: 700;
+
+  --text-headline-sm-m: 32px;
+  --text-headline-sm-m--line-height: 1.15;
+  --text-headline-sm-m--letter-spacing: -0.02em;
+  --text-headline-sm-m--font-weight: 700;
+
+  --text-section-m: 26px;
+  --text-section-m--line-height: 1.25;
+  --text-section-m--letter-spacing: -0.015em;
+  --text-section-m--font-weight: 600;
+
+  --text-lede-m: 19px;
+  --text-lede-m--line-height: 1.55;
+  --text-lede-m--letter-spacing: -0.005em;
+
+  --text-small-m: 14px;
+  --text-small-m--line-height: 1.55;
+  --text-small-m--letter-spacing: 0.005em;
+
+  /* There is no `currency` step. The `$` sets at the figure's own size, on the
+     baseline, and takes the `price` step with it; the reasoning and the glyph
+     measurements are in DESIGN.md under the subscription card. This token said the
+     opposite in a comment, was never referenced by anything, and outlived the
+     decision that replaced it. A dead token with an opinion is worse than no token:
+     the next person reads the comment, not the card. */
+
+  /* Device scale, inside a phone mockup only. It is a detail of the object being
+     drawn, not site type, and it is the one step that never appears on the page. */
+  --text-device-label: 11px;
+  --text-device-label--line-height: 1.4;
+  --text-device-label--letter-spacing: 2px;
+  --text-device-label--font-weight: 600;
+
+  --text-lede: 24px;
+  --text-lede--line-height: 1.5;
+  --text-lede--letter-spacing: -0.005em;
+
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--letter-spacing: 0em;
+
+  --text-body: 17px;
+  --text-body--line-height: 1.6;
+  --text-body--letter-spacing: 0em;
+
+  --text-body-sm: 16px;
+  --text-body-sm--line-height: 1.6;
+  --text-body-sm--letter-spacing: 0em;
+
+  --text-small: 15px;
+  --text-small--line-height: 1.55;
+  --text-small--letter-spacing: 0.005em;
+
+  --text-caption: 13px;
+  --text-caption--line-height: 1.45;
+  --text-caption--letter-spacing: 0.01em;
+  --text-caption--font-weight: 500;
+
+  --text-mono: 13px;
+  --text-mono--line-height: 1.5;
+  --text-mono--letter-spacing: 0.02em;
+
+  --text-micro: 12px;
+  --text-micro--line-height: 1.45;
+  --text-micro--font-weight: 600;
+
+  --text-label: 12px;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 3px;
+  --text-label--font-weight: 700;
+
+  /* Legacy alias: ScreenshotCarousel still reads text-overline. */
+  --text-overline: 12px;
+
+  /* ── Tracking and leading helpers ── */
   --tracking-eyebrow: 3px;
   --tracking-label: 2px;
   --tracking-micro: 1.5px;
   --leading-heading: 1.12;
   --leading-hero: 1.08;
-  --text-micro: 11px;
-  --text-caption: 12px;
-  --text-label: 11px;
-  --text-overline: 11px;
 
-  /* ── Easing ── */
+  /* ── Easing ──
+     One reveal curve for everything. No springs, no overshoot: a curve whose
+     control points cross 1 reads as playful, and this brand is not. */
+  --ease-reveal: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  /* ── Blur (decorative orb/glow scale) ── */
-  --blur-orb-sm: 60px;
-  --blur-orb-md: 80px;
-  --blur-orb-lg: 100px;
-  --blur-orb-xl: 120px;
-  --blur-glow-sm: 40px;
+/* ── Motion scale ──
+   Declared as plain custom properties rather than @theme keys: animations.css
+   is a separate stylesheet that Tailwind never scans, so these have to be
+   emitted unconditionally rather than on first utility use. */
+:root {
+  --d-ui: 180ms;
+  --d-swap: 320ms;
+  --d-rise: 720ms;
+  --d-long: 900ms;
+  --stagger: 60ms;
+  --rise-sm: 20px;
+  --rise-lg: 56px;
 }
 
 /* ── Base Styles ── */
@@ -100,30 +437,91 @@ body {
   background-color: var(--color-surface-base);
   color: var(--color-text-primary);
   font-size: 1rem;
+  /*
+    Both of these MUST be explicit under Manrope.
+
+    The variable font's default instance is wght 200, not 400: anything that
+    renders the default location rather than resolving CSS font-weight (an OG
+    image renderer, a PDF pass, a subsetter that instances without a location)
+    silently draws the whole page in ExtraLight.
+
+    And Manrope's own `normal` leading is 1.366 em against Inter's 1.210, so any
+    element that inherits an unset line-height grows 13% taller in the switch.
+  */
+  font-weight: 400;
   line-height: 1.7;
-  overflow-x: hidden;
+  /*
+    `clip` rather than `hidden`. `overflow-x: hidden` computes `overflow-y: auto`,
+    which makes the body a scroll container and silently kills every
+    `position: sticky` descendant, including the feature rail and the pinned phone
+    showcase. `clip` cuts the same overflow without creating one.
+  */
+  overflow-x: clip;
   min-width: 320px;
+  /* Never let the browser fake a weight it can synthesise from the axis. */
+  font-synthesis-weight: none;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1;
 }
 
-/* ── Ambient Background — subtle brand-colored radial glows for depth ──
-   Four-corner structure: gold top-center, lossless-cyan left,
-   bit-perfect-green right, amber bottom. */
+/*
+  Word-spacing for the display band. Tailwind's theme can carry font-weight,
+  line-height and letter-spacing on a text step but not word-spacing, so it is
+  applied here.
+
+  Manrope's word space is a flat 0.200 em, which is 0.37 x-heights against Inter's
+  0.52 and already tight. CSS letter-spacing applies after the space character too,
+  so the display steps' negative tracking cuts it further: -0.035em leaves 0.165 em.
+  Below about 0.19 em a multi-word headline at 96px and up reads as one long word.
+*/
+.text-display {
+  word-spacing: 0.06em;
+}
+.text-headline-xl {
+  word-spacing: 0.05em;
+}
+.text-headline {
+  word-spacing: 0.04em;
+}
+.text-headline-sm {
+  word-spacing: 0.03em;
+}
+
+/*
+  All-caps eyebrows. Manrope has no `cpsp`, so it never opens caps up on its own,
+  and its cap gap is flat at 0.140 em from 200 to 800. `case` moves hyphens,
+  parentheses and brackets up to cap height where they belong in a caps setting.
+*/
+.text-label,
+.text-micro {
+  font-feature-settings: "case" 1;
+}
+
+/* ── Ambient light — one neutral overhead wash, no chroma ──
+   The Monochrome Dark Rule: a graphite section gets one ink, one muted tone,
+   one accent and hairlines. This is the ambient layer only; a section that
+   needs more depth paints its own directional gradient on itself. */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232, 184, 75, 0.045) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 0% 55%, rgba(0, 210, 255, 0.025) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 100% 75%, rgba(52, 211, 153, 0.025) 0%, transparent 50%),
-    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255, 179, 71, 0.025) 0%, transparent 50%);
+  background: radial-gradient(
+    ellipse 120% 70% at 50% -8%,
+    rgba(255, 255, 255, 0.022) 0%,
+    rgba(255, 255, 255, 0.008) 44%,
+    transparent 74%
+  );
 }
 
-/* ── Noise / Grain Texture Overlay ── */
+/* ── Noise / Grain Texture Overlay ──
+   3% fractal noise across the viewport. Stops banding across the wide dark
+   fields, and is the only texture on the site: no tiled dot grid, no line
+   field. See the No Tiled Grids rule. */
 body::after {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -135,9 +533,15 @@ body::after {
 }
 
 /* ── Selection ── */
+/*
+  White selected text over a 30%-gold wash composited to #f8eac9 on a white band:
+  1.19:1, which means selected text on every light band was invisible. An opaque
+  gold with dark ink works on both grounds at once, 7.9:1 on graphite and 10.1:1
+  on white.
+*/
 ::selection {
-  background-color: rgba(232, 184, 75, 0.3);
-  color: #fff;
+  background-color: rgba(232, 184, 75, 0.9);
+  color: #191919;
 }
 
 /* ── Scrollbar ── */
@@ -155,11 +559,12 @@ body::after {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* ── Glass Effect Utility ── */
+/* ── Card chassis ──
+   Flat graphite one step above the page, a 1px hairline and a top-rim
+   specular. The surface is opaque now, so there is nothing behind it for a
+   backdrop-filter to blur. */
 .glass {
-  background: rgba(23, 22, 30, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--color-glass-surface);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
@@ -170,106 +575,138 @@ body::after {
   box-shadow: var(--shadow-card-hover);
 }
 
-/* ── Accent top glow — colored inset shadow for cards with --card-accent ── */
+/* ── Accent rim ──
+   The Accent Rim Rule: a card that owns a feature accent carries it as a
+   single 1px inset specular along the top bevel at 50% alpha, over a neutral
+   elevation shadow. Nothing blurred, nothing coloured in the outer shadow.
+   `.accent-glow` is the legacy name and is kept so existing call sites keep
+   working; prefer `.accent-rim`. */
+.accent-rim,
 .accent-glow {
   box-shadow:
-    var(--shadow-card),
     inset 0 1px 0 color-mix(in srgb, var(--card-accent) 50%, transparent),
-    inset 0 8px 24px -12px color-mix(in srgb, var(--card-accent) 25%, transparent);
+    0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
+.accent-rim-hover:hover,
 .accent-glow-hover:hover {
   border-color: var(--card-accent);
   box-shadow:
-    var(--shadow-card-hover),
     inset 0 1px 0 var(--card-accent),
-    inset 0 12px 32px -10px color-mix(in srgb, var(--card-accent) 35%, transparent);
+    0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
-/* ── Glass Elevated — for hero stats, pricing popular, CTA ── */
+/* ── Elevated chassis — pricing, signal-path ribbon ── */
 .glass-elevated {
-  background: rgba(23, 22, 30, 0.5);
+  background: var(--color-glass-elevated-surface);
   box-shadow: var(--shadow-elevated);
   position: relative;
 }
 .glass-elevated::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
   border-radius: inherit;
   pointer-events: none;
 }
 
-/* ── Primary Button — machined gold key-cap ── */
+/* ── Primary Button — machined gold key-cap ──
+   Two stacked backgrounds: a diagonal sheen over the metal. Hover slides the
+   sheen; it never lights the page around it. The Gold Emits Nothing Rule: gold
+   appears in fills, borders, type and inset highlights, never in an outer
+   shadow. */
 .btn-primary-gradient {
   color: var(--color-on-gold);
   border: none;
   background-image:
-    linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.4) 36%, transparent 56%),
+    linear-gradient(
+      115deg,
+      transparent 18%,
+      rgba(255, 255, 255, 0.4) 36%,
+      transparent 56%
+    ),
     linear-gradient(
       178deg,
       var(--color-gold-light) 0%,
       var(--color-gold) 27%,
       var(--color-amber) 49%,
-      #b3812f 74%,
-      #c99248 100%
+      var(--color-gold-deep) 74%,
+      var(--color-gold-warm) 100%
     );
-  background-size: 220% 220%, 100% 100%;
-  background-position: 0% 0%, 0% 0%;
+  background-size:
+    220% 220%,
+    100% 100%;
+  background-position:
+    0% 0%,
+    0% 0%;
   background-repeat: no-repeat;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 -1px 0 rgba(78, 46, 10, 0.55),
-    0 4px 20px rgba(232, 184, 75, 0),
-    0 4px 20px rgba(255, 179, 71, 0);
+    inset 0 -1px 0 var(--color-gold-shadow-ink),
+    var(--shadow-key);
   transition:
-    background-position 320ms var(--ease-out-expo),
-    box-shadow 200ms var(--ease-out-expo),
-    filter 150ms var(--ease-out-expo);
+    background-position var(--d-swap) var(--ease-reveal),
+    box-shadow var(--d-ui) var(--ease-ui),
+    filter 150ms var(--ease-ui);
 }
 .btn-primary-gradient:hover {
-  background-position: 26% 8%, 0% 0%;
+  background-position:
+    26% 8%,
+    0% 0%;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -1px 0 rgba(78, 46, 10, 0.55),
-    0 4px 20px rgba(232, 184, 75, 0.3),
-    0 4px 20px rgba(255, 179, 71, 0.2);
+    inset 0 -1px 0 var(--color-gold-shadow-ink),
+    var(--shadow-key-hover);
 }
 .btn-primary-gradient:active {
-  background-position: 0% 0%, 0% 0%;
+  background-position:
+    0% 0%,
+    0% 0%;
   background-image:
-    linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 45%, transparent 62%),
-    linear-gradient(178deg, var(--color-gold) 0%, var(--color-gold) 45%, #b3812f 78%, #a8792d 100%);
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.16) 45%,
+      transparent 62%
+    ),
+    linear-gradient(
+      178deg,
+      var(--color-gold) 0%,
+      var(--color-gold) 45%,
+      var(--color-gold-deep) 78%,
+      #a8792d 100%
+    );
   box-shadow:
     inset 0 1px 2px rgba(46, 27, 6, 0.4),
     inset 0 -1px 0 rgba(78, 46, 10, 0.3),
-    0 2px 8px rgba(232, 184, 75, 0.15);
+    0 2px 8px rgba(0, 0, 0, 0.4);
   filter: brightness(0.96);
 }
 
-/* ── Secondary Button ── */
+/* ── Secondary Button — smoked graphite, top-rim specular only ── */
 .btn-secondary-glow {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
-    0 0 18px rgba(232, 184, 75, 0);
-  transition: background-color 150ms, border-color 150ms, box-shadow 150ms;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition:
+    background-color var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui),
+    box-shadow var(--d-ui) var(--ease-ui);
 }
 .btn-secondary-glow:hover {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
-    0 0 18px rgba(232, 184, 75, 0.2);
+    0 4px 14px rgba(0, 0, 0, 0.35);
 }
 .btn-secondary-glow:active {
-  box-shadow:
-    inset 0 1px 1px rgba(0, 0, 0, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-    0 0 10px rgba(232, 184, 75, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
 }
 
 /* ── Button reduced motion ── */
@@ -283,7 +720,7 @@ body::after {
 /* ── Section Divider ── */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: var(--color-border-subtle);
   border: none;
 }
 
@@ -311,10 +748,22 @@ body::after {
 }
 .prose-legal h3 {
   color: var(--color-text-primary);
-  font-size: 1.125rem;
+  /* 20px, the `body-lg` step. It was 18px, which is off the ramp entirely and sits
+     a hair too close to the 17px body below it to read as a heading level. */
+  font-size: 1.25rem;
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
+}
+/* A MEASURE. 46 of the 60 paragraphs on /privacy ran past 90 characters a line,
+   the worst at 123 over an 862px column, which is roughly twice a comfortable
+   read and exactly the page where a visitor is least willing to work. Headings
+   and tables are exempt: a heading is short by nature and a table needs its
+   full column. */
+.prose-legal p,
+.prose-legal li,
+.prose-legal blockquote {
+  max-width: 68ch;
 }
 .prose-legal p {
   margin-bottom: 1rem;
@@ -337,6 +786,10 @@ body::after {
   color: var(--color-gold);
   text-decoration: underline;
   text-underline-offset: 2px;
+  /* 22px tall was one row of type and two pixels under SC 2.5.8's floor. Padding
+     on an inline box grows the target without changing the line box, so nothing
+     in the paragraph moves. */
+  padding-block: 0.125rem;
 }
 .prose-legal a:hover {
   color: var(--color-gold-light);
@@ -362,7 +815,7 @@ body::after {
 .prose-legal th {
   color: var(--color-text-primary);
   font-weight: 600;
-  background: rgba(23, 22, 30, 0.4);
+  background: var(--color-glass-surface);
 }
 .prose-legal blockquote {
   border-left: 3px solid var(--color-gold);
@@ -373,21 +826,25 @@ body::after {
 }
 .prose-legal hr {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-border-subtle), transparent);
+  background: var(--color-border-subtle);
   border: none;
   margin: 2rem 0;
 }
 .prose-legal code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.875em;
-  color: var(--color-gold);
-  background: rgba(23, 22, 30, 0.7);
+  /* Ink, not gold. Gold inline in a sentence is the one thing on these pages
+     that IS a link, and a permission name is not one. The mono face, the well and
+     the hairline already say "this is a literal". DESIGN.md, "Gold Is Never
+     Repeated Down A Column". */
+  color: var(--color-text-primary);
+  background: var(--color-surface-overlay);
   border: 1px solid var(--color-border-subtle);
   border-radius: 4px;
   padding: 0.15em 0.4em;
 }
 .prose-legal pre {
-  background: rgba(23, 22, 30, 0.7);
+  background: var(--color-surface-overlay);
   border: 1px solid var(--color-border-subtle);
   border-radius: 12px;
   padding: 1.25rem 1.5rem;
@@ -406,10 +863,10 @@ body::after {
   font-size: inherit;
 }
 .prose-legal kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.8em;
   color: var(--color-text-primary);
-  background: rgba(23, 22, 30, 0.7);
+  background: var(--color-surface-overlay);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 4px;
   padding: 0.15em 0.45em;
@@ -445,6 +902,37 @@ body::after {
 }
 
 /* ── Custom Utilities ── */
+/* One shared hover lift, so the twelve places that want it cannot drift apart.
+   A neutral shadow and a 1px rise: nothing on this site glows on hover, and a
+   scale on a card resamples whatever it contains. The reduced-motion guard is
+   part of the utility rather than each call site's problem. */
+@utility lift-hover {
+  transition:
+    transform var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui),
+    box-shadow var(--d-ui) var(--ease-ui);
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: var(--color-glass-border-hover);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-card);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: border-color var(--d-ui) var(--ease-ui);
+
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+}
+
 @utility flex-center {
   display: flex;
   align-items: center;
@@ -458,24 +946,81 @@ body::after {
   outline-color: var(--focus-ring-color, var(--color-gold));
 }
 
+/* The same ring, drawn INSIDE the control it marks.
+
+   For a control whose own ground is gold — the skip link is the only one — an
+   offset ring straddles two surfaces: the gold chip on the inner edge and
+   whatever the page happens to put behind it on the outer edge. No single colour
+   reads against both, and the shipped gold-on-gold measured 1.74:1. Inset, the
+   ring is adjacent to the chip on both of its edges, which is the pair SC 1.4.11
+   actually measures, and the dark ink it runs in measures 9.4:1 there. */
+@utility focus-ring-inset {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: -4px;
+  outline-color: var(--focus-ring-color, var(--color-gold));
+}
+
+/* ── What a white ground changes ─────────────────────────────────────────────
+   Two rules the white bands have always stated and never enforced, bound to the
+   class that establishes the white ground so they cannot be forgotten again.
+   Both are inherited custom properties, so everything inside the band gets them.
+
+   1. THE RING. Bright gold measures 1.84:1 on #ffffff, well under the 3:1 that
+      SC 1.4.11 and 2.4.11 require, so a keyboard user reaching the closing CTA —
+      the primary conversion action on the site — saw no focus at all.
+      `--focus-ring-color` was declared with an override fallback for exactly
+      this case and nothing ever set it. The deep gold ink measures 4.51:1 on
+      white and is already the accent ink these bands use.
+
+   2. THE CAST SHADOW. DESIGN.md, "The Ivory Band Has No Shadows": separation on
+      the white bands is hairlines and space. `PhoneFrame` hardcoded a
+      band-agnostic `0 24px 70px rgba(0,0,0,0.72)`, so two device frames on
+      /features/ai-enhancer laid a grey halo across the paper. */
+.bg-band-ivory {
+  --focus-ring-color: var(--color-band-gold-ink);
+  /* A fully transparent cast, not `none`: this token is substituted into the
+     second slot of a two-shadow list, and `box-shadow: <shadow>, none` is
+     invalid, which would take the chassis rim highlight down with it. */
+  --shadow-device-cast: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* Band and section headings. Headline range: 30px on a phone up to 46px on a
+   desktop. The Balanced Headline Rule: every headline sets text-wrap: balance. */
 @utility heading-section {
-  font-size: 1.875rem;
-  line-height: var(--leading-heading);
+  font-size: var(--text-section-sm);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
   font-weight: 700;
-  color: white;
+  color: var(--color-text-primary);
+  text-wrap: balance;
   @media (min-width: 640px) {
-    font-size: 2.25rem;
+    font-size: var(--text-section-lg);
+    line-height: 1.1;
   }
   @media (min-width: 1024px) {
-    font-size: 3rem;
+    font-size: var(--text-headline-sm);
+    line-height: 1.08;
   }
 }
 
+/* Label / eyebrow. Never numbered: see the No Section Numbering Rule. */
 @utility text-eyebrow {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: var(--text-label);
+  line-height: 1.4;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-eyebrow);
+  letter-spacing: 2.5px;
+  @media (min-width: 640px) {
+    letter-spacing: var(--tracking-eyebrow);
+  }
+}
+
+/* Specifications, rates and identifiers, always tabular. */
+@utility mono-spec {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
 @utility badge {
@@ -486,21 +1031,17 @@ body::after {
   white-space: nowrap;
 }
 
-/* Consistent section vertical rhythm for main landing sections */
+/* Band rhythm: 56px mobile, 116px desktop. */
 @utility section-py {
-  padding-top: calc(var(--spacing) * 10);
-  padding-bottom: calc(var(--spacing) * 10);
-  @media (min-width: 640px) {
-    padding-top: calc(var(--spacing) * 12);
-    padding-bottom: calc(var(--spacing) * 12);
-  }
+  padding-top: 56px;
+  padding-bottom: 56px;
   @media (min-width: 768px) {
-    padding-top: calc(var(--spacing) * 14);
-    padding-bottom: calc(var(--spacing) * 14);
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
   @media (min-width: 1024px) {
-    padding-top: calc(var(--spacing) * 16);
-    padding-bottom: calc(var(--spacing) * 16);
+    padding-top: 116px;
+    padding-bottom: 116px;
   }
 }
 

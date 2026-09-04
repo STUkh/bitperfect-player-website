@@ -39,3 +39,25 @@ const { title, description, lastUpdated, noindex, containerClass = 'max-w-6xl lg
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  /* Links inside the rendered markdown are generated, so they cannot carry a
+     utility class. Their colour hover lives in global.css; this is the focus
+     ring and the pressed state that go with it, matching the site's one
+     `focus-ring` treatment rather than inventing a second. */
+  :global(.prose-legal a) {
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: color var(--d-ui) var(--ease-ui);
+  }
+  :global(.prose-legal a:active) {
+    color: var(--color-gold-deep);
+  }
+  :global(.prose-legal a:focus-visible) {
+    /* Reads the same override hook every other ring on the site reads, rather
+       than hardcoding gold and going invisible if this prose ever lands on a
+       light ground. */
+    outline: 2px solid var(--focus-ring-color, var(--color-gold));
+    outline-offset: 2px;
+  }
+</style>
