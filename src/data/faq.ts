@@ -91,6 +91,10 @@ export const faqItems: FAQItem[] = [
     a: `${terms}${trialSentence} One subscription covers the whole app, there is no higher tier, and nothing is switched off to sell you one. Billed through Google Play and cancellable there at any time.`,
   },
   {
+    q: "How many devices does the subscription cover?",
+    a: "Up to five concurrently registered devices by default. If you need more, optional capacity packs in the app raise the limit in steps of five, up to twenty devices.",
+  },
+  {
     q: "Do the AI features work offline?",
     a: "After the initial model download, AI processing runs on the phone. The first download and periodic subscription verification require a network connection.",
   },
