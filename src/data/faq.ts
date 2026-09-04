@@ -80,7 +80,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: "What does the app send over the internet?",
-    a: "Four things, and no more. Crash reports and album artwork lookups, both on by default and switchable in Settings, the one-time model download when you turn on an AI feature, and the check that says your subscription is active. No analytics, no ads, no account. Your files and your listening never leave the phone.",
+    a: "Crash diagnostics, artwork, lyrics and headphone-profile lookups, store-backed subscription and integrity checks, protected model downloads, and connections to network sources, streams, plugins or cast targets you choose. The app does not upload your library database, listening history or audio to Bitperfect-operated servers, and it has no ads or listening-profile analytics.",
   },
   {
     q: "What is in the DSP rack?",
@@ -92,6 +92,6 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: "Do the AI features work offline?",
-    a: "Yes. A model downloads once, the first time you enable the feature. Everything after that runs on the device with no network call.",
+    a: "After the initial model download, AI processing runs on the phone. The first download and periodic subscription verification require a network connection.",
   },
 ];
