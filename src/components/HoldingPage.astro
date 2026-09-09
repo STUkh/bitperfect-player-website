@@ -165,29 +165,32 @@ const { eyebrow, headline, lede } = Astro.props;
   }
 
   /*
-    The plate. On a phone it is a band along the foot and the copy sits above it;
-    from `lg` it becomes the whole ground and the copy moves into the empty left
-    third the photograph was composed to leave.
+    The plate is the GROUND, at every width.
+
+    It was a 46svh band pinned to the bottom edge until the whole picture read as
+    a photograph bolted into the footer: the band's bottom IS the page's bottom,
+    so the groove field ran under the copyright line and the stylus tip landed on
+    it. A band anchored to the one edge the footer also owns has nowhere to go.
+
+    Full bleed has no such edge. The portrait crop covers the screen, the copy
+    sits on it under a wash, and the footer stands on the picture the same way it
+    already does from `lg` up. One arrangement, three windows onto it.
   */
   .plate {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 46svh;
+    inset: 0;
     z-index: 0;
   }
   /*
-    52%, not centre. The 3:4 crop is mostly the empty air above the cartridge, so
-    a centred cover in a half-height band shows air and cuts the stylus off under
-    the footer. Pulling the window down seats the cartridge in the middle of the
-    band with the groove field under it and the tip clear of the footer rule.
+    58%, not centre. The 3:4 crop carries empty air above the cartridge for the
+    copy to sit in; pulling the window down puts that air behind the headline and
+    the cartridge in the lower half where the page has nothing else to say.
   */
   .plate img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 52%;
+    object-position: center 58%;
   }
 
   .scrim {
@@ -195,28 +198,45 @@ const { eyebrow, headline, lede } = Astro.props;
     inset: 0;
     z-index: 0;
     /*
-      Phone: the band is sat into the page ground from above, so the copy never
-      lands on picture. Solid past the band's top edge and off by 80%, which
-      covers the plate's empty air and nothing else: the cartridge starts at
-      about 72% of the screen and is clear of the wash by the time it does.
+      Phone and tablet: the wash runs top to bottom, heaviest where the copy is
+      and gone by the time the cartridge arrives. It is never fully opaque any
+      more — the picture's own darks and the page ground are the same value, so a
+      thinning wash reads as depth rather than as a lid with a photo under it.
     */
     background:
       linear-gradient(
         180deg,
-        var(--color-surface-base) 0%,
-        var(--color-surface-base) 58%,
-        rgba(25, 25, 25, 0.82) 66%,
-        rgba(25, 25, 25, 0.34) 72%,
-        rgba(25, 25, 25, 0.08) 76%,
-        transparent 81%
+        rgba(25, 25, 25, 0.94) 0%,
+        rgba(25, 25, 25, 0.9) 34%,
+        rgba(25, 25, 25, 0.66) 50%,
+        rgba(25, 25, 25, 0.24) 62%,
+        transparent 72%
       );
   }
 
-  @media (min-width: 1024px) {
-    .plate {
-      inset: 0;
-      height: auto;
+  /*
+    The phone holds the wash lower. Its screen is the narrowest window onto the
+    same crop, so the copy runs further down it than on a tablet and the last two
+    links land where the cartridge body starts. The wash carries them across it
+    and lets go a few percent later; the subject is unhurt, it simply arrives
+    below the copy instead of behind the end of it.
+  */
+  @media (max-width: 639px) {
+    .scrim {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(25, 25, 25, 0.95) 0%,
+          rgba(25, 25, 25, 0.93) 42%,
+          rgba(25, 25, 25, 0.84) 54%,
+          rgba(25, 25, 25, 0.46) 63%,
+          rgba(25, 25, 25, 0.12) 71%,
+          transparent 79%
+        );
     }
+  }
+
+  @media (min-width: 1024px) {
     .plate img {
       object-position: 62% 50%;
     }
@@ -275,19 +295,13 @@ const { eyebrow, headline, lede } = Astro.props;
     THREE vertical arrangements, because the picture is in a different place in
     each of them and the copy has to answer for that.
 
-    PHONE. The copy sits at the top and reserves NO room for the plate. It cannot
-    afford to: one screen at 740px holds a bar, a footer, five elements of copy
-    and a 46svh band, and reserving the band as padding pushes the total past the
-    fold and puts the stylus behind the browser chrome. The copy finishes at about
-    56% of the screen and the cartridge starts at about 72%, so the two never meet;
-    what lies between them is the plate's own empty air with the wash still on it.
+    PHONE and TABLET. The copy sits at the top, in the picture's own empty air,
+    and finishes above the cartridge. Nothing is reserved and nothing is centred:
+    the picture is behind all of it, so the only question is where the copy stops
+    and the subject starts.
 
-    TABLET. There is height to spare, so the band IS reserved and the copy centres
-    in what is left. Top-aligned at 834x1112 it left a 300px void in the middle of
-    the page with all the weight at the two ends.
-
-    DESKTOP. The plate becomes the whole ground and the copy moves into the empty
-    left third the photograph was composed to leave.
+    DESKTOP. The crop turns landscape and the copy moves into the empty left third
+    the photograph was composed to leave.
   */
   .stage {
     position: relative;
@@ -298,20 +312,15 @@ const { eyebrow, headline, lede } = Astro.props;
     padding-bottom: 2rem;
   }
 
+  /*
+    A tablet is within a percent of the crop's own 3:4, so the picture arrives
+    almost uncropped and the cartridge sits low in it. The copy stays at the top
+    where the air is; it reserved the band's height here while the plate was a
+    band, and there is no band left to reserve.
+  */
   @media (min-width: 640px) and (max-width: 1023px) {
     .stage {
-      align-items: center;
-      padding-bottom: 46svh;
-    }
-    /*
-      A tablet is wide enough that the 3:4 crop has to be scaled to its WIDTH,
-      which throws most of the picture's height away. At the phone's 52% the
-      window lands above the subject and the stylus tip is cut off by the bottom
-      of the screen; 72% pulls the window down onto the cartridge, which also
-      closes most of the void between the copy and the picture.
-    */
-    .plate img {
-      object-position: center 72%;
+      padding-top: 3rem;
     }
   }
 
