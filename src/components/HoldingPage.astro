@@ -135,13 +135,9 @@ const { eyebrow, headline, lede } = Astro.props;
         <p class="text-caption text-text-tertiary">
           &copy; {new Date().getFullYear()} {site.name}
         </p>
-        <div class="foot-right">
-          <a class="foot-link focus-visible:focus-ring" href={`mailto:${site.contactEmail}`}>
-            {site.contactEmail}
-          </a>
-          {/* The package id, once, as an identifier. DESIGN.md: never as a flourish. */}
-          <span class="mono-spec text-caption text-text-tertiary">{site.packageId}</span>
-        </div>
+        <a class="foot-link focus-visible:focus-ring" href={`mailto:${site.contactEmail}`}>
+          {site.contactEmail}
+        </a>
       </div>
     </Container>
   </footer>
@@ -495,12 +491,6 @@ const { eyebrow, headline, lede } = Astro.props;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
-  }
-  .foot-right {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 1.25rem;
   }
   @media (min-width: 640px) {
     .foot-row {

@@ -6,7 +6,6 @@ import { signalStateColors, type SignalStateKey } from "./colors";
 
 export const site = {
   name: "Bitperfect Player",
-  packageId: "com.bitperfect.player",
   tagline: "Bit-perfect Hi-Res audio with on-device AI",
 
   /** Confirmed by the user as the primary CTA target. */
@@ -50,9 +49,10 @@ export const nav = [
  * (2026-08-28). Keep in lockstep with Play Console prices.
  *
  * The site renders ONE card and no selector, because there is one term to select.
- * `defaultPeriodId` names the term every surface looks up. The price, the term and
- * the 7-day trial here must match `src/TERMS_OF_USE.md` §4 and the Play Console
- * offer; the Terms are the published statement of them.
+ * `defaultPeriodId` names the term every surface looks up. The price and the term
+ * here must match the Play Console offer. `src/TERMS_OF_USE.md` deliberately states
+ * NO price and no trial length: numbers live on this site and in the store, never in
+ * the contract, where a stale figure becomes a consumer-law liability.
  */
 export const pro = {
   /** Used in the structured-data offer name. There is no tier to name any more. */
@@ -109,17 +109,20 @@ export const pro = {
    * The introductory free trial, CONFIRMED by the user on 2026-08-31 and published.
    *
    * The app does not hard-code a duration: it reads the free phase off the store
-   * offering at runtime (`SubscriptionGateOffer.kt`, `freePhase`) and renders
-   * "Try Bitperfect Player free for 7 days". So this number is the Play Console
-   * offer's number, mirrored here for the site, and the two have to move together.
-   * `src/TERMS_OF_USE.md` states the same 7 days.
+   * offering at runtime (`SubscriptionGateOffer.kt`, `freePhase`). So this number is
+   * the Play Console offer's number, mirrored here for the site, and the two have to
+   * move together. The Terms carry no length: they defer to the store on purpose, so
+   * the Play Console is the ONLY authority to reconcile this against.
+   *
+   * 14 days, confirmed by the owner 2026-09-04 (was 7). One-time, and only for
+   * someone who has never had it.
    *
    * Eligibility is the store's call, roughly one trial per store account, so no copy
    * anywhere may promise a trial to a specific visitor. Every string built off this
    * value is written to survive a returning customer who is offered none.
    * Setting it back to `null` must silence every trial mention on the site.
    */
-  trialDays: 7 as number | null,
+  trialDays: 14 as number | null,
   /**
    * What the subscription covers. The whole app, not an add-on: every entry here
    * ships to every subscriber and nothing is withheld for a tier that does not exist.
@@ -133,7 +136,7 @@ export const pro = {
     },
     {
       name: "AI Enhancer",
-      desc: "Optional on-device restoration for 44.1 and 48 kHz material, running on your phone's neural chip. Off by default, and only offered on phones that support it.",
+      desc: "Optional on-device restoration for 44.1 and 48 kHz material, running on your phone's own hardware. Off by default.",
     },
     {
       name: "Sonic Scan and Similar Tracks",
@@ -181,8 +184,8 @@ export const compatibility = [
     id: "ai-enhancer",
     what: "AI Enhancer",
     scope: "Real-time restoration of 44.1 and 48 kHz material",
-    devices: "Phones with a neural chip",
-    note: "This is the one feature that needs a neural chip. The app checks your phone first and only offers it where it can run in real time.",
+    devices: "Every phone on Android 8.0 or newer",
+    note: "The app checks your phone first and picks the model it can run in real time. A neural chip gets the larger one.",
     level: "npu",
   },
 ];

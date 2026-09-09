@@ -107,7 +107,7 @@ const footerCols = [
     {/* Bottom Bar */}
     {/* footer-safe-bottom (defined in global.css) overrides py-6's padding-bottom on notched devices. */}
     <div
-      class="footer-safe-bottom flex flex-col items-center justify-between gap-4 border-t border-border-subtle py-6 sm:flex-row sm:items-start"
+      class="footer-safe-bottom flex flex-col items-center gap-4 border-t border-border-subtle py-6 sm:items-start"
     >
       <div class="flex flex-col items-center gap-1 sm:items-start">
         <p class="text-sm text-text-tertiary">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
@@ -116,7 +116,6 @@ const footerCols = [
           is for identification only and does not imply endorsement or affiliation.
         </p>
       </div>
-      <p class="mono text-sm text-text-tertiary">{site.packageId}</p>
     </div>
   </Container>
 </footer>
@@ -151,9 +150,5 @@ const footerCols = [
     .footer-link:active {
       transform: none;
     }
-  }
-  .mono {
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
   }
 </style>
