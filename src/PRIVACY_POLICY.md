@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** September 2, 2026
+**Last updated:** September 4, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -28,7 +28,11 @@ Contact: support@bit-perfect.com
   enhancement.
 - We do not run ads and do not use any third-party analytics or advertising
   SDK beyond the crash-reporting described below.
+- Artwork, song lyrics and headphone correction profiles are fetched from
+  public, third-party providers as you use those features. These are
+  retrievals into your device, not uploads of your library.
 - We do not require account creation or sign-in to use the App.
+- Account & Settings Sync: When you create an account, we securely store your email address solely for authentication and settings backup.
 - An active subscription registers your App installations: five with the base
   subscription, or 10, 15, or 20 with active device-capacity packs. A secure device
   registry hosted in the European Union holds pseudonymous device verification
@@ -147,7 +151,27 @@ default** and can be turned off in Settings (library/appearance settings,
 artist-image fetching). No other information about you or your library is
 sent as part of this lookup.
 
-### 2.7 Plugins (separate apps)
+### 2.7 Lyrics and headphone correction profiles
+
+The App can show song lyrics for what you are playing, and can apply a
+correction profile for your headphone model. Both are retrieved from public,
+third-party lyrics and headphone-profile providers, and both are tied to a
+feature you use: lyrics are looked up for the track in front of you, and a
+headphone profile is looked up when you search the catalog for your model.
+Neither is a sweep of your library.
+
+Like the artwork lookup in 2.6, this is a retrieval, not a collection. The
+only information involved is the thing being looked up — a track's title,
+artist and album, or a headphone model name — and your device's IP address,
+which any standard HTTP request inherently includes and which we do not
+receive, log, or retain ourselves. No account, identifier, playback history
+or audio of yours is sent with the request, and a downloaded profile is
+cached on your device so the same lookup is not repeated.
+
+These providers are independent services with their own data practices. We
+do not control them, and we receive nothing back about you from them.
+
+### 2.8 Plugins (separate apps)
 
 The App supports an optional plugin architecture where plugins are
 **separate, independently-installed applications or plugins** (e.g. streaming-source plugins)
@@ -163,7 +187,7 @@ data practices. Review a plugin's own privacy policy and permissions before
 installing it. We are not responsible for data practices of third-party
 plugins.
 
-### 2.8 What we do NOT collect
+### 2.9 What we do NOT collect
 
 We do not collect, and the App does not request: your name, email address,
 phone number, precise or approximate location, contacts, calendar,
@@ -172,12 +196,12 @@ data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
 parties for their own marketing or advertising purposes. The outbound data
 flows are the feature and service flows disclosed in this Section 2: crash reporting
-in 2.1, artwork lookups in 2.6, and subscription verification and protected-component
-delivery in 2.9. They exist to operate features you use, not to monetize your data,
+in 2.1, artwork lookups in 2.6, the lyrics and headphone-profile lookups in 2.7, and
+subscription verification and protected-component delivery in 2.10. They exist to operate features you use, not to monetize your data,
 and no recipient receives the data for its own advertising as far as its published
 terms describe.
 
-### 2.9 Purchases, installation verification, and device registration
+### 2.10 Purchases, installation verification, and device registration
 
 The App is a subscription app, and the subscription is purchased **in-app** through the
 store. The commercial terms (price, free trial, renewal, cancellation, refunds, and
@@ -216,6 +240,10 @@ to your data when the App verifies that access.
 - **No account with us.** There is nothing to sign up for or close. Cancelling happens
   in your store account.
 
+### 2.11 Account & Settings Sync
+
+Account & Settings Sync: When you create an account, we securely store your email address solely for authentication and settings backup.
+
 ## 3. Permissions the App requests, and why
 
 Permissions requested by the App depend on the platform and the features you use:
@@ -229,7 +257,7 @@ Permissions requested by the App depend on the platform and the features you use
 | Foreground service (media playback / connected device / data sync)      | Required by Android to keep audio playing and a USB/network device connection alive while the App is in the background, with a visible ongoing notification as required by the OS; also used to download the optional AI-enhancement model with visible progress.                                                    |
 | Wake lock                                                               | Held only while music is actively playing, to prevent the device from sleeping mid-playback.                                                                                                                                                                                                                         |
 | Delete media files (Android 9 and older)                                | To delete a track from your device when you choose to remove it, on OS versions that require this permission for that action.                                                                                                                                                                                        |
-| Local network access (internet + Wi-Fi state)                           | To discover and connect to DLNA/UPnP and other cast-enabled devices, and network shares (FTP/WebDAV/SMB), on your own network, and to reach crash reporting, artwork lookups, and AI-model downloads described elsewhere in this policy.                                                                             |
+| Local network access (internet + Wi-Fi state)                           | To discover and connect to DLNA/UPnP and other cast-enabled devices, and network shares (FTP/WebDAV/SMB), on your own network, and to reach crash reporting, artwork, lyrics and headphone-profile lookups, and AI-model downloads described elsewhere in this policy.                                                                             |
 | USB device access                                                       | To communicate directly with a connected USB DAC for bit-perfect audio output. Granted via a runtime USB-permission prompt, not a manifest permission.                                                                                                                                                               |
 
 We request each permission only for the feature it supports; declining a
@@ -274,9 +302,9 @@ crash reporting enabled means limited diagnostic data as described in
 Section 2.1 may be processed in the EU.
 
 If you purchase the subscription, the subscription-management provider described in
-Section 2.9 is based in the United States; a purchase token and an app-generated
+Section 2.10 is based in the United States; a purchase token and an app-generated
 installation identifier may be processed there. The verification and device registry
-services described in Section 2.9 are hosted in the European Union.
+services described in Section 2.10 are hosted in the European Union.
 
 ## 7. Security
 

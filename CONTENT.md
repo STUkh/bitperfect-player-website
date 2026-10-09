@@ -68,9 +68,10 @@ into what the listener hears or gets.
 - No invented benchmarks, no THD/SNR figures, no testimonials, no user counts,
   no star ratings, no press quotes, no "award winning", no "#1".
 - Do not say or imply the app is free, or that a lower/higher tier exists.
-  ONE subscription, ONE term: $35 per year, with a 7-day trial for new customers
-  (`src/TERMS_OF_USE.md` §4). The $15 / 3 months and $25 / 6 months terms this
-  bullet used to list are no longer sold and must not reappear in copy.
+  ONE subscription, ONE term: $29.95 per year standard, with a $19.95 per year
+  Welcome Offer / Limited Founder Access,
+  with a trial for new customers (`src/TERMS_OF_USE.md` §4). The $15 / 3 months and $25 / 6 months
+  terms this bullet used to list are no longer sold and must not reappear in copy.
 - Keep the honesty that makes this brand credible: the app states when it is NOT
   bit-perfect. Say that as a selling point, not as a disclaimer.
 - Do not invent capabilities. If you are unsure a claim is true, weaken it or cut
@@ -115,10 +116,10 @@ the library has **8** browse views; the app plays **about 18** formats; there ar
 
 ## Decisions taken 2026-08-31 (do not silently reverse)
 
-1. **One plan, annual, $35.** The app's subscription gate sells the annual package
-   and nothing else, so the three-term selector (3 / 6 / 12 months) was removed from
-   the pricing card and `pro.periods` was cut to one entry. Advertising a term the
-   buyer cannot reach at the till is both a conversion trap and a store-policy risk.
+1. **One plan, annual: $29.95 standard / $19.95 Welcome Offer.** The app's subscription gate
+   sells the annual package and nothing else, so the three-term selector (3 / 6 / 12 months)
+   was removed from the pricing card and `pro.periods` was cut to one entry. Advertising a term
+   the buyer cannot reach at the till is both a conversion trap and a store-policy risk.
    `pro.periods` stays an ARRAY so a second term is a data change, not a rebuild.
 
    **$11.99 is a sandbox number. Do not put it on the site.** On 2026-09-01 the
@@ -127,7 +128,8 @@ the library has **8** browse views; the app plays **about 18** formats; there ar
    build fall back to a hardcoded `test_` key, and a `test_` key runs RevenueCat's
    **Simulated Test Store** against a separate project with its own catalogue — the
    same sandbox that served three products and no trial, neither of which
-   production has. $35 comes from the owner's own commit `d397dd0b`.
+   Updated 2026-10-06: Founder updated pricing to $29.95 USD / year standard and
+   $19.95 USD / year Welcome Offer / Limited Founder Access.
    **Running the app proves what the app does; it does not prove what the store
    charges.** For a price, the Play Console is the only authority.
 
@@ -157,6 +159,7 @@ the library has **8** browse views; the app plays **about 18** formats; there ar
      happens in the store. It may not promise a refund: §6 is that a subscription
      is not refundable part-way through a period and refunds are the store's
      decision, not ours.
+   - **Account & Settings Sync.** When you create an account, we securely store your email address solely for authentication and settings backup.
 
 5. **Product imagery is captured, not drawn.** Every screen inside a phone frame is
    a screenshot of the shipping Android build, taken against a library of eighteen

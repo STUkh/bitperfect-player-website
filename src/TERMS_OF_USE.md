@@ -1,6 +1,6 @@
 **Effective date:** August 31, 2026
 
-**Last updated:** September 2, 2026
+**Last updated:** September 4, 2026
 
 These Terms of Use ("Terms") govern your use of the Bitperfect Player app ("the App").
 They cover the subscription, the free trial, billing, cancellation and refunds, and the
@@ -14,7 +14,7 @@ Contact: support@bit-perfect.com
 ## 1. Summary (non-binding: the full sections below govern)
 
 - Bitperfect Player is a **subscription app**. There is one
-  **auto-renewing annual subscription at USD 35 per year**.
+  **auto-renewing annual subscription**, and the store shows its price before you confirm.
 - Eligible new customers may receive a free trial only when the current app-store offer
   includes one. The store shows the applicable duration, eligibility, and end date before
   you confirm. If you do not cancel before that trial ends, the first year is charged
@@ -117,16 +117,14 @@ that does not affect a trial already running.
 
 ### 4.3 Price and currency
 
-The base subscription is **USD 35 per year**. Each 5-device capacity pack is currently
-**USD 14.99 per year** before any store-applied regional pricing or partial-period adjustment.
-If your store account is set to another currency, the store charges the **regional equivalent
-it sets for your country**, which may differ from a direct conversion of the US price and may
-include local taxes.
+**The exact amount and the exact billing date shown by your store before you confirm are the
+ones that govern**, for the base subscription and for each device-capacity pack alike. The
+store charges in the **regional equivalent it sets for your country**, which may differ from a
+direct conversion of another country's price and may include local taxes.
 
 When a capacity pack is added part-way through a subscription year, the store may charge only
-for the remaining part of that year so that future renewals occur together. **The exact amount
-and exact billing date shown by the store before you confirm are the ones that govern.** Prices
-on this website are for information and may lag behind the store.
+for the remaining part of that year so that future renewals occur together. Prices shown on
+this website are for information and may lag behind the store.
 
 ### 4.4 Automatic renewal and automatic charge after the trial
 
@@ -242,6 +240,7 @@ subscription. Support may be provided in English only.
   their security configuration.
 - **Your backups.** You are solely responsible for backing up your audio files and for how
   your network storage (FTP/WebDAV/SMB) is set up. Keep your own backups.
+- **Account & Settings Sync.** When you create an account, we securely store your email address solely for authentication and settings backup.
 - **Your hearing and your equipment.** You are responsible for the volume levels you set
   and for the equipment you connect, particularly external amplifiers, DACs, and
   headphones.
