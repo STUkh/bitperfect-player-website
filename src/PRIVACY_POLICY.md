@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** September 4, 2026
+**Last updated:** October 19, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -189,8 +189,8 @@ plugins.
 
 ### 2.9 What we do NOT collect
 
-We do not collect, and the App does not request: your name, email address,
-phone number, precise or approximate location, contacts, calendar,
+We do not collect, and the App does not request: your name, your email address
+(unless you create an account, Section 2.11), phone number, precise or approximate location, contacts, calendar,
 photos/videos outside the music-library scan scope you grant, biometric
 data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
@@ -211,9 +211,14 @@ to your data when the App verifies that access.
 - **Payment is processed entirely by the store.** We never receive or store your card
   number, billing address, or payment identity. The store's own privacy policy governs
   the payment transaction.
-- **Subscription management.** A third-party subscription-management service based in
-  the United States processes the store purchase token and an app-generated installation
-  identifier to report whether the subscription is active, in a trial, or due to renew.
+- **Subscription management (RevenueCat).** RevenueCat, Inc., a subscription-management
+  service based in the United States, reports whether your subscription is active, in a
+  trial, or due to renew. It receives the store's purchase record and a random identifier
+  generated for your installation, which is not derived from your device's hardware or
+  advertising identifiers. It receives no name, contact details or music library data,
+  except that if you sign in to an account (Section 2.11), your account email address is
+  attached to your subscription record. See RevenueCat's
+  [privacy policy](https://www.revenuecat.com/privacy).
 - **Installation verification.** The platform's integrity service checks that the
   installed App and device meet release security requirements. Our verification service
   receives the verification result and device details needed to confirm authorization.
@@ -237,8 +242,8 @@ to your data when the App verifies that access.
   on that device can remain usable for no longer than 14 days as explained in the Terms.
 - **On the device.** A signed authorization record is stored locally so the App keeps
   working offline; it contains no payment details.
-- **No account with us.** There is nothing to sign up for or close. Cancelling happens
-  in your store account.
+- **No account needed to subscribe.** The subscription does not require an account with
+  us. Cancelling happens in your store account.
 
 ### 2.11 Account & Settings Sync
 
@@ -301,9 +306,10 @@ European Union. If you are located outside the EU/EEA, using the App with
 crash reporting enabled means limited diagnostic data as described in
 Section 2.1 may be processed in the EU.
 
-If you purchase the subscription, the subscription-management provider described in
-Section 2.10 is based in the United States; a purchase token and an app-generated
-installation identifier may be processed there. The verification and device registry
+If you purchase the subscription, RevenueCat, the subscription-management provider
+described in Section 2.10, is based in the United States; the purchase record, the
+installation identifier and, if you are signed in, your account email address may be
+processed there. The verification and device registry
 services described in Section 2.10 are hosted in the European Union.
 
 ## 7. Security

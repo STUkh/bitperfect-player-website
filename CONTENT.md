@@ -206,6 +206,33 @@ When ads do ship, these move TOGETHER, in one pass, and the policy moves first:
 Until then the site and the policy agree, and `app-ads.txt` is the only file in
 the repo that anticipates the change.
 
+## Pending: account sync (do not act on this yet)
+
+The app has an optional email account for settings backup, but it is gated behind
+`BuildConfig.DEV_ACCOUNT_SYNC_ENABLED` (`-PdevAccountSync=true`), which no release
+build sets: checked 2026-10-19 in `../bitperfect-player` (`DEV_TOGGLES.md`,
+`app/build.gradle.kts`, `RootTabShell.kt`). The shipping app shows no sign-in and
+makes no account calls, so every "no account" claim below is still true and STAYS.
+`src/PRIVACY_POLICY.md` already discloses the account (§1, §2.11) and the email
+it would attach to the RevenueCat record (§2.10, §6), all written conditionally
+("when you create an account"), so the policy is ready ahead of the release.
+
+When the flag ships on, these move in the same release. The account is optional,
+so "no account required" stays true and only the absolute claims go:
+
+- `PRODUCT.md`, "zero user accounts".
+- `src/i18n/locales/en/landing.ts`: `privacy.title` "Zero accounts. Zero
+  telemetry.", `privacy.fact1_desc` "There is no sign-up screen, no password and no
+  profile.", `statement.fact3_desc` "No sign-up", and `landing.meta_description`
+  "no account".
+- This file: the house-voice line "no account" and §4's "there is no account".
+
+These stay true with an optional account: `src/data/features.ts` "No account is
+required", the AI download's "No account, no upload, no wait"
+(`features.ts`, `feature/content.ts`), casting's "no account", and policy §1 "We do
+not require account creation". `src/data/changelog.ts` is history and is not
+rewritten.
+
 ## Where the copy actually lives
 
 Check the BUILT html before assuming a string ships. Several fields look live and
