@@ -2,7 +2,6 @@
 import ContentLayout from '../layouts/ContentLayout.astro';
 import Icon from '../components/Icon.astro';
 import Button from '../components/common/Button.astro';
-import { site } from '../data/site';
 import { withBase } from '../utils/nav';
 import { useTranslations } from '../i18n/utils';
 
@@ -29,45 +28,6 @@ const t = useTranslations(Astro.currentLocale);
         <Button href={withBase('/features')} variant="secondary">
           <span>{t('notfound.all_features')}</span>
         </Button>
-      </div>
-
-      <div class="community-block">
-        <span class="community-eyebrow">{t('notfound.community_label')}</span>
-        <a
-          href="https://t.me/bitperfect_player"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="telegram-card focus-visible:focus-ring"
-        >
-          <div class="telegram-icon-box">
-            <Icon name="telegram" size={20} />
-          </div>
-          <div class="telegram-text">
-            <span class="telegram-title">Telegram Channel</span>
-            <span class="telegram-handle">@bitperfect_player</span>
-          </div>
-          <Icon name="arrow" size={16} class="telegram-arrow" />
-        </a>
-
-        <div class="other-socials">
-          {
-            site.socials
-              .filter((s) => s.id !== 'telegram')
-              .map((social) => (
-                <a
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="social-pill focus-visible:focus-ring"
-                  title={`${social.label}: ${social.handle}`}
-                  aria-label={`${site.name} on ${social.label} (${social.handle})`}
-                >
-                  <Icon name={social.id} size={15} />
-                  <span>{social.label}</span>
-                </a>
-              ))
-          }
-        </div>
       </div>
     </div>
   </section>
@@ -99,131 +59,5 @@ const t = useTranslations(Astro.currentLocale);
 
   :global(.btn-back .icon) {
     transform: rotate(180deg);
-  }
-
-  .community-block {
-    margin-top: 2rem;
-    padding-top: 1.75rem;
-    border-top: 1px solid var(--color-border-subtle);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.875rem;
-    width: 100%;
-    max-width: 24rem;
-  }
-
-  .community-eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-tertiary);
-    font-family: var(--font-mono);
-  }
-
-  .telegram-card {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    width: 100%;
-    padding: 0.625rem 1rem;
-    border-radius: 9999px;
-    border: 1px solid var(--color-gold);
-    background: rgba(232, 184, 75, 0.06);
-    color: var(--color-text-primary);
-    text-decoration: none;
-    transition:
-      border-color var(--d-ui) var(--ease-ui),
-      background-color var(--d-ui) var(--ease-ui),
-      transform var(--d-ui) var(--ease-ui);
-  }
-
-  .telegram-card:hover {
-    border-color: var(--color-gold-light);
-    background: rgba(232, 184, 75, 0.12);
-    transform: translateY(-1px);
-  }
-
-  .telegram-icon-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 9999px;
-    background: var(--color-gold);
-    color: #191919;
-    flex-shrink: 0;
-  }
-
-  .telegram-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-grow: 1;
-    line-height: 1.25;
-  }
-
-  .telegram-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-  }
-
-  .telegram-handle {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
-    font-family: var(--font-mono);
-  }
-
-  .telegram-arrow {
-    color: var(--color-gold);
-    transition: transform var(--d-ui) var(--ease-ui);
-  }
-
-  .telegram-card:hover .telegram-arrow {
-    transform: translateX(2px);
-  }
-
-  .other-socials {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-  }
-
-  .social-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.85rem;
-    border-radius: 9999px;
-    border: 1px solid var(--color-border-subtle);
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--color-text-secondary);
-    font-size: 0.8125rem;
-    text-decoration: none;
-    transition:
-      border-color var(--d-ui) var(--ease-ui),
-      color var(--d-ui) var(--ease-ui),
-      background-color var(--d-ui) var(--ease-ui),
-      transform var(--d-ui) var(--ease-ui);
-  }
-
-  .social-pill:hover {
-    border-color: var(--color-gold);
-    color: var(--color-gold);
-    background: rgba(232, 184, 75, 0.06);
-    transform: translateY(-1px);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .telegram-card:hover,
-    .telegram-card:hover .telegram-arrow,
-    .social-pill:hover {
-      transform: none;
-    }
   }
 </style>

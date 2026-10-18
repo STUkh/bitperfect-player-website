@@ -115,15 +115,6 @@ const { eyebrow, headline, lede } = Astro.props;
             <span>Get it on Google Play</span>
           </a>
 
-          <a
-            href="https://t.me/bitperfect_player"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="focus-visible:focus-ring inline-flex h-[52px] cursor-pointer items-center justify-center gap-2.5 rounded-full border border-gold/40 bg-gold/10 px-6 text-body-sm font-semibold text-gold transition-colors hover:border-gold hover:bg-gold/20 lg:h-[54px]"
-          >
-            <Icon name="telegram" size={20} />
-            <span>@bitperfect_player</span>
-          </a>
 
           {/*
             The two documents that are still live, stated as the two documents they
@@ -546,10 +537,12 @@ const { eyebrow, headline, lede } = Astro.props;
       color var(--d-ui) var(--ease-ui),
       border-color var(--d-ui) var(--ease-ui),
       background-color var(--d-ui) var(--ease-ui),
+      box-shadow var(--d-ui) var(--ease-ui),
       transform var(--d-ui) var(--ease-ui);
   }
   .social-link:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px -2px rgba(232, 184, 75, 0.28);
   }
   @media (prefers-reduced-motion: reduce) {
     .social-link:hover {
