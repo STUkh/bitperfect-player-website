@@ -1,0 +1,97 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import Container from '../../components/common/Container.astro';
+import PageHeader from '../../components/common/PageHeader.astro';
+import ClosingBanner from '../../components/common/ClosingBanner.astro';
+import { releases } from '../../data/changelog';
+import { site } from '../../data/site';
+import { withBase } from '../../utils/nav';
+
+const title = 'Release Notes & Changelog | Bitperfect Player';
+const description =
+  'Version history and architectural changelog for Bitperfect Player: Rust audio engine, custom UAC drivers, dyadic volume control, and bit-perfect playback updates.';
+
+---
+
+<ContentLayout title={title} description={description}>
+  <PageHeader
+    maxWidth="760px"
+    eyebrow="Version History"
+    title="Changelog & Release Notes"
+    description="Release notes and version history for Bitperfect Player, documenting audio engine updates, driver additions, and stability improvements."
+  />
+
+  {/* Changelog Timeline — Compact, Sleek, Dense Vertical Release Stream */}
+  <section class="py-12 lg:py-16">
+    <Container>
+      <div class="mx-auto max-w-[760px] divide-y divide-border-subtle">
+        {
+          releases.map((rel) => (
+            <article class="group py-8 sm:py-9 first:pt-0 last:pb-0 transition-colors">
+              {/* Top Meta Row: Version Badge, Status Badge, Release Date */}
+              <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <span class="mono-spec text-section-sm sm:text-title-lg font-extrabold text-gold tracking-tight">
+                  v{rel.version}
+                </span>
+                {rel.badge && (
+                  <span class="mono-spec text-micro font-semibold uppercase tracking-wider text-gold">
+                    {rel.badge}
+                  </span>
+                )}
+                <span class="text-text-tertiary/60">·</span>
+                <time class="mono-spec text-caption text-text-tertiary">
+                  {rel.releaseDate}
+                </time>
+              </div>
+
+              {/* Release Title */}
+              <h2 class="mt-2.5 text-title font-bold text-text-primary tracking-tight transition-colors duration-[var(--d-ui)] group-hover:text-gold sm:text-title-lg">
+                <a href={withBase(`/changelog/${rel.version}`)} class="focus-visible:focus-ring rounded">
+                  {rel.title}
+                </a>
+              </h2>
+
+              {/* Concise 1–2 Sentence Summary */}
+              <p class="mt-2 text-body-sm text-text-secondary leading-relaxed">
+                {rel.summary}
+              </p>
+
+              <div class="mt-3.5">
+                <a
+                  href={withBase(`/changelog/${rel.version}`)}
+                  class="group/link inline-flex items-center gap-1.5 text-small font-semibold text-gold transition-colors duration-[var(--d-ui)] hover:text-gold-light focus-visible:focus-ring rounded"
+                >
+                  <span>View full release notes</span>
+                  <svg
+                    class="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <ClosingBanner
+    maxWidth="760px"
+    eyebrow="Continuous Development"
+    title="Automatic updates on Google Play"
+    description="Download Bitperfect Player on Google Play to receive automatic updates and driver optimizations."
+    primaryHref={site.playUrl}
+    primaryLabel="Get on Google Play"
+    primaryExternal={true}
+    secondaryHref={withBase('/features/catalog')}
+    secondaryLabel="View 27 Capabilities"
+  />
+</ContentLayout>

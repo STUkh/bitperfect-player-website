@@ -394,6 +394,13 @@ export const features: Feature[] = [
 export function getFeatureBySlug(slug: string): Feature | undefined {
   return features.find((f) => f.slug === slug);
 }
+export function getLocalizedFeatureBySlug(
+  slug: string,
+  _lang?: string
+): Feature | undefined {
+  return features.find((f) => f.slug === slug);
+}
+
 
 export function getAllFeatures(): Feature[] {
   return features;

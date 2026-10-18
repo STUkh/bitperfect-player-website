@@ -1,0 +1,20 @@
+---
+import { withBase } from '../../utils/nav';
+
+const destination = withBase('/faq/why-npu-ai-enhancer-not-working');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <title>Redirecting to NPU AI Enhancer Guide...</title>
+  <body style="background:#191919;color:#fff;font-family:sans-serif;padding:2rem;">
+    <p>Redirecting to <a href={destination} style="color:#e8b84b;">Why AI Enhancer Requires an NPU Guide</a>...</p>
+    <script is:inline define:vars={{ destination }}>
+      window.location.replace(destination);
+    </script>
+  </body>
+</html>

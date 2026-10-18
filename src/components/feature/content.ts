@@ -404,5 +404,9 @@ export const featurePages: Record<string, FeaturePage> = {
  */
 /** The running order, read off the canonical route table so it cannot fork. */
 export const indexOrder = featureRoutes.map((r) => r.slug);
+export function getLocalizedFeaturePage(slug: string, _lang?: string) {
+  return featurePages[slug];
+}
+
 
 /** Two decimal digits, so the mono column stays the same width all six times. */

@@ -2,11 +2,36 @@
 import Container from './Container.astro';
 import Logo from './Logo.astro';
 import StoreBadges from './StoreBadges.astro';
+import Icon from '../Icon.astro';
 import { footerLinks } from '../../data/navigation';
 import { site } from '../../data/site';
 import { resolveHref, withBase } from '../../utils/nav';
+import { useTranslations } from '../../i18n/utils';
 
+const t = useTranslations(Astro.currentLocale);
+const sectionTitle = (title: string) => {
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  const key = `footer.${slug}` as any;
+  const translated = t(key);
+  return translated && translated !== key ? translated : title;
+};
 type FooterLink = (typeof footerLinks)[keyof typeof footerLinks]['links'][number];
+const getLocalizedFooterLinkLabel = (link: FooterLink) => {
+  if (link.href === '/faq') return t('footer.all_questions');
+  if (link.href === '/changelog') return t('footer.all_releases');
+  if (link.href === '/privacy') return t('footer.privacy_policy');
+  if (link.href === '/terms') return t('footer.terms_of_use');
+  if (
+    link.href.startsWith('mailto:') ||
+    (link.label as string) === 'Email support' ||
+    (link.label as string) === 'Email Support' ||
+    (link.label as string) === 'Contact Support'
+  ) {
+    return t('footer.email_support');
+  }
+  if (link.label === 'Google Play') return t('store.google_play');
+  return link.label;
+};
 
 const pathname = Astro.url.pathname;
 const sections = Object.values(footerLinks);
@@ -27,8 +52,8 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
   an inline style cannot carry the `lg` breakpoint on its own.
 */
 const footerCols = [
-  "1.6fr",
-  ...sections.map((section) => (section.links.length > 4 ? "1fr 1fr" : "1fr")),
+  "1.5fr",
+  ...sections.map(() => "1fr"),
 ].join(" ");
 ---
 
@@ -48,13 +73,13 @@ const footerCols = [
         <div class="col-span-2 sm:col-span-3 lg:col-span-1">
           <a
             href={withBase('/')}
-            class="mb-5 -mx-2 -my-1 inline-flex w-fit cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1 transition-colors duration-[var(--d-ui)] ease-ui hover:bg-white/[0.045] active:bg-white/[0.07] focus-visible:focus-ring"
+            class="mb-5 inline-flex min-h-11 w-fit cursor-pointer items-center gap-2.5 rounded-lg py-1.5 focus-visible:focus-ring"
           >
             <Logo size="md" />
             <span class="text-body-lg font-bold text-text-primary">{site.name}</span>
           </a>
-          <p class="mb-6 max-w-sm text-sm leading-relaxed text-text-secondary">
-            {site.tagline}
+          <p class="mb-6 max-w-sm text-sm leading-relaxed text-pretty text-text-secondary">
+            {t('footer.tagline')}
           </p>
           <StoreBadges variant="dark" class="flex-row flex-wrap" />
         </div>
@@ -70,30 +95,29 @@ const footerCols = [
           seven and the whole row finishes within one line of itself.
         */}
         {
-          sections.map((section) => (
-            <div class:list={[section.links.length > 4 && 'col-span-2 sm:col-span-1 lg:col-span-2']}>
-              {/* h2, not h3. These columns are siblings of the page's own
-                  sections, not subsections of the last one, and on /404 —
-                  which has no h2 at all — an h3 here made the document jump
-                  straight from h1 to h3. The type is unchanged. */}
+          sections.map((section: any) => (
+            <div class="col-span-1">
               <h2 class="mb-4 text-sm font-semibold tracking-label text-text-primary uppercase">
-                {section.title}
+                {section.href ? (
+                  <a
+                    href={resolveHref(section.href, pathname)}
+                    class="inline-flex min-h-[44px] items-center rounded py-1.5 transition-colors hover:text-gold focus-visible:focus-ring"
+                  >
+                    {sectionTitle(section.title)}
+                  </a>
+                ) : (
+                  sectionTitle(section.title)
+                )}
               </h2>
-              {/*
-                `py-1` on the links and a tighter gap between them: the boxes are
-                28px instead of 20px, which clears SC 2.5.8's 24px floor, while the
-                distance between one label and the next barely moves. The padding
-                is invisible; only the hit area changes.
-              */}
-              <ul class:list={['space-y-1.5', section.links.length > 4 && 'lg:columns-2 lg:gap-x-8']}>
+              <ul class="space-y-1">
                 {section.links.map((link: FooterLink) => (
                   <li>
                     <a
                       href={resolveHref(link.href, pathname)}
                       rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
-                      class="footer-link cursor-pointer rounded py-1 text-sm text-text-secondary hover:text-text-primary active:text-gold focus-visible:focus-ring"
+                      class="footer-link inline-flex min-h-[44px] cursor-pointer items-center rounded py-2 text-sm text-text-secondary hover:text-text-primary active:text-gold focus-visible:focus-ring"
                     >
-                      {link.label}
+                      {getLocalizedFooterLinkLabel(link)}
                     </a>
                   </li>
                 ))}
@@ -107,14 +131,30 @@ const footerCols = [
     {/* Bottom Bar */}
     {/* footer-safe-bottom (defined in global.css) overrides py-6's padding-bottom on notched devices. */}
     <div
-      class="footer-safe-bottom flex flex-col items-center gap-4 border-t border-border-subtle py-6 sm:items-start"
+      class="footer-safe-bottom flex flex-col items-center gap-6 border-t border-border-subtle py-6 sm:flex-row sm:items-center sm:justify-between"
     >
-      <div class="flex flex-col items-center gap-1 sm:items-start">
-        <p class="text-sm text-text-tertiary">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
-        <p class="max-w-md text-center text-xs text-text-tertiary sm:text-left">
-          All product names, logos, and trademarks are the property of their respective owners. Use of these names
-          is for identification only and does not imply endorsement or affiliation.
+      <div class="flex flex-col items-center gap-2 text-center sm:items-start sm:text-left">
+        <p class="text-sm text-text-tertiary">&copy; {new Date().getFullYear()} {site.name}. {t('footer.rights')}</p>
+        <p class="max-w-xl text-xs leading-relaxed text-text-tertiary">
+          {t('footer.trademark_notice')}
         </p>
+      </div>
+
+      <div class="flex items-center gap-3 shrink-0" aria-label="Official channels">
+        {
+          site.socials.map((social) => (
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${site.name} on ${social.label} (${social.handle})`}
+              class="social-link inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
+              title={`${social.label}: ${social.handle}`}
+            >
+              <Icon name={social.id} size={18} />
+            </a>
+          ))
+        }
       </div>
     </div>
   </Container>
@@ -148,6 +188,26 @@ const footerCols = [
   @media (prefers-reduced-motion: reduce) {
     .footer-link:hover,
     .footer-link:active {
+      transform: none;
+    }
+  }
+
+  .social-link {
+    transition:
+      color var(--d-ui) var(--ease-ui),
+      border-color var(--d-ui) var(--ease-ui),
+      background-color var(--d-ui) var(--ease-ui),
+      transform var(--d-ui) var(--ease-ui);
+  }
+  .social-link:hover {
+    transform: translateY(-2px);
+  }
+  .social-link:active {
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .social-link:hover,
+    .social-link:active {
       transform: none;
     }
   }

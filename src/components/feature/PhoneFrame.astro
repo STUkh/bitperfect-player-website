@@ -26,6 +26,7 @@ interface Props {
   /** Take the parent's width instead of the frame's own two steps. */
   fill?: boolean;
   class?: string;
+  idPrefix?: string;
 }
 const { fill = false, class: className } = Astro.props;
 ---

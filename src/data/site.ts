@@ -3,10 +3,11 @@
  * Anything marked PLACEHOLDER is on the user's replacement list.
  */
 import { signalStateColors, type SignalStateKey } from "./colors";
+import { useTranslations, type UIKey } from "../i18n/utils";
 
 export const site = {
   name: "Bitperfect Player",
-  tagline: "Bit-perfect Hi-Res audio with on-device AI",
+  tagline: "Bit-perfect Hi-Res audio with on-device\u00A0AI",
 
   /** Confirmed by the user as the primary CTA target. */
   playUrl:
@@ -27,6 +28,34 @@ export const site = {
 
   minAndroid: "8.0",
   minSdk: 26,
+
+  /** Official social and community channels. */
+  socials: [
+    {
+      id: "telegram",
+      label: "Telegram",
+      handle: "@bitperfect_player",
+      url: "https://t.me/bitperfect_player",
+    },
+    {
+      id: "tiktok",
+      label: "TikTok",
+      handle: "@bitperfect.player",
+      url: "https://www.tiktok.com/@bitperfect.player",
+    },
+    {
+      id: "instagram",
+      label: "Instagram",
+      handle: "@bit.perfect.player",
+      url: "https://www.instagram.com/bit.perfect.player/",
+    },
+    {
+      id: "x",
+      label: "X",
+      handle: "@bitperfect_p",
+      url: "https://x.com/bitperfect_p",
+    },
+  ] as const,
 };
 
 /**
@@ -42,11 +71,11 @@ export const nav = [
 ];
 
 /**
- * Subscription: ONE plan, ONE term (annual, $35). The app is subscription only. There is
- * no free tier, no higher tier and nothing switched off to sell an upgrade, so the
- * subscription gates the whole product rather than an add-on. Purchases happen in-app
- * through Google Play billing; the site only informs. Prices are user-confirmed
- * (2026-08-28). Keep in lockstep with Play Console prices.
+ * Subscription: ONE plan, ONE term (annual: $29.95 standard / $19.95 Welcome Offer).
+ * The app is subscription only. There is no free tier, no higher tier and nothing switched
+ * off to sell an upgrade, so the subscription gates the whole product rather than an add-on.
+ * Purchases happen in-app through Google Play billing; the site only informs. Prices are
+ * updated 2026-10-06 (replacing old $35 / $34.99). Keep in lockstep with Play Console prices.
  *
  * The site renders ONE card and no selector, because there is one term to select.
  * `defaultPeriodId` names the term every surface looks up. The price and the term
@@ -58,6 +87,42 @@ export const pro = {
   /** Used in the structured-data offer name. There is no tier to name any more. */
   name: "Bitperfect Player",
   currency: "USD",
+  /** Offer expiry milestone: Founder rate ends May 31, 2027. */
+  founderEndDate: "May 31, 2027",
+  founderEndDateIso: "2027-05-31",
+  /** Standard annual rate: $29.95 USD / year. */
+  standardPrice: 29.95,
+  /** Limited Founder offer: $19.95 USD / year locked in forever. */
+  welcomePrice: 19.95,
+  founderPrice: 19.95,
+  /**
+   * Two plans model for display: Founder Offer (active until May 31, 2027)
+   * and Standard Plan (regular annual rate after May 31, 2027).
+   */
+  plans: {
+    founder: {
+      id: "founder",
+      name: "Limited Founder Offer",
+      badge: "LIMITED FOUNDER OFFER · ENDS MAY 31, 2027",
+      price: 19.95,
+      perMonth: "1.66",
+      currency: "$",
+      endsAt: "May 31, 2027",
+      featured: true,
+      trialDays: 14,
+    },
+    standard: {
+      id: "standard",
+      name: "Standard Annual Plan",
+      badge: "STANDARD ANNUAL PLAN",
+      price: 29.95,
+      perMonth: "2.50",
+      currency: "$",
+      activeFrom: "June 1, 2027",
+      featured: false,
+      trialDays: null,
+    },
+  },
   /**
    * The only term there is. Kept as a named id (rather than inlined) because every
    * surface that states the price looks the term up by id, and a second term can be
@@ -67,41 +132,30 @@ export const pro = {
   /**
    * ONE term. The app sells exactly one thing.
    *
-   * This array held three terms (3 months $15, 6 months $25, 12 months $35) until
-   * 2026-08-31. It was cut to one after the app source was checked: the subscription
-   * gate builds its offer with `buildAnnualGateOffer()`, which takes the ANNUAL
-   * package off the store offering and nothing else, and `SubscriptionGateOffer.kt`
-   * says so in a comment. A site that advertises a 3-month price a buyer cannot
-   * reach at the till is worse than a site with one price on it, and on a store
-   * listing it is the kind of mismatch that draws a policy complaint.
+   * Standard Price: $29.95 / year ($2.50/month).
+   * Founder Offer / Limited Founder Access: $19.95 / year ($1.66/month).
    *
    * It stays an ARRAY, not a flattened object, so the pricing card, the FAQ cost
    * answer and the structured data all keep reading it the same way. Adding a term
    * back is a data change here, not a component change.
    *
    * `perMonth` is DERIVED and written out so the markup never does arithmetic:
-   * 35 / 12 = 2.92.
+   * 19.95 / 12 = 1.66.
    *
-   * This read $11.99 for part of 2026-09-01 and that was WRONG. The figure came
-   * off a debug build's subscription gate, which is not the production store:
-   * `RevenueCatManager` lets a debuggable build fall back to a hardcoded
-   * `test_`-prefixed key, and a `test_` key runs RevenueCat's Simulated Test
-   * Store against a SEPARATE project with its own catalogue. That sandbox is
-   * also where the three products and the missing trial came from. **Reading a
-   * price off a debug build proves nothing about the Play Console.** `saves` is null because with one term there is nothing to
-   * compare against, and an invented "save 42%" against a term we no longer sell
-   * would be a fabricated discount.
+   * `saves` reflects the Founder Offer saving against standard ($10/yr, ~33%).
    */
   periods: [
     {
       id: "yearly",
       label: "12 months",
       short: "12 mo",
-      price: 35,
+      price: 19.95,
+      standardPrice: 29.95,
       per: "year",
       months: 12,
-      perMonth: "2.92",
-      saves: null as string | null,
+      perMonth: "1.66",
+      standardPerMonth: "2.50",
+      saves: "Save 33%",
       best: true,
     },
   ],
@@ -150,10 +204,39 @@ export const pro = {
    * caveat and the fact that no money changes hands on this site.
    */
   disclosures: [
-    "Prices in USD. Google Play sets the local equivalent.",
+    "Prices in USD. Google Play sets the local currency equivalent upon checkout.",
     "Purchased in the app through Google Play billing. This site takes no payment and collects no card details.",
   ],
 };
+
+export function getLocalizedProUnlocks(lang?: string) {
+  const t = useTranslations(lang);
+  return [
+    {
+      name: t("pricing.unlock_dac_name"),
+      desc: t("pricing.unlock_dac_desc"),
+    },
+    {
+      name: t("pricing.unlock_ai_name"),
+      desc: t("pricing.unlock_ai_desc"),
+    },
+    {
+      name: t("pricing.unlock_eq_name"),
+      desc: t("pricing.unlock_eq_desc"),
+    },
+  ];
+}
+
+export function getLocalizedDisclosures(lang?: string): string[] {
+  const t = useTranslations(lang);
+  return [
+    t("pricing.disclosure_usd"),
+    t("pricing.disclosure_inapp"),
+    t("pricing.disclosure_devices"),
+    t("pricing.disclosure_trial"),
+    t("pricing.disclosure_cancel"),
+  ];
+}
 
 /**
  * Compatibility tiers. The core engine runs on any supported phone; the AI Enhancer
@@ -183,12 +266,36 @@ export const compatibility = [
   {
     id: "ai-enhancer",
     what: "AI Enhancer",
-    scope: "Real-time restoration of 44.1 and 48 kHz material",
-    devices: "Every phone on Android 8.0 or newer",
-    note: "The app checks your phone first and picks the model it can run in real time. A neural chip gets the larger one.",
+    scope: "Real-time 14 to 22 kHz restoration on 44.1 and 48 kHz audio",
+    devices: "Phones with a supported neural chip (Android 8.0+)",
+    note: "Requires hardware neural acceleration for real-time inference. The app checks your chipset at startup and enables the toggle in Settings only when supported.",
     level: "npu",
   },
 ];
+
+export function getLocalizedCompatibility(lang?: string) {
+  const t = useTranslations(lang);
+  return compatibility.map((row) => {
+    const idKey = row.id.replace(/-/g, "_");
+    const whatKey = `features_index.compat_${idKey}_what` as UIKey;
+    const scopeKey = `features_index.compat_${idKey}_scope` as UIKey;
+    const devicesKey = `features_index.compat_${idKey}_devices` as UIKey;
+    const noteKey = `features_index.compat_${idKey}_note` as UIKey;
+
+    const what = t(whatKey);
+    const scope = t(scopeKey);
+    const devices = t(devicesKey);
+    const note = t(noteKey);
+
+    return {
+      ...row,
+      what: what && what !== whatKey ? what : row.what,
+      scope: scope && scope !== scopeKey ? scope : row.scope,
+      devices: devices && devices !== devicesKey ? devices : row.devices,
+      note: note && note !== noteKey ? note : row.note,
+    };
+  });
+}
 
 /*
   `screens` and `formats` used to sit here and were imported by nothing.

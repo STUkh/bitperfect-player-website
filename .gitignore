@@ -19,6 +19,10 @@ DESIGN.md
 .agents/
 
 
+# Local test & audit artifacts
+.lh-reports/
+screenshots/
+
 # design-sync (claude.ai/design): staged converter, build output, machine state
 .ds-sync/
 ds-bundle/

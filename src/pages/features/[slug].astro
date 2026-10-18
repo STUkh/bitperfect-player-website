@@ -1,0 +1,647 @@
+---
+/**
+ * The six feature routes, built on alternating bands.
+ *
+ * Structure, matching design/Feature*.dc.html and DESIGN.md's Layout section:
+ * a header carrying the headline, the lede and a four row summary; the signal
+ * path ledger on the one route that argues about the path; the four beats, each
+ * its own full-width band; the white specification band; the prev and next pair;
+ * and the closing action.
+ *
+ * The beats used to be a sticky phone rail: one device pinned beside four blocks
+ * of prose that crossfaded its screen. It gave the page a single visual event and
+ * then asked the reader to work through four blocks of text beside something that
+ * had stopped moving. Each beat is now its own band, dark with the screen left
+ * then white with the screen right, so the ground colour changes as often as the
+ * argument does. DESIGN.md, "The alternating band (feature routes)", carries the
+ * three rules that keep it from reading as stripes.
+ *
+ * One accent, gold. The routes are told apart by their content, never by hue. The
+ * only other colours on the page are the five signal telemetry states, and only
+ * where the page is reporting a real runtime state of the app.
+ *
+ * Nothing on a feature route pins. The one pinned moment on the site is the home
+ * page's phone showcase.
+ */
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import Container from '../../components/common/Container.astro';
+import Button from '../../components/common/Button.astro';
+import ImageSlot from '../../components/common/ImageSlot.astro';
+import FeatureMark from '../../components/feature/FeatureMark.astro';
+import FeatureScreens from '../../components/feature/FeatureScreens.astro';
+import { indexOrder, getLocalizedFeaturePage } from '../../components/feature/content';
+import { getLocalizedFeatureBySlug } from '../../data/features';
+import { signalStateColors, signalStateKeys, type SignalStateKey } from '../../data/colors';
+import { site } from '../../data/site';
+import { withBase } from '../../utils/nav';
+import { getLocalizedFeatureName } from '../../data/navigation';
+import { useTranslations, type UIKey } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  const order = [...indexOrder];
+  return order.map((slug, index) => ({
+    params: { slug },
+    props: {
+      slug,
+      index,
+      prevSlug: order[(index - 1 + order.length) % order.length],
+      nextSlug: order[(index + 1) % order.length],
+    },
+  }));
+}
+
+interface Props {
+  slug: string;
+  index: number;
+  prevSlug: string;
+  nextSlug: string;
+}
+
+const { slug, prevSlug, nextSlug } = Astro.props as Props;
+const lang = Astro.currentLocale;
+const t = useTranslations(lang);
+
+const page = getLocalizedFeaturePage(slug, lang);
+const feature = getLocalizedFeatureBySlug(slug, lang);
+/* The name on the trail, the h1 and both pagers is the same string the visitor
+   clicked to get here. See `featureRoutes` in src/data/navigation.ts. */
+const name = getLocalizedFeatureName(slug, lang);
+
+
+const getSignalStateLabel = (key: SignalStateKey) => {
+  const i18nKey = `feature_detail.signal_state.${key}` as UIKey;
+  const translated = t(i18nKey);
+  return translated && translated !== i18nKey ? translated : signalStateColors[key].label;
+};
+
+/**
+ * The signal path, drawn to scale.
+ *
+ * Three versions of this block have now failed for the same underlying reason:
+ * they described the loss in words and left the reader to picture it. Two rails
+ * with dots read as a wireframe. The spec ledger that replaced it was honest but
+ * it was ELEVEN ROWS OF 13px MONO, and small dense type is what cheap technical
+ * pages look like however accurate it is.
+ *
+ * What none of them ever did was SHOW the loss, so this one draws it. Every stage
+ * is a bar whose height is the data rate actually surviving at that point, as a
+ * fraction of what came in:
+ *
+ *     192 kHz x 24 bit = 4608 units   1.000   the file
+ *      48 kHz x 24 bit = 1152 units   0.250   after the mixer
+ *      48 kHz x 16 bit =  768 units   0.167   after the HAL
+ *
+ * So Android's row collapses to a quarter of its height at the mixer and to a
+ * sixth at the HAL, in view, to scale, with nothing to read. The heights are
+ * computed from `khz` and `bits` below rather than typed, so they cannot drift
+ * from the numbers the page states.
+ *
+ * Both rows sit on the SAME seven-column grid and our row fills four of them. The
+ * empty three columns are the argument, and they need no label now that the bars
+ * make the row's end obvious.
+ *
+ * Android's 48 kHz / 16-bit ceiling is the claim the page lede already makes.
+ */
+const SIGNAL_PATH = {
+  note: t('feature_detail.signal_path_note'),
+};
+
+const showSignalPath = slug === 'usb-dac';
+
+---
+
+<ContentLayout title={name} description={page.lede}>
+  {/*
+    The hidden states of the reveal system are gated on html.js so a JS
+    failure, a blocked bundle or a crawler still gets a complete page. It has
+    to be set before first paint, so it is blocking and inline rather than part
+    of the page module.
+  */}
+  {/* ── Feature header ──
+      One directional gradient, painted on the section itself. No orbs. */}
+  <section
+    class="ground ground-brushed border-b border-border-subtle overhead-wash pt-[26px] pb-10 lg:pt-11 lg:pb-18"
+  >
+    <Container >
+      <nav class="mb-7 flex items-center gap-2 lg:mb-10" aria-label={t('nav.aria_breadcrumb')}>
+        <a
+          href={withBase('features')}
+          class="focus-visible:focus-ring inline-flex min-h-10 cursor-pointer items-center py-1.5 text-caption text-text-tertiary transition-colors duration-[var(--d-ui)] ease-ui hover:text-text-primary active:text-gold"
+        >
+          {t('feature_detail.breadcrumb')}
+        </a>
+        <FeatureMark name="chevron-right" size={16} class="text-white/35" />
+        <span class="text-caption text-text-primary" aria-current="page">{name}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 items-end gap-8 lg:grid-cols-12 lg:gap-12">
+        <div class="flex flex-col gap-5 lg:col-span-8 lg:gap-[22px]">
+          {/*
+            No mark here, deliberately.
+
+            This header went through three versions: an icon in a tinted rounded
+            square beside a `Fig. 06` label, then the bare mark at 64px. Both were
+            the weakest thing on the page. An icon-per-feature is the defining
+            component of a generated product page, and a line drawing of an
+            equaliser is a SUBSTITUTE for showing one.
+
+            This site does not need the substitute. Forty pixels below this heading
+            is a phone displaying the real 32-band curve, and further down is the
+            spec table. The type and the product carry the page; a glyph competing
+            with them only announced that something decorative was expected here.
+          */}
+
+          <h1
+            class="text-headline-m text-balance text-text-primary lg:text-headline"
+          >
+            {name}
+          </h1>
+
+          <p class="max-w-[56ch] text-lede-m text-pretty text-text-secondary lg:text-lede">
+            {page.lede}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-x-5 lg:col-span-4 lg:grid-cols-1 lg:gap-0 lg:py-1">
+          {
+            page.summary.map((row) => (
+              <div class="flex items-baseline justify-between gap-4 border-t border-border-subtle py-[11px] [&:nth-child(3)]:border-b [&:nth-child(4)]:border-b lg:py-[13px] lg:[&:nth-child(3)]:border-b-0">
+                <span class="text-caption text-text-tertiary">{row.label}</span>
+                <span class="text-small font-semibold tabular-nums text-text-primary">{row.value}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* ── The signal path comparison, on white ivory (usb-dac only) ──
+      Follows the dark Feature Header so the route alternates:
+      Dark (Header) -> Light (Signal Path) -> Dark (Beat 0) -> Light (Beat 1) -> Dark (Beat 2) -> Light (Beat 3) -> Dark (Beat 4).
+      Separated strictly by 1px hairlines (border-band-rule) and whitespace with zero cards or nested boxes. */}
+  {
+    showSignalPath && (
+      <section class="ground ground-grooves bg-band-ivory py-14 lg:py-28">
+        <Container>
+          <div class="max-w-[58ch]">
+            <span class="r-fade mono-spec text-micro font-medium tracking-[1.2px] text-band-gold-ink uppercase lg:tracking-[1.5px]">
+              {t('feature_detail.signal_path_eyebrow')}
+            </span>
+            <h2 class="r-rise mt-3 text-section-m text-balance text-band-ink lg:mt-5 lg:text-headline" style="--i: 1">
+              {t('feature_detail.signal_path_title')}
+            </h2>
+            <p class="r-rise mt-3 text-body tabular-nums text-pretty text-band-ink-muted lg:mt-4 lg:text-lede" style="--i: 2">
+              {t('feature_detail.signal_path_subtitle')}
+            </p>
+          </div>
+
+          <div class="mt-10 flex flex-col gap-10 lg:mt-14 lg:gap-12">
+            {/* ── Path 1: Standard Android System Mixer (7 Stages) ── */}
+            <div class="border-t border-band-rule pt-6 lg:pt-8">
+              <div class="flex flex-wrap items-baseline justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="h-2 w-2 rounded-full bg-band-ink/35" aria-hidden="true" />
+                  <span class="text-label text-band-ink-muted uppercase">{t('feature_detail.signal_path_android')}</span>
+                  <span class="mono-spec text-micro font-semibold tabular-nums text-band-ink-muted uppercase">· 7 {t('feature_detail.signal_path_stages')}</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
+                  <span class="mono-spec text-small font-semibold tabular-nums text-band-ink">48 kHz / 16-bit (-75% data)</span>
+                </div>
+              </div>
+
+              <div class="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-4 lg:grid-cols-7 lg:gap-6">
+                {[
+                  { num: '01', name: t('feature.usb-dac.signal_path.android.stage.0'), note: '192 kHz / 24-bit', altered: false },
+                  { num: '02', name: t('feature.usb-dac.signal_path.android.stage.1'), note: 'System audio track', altered: false },
+                  { num: '03', name: t('feature.usb-dac.signal_path.android.stage.2'), note: 'Forced to 48 kHz', altered: true },
+                  { num: '04', name: t('feature.usb-dac.signal_path.android.stage.3'), note: 'Mixed with OS audio', altered: true },
+                  { num: '05', name: t('feature.usb-dac.signal_path.android.stage.4'), note: 'Digital attenuation', altered: true },
+                  { num: '06', name: t('feature.usb-dac.signal_path.android.stage.5'), note: 'Cut to 16-bit', altered: true },
+                  { num: '07', name: t('feature.usb-dac.signal_path.android.stage.6'), note: '48 kHz / 16-bit', altered: true },
+                ].map((st) => (
+                  <div class="flex flex-col justify-between border-t border-band-rule pt-3 text-left">
+                    <div class="flex items-center justify-between">
+                      <span class="mono-spec text-device-label font-medium uppercase text-band-ink-muted/80">Stage</span>
+                      {st.altered && <span class="h-1.5 w-1.5 rounded-full bg-band-gold-ink" aria-hidden="true" />}
+                    </div>
+                    <div class="mt-2">
+                      <span class="block text-caption font-semibold text-band-ink leading-tight">{st.name}</span>
+                      <span class:list={[
+                        'mono-spec mt-1 block text-device-label tabular-nums leading-tight',
+                        st.altered ? 'text-band-ink-muted line-through' : 'text-band-ink-muted'
+                      ]}>{st.note}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Path 2: Bitperfect Direct USB Pipeline (4 Stages) ── */}
+            <div class="border-t border-band-rule pt-6 lg:pt-8">
+              <div class="flex flex-wrap items-baseline justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="h-2 w-2 rounded-full bg-band-gold-ink" aria-hidden="true" />
+                  <span class="text-label font-bold tracking-wider text-band-gold-ink uppercase">{t('feature_detail.signal_path_ours')}</span>
+                  <span class="mono-spec text-micro font-bold tabular-nums text-band-gold-ink uppercase">· 4 {t('feature_detail.signal_path_stages')}</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
+                  <span class="mono-spec text-small font-bold tabular-nums text-band-gold-ink">192 kHz / 24-bit (100% native)</span>
+                </div>
+              </div>
+
+              <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4 lg:gap-8">
+                {[
+                  { num: '01', name: t('feature.usb-dac.signal_path.ours.stage.0'), note: '192 kHz / 24-bit lossless', highlight: 'Native bitstream' },
+                  { num: '02', name: t('feature.usb-dac.signal_path.ours.stage.1'), note: 'Bypasses system mixer', highlight: 'Exclusive USB lock' },
+                  { num: '03', name: t('feature.usb-dac.signal_path.ours.stage.2'), note: '0 mixers, 0 resamplers', highlight: 'Bit-for-bit unaltered' },
+                  { num: '04', name: t('feature.usb-dac.signal_path.ours.stage.3'), note: 'Native DAC clock lock', highlight: 'Bit-perfect output' },
+                ].map((st) => (
+                  <div class="flex flex-col justify-between border-t border-band-gold-ink/40 pt-3 text-left">
+                    <div class="flex items-center justify-between">
+                      <span class="mono-spec text-device-label font-bold uppercase tracking-wider text-band-gold-ink">Direct</span>
+                      <svg class="h-3.5 w-3.5 text-band-gold-ink" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <div class="mt-2">
+                      <span class="block text-caption font-bold text-band-ink leading-tight">{st.name}</span>
+                      <span class="mono-spec mt-1 block text-device-label tabular-nums text-band-ink-muted leading-tight">{st.note}</span>
+                      <span class="mono-spec mt-1.5 block text-device-label font-semibold tracking-wider text-band-gold-ink uppercase">{st.highlight}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Three counts that are all zero */}
+          <div class="mt-10 grid grid-cols-1 gap-6 border-t border-band-rule pt-8 sm:grid-cols-3 lg:mt-14 lg:gap-12 lg:pt-10">
+            {[
+              { num: '0', label: t('feature_detail.signal_path_resamples'), note: 'Never converted to 48 kHz' },
+              { num: '0', label: t('feature_detail.signal_path_mixers'), note: 'Bypasses the system mixer' },
+              { num: '0', label: t('feature_detail.signal_path_conversions'), note: 'Full dynamic range preserved' },
+            ].map((stat) => (
+              <div>
+                <span class="block text-section-m tabular-nums font-bold text-band-gold-ink lg:text-section">{stat.num}</span>
+                <span class="mono-spec mt-1.5 block text-micro font-semibold tracking-[1.2px] text-band-ink uppercase lg:mt-2">
+                  {stat.label}
+                </span>
+                <span class="mt-1 block text-caption tabular-nums text-band-ink-muted">
+                  {stat.note}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p class="mt-8 max-w-[64ch] text-small text-pretty text-band-ink-muted lg:mt-10">{SIGNAL_PATH.note}</p>
+        </Container>
+      </section>
+    )
+  }
+
+  {/* ── The beats, as alternating bands ──
+      One beat per section, the art side and the ground colour flipping together:
+      dark with the art left, then white with the art right, and on down.
+
+      Three things keep that from reading as stripes, all of them lifted from sites
+      that ship this pattern well. The split is never 50/50 (Linear runs 8/4 of
+      twelve, Stripe 2fr/1fr) because equal columns leave a dead gutter down the
+      middle. The vertical padding differs per band, the white ones running taller.
+      And the LAST beat breaks the alternation entirely and goes full width, because
+      four identical flips is a zigzag and a zigzag is a template.
+
+      The art is the app's own screen for that beat. Every route already has four,
+      and they already map one to one onto the four beats, so the page argues with
+      the product rather than with a placeholder.
+
+      Mobile order is authored, not inherited: the order utilities are scoped to
+      `lg:`, so at 390 the DOM order rules and the screen comes first in EVERY
+      section. `flex-direction: row-reverse` would flip half of them. */}
+  {
+    page.beats.map((beat, i) => {
+      /* Strict alternation across both 4-beat routes and 5-beat usb-dac:
+         - On 4-beat routes (after Dark Header): Beat 0 Light -> Beat 1 Dark -> Beat 2 Light -> Beat 3 Dark.
+         - On 5-beat usb-dac (after Dark Header + Light Signal Path): Beat 0 Dark -> Beat 1 Light -> Beat 2 Dark -> Beat 3 Light -> Beat 4 Dark.
+         Every route ends its final beat on Dark, flowing into the Light Specification band below.
+      */
+      const onWhite = (page.beats.length - 1 - i) % 2 === 1;
+      const artLeft = !onWhite;
+      /* Each beat draws its own ground, cycling within its colour so the two
+         light beats differ and the two dark beats differ. Beats of one colour
+         sit two apart, so the order also counts back from the end: the last
+         dark beat, above the drafting-paper spec band, always gets samples. */
+      const sameColourFromEnd = Math.floor((page.beats.length - 1 - i) / 2);
+      const ground = onWhite
+        ? ['ground-harmonograph', 'ground-halftone'][sameColourFromEnd % 2]
+        : ['ground-samples', 'ground-interference'][sameColourFromEnd % 2];
+      return (
+        <section
+          class:list={[
+            'ground',
+            ground,
+            onWhite ? 'bg-band-ivory' : 'bg-surface-base',
+            onWhite ? 'py-16 lg:py-32' : 'py-14 lg:py-28',
+          ]}
+        >
+          <Container>
+            <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+              {/* The screen (art).
+                  First in the DOM so it leads cleanly on mobile before copy.
+                  Takes 6 columns on desktop, centred in its column. */}
+              <div
+                class:list={[
+                  'flex justify-center lg:col-span-6',
+                  artLeft ? 'lg:order-1' : 'lg:order-2',
+                ]}
+              >
+                <FeatureScreens slug={slug} state={i} />
+              </div>
+
+              {/* The content. Takes 6 columns on desktop. */}
+              <div
+                class:list={[
+                  'flex flex-col gap-3.5 lg:col-span-6 lg:gap-4',
+                  artLeft ? 'lg:order-2 lg:justify-self-end' : 'lg:order-1',
+                ]}
+              >
+                <span
+                  class:list={[
+                    'r-fade mono-spec text-micro font-medium tracking-[1.2px] uppercase lg:tracking-[1.5px]',
+                    onWhite ? 'text-band-gold-ink' : 'text-text-tertiary',
+                  ]}
+                >
+                  {beat.eyebrow}
+                </span>
+
+                <h2
+                  class:list={[
+                    'r-rise text-section-m text-balance lg:text-section',
+                    onWhite ? 'text-band-ink' : 'text-text-primary',
+                  ]}
+                  style="--i: 1"
+                >
+                  {beat.title}
+                </h2>
+
+                <p
+                  class:list={[
+                    'r-rise max-w-[52ch] text-body text-pretty lg:text-body-lg',
+                    onWhite ? 'text-band-ink-muted' : 'text-text-secondary',
+                  ]}
+                  style="--i: 2"
+                >
+                  {beat.body}
+                </p>
+
+                {beat.stats && (
+                  <div
+                    class="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
+                    style="--i: 3"
+                  >
+                    {beat.stats.map((stat) => (
+                      <div
+                        class:list={[
+                          'flex flex-col gap-1 border-t pt-3.5',
+                          onWhite ? 'border-band-rule' : 'border-border-subtle',
+                        ]}
+                      >
+                        <span
+                          class:list={[
+                            'text-label tracking-[1.5px] uppercase',
+                            onWhite ? 'text-band-gold-ink' : 'text-gold',
+                          ]}
+                        >
+                          {stat.label}
+                        </span>
+                        <span
+                          class:list={[
+                            'text-body-lg font-semibold tabular-nums',
+                            onWhite ? 'text-band-ink' : 'text-text-primary',
+                          ]}
+                        >
+                          {stat.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {beat.chips && (
+                  <div class="r-rise mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small tabular-nums" style="--i: 3">
+                    {beat.chips.map((chip, idx) => (
+                      <span
+                        class:list={[
+                          chip.active
+                            ? onWhite
+                              ? 'font-semibold text-band-gold-ink'
+                              : 'font-semibold text-gold'
+                            : onWhite
+                              ? 'text-band-ink-muted'
+                              : 'text-text-secondary',
+                        ]}
+                      >
+                        {chip.label}
+                        {idx < beat.chips!.length - 1 && (
+                          <span class="ml-2 text-text-tertiary/40">·</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {beat.signalStates && (
+                  <div
+                    class:list={[
+                      'r-rise mt-2 flex flex-wrap gap-x-5 gap-y-2.5 border-t pt-4',
+                      onWhite ? 'border-band-rule' : 'border-border-subtle',
+                    ]}
+                    style="--i: 3"
+                  >
+                    {signalStateKeys.map((key) => {
+                      const state = signalStateColors[key];
+                      return (
+                        <span class="inline-flex items-center gap-2 py-1 text-xs font-semibold">
+                          <span class="h-2.5 w-2.5 shrink-0 rounded-full" style={`background-color: ${state.hex};`} aria-hidden="true" />
+                          <span class={onWhite ? 'text-band-ink' : 'text-text-primary'}>{getSignalStateLabel(key)}</span>
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {beat.note && (
+                  <p
+                    class:list={[
+                      'r-rise mt-2 border-t pt-3.5 text-small tabular-nums text-pretty',
+                      onWhite
+                        ? 'border-band-rule text-band-ink-muted'
+                        : 'border-border-subtle text-text-secondary',
+                    ]}
+                    style="--i: 3"
+                  >
+                    {beat.note}
+                  </p>
+                )}
+              </div>
+            </div>
+          </Container>
+        </section>
+      );
+    })
+  }
+
+  {/*
+    The seam between the rail and the white band. Full-bleed, so it is a sibling of
+    the sections and never lives inside one, and it runs dark to light: the plate is
+    itself a dark object, so it performs the transition. Prompt: SECTION-IMAGES.md.
+  */}
+  {!['eq', 'library', 'casting'].includes(slug) ? (
+    <ImageSlot name={`feature-${slug}-interstitial`} variant="band" ratio="5 / 1" ships="2560x512" />
+  ) : (
+    <div class="h-px w-full bg-gradient-to-r from-transparent via-border-subtle to-transparent" />
+  )}
+
+  {/* ── White specification band: the numbers, in full ── */}
+  <section class="ground ground-drafting bg-band-ivory pt-13 pb-14 lg:pt-24 lg:pb-26">
+    <Container>
+      <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-4">
+          <span class="text-eyebrow block text-band-gold-ink">{t('feature_detail.specifications_eyebrow')}</span>
+          <h2 class="mt-4 text-section-sm text-balance text-band-ink lg:mt-5 lg:text-section-lg font-bold">
+            {t('feature_detail.specifications_title')}
+          </h2>
+          <p class="mt-4 max-w-[34ch] text-body text-band-ink-muted lg:mt-5">
+            {t('feature_detail.specifications_subtitle')}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-12 lg:col-span-8 lg:grid-cols-2">
+          {
+            (feature?.specs ?? []).map((spec, i, all) => (
+              <div
+                class:list={[
+                  'flex flex-col gap-1.5 border-t border-band-rule py-4 lg:py-5',
+                  i >= all.length - 2 && 'lg:border-b',
+                  i === all.length - 1 && 'border-b',
+                ]}
+              >
+                <span class="mono-spec text-micro text-band-ink-muted uppercase tracking-wider">{spec.label}</span>
+                <span class="text-body-lg font-semibold tabular-nums text-band-ink">{spec.value}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* ── Prev and next ──
+      Walks indexOrder and wraps at both ends, so the six routes form one ring
+      rather than six pairs that happen to resolve. */}
+  <nav class="bg-surface-base pt-8 pb-10 lg:pt-14 lg:pb-18" aria-label={t('feature_detail.more_features')}>
+    <Container >
+      <div class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
+        <a
+          href={withBase(`features/${prevSlug}`)}
+          class="focus-visible:focus-ring pager pager-prev group flex cursor-pointer flex-col gap-2 rounded-card-sm border border-border-subtle bg-glass-surface px-[22px] py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.09)] hover:border-glass-border-hover hover:bg-white/[0.025] lg:gap-2.5 lg:rounded-card lg:px-[30px] lg:py-[26px]"
+          aria-label={`${t('feature_detail.prev_feature')}: ${getLocalizedFeatureName(prevSlug, lang)}`}
+        >
+          <span class="inline-flex items-center gap-2 text-label tracking-[1.5px] text-text-tertiary uppercase lg:text-micro lg:tracking-[2px]">
+            <FeatureMark name="arrow-left" size={15} />
+            <span>{t('feature_detail.prev')}</span>
+          </span>
+          <span class="text-body-lg font-semibold tracking-[-0.02em] text-text-primary lg:text-title">
+            {getLocalizedFeatureName(prevSlug, lang)}
+          </span>
+        </a>
+
+        <a
+          href={withBase(`features/${nextSlug}`)}
+          class="focus-visible:focus-ring pager pager-next group flex cursor-pointer flex-col gap-2 rounded-card-sm border border-border-subtle bg-glass-surface px-[22px] py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.09)] hover:border-glass-border-hover hover:bg-white/[0.025] lg:items-end lg:gap-2.5 lg:rounded-card lg:px-[30px] lg:py-[26px]"
+          aria-label={`${t('feature_detail.next_feature')}: ${getLocalizedFeatureName(nextSlug, lang)}`}
+        >
+          <span class="inline-flex items-center gap-2 text-label tracking-[1.5px] text-text-tertiary uppercase lg:text-micro lg:tracking-[2px]">
+            <span>{t('feature_detail.next')}</span>
+            <FeatureMark name="arrow-right" size={15} />
+          </span>
+          <span class="text-body-lg font-semibold tracking-[-0.02em] text-text-primary lg:text-title lg:text-right">
+            {getLocalizedFeatureName(nextSlug, lang)}
+          </span>
+        </a>
+    </Container>
+  </nav>
+
+  {/* ── Closing action: white contrast band after the dark pager strip,
+      alternating cleanly into the dark footer ── */}
+  <section
+    class="ground ground-spectrum bg-band-ivory pt-14 pb-16 lg:pt-24 lg:pb-26"
+  >
+    <Container>
+      <div class="flex flex-col items-center text-center">
+        <h2 class="r-rise max-w-[22ch] text-headline-sm-m text-balance text-band-ink lg:text-headline-sm" style="--i: 0">
+          {page.cta.title}
+        </h2>
+        <p class="r-rise mt-4 max-w-[52ch] text-body text-pretty text-band-ink-muted lg:mt-[22px] lg:text-body-lg" style="--i: 1">
+          {page.cta.body}
+        </p>
+        <Button
+          href={site.playUrl}
+          rel="noopener noreferrer"
+          variant="primary"
+          size="lg"
+          class="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
+          style="--i: 2"
+        >
+          <FeatureMark name="play" size={20} />
+          <span>{t('feature_detail.cta_button')}</span>
+        </Button>
+      </div>
+    </Container>
+  </section>
+</ContentLayout>
+
+<style>
+  .pager {
+    transition:
+      background-color var(--d-ui) var(--ease-ui),
+      border-color var(--d-ui) var(--ease-ui),
+      box-shadow var(--d-ui) var(--ease-ui),
+      transform var(--d-ui) var(--ease-ui);
+  }
+  .pager:hover {
+    transform: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.09),
+      0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+  .pager:active {
+    transform: translateY(0);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Each arrow leads in the direction its card goes. */
+  .pager :global(.pager-arrow) {
+    transition: transform var(--d-ui) var(--ease-ui);
+  }
+  .pager-prev:hover :global(.pager-arrow) {
+    transform: translateX(-2px);
+  }
+  .pager-next:hover :global(.pager-arrow) {
+    transform: translateX(2px);
+  }
+
+  /* The Reduced Motion Rule: the border and the ground carry the hover alone. */
+  @media (prefers-reduced-motion: reduce) {
+    .pager:hover,
+    .pager:active,
+    .pager-prev:hover :global(.pager-arrow),
+    .pager-next:hover :global(.pager-arrow) {
+      transform: none;
+    }
+  }
+</style>

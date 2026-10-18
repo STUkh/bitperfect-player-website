@@ -2,16 +2,18 @@
 interface Props {
   title: string;
   description: string;
+  noindex?: boolean;
+  padTop?: boolean;
 }
 
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false, padTop = true } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} noindex={noindex}>
   <Fragment slot="head">
     {/*
       The reveal CSS hides on `html.js` so a no-JS visitor is never left on a
@@ -35,7 +37,7 @@ const { title, description } = Astro.props;
     `lg`. Pages keep their own top padding on top of this, which is now the
     optical gap they actually asked for.
   */}
-  <main id="main-content" class="relative pt-[65px] lg:pt-[81px]">
+  <main id="main-content" class:list={['relative', padTop && 'pt-[65px] lg:pt-[81px]']}>
     <slot />
   </main>
   <Footer />

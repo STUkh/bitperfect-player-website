@@ -36,6 +36,7 @@
  */
 import Container from './common/Container.astro';
 import Logo from './common/Logo.astro';
+import Icon from './Icon.astro';
 import { site } from '../data/site';
 import { withBase } from '../utils/nav';
 
@@ -114,6 +115,16 @@ const { eyebrow, headline, lede } = Astro.props;
             <span>Get it on Google Play</span>
           </a>
 
+          <a
+            href="https://t.me/bitperfect_player"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="focus-visible:focus-ring inline-flex h-[52px] cursor-pointer items-center justify-center gap-2.5 rounded-full border border-gold/40 bg-gold/10 px-6 text-body-sm font-semibold text-gold transition-colors hover:border-gold hover:bg-gold/20 lg:h-[54px]"
+          >
+            <Icon name="telegram" size={20} />
+            <span>@bitperfect_player</span>
+          </a>
+
           {/*
             The two documents that are still live, stated as the two documents they
             are. `nav` rather than a pair of loose links: on a page with no header
@@ -135,6 +146,22 @@ const { eyebrow, headline, lede } = Astro.props;
         <p class="text-caption text-text-tertiary">
           &copy; {new Date().getFullYear()} {site.name}
         </p>
+        <div class="flex items-center gap-2.5" aria-label="Official channels">
+          {
+            site.socials.map((social) => (
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${site.name} on ${social.label} (${social.handle})`}
+                class="social-link inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
+                title={`${social.label}: ${social.handle}`}
+              >
+                <Icon name={social.id} size={15} />
+              </a>
+            ))
+          }
+        </div>
         <a class="foot-link focus-visible:focus-ring" href={`mailto:${site.contactEmail}`}>
           {site.contactEmail}
         </a>
@@ -512,5 +539,21 @@ const { eyebrow, headline, lede } = Astro.props;
   }
   .foot-link:active {
     color: var(--color-gold);
+  }
+
+  .social-link {
+    transition:
+      color var(--d-ui) var(--ease-ui),
+      border-color var(--d-ui) var(--ease-ui),
+      background-color var(--d-ui) var(--ease-ui),
+      transform var(--d-ui) var(--ease-ui);
+  }
+  .social-link:hover {
+    transform: translateY(-1px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .social-link:hover {
+      transform: none;
+    }
   }
 </style>

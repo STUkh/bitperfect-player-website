@@ -1,101 +1,164 @@
 import { pro, site } from "./site";
+import { useTranslations, type UIKey } from "../i18n/utils";
 
-/**
- * The questions this site is actually asked.
- *
- * This file was unreachable and was very nearly deleted with the other eighteen
- * dead modules. It earned a different decision for two reasons.
- *
- * The first is that four of its entries are content that exists nowhere else:
- * what leaves the phone, what is in the DSP rack, what the subscription costs and
- * whether the AI works offline. Deleting those would have meant rewriting them
- * later from memory.
- *
- * The second is that it was not inert. Its cost answer still said "$2 per month,
- * $9 for six months, or $12 per year" against a shipping price of $15 / $25 / $35,
- * and it linked to a `#compatibility` section that no longer exists. An unrendered
- * file with wrong prices in it is not an archive, it is a landmine waiting for
- * whoever renders it next.
- *
- * So it is now LIVE and it is the single source: the features index renders every
- * entry, and the cost answer is BUILT from `pro.periods` rather than typed, so it
- * cannot drift from the pricing card again. The answers are cut to the house voice
- * the rest of the redesign uses — no em-dash, ranges use "to", and no claim that
- * anything is free.
- */
 export interface FAQItem {
+  id: string;
+  category: string;
   q: string;
   a: string;
+  guideUrl?: string;
+  highlights?: string[];
 }
 
-/**
- * Built from `pro.periods`, never typed, so the answer cannot drift from the
- * pricing card. The array holds ONE term now (the app sells the annual package
- * alone), and the sort and join are kept rather than flattened so that restoring
- * a second term needs no edit here.
- */
-const terms = [...pro.periods]
-  .sort((a, b) => a.months - b.months)
-  .map((p) => `$${p.price} for ${p.label}`)
-  .join(", ");
-
-/**
- * The trial, stated for NEW customers only: eligibility is the store's decision,
- * roughly one per store account, so this answer must not promise it to the person
- * reading. Silences itself when `pro.trialDays` is null.
- */
-const trialSentence = pro.trialDays
-  ? `, with the first ${pro.trialDays} days free for new customers.`
-  : ".";
-
-/**
- * `What does the app send over the internet?` is written against
- * `src/PRIVACY_POLICY.md`, not from memory. It said THREE optional calls; the
- * policy discloses four flows, and two of the three it did name (crash reporting
- * §2.1, artwork lookup §2.6) are ON BY DEFAULT rather than opt-in, while the
- * fourth, the entitlement check of §2.9, is not optional at all in a
- * subscription-only app. When that section of the policy changes, this answer
- * changes with it.
- */
-export const faqItems: FAQItem[] = [
+export const allFaqItems: FAQItem[] = [
   {
-    q: "What does bit-perfect actually mean here?",
-    a: "The samples reaching your DAC are numerically identical to the ones in the file. Where direct hardware access is not achievable, the app shows the real state instead of claiming otherwise.",
+    "id": "what-is-bit-perfect",
+    "category": "engine",
+    "q": "What does bit-perfect actually mean here?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Audio samples reaching your DAC match the source file bit-for-bit. Standard Android resamples audio to 48 kHz via AudioFlinger; our user-space USB driver bypasses the OS mixer completely."
   },
   {
-    q: "Do I need an external DAC?",
-    a: "No. The phone's own output works too, but it goes through the system mixer, so the bit-perfect badge is reserved for direct USB output to an external DAC.",
+    "id": "direct-hardware-bypass",
+    "category": "engine",
+    "q": "How does direct hardware bypass work without root?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>An in-house user-space USB Audio Class (UAC1/UAC2) driver communicates directly via the Android USB Host API. It needs no root access and isolates music from system notification sounds."
   },
   {
-    q: "What audio formats does it play?",
-    a: "Fifteen. FLAC, ALAC, WAV, AIFF and DSD (DSF and DFF, via DoP or native), plus DSD disc images, Monkey's Audio, WavPack, True Audio, TAK, Musepack, Opus, Ogg Vorbis, MP3 and AAC. If you have an archive full of the formats other players refuse, it will most likely open it.",
+    "id": "bitperfect-lock",
+    "category": "engine",
+    "q": "What is Bitperfect Lock and why is it essential?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Bitperfect Lock is a one-touch switch that disables all software EQ, DSP plugins, and volume sliders. Volume control delegates strictly to your external DAC hardware attenuator."
   },
   {
-    q: "Can I turn off the AI processing?",
-    a: "Yes, and it is off by default. Turning it on moves the badge to Enhanced rather than Bit-perfect, because the samples have changed.",
+    "id": "dyadic-lossless-volume",
+    "category": "engine",
+    "q": "How does 64-bit Dyadic Lossless Volume Control work?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Standard digital volume multiplies samples by fractions, truncating low bits. Dyadic volume scales by exact powers of two, giving 85 lossless steps at 16-bit and 25 steps at 24-bit."
   },
   {
-    q: "Will it work on my phone?",
-    a: `Android ${site.minAndroid} and newer. Every feature runs on any phone that meets that, except the AI Enhancer, which needs a phone with a neural chip. The app checks for one before offering it.`,
+    "id": "native-dsd-and-dop",
+    "category": "engine",
+    "q": "Does Bitperfect Player support Native DSD and DoP?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes. It streams 1-bit DSD audio (DSF, DFF, and SACD ISO) via Native DSD and DoP from DSD64 to DSD512, plus real-time PCM-to-DSD conversion."
   },
   {
-    q: "What does the app send over the internet?",
-    a: "Crash diagnostics, artwork, lyrics and headphone-profile lookups, store-backed subscription and integrity checks, protected model downloads, and connections to network sources, streams, plugins or cast targets you choose. The app does not upload your library database, listening history or audio to Bitperfect-operated servers, and it has no ads or listening-profile analytics.",
+    "id": "need-external-dac",
+    "category": "hardware",
+    "q": "Do I need an external DAC?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>No. The phone's built-in 3.5mm jack or internal speaker works too. However, Android routes internal audio through the system mixer, so the Bit-perfect status badge is reserved for direct USB output to an external DAC or dedicated DAP hardware output."
   },
   {
-    q: "What is in the DSP rack?",
-    a: "A 32-band parametric EQ with seven filter types, headphone crossfeed in three strengths, ReplayGain read from your file tags, and a true-peak limiter at a -0.6 dBTP ceiling. The whole rack switches off for bit-perfect output.",
+    "id": "usb-dac-setup-guide",
+    "category": "hardware",
+    "q": "How do I set up and configure an external USB DAC?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Connect your USB DAC with an OTG cable. When Android prompts to allow Bitperfect Player to access the USB device, tap \"Always allow\" to activate the Bit-perfect status indicator."
   },
   {
-    q: "What does it cost?",
-    a: `${terms}${trialSentence} One subscription covers the whole app, there is no higher tier, and nothing is switched off to sell you one. Billed through Google Play and cancellable there at any time.`,
+    "id": "usb-permission-dialog",
+    "category": "hardware",
+    "q": "Why does Android ask for USB permission every time?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Android requires user permission before an app can claim direct USB hardware access. Check \"Always use for this device\" in the prompt so future connections start automatically."
   },
   {
-    q: "How many devices does the subscription cover?",
-    a: "Up to five concurrently registered devices by default. If you need more, optional capacity packs in the app raise the limit in steps of five, up to twenty devices.",
+    "id": "dap-support",
+    "category": "hardware",
+    "q": "Can I run Bitperfect Player on dedicated Digital Audio Players (DAPs)?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes. Dedicated hardware drivers support Android DAPs from FiiO, iBasso, HiBy, Astell&Kern, Shanling, and Cayin, including dual-DAC chips, balanced 4.4mm outputs, and hardware gain switches."
   },
   {
-    q: "Do the AI features work offline?",
-    a: "After the initial model download, AI processing runs on the phone. The first download and periodic subscription verification require a network connection.",
+    "id": "why-npu-ai-enhancer-not-working",
+    "category": "ai",
+    "q": "Why is AI Enhancer not working or disabled on my device?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>AI Enhancer requires a dedicated hardware NPU for real-time overtone restoration. It disables if your phone lacks an NPU, uses a brand-new chipset awaiting optimization, or has OEM firmware blocks (such as Motorola).",
+    "guideUrl": "/faq/why-npu-ai-enhancer-not-working"
   },
+  {
+    "id": "can-i-disable-ai",
+    "category": "ai",
+    "q": "Can I turn off the AI processing?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes, and it is off by default. Bitperfect Player outputs bit-perfect audio by default. When AI Enhancer is turned on, the signal status indicator updates from Bit-perfect to Enhanced because the audio samples have been reconstructed."
+  },
+  {
+    "id": "ai-offline-operation",
+    "category": "ai",
+    "q": "Do the AI features work offline without internet?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes. After a one-time 25 to 45 MB model download, all neural inference runs 100% locally on your NPU. Your audio files and listening data never leave your device."
+  },
+  {
+    "id": "ai-features-breakdown",
+    "category": "ai",
+    "q": "What is the difference between AI Enhancer, AI Karaoke, and AI Sonic Scan?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>AI Enhancer restores high-frequency harmonics on the NPU. AI Karaoke separates vocals and instruments in real time. AI Sonic Scan runs on the CPU to cluster tracks by acoustic similarity."
+  },
+  {
+    "id": "supported-audio-formats",
+    "category": "dsp",
+    "q": "What audio formats does Bitperfect Player play?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>It decodes FLAC, ALAC, WAV, AIFF, DSD (DSF, DFF, SACD ISO), DCA (lossless multichannel audio), Dolby AC-3 / E-AC-3, APE, WavPack, TTA, TAK, Musepack, Opus, Ogg Vorbis, MP3, and AAC."
+  },
+  {
+    "id": "equalizer-modes",
+    "category": "dsp",
+    "q": "What equalizer modes and tone tools are available?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Four modes: 1) Studio Target Curve; 2) 10-band Graphic EQ; 3) 32-band Parametric EQ with 7 biquad shapes and Q from 0.10 to 10.0; 4) AutoEQ with 4,000+ headphone profiles."
+  },
+  {
+    "id": "harmonic-tuning-explained",
+    "category": "dsp",
+    "q": "What is Harmonic Tuning and how does it affect sound?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Harmonic Tuning models analog vacuum tubes (300B, KT88, EL34, 12AX7), adding subtle 2nd and 4th order harmonics with soft-knee saturation for natural warmth on solid-state DACs."
+  },
+  {
+    "id": "crossfeed-acoustics",
+    "category": "dsp",
+    "q": "What is Crossfeed and when should I turn it on?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Headphones isolate hard-panned stereo channels into separate ears, causing fatigue. Crossfeed blends delayed, frequency-shaped signals across channels using Meier, Chu Moy, or BS2B models for a natural speaker stage."
+  },
+  {
+    "id": "battery-drain-dac",
+    "category": "battery",
+    "q": "How much battery does an external USB DAC consume?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>USB DAC dongles draw 100 to 500 mA from your phone USB-C port. To save battery, use sensitive IEMs on the go, a powered OTG splitter for planar headphones, and Full RAM Playback."
+  },
+  {
+    "id": "full-ram-playback",
+    "category": "battery",
+    "q": "What is Full RAM Playback and how does it help?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Full RAM Playback loads the entire audio track into system RAM before play begins. This stops flash and microSD storage reads, eliminating bus latency and RF read noise."
+  },
+  {
+    "id": "background-killing-prevention",
+    "category": "battery",
+    "q": "Why did playback stop in the background, and how do I fix it?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>OEM battery savers (Samsung, Xiaomi, OnePlus) can stop background audio. Set Bitperfect Player to \"Unrestricted\" in Android Settings &gt; Apps &gt; Battery, and lock the app in recent tasks."
+  },
+  {
+    "id": "cost-and-plans",
+    "category": "license",
+    "q": "What does Bitperfect Player cost?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>$19.95 per year under the Limited Founder Offer active until May 31, 2027, locked in forever upon renewal until cancelled, with the first 14 days free for new customers. After May 31, 2027, or if a subscription is cancelled, the standard rate is $29.95 per year. One subscription covers the complete application; there are no hidden tiers, no ads, and nothing is switched off to sell you an upgrade. Billed securely through Google Play and cancellable at any time in your Google account settings."
+  },
+  {
+    "id": "device-allowance",
+    "category": "license",
+    "q": "How many devices does a subscription cover?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>One subscription covers five concurrently active devices (phones, tablets, or DAPs) linked to your Google Play account. If you manage extensive listening setups, device capacity packs can be purchased in the app in increments of five, up to twenty devices."
+  },
+  {
+    "id": "privacy-and-network-transfers",
+    "category": "license",
+    "q": "What does the app send over the internet?",
+    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Only essential service requests: crash logs, artwork/lyrics lookups, AutoEQ profile fetches, Google Play license checks, and one-time NPU model weights. Audio files and history never leave your phone; zero ad or analytics SDKs."
+  }
 ];
+
+export const faqItems = allFaqItems;
+
+export function getFaqByCategory(category: string): FAQItem[] {
+  if (category === 'all') return allFaqItems;
+  return allFaqItems.filter(item => item.category === category);
+}
+
+export function getFaqById(id: string): FAQItem | undefined {
+  return allFaqItems.find(item => item.id === id);
+}

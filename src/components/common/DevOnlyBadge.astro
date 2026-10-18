@@ -1,0 +1,31 @@
+---
+/**
+ * Discrete, elegant floating top badge for dev-only pages.
+ * Displays only when running in development mode (`import.meta.env.DEV`)
+ * and the page is registered as devOnly or forces the badge.
+ */
+interface Props {
+  force?: boolean;
+}
+
+import { isDevOnlyRoute } from '../../config/dev-pages';
+
+const { force = false } = Astro.props;
+const pathname = Astro.url.pathname;
+const isDev = import.meta.env.DEV;
+const isVisible = isDev && (force || isDevOnlyRoute(pathname));
+---
+
+{isVisible && (
+  <aside
+    id="dev-only-badge"
+    role="status"
+    aria-label="Development page notice"
+    class="fixed top-3 left-1/2 -translate-x-1/2 z-[100] pointer-events-auto flex items-center gap-2 rounded-full border border-amber-500/40 bg-[#161616]/92 px-3.5 py-1 text-xs font-medium text-amber-300 shadow-[0_4px_20px_rgba(0,0,0,0.45)] backdrop-blur-md transition-colors hover:border-amber-400 hover:text-amber-200"
+  >
+    <span class="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true"></span>
+    <span class="font-semibold tracking-wider uppercase text-device-label text-amber-300">DEV ONLY</span>
+    <span class="text-white/30 text-device-label" aria-hidden="true">·</span>
+    <span class="text-white/70 text-device-label font-normal">Will not be published in production build</span>
+  </aside>
+)}
