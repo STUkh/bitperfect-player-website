@@ -1,0 +1,98 @@
+{
+  "projectId": "f66ddeb0-9078-4f89-b40d-798889761fff",
+  "shape": "package",
+  "pkg": "@bitperfect/website-ds",
+  "globalName": "BitperfectPlayer",
+  "buildCmd": "node .design-sync/sync.mjs",
+  "cssEntry": "dist/site.css",
+  "guidelinesGlob": [
+    "../../DESIGN.md"
+  ],
+  "readmeHeader": ".design-sync/conventions.md",
+  "libOverrides": {
+    "css.mjs": "copies the site images into assets/ beside styles.css for the React ports"
+  },
+  "overrides": {
+    "Header": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "Footer": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "PageHeader": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "ClosingBanner": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "LegalDocument": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "StatementBand": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "FeaturesTeaser": {
+      "cardMode": "column",
+      "viewport": "1280x1200"
+    },
+    "PrivacyBand": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "PricingSection": {
+      "cardMode": "column",
+      "viewport": "1280x1400"
+    },
+    "CTASection": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "HeroSection": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "PhoneShowcase": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "TechnicalCatalog": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "ImageSlot": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "PhoneFrame": {
+      "cardMode": "column"
+    },
+    "PhoneScreen": {
+      "cardMode": "column"
+    },
+    "PhoneTrio": {
+      "cardMode": "column"
+    },
+    "FeatureScreens": {
+      "cardMode": "column"
+    },
+    "Icon": {
+      "cardMode": "column"
+    },
+    "FeatureArt": {
+      "cardMode": "column"
+    },
+    "MobileMenu": {
+      "cardMode": "column",
+      "viewport": "440x900"
+    }
+  },
+  "provider": {
+    "component": "Surface"
+  }
+}
