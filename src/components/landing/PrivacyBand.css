@@ -1,0 +1,18 @@
+/* The band's only link. Gold as ink on this ivory measures 1.06:1 and vanishes
+   (DESIGN.md, and the same reason CTASection sets its accent in `band-gold-ink`),
+   so the rest state is muted ink and the gold arrives on hover, which is the
+   treatment ImageSlot already uses on this ground. */
+.privacy-band-link {
+  color: var(--color-band-ink-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-radius: var(--radius-sm);
+  transition: color var(--d-ui) var(--ease-ui);
+}
+.privacy-band-link:hover {
+  color: var(--color-band-gold-ink);
+}
+.privacy-band-link:active {
+  color: var(--color-band-ink);
+}

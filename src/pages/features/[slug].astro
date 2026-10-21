@@ -26,8 +26,8 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import Button from '../../components/common/Button';
-import ImageSlot from '../../components/common/ImageSlot.astro';
-import FeatureMark from '../../components/feature/FeatureMark.astro';
+import ImageSlot from '../../components/common/ImageSlot';
+import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens.astro';
 import { indexOrder, getLocalizedFeaturePage } from '../../components/feature/content';
 import { getLocalizedFeatureBySlug } from '../../data/features';
@@ -130,7 +130,7 @@ const showSignalPath = slug === 'usb-dac';
         >
           {t('feature_detail.breadcrumb')}
         </a>
-        <FeatureMark name="chevron-right" size={16} class="text-white/35" />
+        <FeatureMark name="chevron-right" size={16} className="text-white/35" />
         <span class="text-caption text-text-primary" aria-current="page">{name}</span>
       </nav>
 
