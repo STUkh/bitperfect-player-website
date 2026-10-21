@@ -1,0 +1,4 @@
+.catalog-filter-btn.active-filter {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
