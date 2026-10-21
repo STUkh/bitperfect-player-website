@@ -1,0 +1,42 @@
+#mobile-menu:target {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.mobile-nav-link {
+  position: relative;
+  transition: color var(--d-ui) var(--ease-ui);
+}
+
+/* A hairline grows in under the hovered link, the same gesture the desktop
+   nav uses. The active link keeps its own fixed 36px rule below. */
+.mobile-nav-link:not(.mobile-nav-link-active)::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 36px;
+  height: 2px;
+  background: var(--color-gold);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--d-ui) var(--ease-ui);
+}
+.mobile-nav-link:not(.mobile-nav-link-active):hover::after,
+.mobile-nav-link:not(.mobile-nav-link-active):focus-visible::after {
+  transform: scaleX(1);
+}
+.mobile-nav-link-active {
+  color: var(--color-text-primary);
+}
+.mobile-nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 36px;
+  height: 2px;
+  background: var(--color-gold);
+  border-radius: 1px;
+}

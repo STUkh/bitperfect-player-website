@@ -1,7 +1,7 @@
 ---
 import Container from './Container';
 import Logo from './Logo';
-import StoreBadges from './StoreBadges.astro';
+import StoreBadges from './StoreBadges';
 import Icon from '../Icon';
 import { footerLinks } from '../../data/navigation';
 import { site } from '../../data/site';
@@ -81,7 +81,7 @@ const footerCols = [
           <p class="mb-6 max-w-sm text-sm leading-relaxed text-pretty text-text-secondary">
             {t('footer.tagline')}
           </p>
-          <StoreBadges variant="dark" class="flex-row flex-wrap" />
+          <StoreBadges variant="dark" className="flex-row flex-wrap" />
         </div>
 
         {/*

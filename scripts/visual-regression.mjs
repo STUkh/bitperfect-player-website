@@ -7,6 +7,7 @@
 //
 // Pages render with JavaScript OFF: the site gates its reveal motion on `html.js`,
 // so the no-JS render is the finished static state and identical run to run.
+// A short list of JS scenarios (SCENARIOS below) then covers the client scripts.
 //
 // The home page is parked (it renders HoldingPage), so the real landing sections
 // live in the unrouted `src/pages/_index.astro`. For the length of the build this
@@ -16,7 +17,7 @@ import { chromium } from 'playwright-core';
 import { execFileSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { extname, join, relative, resolve } from 'node:path';
+import { dirname, extname, join, relative, resolve } from 'node:path';
 
 const root = resolve(new URL('..', import.meta.url).pathname);
 const vr = resolve(root, '.vr');
@@ -37,6 +38,36 @@ if (!process.argv.includes('--no-build')) {
   } finally {
     rmSync(shim, { force: true });
   }
+}
+
+// Components are React but must never ship it: nothing hydrates. A client script
+// that imports anything touching `react` bundles the runtime onto the page (React
+// is not tree-shakeable), so fail on any script a page loads that carries it.
+// Astro still emits an unreferenced `client.*.js` renderer chunk; only what a
+// page actually references counts.
+const reactLeaks = new Set();
+(function scan(dir) {
+  for (const f of readdirSync(dir)) {
+    const p = join(dir, f);
+    if (statSync(p).isDirectory()) { if (f !== '_astro') scan(p); continue; }
+    if (!f.endsWith('.html')) continue;
+    for (const [, src] of readFileSync(p, 'utf8').matchAll(/<script[^>]*\bsrc="\/?([^"]+)"/g)) {
+      const js = resolve(outDir, src);
+      const seen = new Set();
+      const walk = (file) => {
+        if (seen.has(file) || !existsSync(file)) return;
+        seen.add(file);
+        const code = readFileSync(file, 'utf8');
+        if (/react(-dom)?\.production/.test(code)) reactLeaks.add(`${relative(outDir, p)} -> ${relative(outDir, file)}`);
+        for (const [, imp] of code.matchAll(/(?:import|from)\s*["'](\.{1,2}\/[^"']+)["']/g)) walk(resolve(dirname(file), imp));
+      };
+      walk(js);
+    }
+  }
+})(outDir);
+if (reactLeaks.size) {
+  console.error(`React reached the browser:\n  ${[...reactLeaks].join('\n  ')}`);
+  process.exit(1);
 }
 
 const routes = [];
@@ -98,12 +129,47 @@ for (const w of WIDTHS) {
   await ctx.close();
 }
 
+// The page captures run with JS off, so they cannot see behaviour. Each scenario
+// drives one client script with JS ON and captures the state it produces: a
+// script that stops running or targets the wrong node shows up as a diff here.
+const settle = (pg, ms = 1200) => pg.waitForTimeout(ms);
+const SCENARIOS = [
+  { name: 'js__menu-open', route: '/features/', w: 390, run: async (pg) => { await pg.click('#mobile-menu-toggle'); await settle(pg, 600); } },
+  { name: 'js__catalog-filter', route: '/features/catalog/', w: 1280, fullPage: true, run: async (pg) => { await pg.locator('.catalog-filter-btn').nth(2).click(); await settle(pg, 400); } },
+  { name: 'js__legal-toc', route: '/privacy/', w: 1280, run: async (pg) => { await pg.locator('.md-content h2[id]').nth(3).scrollIntoViewIfNeeded(); await pg.mouse.wheel(0, 200); await settle(pg); } },
+  { name: 'js__legal-toc', route: '/privacy/', w: 390, run: async () => {} },
+  { name: 'js__showcase', route: '/vr-home/', w: 1280, run: async (pg) => {
+    const top = await pg.evaluate(() => document.querySelector('[data-showcase]').getBoundingClientRect().top + scrollY);
+    await pg.evaluate((y) => scrollTo(0, y + innerHeight * 0.8), top);
+    // The smoothing loop snaps to its exact target when it stops, so wait for the
+    // transforms to stop changing rather than for a fixed time: headless rAF is
+    // slow enough that 2s sometimes caught it a frame short.
+    await pg.waitForFunction(() => new Promise((ok) => {
+      const read = () => [...document.querySelectorAll('[data-phone]')].map((p) => p.style.transform + p.style.opacity).join();
+      const a = read();
+      setTimeout(() => ok(read() === a), 500);
+    }), null, { timeout: 10000, polling: 100 });
+  } },
+].filter((s) => !only || only.includes(s.route));
+for (const s of SCENARIOS) {
+  const ctx = await browser.newContext({ viewport: { width: s.w, height: 900 }, deviceScaleFactor: 1 });
+  const pg = await ctx.newPage();
+  await pg.goto(origin + s.route, { waitUntil: 'networkidle' });
+  await pg.evaluate(() => document.fonts.ready);
+  await s.run(pg);
+  await pg.screenshot({ path: resolve(shotDir, `${s.name}.${s.w}.png`), fullPage: !!s.fullPage, animations: 'disabled' });
+  await ctx.close();
+}
+
 const report = [];
 if (mode === 'compare') {
   // Pixel diff in the browser: two canvases, one pass, and a red-on-grey diff image.
   const pg = await (await browser.newContext()).newPage();
-  for (const route of pages) for (const w of WIDTHS) {
-    const name = slug(route, w);
+  const captures = [
+    ...pages.flatMap((route) => WIDTHS.map((w) => ({ route, w, name: slug(route, w) }))),
+    ...SCENARIOS.map((s) => ({ route: `${s.route} ${s.name}`, w: s.w, name: `${s.name}.${s.w}.png` })),
+  ];
+  for (const { route, w, name } of captures) {
     const basePath = resolve(vr, 'baseline', name);
     if (!existsSync(basePath)) { report.push({ route, w, status: 'NEW' }); continue; }
     const r = await pg.evaluate(async ([a, b]) => {
@@ -135,7 +201,7 @@ await browser.close();
 server.close();
 
 if (mode === 'baseline') {
-  console.log(`baseline: ${pages.length} pages x ${WIDTHS.length} widths -> ${relative(root, shotDir)}/`);
+  console.log(`baseline: ${pages.length} pages x ${WIDTHS.length} widths + ${SCENARIOS.length} JS scenarios -> ${relative(root, shotDir)}/`);
 } else {
   writeFileSync(resolve(vr, 'report.json'), JSON.stringify(report, null, 2));
   const failing = report.filter((r) => r.status !== 'OK');
