@@ -13,7 +13,7 @@
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
-import FeatureArt from '../../components/feature/FeatureArt.astro';
+import FeatureArt from '../../components/feature/FeatureArt';
 import { indexOrder } from '../../components/feature/content';
 import { site, compatibility } from '../../data/site';
 import { faqItems } from '../../data/faq';
@@ -146,7 +146,7 @@ const order = [...indexOrder];
                     the drawing meets the type without a seam. Hung on the card it
                     covered the upper 62% of the whole thing and washed the art out. */}
                 <div class="art-clip relative">
-                  <FeatureArt slug={slug} class="art w-full" />
+                  <FeatureArt slug={slug} className="art w-full" />
                   {/* Two axes, not one. A bottom-only fade leaves the left and
                       right edges hard, and hard edges are exactly where six
                       different drawings fail to agree with each other. Linear
