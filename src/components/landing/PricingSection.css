@@ -1,0 +1,18 @@
+/* The card's fine print is `text-text-tertiary`; the two document links sit in
+   the same run of text, so they take the underline rather than a second colour.
+   Gold arrives on hover, which is the treatment every quiet link on the dark
+   ground uses. */
+.pricing-legal-link {
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-radius: var(--radius-sm);
+  transition: color var(--d-ui) var(--ease-ui);
+}
+.pricing-legal-link:hover {
+  color: var(--color-gold);
+}
+.pricing-legal-link:active {
+  color: var(--color-gold-deep);
+}

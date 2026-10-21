@@ -1,0 +1,51 @@
+/* Interaction feedback runs on the UI curve. The row answers with its top
+   hairline lifting to the hover border value, its mark and its paragraph
+   coming up to full ink: three real changes, no second hue. */
+.features-teaser-row,
+.features-teaser-all {
+  transition:
+    color var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui);
+}
+
+/*
+  The arrow rules below NEVER APPLIED on the Astro site, and are held off here so
+  the move to React changes nothing. They were Astro-scoped
+  (`.feature-row-arrow[data-astro-cid-…]`), and the arrows are drawn by
+  `FeatureMark`, a separate component whose `<svg>` never carried this band's
+  scope attribute, so neither the row arrow's gold-and-3px answer nor the
+  `All features` arrow's 2px nudge ever reached the page. Enabling them is a
+  visual change, to be made on purpose: delete this comment's fences.
+
+.features-teaser-row-arrow {
+  transition:
+    color var(--d-ui) var(--ease-ui),
+    transform var(--d-ui) var(--ease-ui);
+}
+.features-teaser-row:hover .features-teaser-row-arrow {
+  color: var(--color-gold);
+  transform: translateX(3px);
+}
+.features-teaser-row:active .features-teaser-row-arrow {
+  transform: translateX(1px);
+}
+
+.features-teaser-all-arrow {
+  transition: transform var(--d-ui) var(--ease-ui);
+}
+.features-teaser-all:hover .features-teaser-all-arrow {
+  transform: translateX(2px);
+}
+.features-teaser-all:active .features-teaser-all-arrow {
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .features-teaser-all:hover .features-teaser-all-arrow,
+  .features-teaser-all:active .features-teaser-all-arrow,
+  .features-teaser-row:hover .features-teaser-row-arrow,
+  .features-teaser-row:active .features-teaser-row-arrow {
+    transform: none;
+  }
+}
+*/
