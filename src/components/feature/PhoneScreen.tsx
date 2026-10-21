@@ -1,4 +1,8 @@
----
+import { clsx as cx } from 'clsx';
+import { screens } from '../../data/screens';
+import { withBase } from '../../utils/nav';
+import type { ClassProps } from '../class-props';
+
 /**
  * One app screen inside a device frame.
  *
@@ -18,23 +22,19 @@
  * home page alone carries three of these inside a scroll-driven section, and
  * they must not compete with the hero for the first megabyte.
  */
-import { screens } from '../../data/screens';
-import { withBase } from '../../utils/nav';
 
-interface Props {
+export interface PhoneScreenProps extends ClassProps {
   /** A key from `src/data/screens.ts`. */
   name: string;
   alt?: string;
   priority?: boolean;
-  class?: string;
 }
 
-const { name, alt = '', priority = false, class: className } = Astro.props;
-const known = screens.has(name);
----
+export default function PhoneScreen({ name, alt = '', priority = false, className }: PhoneScreenProps) {
+  const known = screens.has(name);
+  if (!known) return null;
 
-{
-  known && (
+  return (
     <img
       src={withBase(`screens/${name}.webp`)}
       alt={alt}
@@ -42,8 +42,8 @@ const known = screens.has(name);
       height="1236"
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
-      fetchpriority={priority ? 'high' : undefined}
-      class:list={['h-full w-full object-cover object-top', className]}
+      fetchPriority={priority ? 'high' : undefined}
+      className={cx(['h-full w-full object-cover object-top', className])}
     />
-  )
+  );
 }

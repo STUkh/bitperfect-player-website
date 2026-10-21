@@ -1,6 +1,6 @@
----
-import PhoneFrame from './PhoneFrame.astro';
-import PhoneScreen from './PhoneScreen.astro';
+import PhoneFrame from './PhoneFrame';
+import PhoneScreen from './PhoneScreen';
+import type { ClassProps } from '../class-props';
 
 /**
  * The device, showing the screen this beat is about.
@@ -23,13 +23,11 @@ import PhoneScreen from './PhoneScreen.astro';
  * reads Resampled. A screen picked because it was next in an array is a
  * screenshot; a screen picked because it proves the sentence is an argument.
  */
-interface Props {
+export interface FeatureScreensProps extends ClassProps {
   slug: string;
   /** Which beat this is. Clamped to the route's own list, never wrapped. */
   state?: number;
-  class?: string;
 }
-const { slug, state = 0, class: className } = Astro.props;
 
 const ROUTES: Record<string, string[]> = {
   /* 0 one app at a time · 1 the clock follows the file · 2 dongles and desktop
@@ -53,10 +51,13 @@ const ROUTES: Record<string, string[]> = {
   'ai-enhancer': ['ai', 'ai-neural', 'ai-enhancer', 'ai-karaoke'],
 };
 
-const list = ROUTES[slug] ?? ROUTES['usb-dac'];
-const name = list[state < 0 ? 0 : state >= list.length ? list.length - 1 : state];
----
+export default function FeatureScreens({ slug, state = 0, className }: FeatureScreensProps) {
+  const list = ROUTES[slug] ?? ROUTES['usb-dac'];
+  const name = list[state < 0 ? 0 : state >= list.length ? list.length - 1 : state];
 
-<PhoneFrame class={className}>
-  <PhoneScreen name={name} />
-</PhoneFrame>
+  return (
+    <PhoneFrame className={className}>
+      <PhoneScreen name={name} />
+    </PhoneFrame>
+  );
+}

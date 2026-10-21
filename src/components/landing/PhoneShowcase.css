@@ -1,0 +1,236 @@
+/* ── Track and pin ──
+   The track length is the pin duration. Nothing below 1024px pins at all:
+   a 100vh pin on a phone, against a resizing URL bar and touch momentum,
+   cannot be made to work. */
+.phone-showcase {
+  /* A longer track reads as deliberate rather than eager — but only for as long
+     as the track is CARRYING something. At 280vh it was not. Measured against the
+     shipped build, the sequence finished at 75% of the track and the last 630px of
+     pin held a frozen picture, while the first 630px held one phone shrinking by
+     five per cent: two thirds of a metre of scroll where the page had stopped and
+     nothing was happening. The pin cannot outlast the gesture. 200vh is what the
+     retuned ranges below actually fill. */
+  --track: 200vh;
+  /* The centre phone's starting scale. Declared here because the LAYOUT has to
+     reserve it; the script reads it back rather than keeping its own copy. */
+  --peak: 1.2;
+
+  /* ── Sizing the phone to the room, exactly ──
+     The lineup is authored at the phone's REAL proportions now that the screens
+     are captures: 300x640 of chassis around a 278x618 screen at 9:20. It was
+     344x566, which is 1:1.65 and is not a shape any phone has had since 2016.
+
+     What the stage spends before the phones get any of it: the FIXED SITE HEADER,
+     the heading, the 56px gap under it, and a little air.
+
+     The header is the part that is easy to forget and it is 81px of it. The stage
+     centres its content, so a reserve that only counted the heading put the
+     content's top offset at 26px — under a header that owns the top 81px and
+     paints over it — and the section headline came out sliced through the middle
+     by the nav. The stage now PADS by the header height so the centring happens in
+     the room that is actually free, and the reserve counts that padding.
+
+     The heading is one line on a wide viewport and two once the container narrows,
+     which is the rest of the difference between the two values. */
+  --header-h: 81px;
+  --reserve: 300px;
+
+  /* The phone takes the room the stage actually has, capped at its authored
+     size — rather than being authored at one size and scaled down by a ladder of
+     hand-tuned height breakpoints. The ladder was five guesses; this is the
+     arithmetic, and it cannot be wrong at a viewport nobody tested. It has to be
+     a SIZE and not a scale because `calc()` divides a length by a NUMBER and
+     refuses to divide a length by a length. */
+  --phone-h: min(640px, calc((100dvh - var(--reserve)) / var(--peak)));
+  --phone-w: calc(var(--phone-h) * 0.46875);
+  --gap: calc(var(--phone-w) * 0.08);
+  height: calc(100vh + var(--track));
+}
+
+@media (min-width: 1280px) {
+  .phone-showcase {
+    /* One line of heading rather than two. */
+    --reserve: 240px;
+  }
+}
+
+.phone-showcase-stage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* The site header is `position: fixed` and paints over anything under it.
+     Centring inside the full viewport put the section headline behind the nav;
+     centring inside the viewport MINUS the header puts it where it belongs. */
+  padding-top: var(--header-h);
+  /* The phone starts at its peak directly under this heading, so the gap is
+     clearance, not decoration: at 40px the enlarged frame grazed the descenders. */
+  gap: 56px;
+  overflow: hidden;
+}
+
+/* ── Fitting the lineup to the viewport ──
+   The composition is authored at one size and scaled to fit, so the phones
+   keep their real proportions on a short or narrow viewport instead of
+   having their screens cropped. Two independent limits, whichever bites. */
+.phone-showcase-fitbox {
+  /* Only WIDTH is left to fit. Height is handled above, by sizing the phone to
+     the stage instead of scaling it afterwards, which is why the five
+     `max-height` steps that used to live at the bottom of this file are gone. */
+  --fit-w: 1;
+  --fit: var(--fit-w);
+  position: relative;
+  width: calc((var(--phone-w) * 3 + var(--gap) * 2) * var(--fit));
+  /* The box reserves the phone at its PEAK, not at rest.
+     Scale is a transform, so it changes nothing about layout: reserving the
+     resting height let a phone at 1.4x grow straight up through the heading,
+     which is exactly what it did. The slack this leaves at rest is not waste,
+     it is the room the phone descends through. */
+  height: calc(var(--phone-h) * var(--peak) * var(--fit));
+}
+
+.phone-showcase-fit {
+  position: absolute;
+  /* Biased low inside the reserved box. The phone starts ABOVE its resting
+     position and descends to it, so centring the box exactly would spend that
+     whole head start on the heading's descenders. The slack all sits below the
+     lineup anyway, which is where a lineup wants its air. */
+  top: calc(50% + 3vh);
+  left: 0;
+  width: calc(var(--phone-w) * 3 + var(--gap) * 2);
+  height: var(--phone-h);
+  transform: translateY(-50%) scale(var(--fit));
+  transform-origin: 0 50%;
+}
+
+.phone-showcase-phone {
+  position: absolute;
+  top: 0;
+  left: calc(var(--phone-w) + var(--gap));
+  width: var(--phone-w);
+  height: var(--phone-h);
+  /* Promote once, up front. Promoting on first frame causes a visible hitch
+     exactly when the eye is on the element. */
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Siblings sit behind the centre and share its box, so the spread is a
+   translate of their own width and the gap stays constant at every size. */
+.phone-showcase-side {
+  z-index: 1;
+}
+.phone-showcase-centre {
+  z-index: 2;
+  /* The shared phone chassis is a translucent glass gradient, so the sibling
+     passing behind it during the sweep shows straight through the device. An
+     opaque ground at the chassis radius makes the centre phone a solid object
+     and the pass genuinely a pass. */
+  background: var(--color-surface-raised);
+  /* Matches `--radius-phone-outer`. A literal here, because this is a backdrop
+     shaped to the chassis rather than a chassis; if that token moves, this moves
+     with it or the opaque ground shows past the corners. */
+  border-radius: 37px;
+}
+.phone-showcase-left {
+  transform: translate3d(calc(-100% - var(--gap)), 0, 0);
+}
+.phone-showcase-right {
+  transform: translate3d(calc(100% + var(--gap)), 0, 0);
+}
+
+/* Between 1024 and 1279 the container is narrower than three full-size phones
+   plus their gaps (948px against 864px of content box at 1024). A tall viewport
+   at that width is the only case where width, not height, is what bites. */
+@media (max-width: 1279px) {
+  .phone-showcase-fitbox {
+    --fit-w: 0.9;
+  }
+}
+
+/* ── Below 1024px: no pin, no lineup ──
+   One phone, the one the section is about, at its own size. */
+@media (max-width: 1023px) {
+  .phone-showcase {
+    height: auto;
+  }
+  .phone-showcase-stage {
+    position: static;
+    height: auto;
+    gap: 34px;
+    padding-block: 56px;
+  }
+  .phone-showcase-fitbox,
+  .phone-showcase-fit {
+    position: static;
+    width: auto;
+    height: auto;
+    transform: none;
+  }
+  .phone-showcase-riser,
+  .phone-showcase-fitbox {
+    width: 100%;
+  }
+  /*
+    A SNAPPING STRIP, not one screenshot.
+
+    The siblings used to be `display: none` here, which left the heading
+    "Every screen runs on the same engine." sitting directly above a single
+    screen. The mobile page did not argue its own headline.
+
+    They cannot be a lineup at this width: three 296px phones need 928px. So
+    they run edge to edge and snap, with the padding centring whichever one is
+    current and leaving the next one peeking, which is the affordance. The
+    centre phone is ordered first, so the strip opens on Now Playing.
+  */
+  .phone-showcase-fit {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-inline: max(20px, calc((100% - 296px) / 2));
+    padding-block: 4px;
+  }
+  .phone-showcase-fit::-webkit-scrollbar {
+    display: none;
+  }
+  .phone-showcase-phone {
+    position: static;
+    /* An explicit width, not `auto`. The frame takes the parent's width in the
+       lineup, so a strip item sized by its content would ask the frame how wide
+       it is and the frame would ask back. 296px is the frame's own phone step. */
+    width: 296px;
+    height: auto;
+    flex: 0 0 auto;
+    transform: none;
+    scroll-snap-align: center;
+    will-change: auto;
+  }
+  .phone-showcase-side {
+    display: block;
+    opacity: 1;
+  }
+  .phone-showcase-centre {
+    order: -1;
+  }
+}
+
+/* ── Reduced motion ──
+   No observer and no rAF loop: the finished lineup, at rest, with the track
+   given back to the page. */
+@media (prefers-reduced-motion: reduce) {
+  .phone-showcase {
+    height: auto;
+  }
+  .phone-showcase-stage {
+    position: static;
+    height: auto;
+    padding-block: 72px;
+  }
+}

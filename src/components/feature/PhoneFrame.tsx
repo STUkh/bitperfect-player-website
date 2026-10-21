@@ -1,4 +1,8 @@
----
+import type { CSSProperties, ReactNode } from 'react';
+import { clsx as cx } from 'clsx';
+import { screenAspect } from '../../data/screens';
+import type { ClassProps } from '../class-props';
+
 /**
  * The device chassis. 296px wide once the rail collapses, 344px on the full
  * rail, matching design/FeatureMobile.dc.html. `fill` hands the width to the
@@ -20,30 +24,33 @@
  * because that is the chassis lighting itself rather than a cast on the ground.
  * DESIGN.md, "The Ivory Band Has No Shadows".
  */
-import { screenAspect } from '../../data/screens';
 
-interface Props {
+export interface PhoneFrameProps extends ClassProps {
+  children?: ReactNode;
   /** Take the parent's width instead of the frame's own two steps. */
   fill?: boolean;
-  class?: string;
   idPrefix?: string;
 }
-const { fill = false, class: className } = Astro.props;
----
 
-<div
-  class:list={[
-    'relative shrink-0 rounded-phone-outer-sm border border-white/14 p-2.5 lg:rounded-phone-outer lg:p-[11px]',
-    fill ? 'w-full' : 'w-[296px] lg:w-[344px]',
-    'bg-[linear-gradient(160deg,rgba(27,24,36,0.88),rgba(20,19,25,0.96)_45%,rgba(27,24,36,0.8))]',
-    'shadow-[inset_0_1px_0_rgba(255,255,255,0.08),var(--shadow-device-cast)]',
-    className,
-  ]}
->
-  <div
-    class="relative overflow-hidden rounded-phone-screen-sm border border-border-subtle bg-phone-screen lg:rounded-phone-screen"
-    style={`aspect-ratio: ${screenAspect}`}
-  >
-    <slot />
-  </div>
-</div>
+const screenStyle: CSSProperties = { aspectRatio: screenAspect };
+
+export default function PhoneFrame({ fill = false, className, children }: PhoneFrameProps) {
+  return (
+    <div
+      className={cx([
+        'relative shrink-0 rounded-phone-outer-sm border border-white/14 p-2.5 lg:rounded-phone-outer lg:p-[11px]',
+        fill ? 'w-full' : 'w-[296px] lg:w-[344px]',
+        'bg-[linear-gradient(160deg,rgba(27,24,36,0.88),rgba(20,19,25,0.96)_45%,rgba(27,24,36,0.8))]',
+        'shadow-[inset_0_1px_0_rgba(255,255,255,0.08),var(--shadow-device-cast)]',
+        className,
+      ])}
+    >
+      <div
+        className="relative overflow-hidden rounded-phone-screen-sm border border-border-subtle bg-phone-screen lg:rounded-phone-screen"
+        style={screenStyle}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
