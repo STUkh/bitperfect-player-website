@@ -7,7 +7,7 @@
  * "Gold Emits Nothing"). Nothing here carries a reveal class: the Still Fold
  * Rule says hero copy paints on load rather than waiting for an observer.
  */
-import Container from '../common/Container.astro';
+import Container from '../common/Container';
 import PhoneNowPlaying from '../PhoneNowPlaying.astro';
 import { pro, site } from '../../data/site';
 
@@ -61,7 +61,7 @@ const trialLine = pro.trialDays
   id="hero"
   class="relative overflow-hidden bg-surface-base bg-[radial-gradient(ellipse_120%_78%_at_50%_-10%,rgba(255,255,255,0.035)_0%,rgba(255,255,255,0.012)_42%,transparent_72%)] pt-11 pb-14 lg:max-h-[920px] lg:pt-28 lg:pb-26"
 >
-  <Container class="relative lg:px-20">
+  <Container className="relative lg:px-20">
     {/*
       A mono eyebrow, not a badge.
 

@@ -34,9 +34,9 @@
  * this component ships no script. The sweep is the page's only movement and it
  * has a real resting state under `prefers-reduced-motion`.
  */
-import Container from './common/Container.astro';
-import Logo from './common/Logo.astro';
-import Icon from './Icon.astro';
+import Container from './common/Container';
+import Logo from './common/Logo';
+import Icon from './Icon';
 import { site } from '../data/site';
 import { withBase } from '../utils/nav';
 
@@ -86,7 +86,7 @@ const { eyebrow, headline, lede } = Astro.props;
   </header>
 
   <main id="main-content" class="stage">
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       <div class="column">
         <span class="mono-spec block text-micro tracking-[1.9px] text-gold uppercase">
           {eyebrow}

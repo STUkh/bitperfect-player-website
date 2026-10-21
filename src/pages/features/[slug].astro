@@ -24,8 +24,8 @@
  * page's phone showcase.
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
-import Container from '../../components/common/Container.astro';
-import Button from '../../components/common/Button.astro';
+import Container from '../../components/common/Container';
+import Button from '../../components/common/Button';
 import ImageSlot from '../../components/common/ImageSlot.astro';
 import FeatureMark from '../../components/feature/FeatureMark.astro';
 import FeatureScreens from '../../components/feature/FeatureScreens.astro';
@@ -592,7 +592,7 @@ const showSignalPath = slug === 'usb-dac';
           rel="noopener noreferrer"
           variant="primary"
           size="lg"
-          class="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
+          className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
           style="--i: 2"
         >
           <FeatureMark name="play" size={20} />

@@ -10,7 +10,7 @@
  * is what makes it land as a statement rather than as another full-height slab.
  * Every section at the same height reads as a template even when each is good.
  */
-import Container from '../common/Container.astro';
+import Container from '../common/Container';
 import ImageSlot from '../common/ImageSlot.astro';
 import { withBase } from '../../utils/nav';
 
@@ -37,7 +37,7 @@ const commitments = [
 ---
 
 <section id="privacy" class="scroll-mt-20 bg-band-ivory pt-12 pb-13 lg:pt-24 lg:pb-26">
-  <Container class="lg:px-20">
+  <Container className="lg:px-20">
     {/*
       No eyebrow. `Privacy` restated the section id, the nav item and the headline
       below it. DESIGN.md, "The Eyebrow Budget Rule".

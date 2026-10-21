@@ -31,3 +31,6 @@ ds-bundle/
 .design-sync/node_modules
 .design-sync/react/node_modules
 .design-sync/react/dist/
+
+# Visual regression captures for the React migration (scripts/visual-regression.mjs)
+.vr/

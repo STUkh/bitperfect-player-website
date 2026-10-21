@@ -1,9 +1,9 @@
 ---
 import ContentLayout from '../../layouts/ContentLayout.astro';
-import Container from '../../components/common/Container.astro';
+import Container from '../../components/common/Container';
 import PageHeader from '../../components/common/PageHeader.astro';
 import ClosingBanner from '../../components/common/ClosingBanner.astro';
-import Button from '../../components/common/Button.astro';
+import Button from '../../components/common/Button';
 import { allFaqItems } from '../../data/faq';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/nav';
@@ -66,7 +66,7 @@ const categories = [
             Learn why neural restoration requires a dedicated hardware NPU, chip optimization timelines, and Motorola firmware restrictions.
           </p>
         </div>
-        <Button href={withBase('/faq/why-npu-ai-enhancer-not-working')} variant="secondary" size="md" class="shrink-0">
+        <Button href={withBase('/faq/why-npu-ai-enhancer-not-working')} variant="secondary" size="md" className="shrink-0">
           <span>Read Full NPU Guide</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="9 18 15 12 9 6"></polyline>
@@ -174,7 +174,7 @@ const categories = [
                 Review the 27 Technical Features Catalogue detailing our custom Rust Symphonia engine, UAC1/UAC2 drivers, and 64-bit volume control.
               </p>
             </div>
-            <Button href={withBase('/features/catalog')} variant="secondary" size="md" class="shrink-0">
+            <Button href={withBase('/features/catalog')} variant="secondary" size="md" className="shrink-0">
               <span>Explore 27 Technical Capabilities</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="9 18 15 12 9 6"></polyline>

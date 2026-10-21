@@ -1,0 +1,5 @@
+/* `vector-effect` is not an inherited property, so setting it here never
+   reached the shapes. Weight is solved in `iconStroke` instead. */
+.icon {
+  flex: none;
+}

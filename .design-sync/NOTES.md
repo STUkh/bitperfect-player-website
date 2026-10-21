@@ -83,3 +83,9 @@ node .design-sync/tools/shot.mjs --name X [--props '{...}'] [--label X-state] [-
 - A new component on the site needs a new port and an `index.ts` line (`export *`).
 - The `conventions.md` header names classes and components. Re-validate them against `ds-bundle` after each sync.
 - `astro.ds.config.mjs` spreads the site's `astro.config.mjs`. If that config gains integrations that write outside `outDir`, check the DS build doesn't clobber `dist/`.
+
+## 2026-10-21: ports drifted from the committed site (sync stopped, nothing uploaded)
+
+- The 2026-10-18 ports were built from an uncommitted working tree. A `git reset` right after that sync (reflog `HEAD@{3}: reset: moving to HEAD`) discarded it, and it is not recoverable (no stash, no dangling blob). The ports are now the only copy of that version.
+- Measured against the current `dist/`: Header 10.7% desktop (port has a Features dropdown and an untranslated `nav.releases`), Footer is missing the four social links and runs a narrower container, Button chassis differs (repo `Button.astro` is the simple `sm/md/lg` padding version, the port is the 52/54px one), and PageHeader, TechnicalCatalog and PhoneTrio differ in size.
+- Decision (user, 2026-10-21): the committed site is the source of truth. The site is to be migrated onto React components via `@astrojs/react`, and the next sync builds from those real components instead of hand ports. Do not re-port by hand in the meantime.

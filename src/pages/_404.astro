@@ -1,7 +1,7 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import Icon from '../components/Icon.astro';
-import Button from '../components/common/Button.astro';
+import Icon from '../components/Icon';
+import Button from '../components/common/Button';
 import { withBase } from '../utils/nav';
 ---
 
@@ -26,7 +26,7 @@ import { withBase } from '../utils/nav';
         actual dead end.
       </p>
       <div class="actions">
-        <Button href={withBase('/')} variant="primary" class="gap-2 btn-back">
+        <Button href={withBase('/')} variant="primary" className="gap-2 btn-back">
           <Icon name="arrow" size={20} />
           <span>Back to the start</span>
         </Button>

@@ -16,7 +16,7 @@
  * be six Lucide defaults, and the one for the AI Enhancer was the four-pointed
  * sparkle every generated product page has used since 2023.
  */
-import Container from '../common/Container.astro';
+import Container from '../common/Container';
 import FeatureMark from '../feature/FeatureMark.astro';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';
@@ -41,7 +41,7 @@ const allFeaturesHref = withBase('features');
 ---
 
 <section id="features" class="relative scroll-mt-20 bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38">
-  <Container class="lg:px-20">
+  <Container className="lg:px-20">
     <div class="flex items-end justify-between gap-12 lg:mb-15">
       {/*
         No eyebrow. `Features` restated the section: the nav says it, the anchor

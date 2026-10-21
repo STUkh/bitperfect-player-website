@@ -12,7 +12,7 @@
  * `src/components/feature/content.ts`.
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
-import Container from '../../components/common/Container.astro';
+import Container from '../../components/common/Container';
 import FeatureArt from '../../components/feature/FeatureArt.astro';
 import { indexOrder } from '../../components/feature/content';
 import { site, compatibility } from '../../data/site';
@@ -43,7 +43,7 @@ const order = [...indexOrder];
   <section
     class="relative bg-[radial-gradient(ellipse_120%_78%_at_50%_-10%,rgba(255,255,255,0.035)_0%,rgba(255,255,255,0.012)_42%,transparent_72%)] pt-7 pb-12 lg:pt-11 lg:pb-20"
   >
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       <div class="grid grid-cols-1 items-end gap-9 lg:grid-cols-12 lg:gap-12">
         {/*
           No eyebrow. `Features` above `Six features that put you in control of
@@ -110,7 +110,7 @@ const order = [...indexOrder];
       half the plate on empty ground, so the single-column layout takes 21:9. */}
   <section class="relative pb-14 lg:pb-[110px]" aria-labelledby="features-heading">
     <h2 id="features-heading" class="sr-only">All features</h2>
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       {/*
         Two columns only from `lg`. At `md` the two columns are 342px each, the
         title wraps to two lines, and the plate falls to 52% of the card — under
@@ -198,7 +198,7 @@ const order = [...indexOrder];
       "will it run on my phone" is the question that gates the purchase, and it
       was set on the quiet ground while the FAQ had the white. */}
   <section id="compatibility" class="scroll-mt-24 bg-band-ivory pt-12 pb-14 lg:pt-24 lg:pb-26">
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
         <div class="lg:col-span-4">
           <h2 class="text-section-sm text-balance text-band-ink lg:text-section-lg">
@@ -252,7 +252,7 @@ const order = [...indexOrder];
       Hairlines and space, the same as the band above it. See the note on the
       compatibility band for why these two swapped grounds. */}
   <section class="bg-surface-base py-14 lg:pt-26 lg:pb-[110px]">
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
         <div class="lg:col-span-4">
           <span class="text-eyebrow block text-text-tertiary">Questions</span>
@@ -287,7 +287,7 @@ const order = [...indexOrder];
   <section
     class="relative bg-[linear-gradient(to_top,rgba(255,179,71,0.13)_0%,rgba(232,184,75,0.05)_22%,transparent_46%)] pt-14 pb-16 lg:pt-25 lg:pb-26"
   >
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       <div class="flex flex-col items-center text-center">
         <h2 class="r-rise max-w-[20ch] text-headline-sm-m text-balance text-text-primary lg:text-headline-sm">
           Six features, and none of them costs extra.

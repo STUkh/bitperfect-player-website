@@ -15,7 +15,7 @@
  * The heading does not move (DESIGN.md, "The Still Fold Rule"): the phones are
  * the gesture, and a second one competing with them reads as a slideshow.
  */
-import Container from '../common/Container.astro';
+import Container from '../common/Container';
 import PhoneFrame from '../feature/PhoneFrame.astro';
 import PhoneScreen from '../feature/PhoneScreen.astro';
 ---
@@ -27,7 +27,7 @@ import PhoneScreen from '../feature/PhoneScreen.astro';
   <div
     class="stage bg-[radial-gradient(ellipse_120%_62%_at_50%_-6%,rgba(255,255,255,0.035)_0%,rgba(255,255,255,0.012)_42%,transparent_72%)]"
   >
-    <Container class="lg:px-20">
+    <Container className="lg:px-20">
       {/*
         No eyebrow. `The app itself` sat above `Every screen runs on the same
         engine.` and captioned a picture that captions itself, on a page that had

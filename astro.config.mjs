@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import react from "@astrojs/react";
 
 // Custom domain on GitHub Pages: https://bit-perfect.com/
 export default defineConfig({
@@ -11,6 +12,10 @@ export default defineConfig({
   devToolbar: { enabled: false },
   markdown: { shikiConfig: { theme: "css-variables" } },
   integrations: [
+    /* Components are React and render to static HTML at build time. Nothing
+       hydrates: no component carries a `client:*` directive, so no React ships
+       to the browser. The same components are what Claude Design builds with. */
+    react(),
     sitemap({
       /* /404 is not a page, and /policy is a noindex meta-refresh alias of
          /privacy kept for store listings that already point at it. Listing a

@@ -12,7 +12,7 @@
  * generated product page, and a shield does not mean "it stays on the phone",
  * it means a stock illustrator once drew a shield for "security".
  */
-import Container from '../common/Container.astro';
+import Container from '../common/Container';
 import ImageSlot from '../common/ImageSlot.astro';
 
 const facts = [
@@ -32,7 +32,7 @@ const facts = [
 ---
 
 <section class="bg-band-ivory pt-14 pb-15 lg:pt-29 lg:pb-30">
-  <Container class="lg:px-20">
+  <Container className="lg:px-20">
     <div class="grid items-start gap-8 lg:grid-cols-12 lg:gap-16">
       {/* 8/4, not 7/5. At 7 columns this headline set five lines of 46px type in
           a 633px track while the fact list beside it ran out 120px early: one

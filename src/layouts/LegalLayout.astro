@@ -10,7 +10,7 @@ interface Props {
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
-import Container from '../components/common/Container.astro';
+import Container from '../components/common/Container';
 
 const { title, description, lastUpdated, noindex, containerClass = 'max-w-6xl lg:max-w-7xl' } = Astro.props;
 ---
@@ -23,7 +23,7 @@ const { title, description, lastUpdated, noindex, containerClass = 'max-w-6xl lg
       <div class="grid-cell-glow glow-2"></div>
       <div class="grid-cell-glow glow-3"></div>
     </div>
-    <Container class={containerClass}>
+    <Container className={containerClass}>
       <article class="prose-legal">
         <header class="mb-10">
           <h1>{title}</h1>

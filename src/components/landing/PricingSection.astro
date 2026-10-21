@@ -19,7 +19,7 @@
  * Every state is rendered from `pro.periods`; the script only swaps text and
  * translates the indicator. Nothing here computes a price at runtime.
  */
-import Container from '../common/Container.astro';
+import Container from '../common/Container';
 import { pro, site } from '../../data/site';
 import { withBase } from '../../utils/nav';
 
@@ -73,7 +73,7 @@ const renewNote = trialDays
   >
   </div>
 
-  <Container class="relative lg:px-20">
+  <Container className="relative lg:px-20">
     {/*
       No eyebrow. `Pricing` restated the section id, the nav item and the headline
       below it. DESIGN.md, "The Eyebrow Budget Rule".

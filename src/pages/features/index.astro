@@ -12,8 +12,8 @@
  * `src/components/feature/content.ts`.
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
-import Container from '../../components/common/Container.astro';
-import Button from '../../components/common/Button.astro';
+import Container from '../../components/common/Container';
+import Button from '../../components/common/Button';
 import FeatureArt from '../../components/feature/FeatureArt.astro';
 import PhoneTrio from '../../components/feature/PhoneTrio.astro';
 import { indexOrder } from '../../components/feature/content';
@@ -80,7 +80,7 @@ const order = [...indexOrder];
         />
       </div>
     </Container>
-    <Container class="mt-14 lg:mt-24">
+    <Container className="mt-14 lg:mt-24">
 
       <h2 id="features-heading" class="sr-only">{t('features_index.cards_sr_heading')}</h2>
       {/*
@@ -133,7 +133,7 @@ const order = [...indexOrder];
           href={withBase('features/catalog')}
           variant="secondary"
           size="md"
-          class="shrink-0 tabular-nums"
+          className="shrink-0 tabular-nums"
         >
           <span>{t('features_index.catalog_cta')}</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -219,7 +219,7 @@ const order = [...indexOrder];
           rel="noopener noreferrer"
           variant="primary"
           size="lg"
-          class="r-rise mt-8 lg:mt-10"
+          className="r-rise mt-8 lg:mt-10"
           style="--i: 2"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
