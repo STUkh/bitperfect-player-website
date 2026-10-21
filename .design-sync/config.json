@@ -10,11 +10,12 @@
   ],
   "readmeHeader": ".design-sync/conventions.md",
   "libOverrides": {
-    "css.mjs": "copies the site images into assets/ beside styles.css for the React ports"
+    "css.mjs": "copies the site images into assets/ beside styles.css; components resolve them through asset()"
   },
   "overrides": {
     "Header": {
-      "cardMode": "column",
+      "cardMode": "single",
+      "primaryStory": "Default",
       "viewport": "1280x900"
     },
     "Footer": {
@@ -87,9 +88,9 @@
     "FeatureArt": {
       "cardMode": "column"
     },
-    "MobileMenu": {
+    "HoldingPage": {
       "cardMode": "column",
-      "viewport": "440x900"
+      "viewport": "1280x900"
     }
   },
   "provider": {

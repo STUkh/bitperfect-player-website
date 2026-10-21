@@ -40,22 +40,45 @@ function Excerpt() {
   );
 }
 
-export function PrivacyPolicy() {
+/* What `getHeadings()` returns for the excerpt: the index is built from it. */
+const headings = [
+  { depth: 2, slug: '1-summary-non-binding-the-full-sections-below-govern', text: '1. Summary (non-binding: the full sections below govern)' },
+  { depth: 2, slug: '4-childrens-privacy', text: '4. Children’s privacy' },
+  { depth: 2, slug: '5-your-rights-and-choices', text: '5. Your rights and choices' },
+];
+
+/* LegalLayout's frame: the page column, and `.prose-legal`, which styles the
+   rendered markdown (headings, lists, rules) the document carries. */
+function Page({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto w-full max-w-6xl lg:max-w-7xl px-4 sm:px-6 lg:px-8">
-      <LegalDocument>
-        <Excerpt />
-      </LegalDocument>
+    <div className="mx-auto w-full max-w-6xl lg:max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <article className="prose-legal">
+        <header className="mb-10">
+          <h1>Privacy Policy</h1>
+        </header>
+        {children}
+      </article>
     </div>
   );
 }
 
-export function CurrentSection() {
+export function PrivacyPolicy() {
   return (
-    <div className="mx-auto w-full max-w-6xl lg:max-w-7xl px-4 sm:px-6 lg:px-8">
-      <LegalDocument activeSlug="4-childrens-privacy">
+    <Page>
+      <LegalDocument headings={headings} source="src/PRIVACY_POLICY.md">
         <Excerpt />
       </LegalDocument>
-    </div>
+    </Page>
+  );
+}
+
+/* A source with a placeholder still in it shows the build-time banner. */
+export function UnfilledPlaceholder() {
+  return (
+    <Page>
+      <LegalDocument headings={headings} source="src/PRIVACY_POLICY.md" unresolved={['[LEGAL ENTITY NAME]']}>
+        <Excerpt />
+      </LegalDocument>
+    </Page>
   );
 }

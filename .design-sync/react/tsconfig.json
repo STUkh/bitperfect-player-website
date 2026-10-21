@@ -14,8 +14,18 @@
     "outDir": "dist/types",
     "rootDir": "../..",
     "baseUrl": ".",
-    "types": ["react"],
-    "paths": { "@site/*": ["../../src/*"] }
+    "types": [
+      "react"
+    ],
+    "paths": {
+      "@site/*": [
+        "../../src/*"
+      ]
+    }
   },
-  "include": ["src/**/*", "src/env.d.ts"]
+  "include": [
+    "src/**/*",
+    "src/env.d.ts",
+    "../../src/types/**/*.d.ts"
+  ]
 }

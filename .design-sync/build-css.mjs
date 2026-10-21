@@ -1,18 +1,17 @@
 // Compiles the stylesheet for the Claude Design sync.
 //
-// The site is Astro: its CSS is inlined per page at build time, so there is no
-// single compiled stylesheet in dist/ to point the converter at. This runs the
-// same Tailwind 4 compile the Vite plugin runs (src/styles/global.css, scanning
-// src/ for candidates, plus a safelist), appends src/styles/animations.css and
-// every component's scoped styles, and rewrites root-absolute URLs so fonts land
-// in fonts/ and images in assets/ next to the uploaded stylesheet.
+// The site's CSS is split per page at build time, so there is no single compiled
+// stylesheet in dist/ to point the converter at. This runs the same Tailwind 4
+// compile the Vite plugin runs (src/styles/global.css, scanning src/ for
+// candidates, plus a safelist), appends src/styles/animations.css and the
+// components' own stylesheets, and rewrites root-absolute URLs so fonts land in
+// fonts/ and images in assets/ next to the uploaded stylesheet.
 //
 // Usage: node .design-sync/build-css.mjs [out.css]
 import { compile, optimize } from '@tailwindcss/node';
 import { Scanner } from '@tailwindcss/oxide';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { execFileSync } from 'node:child_process';
 
 const root = resolve(dirname(new URL(import.meta.url).pathname), '..');
 const out = resolve(process.argv[2] ?? '.design-sync/react/dist/site.css');
@@ -23,10 +22,9 @@ const compiler = await compile(readFileSync(globalPath, 'utf8'), {
   onDependency() {},
 });
 const scanner = new Scanner({
-  // The ports are scanned too, so a class only a port uses still compiles.
+  // What the site's components and pages use, plus the safelist below.
   sources: [
     { base: resolve(root, 'src'), pattern: '**/*', negated: false },
-    { base: resolve(root, '.design-sync/react/src'), pattern: '**/*', negated: false },
   ],
 });
 
@@ -71,46 +69,11 @@ const safelist = [
 const css = compiler.build([...scanner.scan(), ...safelist]);
 const animations = readFileSync(resolve(root, 'src/styles/animations.css'), 'utf8');
 
-// The components' own scoped <style> blocks. Astro inlines a different set per
-// page, so a second build with external stylesheets (astro.ds.config.mjs)
-// collects them. Astro's scope hash is derived from the component's file path
-// alone, so the React ports carry the same data-astro-cid-* attributes and
-// these rules apply to them unchanged. Only scoped rules are kept from each
-// chunk: the global sheet is already compiled above, with the safelist.
-execFileSync('npx', ['astro', 'build', '--config', '.design-sync/astro.ds.config.mjs'], { cwd: root, stdio: 'ignore' });
-const chunkDir = resolve(root, '.design-sync/.cache/astro-dist/_astro');
-const chunks = readdirSync(chunkDir).filter((f) => f.endsWith('.css')).sort()
-  .map((f) => readFileSync(join(chunkDir, f), 'utf8'));
-
-// Top-level blocks of a minified sheet, brace-aware (strings in this CSS never
-// contain braces). At-rule groups are filtered recursively.
-function blocks(text) {
-  const out = [];
-  let depth = 0, start = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === '{') depth++;
-    else if (text[i] === '}' && --depth === 0) { out.push(text.slice(start, i + 1).trim()); start = i + 1; }
-    else if (text[i] === ';' && depth === 0) start = i + 1; // @charset, @import
-  }
-  return out;
-}
-const keyframes = new Map();
-function scopedOnly(text) {
-  const kept = [];
-  for (const b of blocks(text)) {
-    const brace = b.indexOf('{');
-    const prelude = b.slice(0, brace);
-    if (/^@keyframes\s/.test(prelude)) { keyframes.set(prelude.split(/\s+/)[1], b); continue; }
-    if (/^@(media|supports|layer|container)/.test(prelude)) {
-      const inner = scopedOnly(b.slice(brace + 1, -1));
-      if (inner.length) kept.push(`${prelude}{${inner.join('')}}`);
-    } else if (prelude.includes('astro-cid')) kept.push(b);
-  }
-  return kept;
-}
-const scoped = [...new Set(chunks.flatMap(scopedOnly))];
-const scopedCss = scoped.join('\n');
-const usedKeyframes = [...keyframes].filter(([name]) => new RegExp(`\\b${name}\\b`).test(scopedCss) && !css.includes(`@keyframes ${name}`));
+// The components' co-located stylesheets (src/components/**/<Name>.css), as
+// esbuild collected them from the components' own imports (react/build.mjs runs
+// first). They are plain global CSS with component-prefixed classes, exactly
+// what the site ships.
+const componentCss = readFileSync(resolve(root, '.design-sync/react/dist/index.css'), 'utf8');
 
 // Site images ship as files under assets/ beside the stylesheet (sync.mjs copies
 // them). Root-absolute URLs in any rule are pointed there.
@@ -123,7 +86,7 @@ const assetUrl = (text) => text.replace(
 // One probe rule per image. A React port asks for an image by its site path;
 // the runtime reads the probe's computed background-image, which the browser has
 // already resolved against wherever this stylesheet was actually loaded from.
-// See .design-sync/react/src/lib/asset.ts.
+// See .design-sync/react/src/asset.ts.
 const walkFiles = (dir, rel = '') => readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
   e.isDirectory() ? walkFiles(join(dir, e.name), `${rel}${e.name}/`) : [`${rel}${e.name}`]);
 const probes = ASSET_DIRS.flatMap((d) => walkFiles(resolve(root, 'public', d)).map((f) => `${d}/${f}`))
@@ -146,10 +109,9 @@ const fontsFixed = (text) => text
 const body = optimize(`${css}\n${animations}`, { minify: false }).code;
 const merged = assetUrl(fontsFixed([
   body,
-  '/* ── Component scoped styles (from the Astro build) ── */',
-  ...usedKeyframes.map(([, b]) => b),
-  scopedCss,
-  '/* ── Image probes (see react/src/lib/asset.ts) ── */',
+  '/* ── Component stylesheets (src/components/**/*.css) ── */',
+  componentCss,
+  '/* ── Image probes (see react/src/asset.ts) ── */',
   ...probes,
 ].join('\n'))) + '\n';
 

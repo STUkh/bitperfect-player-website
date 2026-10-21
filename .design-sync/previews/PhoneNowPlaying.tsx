@@ -1,16 +1,16 @@
 import { PhoneNowPlaying } from '@bitperfect/website-ds';
 
 export function Default() {
-  return <PhoneNowPlaying />;
-}
-
-export function HeroWagner() {
-  return <PhoneNowPlaying screen="now-playing-hero" />;
+  return (
+    <div style={{ width: 300 }}>
+      <PhoneNowPlaying />
+    </div>
+  );
 }
 
 export function NarrowColumn() {
   return (
-    <div style={{ width: 240 }}>
+    <div style={{ width: 220 }}>
       <PhoneNowPlaying />
     </div>
   );

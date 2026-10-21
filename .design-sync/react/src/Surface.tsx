@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { cx } from '../lib/site';
+import { clsx as cx } from 'clsx';
 
 export interface SurfaceProps {
   /** `graphite` = the site's page ground (#191919, primary text); `ivory` = a white light band with band ink. */

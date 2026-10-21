@@ -20,10 +20,11 @@ export function AllSix() {
   );
 }
 
-export function WideRatio() {
+/* The phone crop the feature cards use below `sm` (`--art-ratio: 4/3`). */
+export function CompactRatio() {
   return (
-    <div style={{ padding: 24 }}>
-      <FeatureArt slug="ai-enhancer" ratio="5 / 1" className="w-full" />
+    <div style={{ maxWidth: 400, padding: 24 }}>
+      <FeatureArt slug="ai-enhancer" ratio="4 / 3" className="w-full" />
     </div>
   );
 }

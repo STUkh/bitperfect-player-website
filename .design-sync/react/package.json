@@ -2,9 +2,16 @@
   "name": "@bitperfect/website-ds",
   "private": true,
   "type": "module",
-  "description": "React ports of the Bitperfect Player website's Astro components, for the Claude Design sync only. The Astro components in ../../src stay the source of truth.",
+  "description": "The Bitperfect Player website's own React components (../../src/components), packaged for the Claude Design sync.",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
-  "peerDependencies": { "react": ">=18" }
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
 }
