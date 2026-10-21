@@ -144,11 +144,17 @@ const SCENARIOS = [
     // The smoothing loop snaps to its exact target when it stops, so wait for the
     // transforms to stop changing rather than for a fixed time: headless rAF is
     // slow enough that 2s sometimes caught it a frame short.
+    // Lazy images below the fold load after the jump and can restart the loop, so
+    // let them land first, then require two quiet windows in a row.
+    await pg.waitForLoadState('networkidle');
+    // Only images that have loaded: decode() on a lazy image that never starts
+    // loading never settles, and hung this run for good.
+    await pg.evaluate(() => Promise.all([...document.images].filter((i) => i.complete).map((i) => i.decode().catch(() => {}))));
     await pg.waitForFunction(() => new Promise((ok) => {
       const read = () => [...document.querySelectorAll('[data-phone]')].map((p) => p.style.transform + p.style.opacity).join();
       const a = read();
-      setTimeout(() => ok(read() === a), 500);
-    }), null, { timeout: 10000, polling: 100 });
+      setTimeout(() => { const b = read(); setTimeout(() => ok(a === b && b === read()), 600); }, 600);
+    }), null, { timeout: 15000, polling: 100 });
   } },
 ].filter((s) => !only || only.includes(s.route));
 for (const s of SCENARIOS) {
