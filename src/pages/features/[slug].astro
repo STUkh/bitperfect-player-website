@@ -223,7 +223,7 @@ const showSignalPath = slug === 'usb-dac';
                 ].map((st) => (
                   <div class="flex flex-col justify-between border-t border-band-rule pt-3 text-left">
                     <div class="flex items-center justify-between">
-                      <span class="mono-spec text-device-label font-medium uppercase text-band-ink-muted/80">Stage</span>
+                      <span class="mono-spec text-device-label font-medium uppercase text-band-ink-muted">Stage</span>
                       {st.altered && <span class="h-1.5 w-1.5 rounded-full bg-band-gold-ink" aria-hidden="true" />}
                     </div>
                     <div class="mt-2">
@@ -547,7 +547,6 @@ const showSignalPath = slug === 'usb-dac';
         <a
           href={withBase(`features/${prevSlug}`)}
           class="focus-visible:focus-ring pager pager-prev group flex cursor-pointer flex-col gap-2 rounded-card-sm border border-border-subtle bg-glass-surface px-[22px] py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.09)] hover:border-glass-border-hover hover:bg-white/[0.025] lg:gap-2.5 lg:rounded-card lg:px-[30px] lg:py-[26px]"
-          aria-label={`${t('feature_detail.prev_feature')}: ${getLocalizedFeatureName(prevSlug, lang)}`}
         >
           <span class="inline-flex items-center gap-2 text-label tracking-[1.5px] text-text-tertiary uppercase lg:text-micro lg:tracking-[2px]">
             <FeatureMark name="arrow-left" size={15} />
@@ -561,7 +560,6 @@ const showSignalPath = slug === 'usb-dac';
         <a
           href={withBase(`features/${nextSlug}`)}
           class="focus-visible:focus-ring pager pager-next group flex cursor-pointer flex-col gap-2 rounded-card-sm border border-border-subtle bg-glass-surface px-[22px] py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.09)] hover:border-glass-border-hover hover:bg-white/[0.025] lg:items-end lg:gap-2.5 lg:rounded-card lg:px-[30px] lg:py-[26px]"
-          aria-label={`${t('feature_detail.next_feature')}: ${getLocalizedFeatureName(nextSlug, lang)}`}
         >
           <span class="inline-flex items-center gap-2 text-label tracking-[1.5px] text-text-tertiary uppercase lg:text-micro lg:tracking-[2px]">
             <span>{t('feature_detail.next')}</span>
@@ -571,6 +569,7 @@ const showSignalPath = slug === 'usb-dac';
             {getLocalizedFeatureName(nextSlug, lang)}
           </span>
         </a>
+      </div>
     </Container>
   </nav>
 

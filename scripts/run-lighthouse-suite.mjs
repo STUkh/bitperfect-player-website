@@ -15,15 +15,22 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
+// `/` is the holding page while the site is parked. The real landing renders
+// at `/vr-home/` only in the visual-regression build (`.vr/dist`), so serve that
+// build to audit it: `npx astro preview --outDir .vr/dist --port 4322`.
 const ROUTES = [
   { id: "home", path: "/", name: "Home" },
-  { id: "features", path: "/features", name: "Features Index" },
+  { id: "landing", path: "/vr-home/", name: "Landing (unparked)" },
+  { id: "features", path: "/features/", name: "Features Index" },
   {
     id: "features-usb-dac",
-    path: "/features/usb-dac",
+    path: "/features/usb-dac/",
     name: "Feature Detail (USB DAC)",
   },
-  { id: "privacy", path: "/privacy", name: "Legal (Privacy)" },
+  { id: "catalog", path: "/features/catalog/", name: "Technical Catalog" },
+  { id: "faq", path: "/faq/", name: "FAQ" },
+  { id: "changelog", path: "/changelog/", name: "Changelog" },
+  { id: "privacy", path: "/privacy/", name: "Legal (Privacy)" },
 ];
 
 const CONFIGS = [
@@ -217,7 +224,8 @@ async function main() {
     runs: [],
   };
 
-  for (const route of ROUTES) {
+  const only = process.env.LH_ONLY?.split(",");
+  for (const route of ROUTES.filter((r) => !only || only.includes(r.id))) {
     for (const config of CONFIGS) {
       try {
         const report = await runAudit(route, config);

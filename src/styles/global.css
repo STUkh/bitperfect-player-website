@@ -1,4 +1,7 @@
-@import "tailwindcss";
+/* Classes are scanned from src/ only. Left to detect sources itself, Tailwind
+   walked the whole repo, design/ artboards included, and compiled ~900 classes
+   (66 KB) that no page uses into the render-blocking sheet. */
+@import "tailwindcss" source("..");
 
 /* ── Manrope Variable Font ──
    Two subsets rather than one 350 KB file: latin covers the whole site, latin-ext

@@ -70,7 +70,7 @@ export default function TechnicalCatalog(props: TechnicalCatalogProps) {
                   {feat.categoryLabel}
                 </span>
                 {/* Title */}
-                <h3 className="mt-2 text-body-lg font-bold text-text-primary">{feat.title}</h3>
+                <h2 className="mt-2 text-body-lg font-bold text-text-primary">{feat.title}</h2>
                 {/* Concise Description */}
                 <p className="mt-2 text-small leading-relaxed text-text-secondary">{feat.description}</p>
                 {/* Clean Benefit Line — Simple Hairline, No Clutter */}

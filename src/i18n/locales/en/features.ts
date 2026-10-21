@@ -110,8 +110,6 @@ export const features = {
     "Everything here is what the shipping build does today.",
   "feature_detail.prev": "Previous",
   "feature_detail.next": "Next",
-  "feature_detail.prev_feature": "Previous feature",
-  "feature_detail.next_feature": "Next feature",
   "feature_detail.more_features": "More features",
   "feature_detail.cta_button": "Get it on Google Play",
 
