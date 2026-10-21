@@ -1,0 +1,213 @@
+/* Every rule sits under the component's root, `.legal-grid`. That replaces the
+   specificity Astro's scoping attribute used to add, which these rules need:
+   the index lives inside `.prose-legal`, and its `a`, `ul` and `strong` rules
+   (global.css, LegalLayout) would otherwise win over the index's own. It also
+   reaches the rendered markdown, which cannot carry a class. */
+.legal-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* LegalLayout already renders a visible <h1>{title}</h1> above this slot:
+   the markdown's own leading h1 would duplicate it, including in the
+   accessibility tree. */
+.legal-grid .md-content h1 {
+  display: none;
+}
+
+/* Mobile TOC Disclosure Styling */
+.legal-grid .legal-toc-wrapper {
+  width: 100%;
+}
+
+.legal-grid .legal-toc-details {
+  background: rgba(23, 22, 30, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 0.875rem 1.25rem;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.legal-grid .legal-toc-details[open] {
+  background: rgba(23, 22, 30, 0.8);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.legal-grid .legal-toc-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* The one control on this page at mobile widths, and it measured 316x23:
+     one pixel under SC 2.5.8's 24px floor. The row is centred, so the box
+     grows around the label without moving it. */
+  min-height: 2.75rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--d-ui) var(--ease-ui),
+    color var(--d-ui) var(--ease-ui);
+}
+.legal-grid .legal-toc-summary:hover .legal-toc-title,
+.legal-grid .legal-toc-summary:hover .legal-toc-chevron {
+  color: var(--color-text-primary);
+}
+.legal-grid .legal-toc-summary:active .legal-toc-title {
+  color: var(--color-gold);
+}
+.legal-grid .legal-toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.legal-grid .legal-toc-title {
+  transition: color var(--d-ui) var(--ease-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.legal-grid .legal-toc-chevron {
+  color: var(--color-text-tertiary);
+  transition:
+    transform var(--d-ui) var(--ease-ui),
+    color var(--d-ui) var(--ease-ui);
+}
+.legal-grid .legal-toc-details[open] .legal-toc-chevron {
+  transform: rotate(180deg);
+}
+
+.legal-grid .legal-toc ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-left: 2px solid var(--color-border-subtle);
+}
+
+.legal-grid .legal-toc-link {
+  /* The table of contents lives inside `.prose-legal`, which underlines every
+     link it contains — correct for a link inside a sentence, wrong for nine
+     stacked in a sidebar, where the rule is the 2px rail on the left and the
+     underlines just make the column look struck through. */
+  text-decoration: none;
+  display: block;
+  padding: 0.375rem 1rem;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  /* Square on the left so the 2px border rail stays a straight line; the `sm`
+     step on the right. It was 6px, which is on no ladder. */
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  cursor: pointer;
+  transition:
+    color var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui),
+    background-color var(--d-ui) var(--ease-ui);
+}
+
+.legal-grid .legal-toc-link:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.04);
+  border-left-color: rgba(232, 184, 75, 0.6);
+}
+.legal-grid .legal-toc-link:active {
+  color: var(--color-gold);
+  background: rgba(232, 184, 75, 0.08);
+  border-left-color: var(--color-gold);
+}
+
+.legal-grid .legal-toc-link.is-active {
+  color: var(--color-gold);
+  border-left-color: var(--color-gold);
+  background: rgba(232, 184, 75, 0.08);
+  font-weight: 500;
+}
+
+/* Main Content Column styling */
+.legal-grid .md-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.legal-grid .legal-notice {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  /* The Border Discipline Rule: every container gets a crisp 1px hairline.
+     No dashed decoration, even on a build-time warning. */
+  border: 1px solid var(--color-glass-border-hover);
+  border-radius: 12px;
+  background: var(--color-surface-overlay);
+  margin-bottom: 2.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+}
+.legal-grid .legal-notice .icon {
+  flex: none;
+  margin-top: 2px;
+}
+.legal-grid .legal-notice strong {
+  color: var(--color-resampled);
+  font-weight: 600;
+}
+.legal-grid .legal-notice code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  color: var(--color-amber);
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+/* Desktop Left Sidebar Grid Layout (≥ 1024px) */
+@media (min-width: 1024px) {
+  .legal-grid {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .legal-grid .legal-toc-wrapper {
+    position: sticky;
+    top: 6.5rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+
+  .legal-grid .legal-toc-details {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  /* The disclosure collapses into a plain sidebar heading at this width:
+     it toggles nothing, so it claims neither a pointer nor a hover. */
+  .legal-grid .legal-toc-summary {
+    cursor: default;
+    pointer-events: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-grid .legal-toc-chevron {
+    display: none;
+  }
+
+  .legal-grid .legal-toc ul {
+    margin-top: 0.5rem;
+  }
+}
