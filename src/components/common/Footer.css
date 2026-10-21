@@ -1,0 +1,52 @@
+/* The derived desktop track list. See `footerCols` in the front matter. */
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: var(--footer-cols);
+  }
+}
+
+/* Colour and a 3px nudge, on the UI curve. transition-all was animating
+   every property the link owns, including the ones it never changes. */
+.footer-link {
+  display: inline-block;
+  transition:
+    color var(--d-ui) var(--ease-ui),
+    transform var(--d-ui) var(--ease-ui);
+}
+.footer-link:hover {
+  transform: translateX(3px);
+}
+.footer-link:active {
+  transform: translateX(1px);
+}
+
+/* The Reduced Motion Rule: the colour change carries the whole hover when a
+   visitor has asked for no movement. */
+@media (prefers-reduced-motion: reduce) {
+  .footer-link:hover,
+  .footer-link:active {
+    transform: none;
+  }
+}
+
+.footer-social-link {
+  transition:
+    color var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui),
+    background-color var(--d-ui) var(--ease-ui),
+    box-shadow var(--d-ui) var(--ease-ui),
+    transform var(--d-ui) var(--ease-ui);
+}
+.footer-social-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px -2px rgba(232, 184, 75, 0.28);
+}
+.footer-social-link:active {
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-link:hover,
+  .footer-social-link:active {
+    transform: none;
+  }
+}

@@ -14,7 +14,7 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import Button from '../../components/common/Button';
-import FeatureArt from '../../components/feature/FeatureArt.astro';
+import FeatureArt from '../../components/feature/FeatureArt';
 import PhoneTrio from '../../components/feature/PhoneTrio.astro';
 import { indexOrder } from '../../components/feature/content';
 import { site, getLocalizedCompatibility } from '../../data/site';
@@ -98,7 +98,7 @@ const order = [...indexOrder];
                 style={`--i: ${i % 3}`}
               >
                 <div class="art-clip relative overflow-hidden">
-                  <FeatureArt slug={slug} class="art w-full" />
+                  <FeatureArt slug={slug} className="art w-full" />
                 </div>
 
                 <div class="relative flex flex-1 flex-col px-6 pt-3 pb-6 lg:px-7 lg:pt-4 lg:pb-7">
