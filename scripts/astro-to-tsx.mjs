@@ -73,7 +73,7 @@ function convertFile(file) {
     let frontmatter = '';
     let css = '';
 
-    const attr = (a) => {
+    const attr = (a, isComponent) => {
       const { kind, name: n, value } = a;
       if (n === 'class:list') { uses.cx = true; return `className={cx(${value})}`; }
       if (n === 'set:html') return `dangerouslySetInnerHTML={{ __html: ${kind === 'quoted' ? JSON.stringify(value) : value} }}`;
@@ -89,7 +89,10 @@ function convertFile(file) {
         uses.styleOf = true;
         return `style={styleOf(${kind === 'template-literal' ? `\`${value}\`` : value})}`;
       }
-      if (kind === 'empty') return REACT_BOOL.has(n) ? jsxName : `${jsxName}=""`;
+      // On a component a valueless attribute is a `true` prop (`<PhoneScreen
+      // priority />`); `priority=""` would be falsy.
+      if (kind === 'empty') return isComponent || REACT_BOOL.has(n) ? jsxName : `${jsxName}=""`;
+      if (kind === 'quoted' && /^(tabindex|colspan|rowspan|maxlength)$/.test(n) && /^-?\d+$/.test(value)) return `${jsxName}={${value}}`;
       if (kind === 'quoted') return `${jsxName}=${JSON.stringify(value)}`;
       if (kind === 'template-literal') return `${jsxName}={\`${value}\`}`;
       return `${jsxName}={${value}}`;
@@ -152,7 +155,9 @@ function convertFile(file) {
         case 'custom-element': {
           if (node.name === 'style') {
             if (node.attributes.length) todos.push(`<style ${node.attributes.map((a) => a.name).join(' ')}>: check the CSS port`);
-            css += node.children.map((c) => c.value).join('');
+            const sheet = node.children.map((c) => c.value).join('');
+            if (sheet.includes(':global(')) todos.push('`:global()` unwrapped: check the selector is still specific to this component');
+            css += sheet.replace(/:global\(([^()]*(?:\([^()]*\)[^()]*)*)\)/g, '$1');
             uses.css = true;
             return '';
           }
@@ -167,7 +172,7 @@ function convertFile(file) {
             return '{children}';
           }
           const tag = node.name === 'Fragment' ? '' : node.name;
-          const attrs = node.attributes.map(attr).join(' ');
+          const attrs = node.attributes.map((a) => attr(a, node.type === 'component')).join(' ');
           const open = `<${tag}${attrs ? ' ' + attrs : ''}`;
           if (VOID.has(node.name) || !node.children.length) return tag ? `${open} />` : '';
           return `${open}>${markup(node.children)}</${tag}>`;
@@ -236,7 +241,7 @@ function convertFile(file) {
     const childrenParam = uses.children && !/\bchildren\b/.test(code) ? `{ children }: { children?: ReactNode }` : '';
     const sig = usesProps ? `props: ${hasProps ? propsName : 'Record<string, unknown>'}` : childrenParam;
     if (uses.children && usesProps && !/\bchildren\b/.test(code)) code += `\nconst { children } = props;`;
-    const tsx = `${header}\n\n${hoisted.join('\n\n')}\n\nexport default function ${name}(${sig}) {\n${code}\n\nreturn (${ast.children.filter((n) => n.type !== 'frontmatter' && !(n.type === 'text' && !n.value.trim()) && !(n.type === 'element' && (n.name === 'style' || n.name === 'script'))).length === 1 ? body : `<>${body}</>`});\n}\n`;
+    const tsx = `${header}\n\n${hoisted.join('\n\n')}\n\nexport default function ${name}(${sig}) {\n${code}\n\nreturn (${ast.children.filter((n) => n.type !== 'frontmatter' && !(n.type === 'text' && !n.value.trim()) && !(n.type === 'element' && (n.name === 'style' || n.name === 'script'))).length === 1 && !body.startsWith('{') ? body : `<>${body}</>`});\n}\n`;
 
     const out = file.replace(/\.astro$/, '.tsx');
     writeFileSync(out, tsx);
@@ -247,10 +252,16 @@ function convertFile(file) {
     } catch {
       todos.push('prettier could not format the output: it is probably not valid TSX yet');
     }
-    const classes = [...new Set(css.match(/\.[a-zA-Z_][\w-]*/g) ?? [])];
+    const bare = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/@keyframes[^{]*\{(?:[^{}]*\{[^}]*\})*[^}]*\}/g, '');
+    const classes = [...new Set(bare.replace(/\{[^}]*\}/g, '{}').match(/\.[a-zA-Z_][\w-]*/g) ?? [])];
     console.log(`\n${out.slice(process.cwd().length + 1)}${uses.css ? ` + ${basename(cssOut)}` : ''}`);
     if (classes.length) console.log(`  global classes: ${classes.join(' ')}`);
-    if (/(^|[\s,}])(?:[a-z]+)(?=[\s,{:.[]|$)/m.test(css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\{[^}]*\}/g, '{}').replace(/@[^{]+/g, ''))) console.log('  check: a selector starts with a bare tag name, which is global now');
+    const bareTags = [...bare.matchAll(/([^{};]+)\{/g)]
+      .map((m) => m[1].trim())
+      .filter((p) => !p.startsWith('@'))
+      .flatMap((p) => p.split(',').map((x) => x.trim()))
+      .filter((sel) => /^[a-z]/i.test(sel) && !/^(from|to)$/.test(sel));
+    if (bareTags.length) console.log(`  check: selectors start with a bare tag name, which is global now: ${bareTags.join(', ')}`);
     for (const t of todos) console.log(`  TODO ${t}`);
   });
 }
