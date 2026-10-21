@@ -33,6 +33,10 @@ document head are Astro's job.
 - **Slots.** The default slot is `children`. A named slot (`slot="actions"`) arrives
   as a camelCased prop (`actions`), typed `ReactNode`.
 - **`inert`** is typed by `src/types/react-inert.d.ts`; write it `inert=""`.
+- **One run of text, one string.** React renders `{name} ({count})` as separate
+  text nodes with `<!-- -->` between them, and Chromium can place the glyphs a
+  sub-pixel off where Astro wrote one node. Build a label that mixes text and
+  values as a template string: `` {`${name} (${count})`} ``.
 
 ## Migrating an `.astro` component
 
