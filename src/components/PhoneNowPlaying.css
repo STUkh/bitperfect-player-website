@@ -1,0 +1,36 @@
+.phone-now-playing {
+  width: 100%;
+  /* 300, not 320, and the 20px is doing real work.
+
+     This device bleeds off the fold on purpose — the hero caps its own height so
+     the phone crops at a CHOSEN line rather than dictating the row. With the
+     screen at its true 9:20 the chassis grew from 566px to 687px, and the chosen
+     line stopped being chosen: the crop landed straight through the middle of the
+     track title. At 300 the chassis is 642 and the same 474px of visible height
+     falls in the empty band between the artist line and the progress bar, which
+     is the one place across that screen where a horizontal cut meets no ink.
+     It also puts the hero device on the same 300px module as the lineup. */
+  max-width: 300px;
+  margin-inline: auto;
+  border-radius: var(--radius-phone-outer, 14px);
+  padding: 10px;
+  background: linear-gradient(160deg, rgba(27, 24, 36, 0.88), rgba(10, 10, 15, 0.96) 45%, rgba(27, 24, 36, 0.8));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border-gold);
+  /* The 60px gold halo that used to sit under this is gone. A phone is an object
+     lit by the room, not a lamp (DESIGN.md, "Gold Emits Nothing" and "No Floating
+     Glow"), and the halo was still painting the retired #e5b842 besides. Depth is
+     the surface ladder plus the top-rim specular the elevated shadow already
+     carries. */
+  box-shadow: var(--shadow-device);
+  position: relative;
+}
+
+.phone-now-playing-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-phone-screen, 10px);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-phone-screen);
+}

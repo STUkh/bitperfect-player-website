@@ -1,0 +1,32 @@
+/* The secondary action. `.btn-secondary-glow` in global.css transitions the
+   ground, the border and the box-shadow but not the label colour, so the
+   text used to snap while everything around it eased. One declaration for
+   all of it, on the UI curve.
+   Compounded with `.btn-secondary-glow` so it outranks that rule's own
+   `transition` (global.css, unlayered, same specificity otherwise), as the
+   Astro-scoped `.hero-secondary[data-astro-cid-*]` used to. */
+.btn-secondary-glow.hero-secondary {
+  transition:
+    color var(--d-ui) var(--ease-ui),
+    background-color var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui),
+    box-shadow var(--d-ui) var(--ease-ui);
+}
+
+.hero-secondary-arrow {
+  transition: transform var(--d-ui) var(--ease-ui);
+}
+.hero-secondary:hover .hero-secondary-arrow {
+  transform: translateX(2px);
+}
+.hero-secondary:active .hero-secondary-arrow {
+  transform: translateX(0);
+}
+
+/* The Reduced Motion Rule: colour and ground carry the hover on their own. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-secondary:hover .hero-secondary-arrow,
+  .hero-secondary:active .hero-secondary-arrow {
+    transform: none;
+  }
+}
