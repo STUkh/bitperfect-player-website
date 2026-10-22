@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { site } from "../../data/site";
 import Button from "./Button";
 import PlayStoreMark from "./PlayStoreMark";
@@ -43,7 +44,7 @@ interface BadgeProps {
   size: keyof typeof SIZES;
   top: string;
   bottom: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 function Badge({ href, size, top, bottom, children }: BadgeProps) {

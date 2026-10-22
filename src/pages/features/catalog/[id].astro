@@ -40,7 +40,7 @@ interface Props {
 const { feature, prev, next } = Astro.props as Props;
 const t = useTranslations(Astro.currentLocale);
 
-const [openingScreen, howScreen, hearScreen] = feature.screens ?? ['now-playing', 'playback'];
+const [openingScreen, howScreen, hearScreen] = feature.screens ?? (['now-playing', 'playback'] as const);
 const number = String(feature.number).padStart(2, '0');
 ---
 

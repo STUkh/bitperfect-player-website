@@ -391,19 +391,18 @@ export function setupHomeOpening(section: HTMLElement) {
   const onTouchEnd = () => {
     touching = false;
   };
-  const inputs = [
-    ['pointerdown', hold],
-    ['keydown', hold],
-    ['wheel', onWheel],
-    ['touchstart', onTouchStart],
-    ['touchend', onTouchEnd],
-    ['touchcancel', onTouchEnd],
-  ] as const;
+  // Generic so each listener is checked against its own event type.
+  const toggle = <K extends keyof WindowEventMap>(on: boolean, type: K, fn: (event: WindowEventMap[K]) => void) => {
+    if (on) window.addEventListener(type, fn, { passive: true });
+    else window.removeEventListener(type, fn);
+  };
   const listen = (on: boolean) => {
-    for (const [type, fn] of inputs) {
-      if (on) window.addEventListener(type, fn, { passive: true });
-      else window.removeEventListener(type, fn);
-    }
+    toggle(on, 'pointerdown', hold);
+    toggle(on, 'keydown', hold);
+    toggle(on, 'wheel', onWheel);
+    toggle(on, 'touchstart', onTouchStart);
+    toggle(on, 'touchend', onTouchEnd);
+    toggle(on, 'touchcancel', onTouchEnd);
   };
   const quiet = () => {
     listen(false);

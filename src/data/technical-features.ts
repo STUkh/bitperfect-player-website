@@ -1,3 +1,5 @@
+import type { ScreenName } from "./screens";
+
 export type FeatureCategory =
   | "engine"
   | "dsp"
@@ -62,7 +64,7 @@ export interface TechnicalFeature {
    * order: the opening band, "How it works", "What you hear". The third falls
    * back to the first when absent.
    */
-  screens?: [opening: string, howItWorks: string, whatYouHear?: string];
+  screens?: [opening: ScreenName, howItWorks: ScreenName, whatYouHear?: ScreenName];
 }
 
 export const technicalFeatures: TechnicalFeature[] = [

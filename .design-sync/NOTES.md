@@ -80,7 +80,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 
 ## Known warns
 
-- None on the 2026-10-22 shells build (41 components, render-check clean). `CrossLinkRow` and `SectionHeading` are `cardMode: column` because the grid cropped their cells (GRID_OVERFLOW). The `StoreBadges.tsx` TS2322 line in the d.ts step is a duplicate `@types/react` (site vs `.ds-sync`), pre-existing and non-blocking.
+- None on the 2026-10-22 shells build (41 components, render-check clean). `CrossLinkRow` and `SectionHeading` are `cardMode: column` because the grid cropped their cells (GRID_OVERFLOW). The d.ts step is a strict type-check and fails the build on any error (2026-10-22); a component must type its React imports (`import type { ReactNode } from 'react'`), never the global `React.` namespace, which resolves to the `.ds-sync` copy of `@types/react`.
 
 ## Re-sync risks
 

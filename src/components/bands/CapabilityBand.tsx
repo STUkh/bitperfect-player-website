@@ -56,8 +56,8 @@ export interface CapabilityBandProps extends ClassProps {
   backHref?: string;
   /** Text of the back link, e.g. `All 27 capabilities`. */
   backLabel?: string;
-  /** The capture to show: a key of `src/data/screens.ts` (now-playing, output, eq, dsp, ai, ...). An unknown key leaves the frame empty. */
-  screen: string;
+  /** The capture to show: a key of `src/data/screens.ts` (now-playing, output, eq, dsp, ai, ...). */
+  screen: ScreenName;
   /** Alt text for the capture. Default empty: the copy beside it already says what it shows. */
   screenAlt?: string;
   /** The section's anchor id. */
@@ -115,10 +115,7 @@ export default function CapabilityBand(props: CapabilityBandProps) {
         copyClassName="flex flex-col"
         mediaClassName="r-fade"
         mediaStyle={reveal(2)}
-        media={
-          /* `screen` comes from page data as a string; Phone leaves an unknown one dark. */
-          <Phone screen={screen as ScreenName} alt={screenAlt} priority={opening} />
-        }
+        media={<Phone screen={screen} alt={screenAlt} priority={opening} />}
       >
         <SectionHeading
           className="contents"

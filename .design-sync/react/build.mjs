@@ -48,12 +48,13 @@ await build({
 });
 
 // Declarations: tsc emits the tree under dist/types mirroring the repo (rootDir
-// ../..), so the entry's types land at dist/types/.design-sync/react/src/.
+// ../..), so the entry's types land at dist/types/.design-sync/react/src/. It also
+// type-checks every component (strict); a type error fails the build.
 try {
   execFileSync(resolve(here, 'node_modules/.bin/tsc'), ['-p', resolve(here, 'tsconfig.json')], { stdio: 'pipe' });
 } catch (e) {
-  const out = `${e.stdout ?? ''}`.trim();
-  if (out) console.error(`tsc reported (declarations still emitted):\n${out}`);
+  const out = `${e.stdout ?? ''}${e.stderr ?? ''}`.trim();
+  throw new Error(`tsc failed:\n${out || e.message}`);
 }
 const typesEntry = './types/.design-sync/react/src/index';
 if (!existsSync(resolve(here, `dist/${typesEntry}.d.ts`))) throw new Error('declarations missing');
