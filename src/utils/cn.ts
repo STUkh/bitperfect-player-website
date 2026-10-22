@@ -9,8 +9,9 @@ import { extendTailwindMerge } from "tailwind-merge";
  * `text-body-sm` and rendered at the inherited size, and the hero's secondary
  * action lost `text-text-secondary` to its own `text-small`.
  *
- * These lists mirror the `--text-*` and `--shadow-*` tokens in the `@theme`
- * block of src/styles/global.css. A new size or shadow token goes here too.
+ * These lists mirror the `--text-*`, `--shadow-*`, `--tracking-*` and
+ * `--container-*` tokens in the `@theme` block of src/styles/global.css. A new
+ * token in any of them goes here too.
  */
 const twMerge = extendTailwindMerge({
   extend: {
@@ -23,6 +24,14 @@ const twMerge = extendTailwindMerge({
         "overline", "device-label",
       ],
       shadow: ["card", "card-hover", "elevated", "float", "key", "key-hover", "device", "device-cast"],
+      tracking: [
+        "eyebrow", "eyebrow-sm", "label", "kicker", "micro", "micro-sm", "mono", "mono-sm",
+        "tag", "title", "title-lg",
+      ],
+      container: [
+        "measure", "measure-lede", "measure-short", "measure-card", "measure-legal",
+        "column", "page-head", "pricing",
+      ],
     },
   },
 });

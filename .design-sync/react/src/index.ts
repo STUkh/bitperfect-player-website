@@ -25,7 +25,6 @@ export { default as PlayStoreMark, type PlayStoreMarkProps } from '@site/compone
 export { default as RuleList, type RuleListProps } from '@site/components/sections/RuleList';
 export { default as SectionHeading, type SectionHeadingProps } from '@site/components/sections/SectionHeading';
 export { default as SpecList, type SpecListProps } from '@site/components/sections/SpecList';
-export { default as TextureStrip, type TextureStripProps } from '@site/components/primitives/TextureStrip';
 export { default as StoreBadges, type StoreBadgesProps } from '@site/components/primitives/StoreBadges';
 export { default as FeatureArt, type FeatureArtProps } from '@site/components/primitives/FeatureArt';
 export { default as FeatureLinkCard, type FeatureLinkCardProps } from '@site/components/sections/FeatureLinkCard';

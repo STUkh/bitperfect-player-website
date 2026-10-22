@@ -34,7 +34,7 @@ export default function PageHeader(props: PageHeaderProps) {
   const { eyebrow, title, description, maxWidth = '840px', backHref, backLabel, meta, children } = props;
 
   const maxWidthClass =
-    maxWidth === 'wide' ? 'max-w-[840px] lg:mx-0' : maxWidth === '760px' ? 'max-w-[760px]' : 'max-w-[840px]';
+    maxWidth === 'wide' ? 'max-w-page-head lg:mx-0' : maxWidth === '760px' ? 'max-w-column' : 'max-w-page-head';
 
   return (
     <section className="ground ground-brushed border-b border-border-subtle/50 overhead-wash pt-10 pb-12 lg:pt-16 lg:pb-16">
@@ -53,7 +53,7 @@ export default function PageHeader(props: PageHeaderProps) {
           >
             {title}
           </h1>
-          <p className="mt-4 max-w-[68ch] text-body text-pretty text-text-secondary lg:text-body-lg leading-relaxed">
+          <p className="mt-4 max-w-measure-legal text-body text-pretty text-text-secondary lg:text-body-lg leading-relaxed">
             {description}
           </p>
           {children}

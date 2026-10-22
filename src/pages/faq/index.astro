@@ -63,7 +63,7 @@ const categories = [
           <h2 class="text-body font-bold text-text-primary">
             Why is AI Enhancer not working on your phone?
           </h2>
-          <p class="mt-0.5 max-w-[68ch] text-caption text-text-secondary">
+          <p class="mt-0.5 max-w-measure-legal text-caption text-text-secondary">
             See which phones run AI Enhancer on the neural chip, and why it may switch off on yours.
           </p>
         </div>
@@ -408,12 +408,12 @@ const categories = [
     .faq-cat-btn:hover {
       color: var(--color-text-primary);
       background: rgba(255, 255, 255, 0.04);
-      border-left-color: rgba(232, 184, 75, 0.6);
+      border-left-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
     }
     .faq-cat-btn[aria-pressed='true'] {
       color: var(--color-gold);
       border-left-color: var(--color-gold);
-      background: rgba(232, 184, 75, 0.08);
+      background: color-mix(in srgb, var(--color-gold) 8%, transparent);
       font-weight: 500;
     }
   }

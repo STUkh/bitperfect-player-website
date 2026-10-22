@@ -293,7 +293,7 @@
     border-radius: 50%;
     /* No blur filter: the gradient is already soft, and a blur on a layer that
        scales with the lineup is re-filtered whenever its raster scale changes. */
-    background: radial-gradient(closest-side, rgba(232, 184, 75, 0.09), rgba(232, 184, 75, 0));
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-gold) 9%, transparent), color-mix(in srgb, var(--color-gold) 0%, transparent));
     pointer-events: none;
   }
 

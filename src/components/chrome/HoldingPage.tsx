@@ -70,11 +70,11 @@ export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProp
       <main id="main-content" className="holding-stage">
         <Container className="lg:px-20">
           <div className="holding-column">
-            <span className="mono-spec block text-micro tracking-[1.9px] text-gold uppercase">{eyebrow}</span>
+            <span className="mono-spec block text-micro tracking-kicker text-gold uppercase">{eyebrow}</span>
             <h1 className="mt-4 text-display-m text-balance text-text-primary md:text-headline lg:mt-5 lg:text-headline-xl">
               {headline}
             </h1>
-            <p className="mt-5 max-w-[42ch] text-body-sm text-pretty text-text-secondary lg:mt-7 lg:text-lede">
+            <p className="mt-5 max-w-measure-short text-body-sm text-pretty text-text-secondary lg:mt-7 lg:text-lede">
               {lede}
             </p>
             {/* The one moving thing on the page. See the note at the top of this file. */}

@@ -50,7 +50,7 @@ export default function ClosingBanner(props: ClosingBannerProps) {
     top,
   } = props;
 
-  const maxWidthClass = maxWidth === '760px' ? 'max-w-[760px]' : 'max-w-[840px]';
+  const maxWidthClass = maxWidth === '760px' ? 'max-w-column' : 'max-w-page-head';
 
   return (
     <Band ground="ground-rosette" className="border-t border-border-subtle bg-surface-raised">

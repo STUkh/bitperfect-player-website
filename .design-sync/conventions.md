@@ -35,8 +35,8 @@ No provider. `styles.css` loads Manrope, the tokens, component styles and image 
 | Composed | `heading-section`, `mono-spec` (rates, prices: tabular) |
 | Radii | `rounded-card` `rounded-card-sm` `rounded-card-inner` `rounded-tile` `rounded-chip` |
 | Shadows | `shadow-card` `shadow-elevated` `shadow-device` (no coloured shadows) |
-| Tracking | `tracking-label` `tracking-micro`; `tracking-eyebrow` is the hero eyebrow's only |
-| Measures | no tokens, write the value: `max-w-[56ch]` lede, `max-w-[760px]`/`max-w-[840px]` column |
+| Tracking | `tracking-label` `tracking-micro` `tracking-micro-sm` `tracking-title` (body-size titles) `tracking-title-lg` `tracking-tag`; `tracking-eyebrow` and `tracking-kicker` belong to the hero eyebrow |
+| Measures | `max-w-measure` (52ch body) `max-w-measure-lede` (56ch) `max-w-measure-short` (42ch) `max-w-measure-card` (34ch) `max-w-measure-legal` (68ch) · columns `max-w-column` (760px) `max-w-page-head` (840px) `max-w-pricing` (1040px). Headline widths stay arbitrary (`max-w-[16ch]`) |
 
 Full rules: `guidelines/DESIGN.md`. Every compiled class: `_ds_bundle.css`.
 

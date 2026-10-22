@@ -51,7 +51,7 @@ const allFeaturesHref = withBase('features');
 /**
  * Features teaser. No props; the copy is the site's own.
  *
- * Follows StatementBand and precedes the TextureStrip and PrivacyBand. Graphite
+ * Follows StatementBand and precedes PrivacyBand. Graphite
  * surface (`bg-surface-base`) on the `features-ground` backdrop; the `#features`
  * anchor that the hero's "See what it does" button targets.
  *

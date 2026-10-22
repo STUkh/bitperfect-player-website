@@ -55,7 +55,7 @@ export default function TechIndex({ base = '/', id = 'all-capabilities', classNa
             <Container className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-4">
                 <div className="lg:sticky lg:top-28">
-                  <p className="tech-index-label mono-spec flex items-baseline gap-3 text-micro font-medium tracking-[1.2px] uppercase tabular-nums lg:tracking-[1.5px]">
+                  <p className="tech-index-label mono-spec flex items-baseline gap-3 text-micro font-medium tracking-micro-sm uppercase tabular-nums lg:tracking-micro">
                     <span className="tech-index-num text-gold" aria-hidden="true" />
                     <span className="tech-index-rule" aria-hidden="true" />
                     <span className="text-text-tertiary">{`${entries.length} ${entries.length === 1 ? 'entry' : 'entries'}`}</span>
@@ -79,7 +79,7 @@ export default function TechIndex({ base = '/', id = 'all-capabilities', classNa
                     >
                       <span className="mono-spec text-small tabular-nums text-text-tertiary">{pad(feat.number)}</span>
                       <span className="flex min-w-0 flex-col gap-1.5">
-                        <span className="tech-index-title text-body-lg font-semibold tracking-[-0.01em] text-text-primary lg:text-title">
+                        <span className="tech-index-title text-body-lg font-semibold tracking-title text-text-primary lg:text-title">
                           {feat.title}
                         </span>
                         <span className="text-small text-pretty text-text-secondary lg:text-body">{feat.summary}</span>

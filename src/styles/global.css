@@ -81,6 +81,12 @@
   /* ── Brand accent — gold, and gold only ── */
   --color-gold: #e8b84b;
   --color-gold-light: #f2c65e;
+  /* The gold lacquer finish (`.lacquer-gold`, the founder plan): the warm
+     ground it is poured on, and the two highlights that run across it. */
+  --color-lacquer-gold-top: #2b261c;
+  --color-lacquer-gold-bottom: #1f1d19;
+  --color-gold-glint: #ffe296;
+  --color-gold-sheen: #ffd678;
   --color-gold-deep: #b3812f;
   --color-gold-warm: #c99248;
   --color-amber: #ffb347;
@@ -185,6 +191,8 @@
      system that said 8px. Nothing reports this class of failure; only defining
      every step you document does. */
   --radius-sm: 8px;
+  /* Legal panels, code blocks and figures in prose. */
+  --radius-panel: 12px;
   /* The spec chips and inline readout tiles on the feature routes. */
   --radius-note: 10px;
   /* Plot frames, the AI screen's panels, the ivory placeholder frame. */
@@ -366,11 +374,39 @@
   --text-label--letter-spacing: 3px;
   --text-label--font-weight: 700;
 
-  /* ── Tracking and leading helpers ── */
+  /* ── Tracking and leading helpers ──
+     Every letter-spacing the site uses is one of these. A new value is a new
+     decision: name it here, never as `tracking-[…]` at the call site. */
   --tracking-eyebrow: 3px;
+  --tracking-eyebrow-sm: 2.5px;
   --tracking-label: 2px;
+  /* The gold mono kicker above a hero headline. */
+  --tracking-kicker: 1.9px;
   --tracking-micro: 1.5px;
+  --tracking-micro-sm: 1.2px;
+  /* Mono readouts inside the image-slot frame. */
+  --tracking-mono: 1.4px;
+  --tracking-mono-sm: 0.6px;
+  /* Uppercase micro tags (pricing's plan chip). */
+  --tracking-tag: 0.08em;
+  /* Card and row titles: a body-size heading pulled in a hair. */
+  --tracking-title: -0.01em;
+  --tracking-title-lg: -0.02em;
   --leading-heading: 1.12;
+
+  /* ── Measures and columns ──
+     `--container-*` drives `max-w-*`. Reading measures are in ch so they follow
+     the type size; columns are in px. Headline widths (16ch, 20ch…) and one-off
+     measures stay at the call site: each is tuned to its own line breaks. */
+  --container-measure: 52ch;
+  --container-measure-lede: 56ch;
+  --container-measure-short: 42ch;
+  --container-measure-card: 34ch;
+  /* The legal and FAQ reading measure; matches `.prose-legal p`. */
+  --container-measure-legal: 68ch;
+  --container-column: 760px;
+  --container-page-head: 840px;
+  --container-pricing: 1040px;
 
   /* ── Easing ──
      One reveal curve for everything. No springs, no overshoot: a curve whose
@@ -547,7 +583,7 @@ body::after {
   on white.
 */
 ::selection {
-  background-color: rgba(232, 184, 75, 0.9);
+  background-color: color-mix(in srgb, var(--color-gold) 90%, transparent);
   color: #191919;
 }
 
@@ -560,7 +596,7 @@ body::after {
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
+  border-radius: var(--radius-thumb);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.25);
@@ -639,7 +675,7 @@ body::after {
 .prose-legal p,
 .prose-legal li,
 .prose-legal blockquote {
-  max-width: 68ch;
+  max-width: var(--container-measure-legal);
 }
 .prose-legal p {
   margin-bottom: 1rem;
@@ -716,13 +752,13 @@ body::after {
   color: var(--color-text-primary);
   background: var(--color-surface-overlay);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 4px;
+  border-radius: var(--radius-chip);
   padding: 0.15em 0.4em;
 }
 .prose-legal pre {
   background: var(--color-surface-overlay);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 12px;
+  border-radius: var(--radius-panel);
   padding: 1.25rem 1.5rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -744,7 +780,7 @@ body::after {
   color: var(--color-text-primary);
   background: var(--color-surface-overlay);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
+  border-radius: var(--radius-chip);
   padding: 0.15em 0.45em;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
 }
@@ -758,7 +794,7 @@ body::after {
   margin-top: 0.5rem;
 }
 .prose-legal img {
-  border-radius: 12px;
+  border-radius: var(--radius-panel);
   max-width: 100%;
   height: auto;
 }
@@ -881,7 +917,7 @@ body::after {
   line-height: 1.4;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2.5px;
+  letter-spacing: var(--tracking-eyebrow-sm);
   @media (min-width: 640px) {
     letter-spacing: var(--tracking-eyebrow);
   }

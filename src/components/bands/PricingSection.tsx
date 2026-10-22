@@ -125,11 +125,11 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
       <Container className="relative z-[2]">
         <SectionHeading
           tone="graphite"
-          className="lg:mx-auto lg:mb-13 lg:max-w-[760px] lg:text-center"
+          className="lg:mx-auto lg:mb-13 lg:max-w-column lg:text-center"
           title={t('pricing.heading')}
           titleClassName="text-section-sm lg:text-headline-sm"
           lede={t('pricing.subheading')}
-          ledeClassName="mt-3.5 text-base leading-[1.6] text-pretty lg:mx-auto lg:mt-5 lg:max-w-[56ch] lg:text-body-lg"
+          ledeClassName="mt-3.5 text-base leading-[1.6] text-pretty lg:mx-auto lg:mt-5 lg:max-w-measure-lede lg:text-body-lg"
           reveal={0}
         />
 
@@ -152,7 +152,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
                 <div className="flex items-center justify-between gap-3">
                   <span
                     className={cx(
-                      'inline-flex items-center gap-2 text-micro leading-none font-semibold tracking-[0.08em] uppercase',
+                      'inline-flex items-center gap-2 text-micro leading-none font-semibold tracking-tag uppercase',
                       p.featured ? 'text-gold' : 'text-text-tertiary',
                     )}
                   >
@@ -220,7 +220,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
         </div>
 
         <div
-          className="r-rise mt-[34px] border-t border-border-subtle pt-6 lg:mx-auto lg:mt-18 lg:max-w-[1040px] lg:pt-[34px]"
+          className="r-rise mt-[34px] border-t border-border-subtle pt-6 lg:mx-auto lg:mt-18 lg:max-w-pricing lg:pt-[34px]"
           style={stagger(3)}
         >
           <span className="block text-caption text-text-tertiary lg:mb-[26px]">{t('pricing.covers_title')}</span>
@@ -233,7 +233,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
                   i < 2 && 'lg:pr-[34px]',
                 )}
               >
-                <span className="block text-body-sm font-semibold tracking-[-0.01em] text-text-primary lg:text-body-lg">
+                <span className="block text-body-sm font-semibold tracking-title text-text-primary lg:text-body-lg">
                   {unlock.name}
                 </span>
                 {/* The one entry with a hardware condition gets a way to check it. */}
@@ -267,7 +267,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-1.5 lg:mx-auto lg:mt-9 lg:max-w-[1040px] lg:flex-row lg:flex-wrap lg:gap-x-[22px]">
+        <div className="mt-8 flex flex-col gap-1.5 lg:mx-auto lg:mt-9 lg:max-w-pricing lg:flex-row lg:flex-wrap lg:gap-x-[22px]">
           {disclosures.map((line) => (
             <span key={line} className="text-xs text-text-tertiary">
               {line}

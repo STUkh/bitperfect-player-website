@@ -20,7 +20,7 @@ export interface SectionHeadingProps extends ClassProps {
   titleId?: string;
   /** A paragraph under the title. */
   lede?: ReactNode;
-  /** Type and spacing of the eyebrow. Replaces the default `mono-spec text-micro font-medium tracking-[1.2px] uppercase lg:tracking-[1.5px]`. */
+  /** Type and spacing of the eyebrow. Replaces the default `mono-spec text-micro font-medium tracking-micro-sm uppercase lg:tracking-micro`. */
   eyebrowClassName?: string;
   /** Type and spacing of the title. Replaces the default `text-section-m lg:text-section`. */
   titleClassName?: string;
@@ -54,7 +54,7 @@ export default function SectionHeading(props: SectionHeadingProps) {
     titleAs: Heading = 'h2',
     titleId,
     lede,
-    eyebrowClassName = 'mono-spec text-micro font-medium tracking-[1.2px] uppercase lg:tracking-[1.5px]',
+    eyebrowClassName = 'mono-spec text-micro font-medium tracking-micro-sm uppercase lg:tracking-micro',
     titleClassName = 'text-section-m lg:text-section',
     ledeClassName = 'text-body text-pretty lg:text-body-lg',
     reveal,

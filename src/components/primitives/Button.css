@@ -90,7 +90,7 @@
   opacity: 0;
   box-shadow:
     0 8px 24px -4px rgba(0, 0, 0, 0.6),
-    0 0 20px -2px rgba(232, 184, 75, 0.28);
+    0 0 20px -2px color-mix(in srgb, var(--color-gold) 28%, transparent);
 }
 .btn-secondary-glow::after {
   opacity: 0;

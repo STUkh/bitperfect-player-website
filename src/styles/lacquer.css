@@ -46,13 +46,13 @@
     radial-gradient(70% 38% at 50% 0%, var(--lq-top-glow, rgba(255, 255, 255, 0.06)) 0%, transparent 100%);
 }
 .lacquer-gold {
-  --lq-edge: rgba(232, 184, 75, 0.46);
-  --lq-rim: rgba(255, 226, 150, 0.3);
-  --lq-lit: rgba(232, 184, 75, 0.24);
-  --lq-top: #2b261c;
-  --lq-bottom: #1f1d19;
-  --lq-sheen: rgba(255, 214, 120, 0.09);
-  --lq-top-glow: rgba(255, 226, 150, 0.1);
+  --lq-edge: color-mix(in srgb, var(--color-gold) 46%, transparent);
+  --lq-rim: color-mix(in srgb, var(--color-gold-glint) 30%, transparent);
+  --lq-lit: color-mix(in srgb, var(--color-gold) 24%, transparent);
+  --lq-top: var(--color-lacquer-gold-top);
+  --lq-bottom: var(--color-lacquer-gold-bottom);
+  --lq-sheen: color-mix(in srgb, var(--color-gold-sheen) 9%, transparent);
+  --lq-top-glow: color-mix(in srgb, var(--color-gold-glint) 10%, transparent);
 }
 /* A lacquered card that is a link or a button: it rises a hair and the sheen brightens.
 

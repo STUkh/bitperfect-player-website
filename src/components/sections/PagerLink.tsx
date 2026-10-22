@@ -37,7 +37,7 @@ export default function PagerLink({ direction, href, label, title }: PagerLinkPr
         <span>{label}</span>
         {next ? arrow : null}
       </span>
-      <span className={cx('text-body-lg font-semibold tracking-[-0.02em] text-text-primary lg:text-title', next && 'lg:text-right')}>
+      <span className={cx('text-body-lg font-semibold tracking-title-lg text-text-primary lg:text-title', next && 'lg:text-right')}>
         {title}
       </span>
     </Card>

@@ -118,13 +118,13 @@ export default function CapabilityBand(props: CapabilityBandProps) {
           className="contents"
           tone={tone}
           eyebrow={eyebrow}
-          eyebrowClassName="mono-spec mb-4 text-micro font-medium tracking-[1.2px] uppercase tabular-nums lg:mb-5 lg:tracking-[1.5px]"
+          eyebrowClassName="mono-spec mb-4 text-micro font-medium tracking-micro-sm uppercase tabular-nums lg:mb-5 lg:tracking-micro"
           title={title}
           titleAs={titleAs}
           titleClassName={opening ? 'text-headline-m lg:text-headline-sm' : 'text-section-m lg:text-section'}
           lede={body}
           ledeClassName={cx(
-            'mt-4 max-w-[56ch] text-pretty lg:mt-5',
+            'mt-4 max-w-measure-lede text-pretty lg:mt-5',
             opening ? 'text-lede-m lg:text-lede' : 'text-body lg:text-body-lg',
           )}
           reveal={1}

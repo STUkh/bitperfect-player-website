@@ -25,5 +25,3 @@ export { default as PlayStoreMark } from './PlayStoreMark';
 export * from './PlayStoreMark';
 export { default as StoreBadges } from './StoreBadges';
 export * from './StoreBadges';
-export { default as TextureStrip } from './TextureStrip';
-export * from './TextureStrip';

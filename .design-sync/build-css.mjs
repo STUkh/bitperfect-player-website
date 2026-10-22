@@ -60,6 +60,7 @@ const safelist = [
   ...responsive(tokens('text').map((t) => `text-${t}`)),
   ...tokens('shadow').map((s) => `shadow-${s}`),
   ...tokens('tracking').map((t) => `tracking-${t}`),
+  ...responsive(tokens('container').map((c) => `max-w-${c}`)),
   ...responsive(spacing), ...responsive(layout),
   'border', 'border-t', 'border-b', 'border-l', 'border-r', 'border-y', 'border-x', 'border-0',
   'font-normal', 'font-medium', 'font-semibold', 'font-bold', 'font-extrabold', 'font-mono', 'font-sans',

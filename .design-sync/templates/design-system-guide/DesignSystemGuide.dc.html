@@ -160,15 +160,6 @@ html,body{margin:0;background:#191919}
 </sc-for>
 </div>
 
-<h2 class="g-h2" style="margin-top:72px">TextureStrip</h2>
-<p class="g-note">A narrow full-bleed ribbon of photographed material, only on a dark-to-light seam, never under a block with its own photograph. The home page uses copper.</p>
-<div class="g-frame">
-<x-import component-from-global-scope="BitperfectPlayer.TextureStrip" material="wood" hint-size="100%,56px"></x-import>
-<div style="height:16px"></div>
-<x-import component-from-global-scope="BitperfectPlayer.TextureStrip" material="copper" hint-size="100%,56px"></x-import>
-<div style="height:16px"></div>
-<x-import component-from-global-scope="BitperfectPlayer.TextureStrip" material="glass" hint-size="100%,56px"></x-import>
-</div>
 </div>
 </section>
 
@@ -300,9 +291,6 @@ html,body{margin:0;background:#191919}
 <p class="g-note">An image slot: the real plate once one exists, a registration frame until then. The frame keeps the aspect ratio when the plate lands.</p>
 <div class="g-frame g-stage-ivory" style="padding:28px"><x-import component-from-global-scope="BitperfectPlayer.ImageSlot" name="home-privacy" variant="ivory" ratio="3 / 1" ships="2560x853" hint-size="100%,300px"></x-import></div></div>
 
-<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">TextureStrip</p><span class="g-code">material wood | copper | glass</span></div>
-<p class="g-note">Shown above under <a href="#materials">Materials</a>.</p></div>
-
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Surface</p><span class="g-code">tone graphite | ivory</span></div>
 <p class="g-note">Design only, not on the site: the page ground for a loose component in a mockup. Bands that carry their own ground paint over it.</p>
 <div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
@@ -377,7 +365,7 @@ html,body{margin:0;background:#191919}
 <div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.FeaturesTeaser" hint-size="100%,1100px"></x-import></div></div>
 
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PrivacyBand</p><span class="g-code">no props</span></div>
-<p class="g-note">The second ivory band, on the halftone ground, after the copper TextureStrip.</p>
+<p class="g-note">The second ivory band, on the halftone ground, after FeaturesTeaser.</p>
 <div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.PrivacyBand" hint-size="100%,760px"></x-import></div></div>
 
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PricingSection</p><span class="g-code">no props</span></div>
@@ -577,7 +565,7 @@ class Component extends DCLogic {
       { cls: 'ground ground-cta bg-band-ivory', name: 'cta', media: '', ink: 'var(--color-band-ink-muted)', use: 'CTASection' },
     ];
     const recipes = [
-      { name: 'Home', src: 'src/pages/index.astro', steps: ['Header', 'HomeOpening', 'StatementBand (ivory)', 'FeaturesTeaser', 'TextureStrip material="copper"', 'PrivacyBand (ivory)', 'PricingSection', 'CTASection (ivory)', 'Footer'] },
+      { name: 'Home', src: 'src/pages/index.astro', steps: ['Header', 'HomeOpening', 'StatementBand (ivory)', 'FeaturesTeaser', 'PrivacyBand (ivory)', 'PricingSection', 'CTASection (ivory)', 'Footer'] },
       { name: 'Feature page', src: 'src/pages/features/[slug].astro', steps: ['Header', 'Feature header: ground-brushed band, breadcrumb with FeatureMark chevron-right, h1, lede, spec rows', 'usb-dac only: the ivory signal-path comparison', 'One band per beat, graphite and ivory in turn, each with FeatureScreens slug state', 'Ivory specification band: "The numbers, in full"', 'PagerLink prev + next', 'Ivory closing band with PlayCta size="lg"', 'Footer'] },
       { name: 'Catalogue', src: 'src/pages/features/catalog.astro', steps: ['Header', 'PageHeader maxWidth="wide", eyebrow "Full specifications", back to features', 'TechIndex', 'ClosingBanner "Ready to hear your music bit for bit?"', 'Footer'] },
       { name: 'Capability page', src: 'src/pages/features/catalog/[id].astro', steps: ['Header', 'CapabilityBand graphite, media right, titleAs h1, back link, eyebrow "§ Category · NN", badge', 'CapabilityBand ivory, media left, "How it works"', 'CapabilityBand graphite, media right, "What you hear" + specs (+ SDK link)', 'PagerLink prev + next, wrapping in number order', 'ClosingBanner', 'Footer'] },
@@ -590,7 +578,6 @@ class Component extends DCLogic {
       'Every install button is PlayCta. Never a play triangle, never a hand-made gold button.',
       'Buttons never move on hover; only the sheen and rim light up. No arrow or chevron inside a button or store badge; text links and PagerLink may carry one.',
       'Hero and showcase are one HomeOpening; never split or rebuild it.',
-      'TextureStrip only on a dark-to-light seam, never under a block with its own photograph.',
       'Kickers (short gold mono uppercase label above a heading) only on PageHeader and ClosingBanner (their eyebrow), the hero and a plan card\'s label row; elsewhere the heading opens the block. ClosingBanner\'s primary is a plain Button; an install close uses PlayCta.',
       'Never draw an app screen; use a phone component.',
       'Manrope only; mono for numbers. No em or en dashes in copy.',

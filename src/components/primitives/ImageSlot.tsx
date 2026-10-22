@@ -186,7 +186,7 @@ export default function ImageSlot(props: ImageSlotProps) {
   const quiet = isIvory ? 'text-band-ink-muted hover:text-band-gold-ink' : 'text-white/45 hover:text-gold';
   const copyBtn = [
     'focus-visible:focus-ring inline-flex h-8 cursor-pointer items-center gap-2 rounded-full border px-3.5',
-    'font-mono text-[11px] tracking-[0.6px] uppercase',
+    'font-mono text-[11px] tracking-mono-sm uppercase',
     'transition-[color,border-color,transform] duration-[180ms] ease-ui active:translate-y-px',
     isIvory
       ? 'border-band-rule text-band-ink-muted hover:border-band-gold-ink/45 hover:text-band-gold-ink'
@@ -256,7 +256,7 @@ export default function ImageSlot(props: ImageSlotProps) {
                     />
                     <span
                       className={cx([
-                        'font-mono text-xs tracking-[1.4px] tabular-nums uppercase',
+                        'font-mono text-xs tracking-mono tabular-nums uppercase',
                         isIvory ? 'text-band-gold-ink' : 'text-gold',
                       ])}
                     >
@@ -264,7 +264,7 @@ export default function ImageSlot(props: ImageSlotProps) {
                     </span>{' '}
                     <span
                       className={cx([
-                        'font-mono text-[11px] tracking-[0.6px] tabular-nums',
+                        'font-mono text-[11px] tracking-mono-sm tabular-nums',
                         isIvory ? 'text-band-ink-muted' : 'text-text-tertiary',
                       ])}
                     >
@@ -307,7 +307,7 @@ export default function ImageSlot(props: ImageSlotProps) {
                 <summary
                   className={cx([
                     'focus-visible:focus-ring flex cursor-pointer list-none items-center gap-2 px-5 py-3',
-                    'font-mono text-[11px] tracking-[0.6px] uppercase',
+                    'font-mono text-[11px] tracking-mono-sm uppercase',
                     'transition-colors duration-[180ms] ease-ui lg:px-20',
                     quiet,
                   ])}

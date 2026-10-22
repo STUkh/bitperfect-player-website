@@ -163,7 +163,7 @@ const showSignalPath = slug === 'usb-dac';
             {name}
           </h1>
 
-          <p class="max-w-[56ch] text-lede-m text-pretty text-text-secondary lg:text-lede">
+          <p class="max-w-measure-lede text-lede-m text-pretty text-text-secondary lg:text-lede">
             {page.lede}
           </p>
         </div>
@@ -288,7 +288,7 @@ const showSignalPath = slug === 'usb-dac';
           ].map((stat) => (
             <div>
               <span class="block text-section-m tabular-nums font-bold text-band-gold-ink lg:text-section">{stat.num}</span>
-              <span class="mono-spec mt-1.5 block text-micro font-semibold tracking-[1.2px] text-band-ink uppercase lg:mt-2">
+              <span class="mono-spec mt-1.5 block text-micro font-semibold tracking-micro-sm text-band-ink uppercase lg:mt-2">
                 {stat.label}
               </span>
               <span class="mt-1 block text-caption tabular-nums text-band-ink-muted">
@@ -356,7 +356,7 @@ const showSignalPath = slug === 'usb-dac';
               tone={tone}
               title={beat.title}
               lede={beat.body}
-              ledeClassName="max-w-[52ch] text-body text-pretty lg:text-body-lg"
+              ledeClassName="max-w-measure text-body text-pretty lg:text-body-lg"
               reveal={1}
             />
 
@@ -369,7 +369,7 @@ const showSignalPath = slug === 'usb-dac';
                 className="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
                 style="--i: 3"
                 rowClassName="flex flex-col gap-1 pt-3.5"
-                labelClassName="text-label tracking-[1.5px] uppercase"
+                labelClassName="text-label tracking-micro uppercase"
                 valueClassName="text-body-lg font-semibold tabular-nums"
               />
             )}
@@ -448,7 +448,7 @@ const showSignalPath = slug === 'usb-dac';
         title={t('feature_detail.specifications_title')}
         titleClassName="text-section-sm font-bold lg:text-section-lg"
         lede={t('feature_detail.specifications_subtitle')}
-        ledeClassName="mt-4 max-w-[34ch] text-body lg:mt-5"
+        ledeClassName="mt-4 max-w-measure-card text-body lg:mt-5"
       />
 
       <SpecList
@@ -487,7 +487,7 @@ const showSignalPath = slug === 'usb-dac';
     title={page.cta.title}
     titleClassName="max-w-[22ch] text-headline-sm-m lg:text-headline-sm"
     lede={page.cta.body}
-    ledeClassName="mt-4 max-w-[52ch] text-body text-pretty lg:mt-[22px] lg:text-body-lg"
+    ledeClassName="mt-4 max-w-measure text-body text-pretty lg:mt-[22px] lg:text-body-lg"
   >
     <PlayCta
       label={t('feature_detail.cta_button')}

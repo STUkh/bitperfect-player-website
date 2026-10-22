@@ -24,7 +24,7 @@ export function PortraitImage() {
 export function ClampedExtreme() {
   return (
     <div className="flex justify-center p-10">
-      <Phone src="img/band-braided-cable.webp" width={2560} height={640} />
+      <Phone src="img/home-statement.webp" width={2560} height={1440} />
     </div>
   );
 }

@@ -112,7 +112,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(40% 60% at 92% 0%, rgba(232, 184, 75, 0.06) 0%, transparent 100%);
+  background: radial-gradient(40% 60% at 92% 0%, color-mix(in srgb, var(--color-gold) 6%, transparent) 0%, transparent 100%);
 }
 @media (max-width: 1023px) {
   .ground-statement {
@@ -138,7 +138,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(60% 46% at 50% 104%, rgba(232, 184, 75, 0.2) 0%, rgba(232, 184, 75, 0.06) 55%, transparent 100%);
+  background: radial-gradient(60% 46% at 50% 104%, color-mix(in srgb, var(--color-gold) 20%, transparent) 0%, color-mix(in srgb, var(--color-gold) 6%, transparent) 55%, transparent 100%);
 }
 
 /* ── grid · light ── a capability page's ivory band ──

@@ -97,7 +97,7 @@ export default function HomeOpening() {
 
         <div className="ho-inner">
           <div className="ho-copy" data-copy="">
-            <span className="hero-in mono-spec block text-micro tracking-[1.9px] text-gold uppercase">
+            <span className="hero-in mono-spec block text-micro tracking-kicker text-gold uppercase">
               Bit-perfect audio playback
             </span>
             <h1 className="hero-in hero-in-2 ho-title text-headline-m text-balance text-text-primary lg:text-headline">

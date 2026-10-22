@@ -15,7 +15,7 @@ beside it.
 
 | Folder | Holds |
 |---|---|
-| `primitives/` | the atoms: `Button`, `PlayCta`, `PlayStoreMark`, `StoreBadges`, `Icon` and `glyphs.ts`, `FeatureMark`, `Picture`, `FeatureArt`, `ImageSlot`, `TextureStrip`, `Card`, `Container`, `Logo` |
+| `primitives/` | the atoms: `Button`, `PlayCta`, `PlayStoreMark`, `StoreBadges`, `Icon` and `glyphs.ts`, `FeatureMark`, `Picture`, `FeatureArt`, `ImageSlot`, `Card`, `Container`, `Logo` |
 | `sections/` | the band shells: `Band` and `bands.ts` (tone), `SectionHeading`, `MediaSplit`, `SpecList`, `RuleList`, `CloseBand`, `ClosingBanner`, `BackLink`, `CrossLinkRow`, `PagerPair` and `PagerLink`, `FeatureLinkCard` |
 | `devices/` | the phones: `Phone`, `PhoneFrame`, `PhoneChassis`, `phone-geometry.ts`, `phone-fan.ts`, `PhoneTrio`, `FeatureScreens` |
 | `chrome/` | `Header` (and its `MobileMenu`), `Footer`, `PageHeader`, `SEOHead.astro`, `HoldingPage` |
@@ -39,6 +39,13 @@ routes' copy is `src/data/feature-pages.ts`).
   fighting it). Conditional lists use `cx()` (clsx).
 - **From `.astro` callers, always `className=`, never `class=`.** Astro's React
   renderer deletes a framework component's `class` prop, silently.
+- **Tokens, not values.** Colour, radius, shadow, tracking and measure come from
+  the `@theme` tokens in `styles/global.css` (`tracking-micro`, `max-w-measure`,
+  `max-w-column`, `var(--radius-panel)`). A value used twice becomes a token
+  there. Gold or amber at an alpha is `bg-gold/8` in a class or
+  `color-mix(in srgb, var(--color-gold) 8%, transparent)` in CSS, never a raw
+  `rgba(232, 184, 75, …)`. A new `--text-*`, `--shadow-*`, `--tracking-*` or
+  `--container-*` token also goes into `utils/cn.ts`, or tailwind-merge drops it.
 - **Styles that utilities cannot express** go in `<Name>.css` next to the
   component, imported by it. It is plain global CSS (Astro's scoping is gone), so
   every class it defines must be specific to the component (`.store-badge`,

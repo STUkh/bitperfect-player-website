@@ -17,7 +17,7 @@ export interface RuleListProps extends ClassProps {
   layout?: 'stack' | 'columns';
   /** Vertical rhythm of an entry (`py-5 lg:py-[26px]`). */
   itemClassName?: string;
-  /** Type of the title (`text-base font-semibold tracking-[-0.01em] lg:text-[17px]`). */
+  /** Type of the title (`text-base font-semibold tracking-title lg:text-[17px]`). */
   titleClassName?: string;
   /** Type of the line under it. */
   bodyClassName?: string;

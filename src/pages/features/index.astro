@@ -57,12 +57,12 @@ const order = [...indexOrder];
   {/* ── Page header ──
       One directional gradient on the section itself. No orbs, no halos. */}
   <section
-    class="relative bg-[radial-gradient(ellipse_120%_80%_at_50%_-15%,rgba(232,184,75,0.06)_0%,rgba(255,255,255,0.015)_45%,transparent_75%)] pt-10 pb-14 lg:pt-16 lg:pb-[110px]"
+    class="relative bg-[radial-gradient(ellipse_120%_80%_at_50%_-15%,color-mix(in_srgb,var(--color-gold)_6%,transparent)_0%,rgba(255,255,255,0.015)_45%,transparent_75%)] pt-10 pb-14 lg:pt-16 lg:pb-[110px]"
     aria-labelledby="features-page-heading"
   >
     <Container>
       <div class="mx-auto max-w-3xl text-center">
-        <span class="mono-spec mb-3 block text-micro font-medium tracking-[2px] text-gold uppercase">
+        <span class="mono-spec mb-3 block text-micro font-medium tracking-label text-gold uppercase">
           {t('features_index.header_eyebrow')}
         </span>
         <h1 id="features-page-heading" class="text-headline-xl-m text-balance text-text-primary lg:text-headline-xl">
@@ -142,7 +142,7 @@ const order = [...indexOrder];
         title={t('features_index.compat_title')}
         titleClassName="text-section-sm lg:text-section-lg"
         lede={t('features_index.compat_subtitle')}
-        ledeClassName="mt-4 max-w-[34ch] text-body text-pretty lg:mt-5"
+        ledeClassName="mt-4 max-w-measure-card text-body text-pretty lg:mt-5"
       />
 
       <div class="flex flex-col lg:col-span-8">
@@ -155,7 +155,7 @@ const order = [...indexOrder];
               ]}
             >
               <div>
-                <h3 class="text-body-lg font-semibold tracking-[-0.01em] text-band-ink lg:text-title-sm">
+                <h3 class="text-body-lg font-semibold tracking-title text-band-ink lg:text-title-sm">
                   {row.what}
                 </h3>
                 <p class="mt-1.5 text-caption text-pretty text-band-ink-muted lg:text-small">
@@ -166,7 +166,7 @@ const order = [...indexOrder];
                 <p class="text-body-sm font-semibold text-pretty text-band-ink lg:text-body">
                   {row.devices}
                 </p>
-                <p class="mt-2 max-w-[52ch] text-caption leading-[1.62] tabular-nums text-pretty text-band-ink-muted lg:text-small">
+                <p class="mt-2 max-w-measure text-caption leading-[1.62] tabular-nums text-pretty text-band-ink-muted lg:text-small">
                   {row.note}
                 </p>
               </div>

@@ -48,7 +48,7 @@ export default function CTASection({ backgroundVariant }: FlowProps) {
       titleAccent="bit for bit."
       titleClassName="text-headline-m max-w-[16ch] lg:text-headline"
       lede="Install the app from Google Play and plug in your USB DAC."
-      ledeClassName="mt-4 max-w-[42ch] text-body-sm text-pretty lg:mt-6 lg:text-body-lg"
+      ledeClassName="mt-4 max-w-measure-short text-body-sm text-pretty lg:mt-6 lg:text-body-lg"
       action={
         <div className="r-rise mt-8 lg:mt-10" style={reveal(2)}>
           <PlayCta label="Get it on Google Play" size="lg" />

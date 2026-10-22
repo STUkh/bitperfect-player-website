@@ -58,7 +58,7 @@ export default function StatementBand({ backgroundVariant }: FlowProps) {
           items={facts.map((fact) => ({ title: fact.title, body: fact.desc }))}
           className="flex flex-col lg:col-span-4"
           itemClassName="py-5 lg:py-[26px]"
-          titleClassName="text-base font-semibold tracking-[-0.01em] lg:text-[17px]"
+          titleClassName="text-base font-semibold tracking-title lg:text-[17px]"
           bodyClassName="mt-1.5 text-sm leading-[1.6] text-pretty lg:text-[15px]"
         />
       </div>

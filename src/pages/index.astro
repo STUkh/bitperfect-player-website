@@ -18,7 +18,6 @@ import FeaturesTeaser from '../components/bands/FeaturesTeaser';
 import PrivacyBand from '../components/bands/PrivacyBand';
 import PricingSection from '../components/bands/PricingSection';
 import CTASection from '../components/bands/CTASection';
-import TextureStrip from '../components/primitives/TextureStrip';
 import { chooseFlowSequence } from '../utils/flow-background';
 
 const backgrounds = chooseFlowSequence('home', ['statement', 'features', 'privacy', 'pricing', 'cta']);
@@ -31,7 +30,6 @@ const backgrounds = chooseFlowSequence('home', ['statement', 'features', 'privac
   <HomeOpening />
   <StatementBand backgroundVariant={backgrounds[0]} />
   <FeaturesTeaser backgroundVariant={backgrounds[1]} />
-  <TextureStrip material="copper" />
   <PrivacyBand backgroundVariant={backgrounds[2]} />
   <PricingSection backgroundVariant={backgrounds[3]} />
   <CTASection backgroundVariant={backgrounds[4]} />

@@ -85,7 +85,7 @@ export default function PrivacyBand({ backgroundVariant }: FlowProps) {
         items={commitments.map((c) => ({ title: c.title, body: c.desc }))}
         className="mt-[30px] lg:mt-[68px] lg:grid-cols-3"
         itemClassName="py-5 lg:pt-[34px] lg:pb-0"
-        titleClassName="text-[17px] font-semibold tracking-[-0.01em] lg:text-[19px]"
+        titleClassName="text-[17px] font-semibold tracking-title lg:text-[19px]"
         bodyClassName="mt-1.5 text-sm leading-[1.62] text-pretty lg:mt-2.5 lg:text-[15px]"
       />
       <ImageSlot
