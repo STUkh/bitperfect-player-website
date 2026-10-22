@@ -139,7 +139,12 @@ const SCENARIOS = [
   { name: 'js__legal-toc', route: '/privacy/', w: 390, run: async () => {} },
   { name: 'js__showcase', route: '/vr-home/', w: 1280, run: async (pg) => {
     const top = await pg.evaluate(() => document.querySelector('[data-home-opening]').getBoundingClientRect().top + scrollY);
-    await pg.evaluate((y) => scrollTo(0, y + innerHeight * 0.8), top);
+    // A pointerdown first, as a click on a link would: it holds the opening's glide,
+    // so the page stays mid-track instead of gliding on to the lineup.
+    await pg.evaluate((y) => {
+      document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+      scrollTo(0, y + innerHeight * 0.8);
+    }, top);
     // The smoothing loop snaps to its exact target when it stops, so wait for the
     // transforms to stop changing rather than for a fixed time: headless rAF is
     // slow enough that 2s sometimes caught it a frame short.
