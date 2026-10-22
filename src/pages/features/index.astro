@@ -15,6 +15,7 @@ import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import Button from '../../components/common/Button';
 import PlayCta from '../../components/common/PlayCta';
+import CloseBand from '../../components/common/CloseBand';
 import FeatureArt from '../../components/feature/FeatureArt';
 import PhoneTrio from '../../components/feature/PhoneTrio.astro';
 import { indexOrder } from '../../components/feature/content';
@@ -198,29 +199,24 @@ const order = [...indexOrder];
   </section>
 
   {/* ── Closing action, on graphite to strictly alternate after the ivory compatibility band ── */}
-  <section
-    class="relative overflow-hidden border-t border-border-subtle bg-surface-base pt-16 pb-18 lg:pt-28 lg:pb-30"
+  <CloseBand
+    tone="graphite"
+    className="relative overflow-hidden border-t border-border-subtle pt-16 pb-18 lg:pt-28 lg:pb-30"
+    eyebrow={t('features_index.cta_eyebrow')}
+    eyebrowClassName="mono-spec block text-micro font-medium tracking-[1.5px] uppercase lg:tracking-[1.9px]"
+    title={t('features_index.cta_title_prefix')}
+    titleAccent={t('features_index.cta_title_highlight')}
+    titleClassName="mt-4 max-w-[20ch] text-headline-sm-m lg:mt-5 lg:text-headline-sm"
+    lede={t('features_index.cta_subtitle')}
+    ledeClassName="mt-4 max-w-[51ch] text-body text-pretty lg:mt-5 lg:text-body-lg"
   >
-    <Container>
-      <div class="flex flex-col items-center text-center">
-        <span class="mono-spec r-fade block text-micro font-medium tracking-[1.5px] text-gold uppercase lg:tracking-[1.9px]">
-          {t('features_index.cta_eyebrow')}
-        </span>
-        <h2 class="r-rise mt-4 max-w-[20ch] text-headline-sm-m text-balance text-text-primary lg:mt-5 lg:text-headline-sm" style="--i: 0">
-          {t('features_index.cta_title_prefix')}<span class="text-gold">{t('features_index.cta_title_highlight')}</span>
-        </h2>
-        <p class="r-rise mt-4 max-w-[51ch] text-body text-pretty text-text-secondary lg:mt-5 lg:text-body-lg" style="--i: 1">
-          {t('features_index.cta_subtitle')}
-        </p>
-        <PlayCta
-          label={t('features_index.cta_button')}
-          size="lg"
-          className="r-rise mt-8 lg:mt-10"
-          style="--i: 2"
-        />
-      </div>
-    </Container>
-  </section>
+    <PlayCta
+      label={t('features_index.cta_button')}
+      size="lg"
+      className="r-rise mt-8 lg:mt-10"
+      style="--i: 2"
+    />
+  </CloseBand>
 </ContentLayout>
 
 <style>

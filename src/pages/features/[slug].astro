@@ -26,6 +26,7 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import PlayCta from '../../components/common/PlayCta';
+import CloseBand from '../../components/common/CloseBand';
 import PagerLink from '../../components/feature/PagerLink';
 import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens';
@@ -554,25 +555,20 @@ const showSignalPath = slug === 'usb-dac';
 
   {/* ── Closing action: white contrast band after the dark pager strip,
       alternating cleanly into the dark footer ── */}
-  <section
-    class="bg-band-ivory pt-14 pb-16 lg:pt-24 lg:pb-26"
+  <CloseBand
+    tone="ivory"
+    className="pt-14 pb-16 lg:pt-24 lg:pb-26"
+    title={page.cta.title}
+    titleClassName="max-w-[22ch] text-headline-sm-m lg:text-headline-sm"
+    lede={page.cta.body}
+    ledeClassName="mt-4 max-w-[52ch] text-body text-pretty lg:mt-[22px] lg:text-body-lg"
   >
-    <Container>
-      <div class="flex flex-col items-center text-center">
-        <h2 class="r-rise max-w-[22ch] text-headline-sm-m text-balance text-band-ink lg:text-headline-sm" style="--i: 0">
-          {page.cta.title}
-        </h2>
-        <p class="r-rise mt-4 max-w-[52ch] text-body text-pretty text-band-ink-muted lg:mt-[22px] lg:text-body-lg" style="--i: 1">
-          {page.cta.body}
-        </p>
-        <PlayCta
-          label={t('feature_detail.cta_button')}
-          size="lg"
-          className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
-          style="--i: 2"
-        />
-      </div>
-    </Container>
-  </section>
+    <PlayCta
+      label={t('feature_detail.cta_button')}
+      size="lg"
+      className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
+      style="--i: 2"
+    />
+  </CloseBand>
 </ContentLayout>
 

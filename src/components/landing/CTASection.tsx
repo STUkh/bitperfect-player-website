@@ -1,6 +1,6 @@
-import type { CSSProperties } from 'react';
-import Container from '../common/Container';
+import CloseBand from '../common/CloseBand';
 import PlayCta from '../common/PlayCta';
+import { reveal } from '../common/bands';
 import { pro } from '../../data/site';
 import './CTASection.css';
 
@@ -32,30 +32,29 @@ const closingPrice = pro.trialDays
  */
 export default function CTASection() {
   return (
-    <section id="cta" className="ground ground-cta overflow-hidden bg-band-ivory pt-16 pb-18 lg:pt-30 lg:pb-32">
-      <Container className="relative">
-        <div className="flex flex-col items-center text-center">
-          {/*
+    <CloseBand
+      id="cta"
+      tone="ivory"
+      ground="ground-cta"
+      className="overflow-hidden pt-16 pb-18 lg:pt-30 lg:pb-32"
+      containerClassName="relative"
+      /*
         No eyebrow. `Begin listening` sat directly above `Start listening bit for
         bit.`: the same sentence twice, in two type styles, on the last thing the
         visitor reads. DESIGN.md, "The Eyebrow Budget Rule".
-      */}
-          <h2
-            className="r-rise text-headline-m max-w-[16ch] text-balance text-band-ink lg:text-headline"
-            style={{ '--i': '0' } as CSSProperties}
-          >
-            Your music, <span className="text-band-gold-ink">bit for bit.</span>
-          </h2>
-          <p
-            className="r-rise mt-4 max-w-[42ch] text-body-sm text-pretty text-band-ink-muted lg:mt-6 lg:text-body-lg"
-            style={{ '--i': '1' } as CSSProperties}
-          >
-            Install the app from Google Play and plug in your USB DAC.
-          </p>
-          <div className="r-rise mt-8 lg:mt-10" style={{ '--i': '2' } as CSSProperties}>
-            <PlayCta label="Get it on Google Play" size="lg" />
-          </div>
-          {/*
+      */
+      title="Your music, "
+      titleAccent="bit for bit."
+      titleClassName="text-headline-m max-w-[16ch] lg:text-headline"
+      lede="Install the app from Google Play and plug in your USB DAC."
+      ledeClassName="mt-4 max-w-[42ch] text-body-sm text-pretty lg:mt-6 lg:text-body-lg"
+      action={
+        <div className="r-rise mt-8 lg:mt-10" style={reveal(2)}>
+          <PlayCta label="Get it on Google Play" size="lg" />
+        </div>
+      }
+    >
+      {/*
         The one line that belongs here and nowhere else on this band. This is the
         last thing read before the store, and the app is a subscription. The old copy
         said "Free to install, no account, nothing to sign up for", which was left
@@ -67,10 +66,10 @@ export default function CTASection() {
         the sentence is built from the same two values the pricing card uses, in
         the same order, so the two closing statements of price agree word for word.
       */}
-          <p className="r-fade mt-5 text-caption text-band-ink-muted lg:mt-6" style={{ '--i': '3' } as CSSProperties}>
-            {closingPrice}
-          </p>
-          {/*
+      <p className="r-fade mt-5 text-caption text-band-ink-muted lg:mt-6" style={reveal(3)}>
+        {closingPrice}
+      </p>
+      {/*
         The `ANDROID 8.0+ · COM.BITPERFECT.PLAYER` strip that closed this band is
         gone. Both facts were already on the page: the Android version one line
         above, in the footnote where it does work, and the package id in the footer,
@@ -80,8 +79,6 @@ export default function CTASection() {
         DESIGN.md, "Don't number sections, add scroll cues, locale strips, version
         stamps or build footers".
       */}
-        </div>
-      </Container>
-    </section>
+    </CloseBand>
   );
 }
