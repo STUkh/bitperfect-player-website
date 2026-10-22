@@ -19,10 +19,10 @@ import { FAN } from '../feature/phone-fan';
  *   0.80-1.00  a hold, so a fast flick lands on the finished lineup before the
  *              stage unpins
  *
- * One gesture plays the whole opening, without losing speed. Once the reader has
- * scrolled `GLIDE_AFTER` of the track by hand in one run, a glide takes over in
- * that direction (short of it they scrub the opening themselves and it stays
- * where they stop): the page scrolls itself on to the finished lineup (down) or
+ * A fast gesture plays the whole opening, without losing speed. Scrolled at an
+ * ordinary pace, with a wheel or a trackpad, the opening simply follows the
+ * scroll and stays wherever the reader stops. Scrolled fast (`GLIDE_SPEED`, a
+ * wheel spun hard or a flick), a glide takes over in that direction: the page scrolls itself on to the finished lineup (down) or
  * the page top (up), never slower than the cruise
  * (`GLIDE_TIME` for the whole track), faster while the reader keeps scrolling
  * faster, and it brakes only over the last `BRAKE` of the way. Scrolling the other
@@ -75,12 +75,16 @@ export function setupHomeOpening(section: HTMLElement) {
   const BRAKE = 0.2;
   /* Milliseconds of stillness after a click or key press before gliding resumes. */
   const HOLD_QUIET = 200;
-  /* The share of the track the reader scrolls by hand before the glide takes over
-     (two or three wheel notches). Short of it the opening is scrubbed directly and
-     stays wherever the reader stops. */
-  const GLIDE_AFTER = 0.15;
-  /* A pause this long (ms) between scroll events starts a new gesture. */
-  const GESTURE_GAP = 180;
+  /* How fast the reader has to scroll for the glide to take over, in tracks per
+     second (about 2000px/s on a 900px screen): a wheel spun hard or a trackpad
+     flick. Ordinary wheel notches and trackpad scrolling stay well under it, and
+     then the opening simply follows the scroll and stays wherever it stops. */
+  const GLIDE_SPEED = 1.1;
+  /* The window the speed is averaged over, and the shortest span it divides by,
+     in ms: one notch on a wheel without smooth scrolling is a single 100px jump,
+     which over one frame would read as a flick. */
+  const SPEED_WINDOW = 150;
+  const SPEED_MIN_SPAN = 100;
 
   let enabled = false;
   let running = false;
@@ -106,9 +110,8 @@ export function setupHomeOpening(section: HTMLElement) {
   /* The last scroll event, for its direction and speed. */
   let lastY = 0;
   let lastT = 0;
-  /* Where the reader's current hand-scrolled run began, and its direction. */
-  let runFrom = 0;
-  let runDir = 0;
+  /* Recent hand-scrolled positions, for the reader's speed. */
+  let trail: { t: number; y: number }[] = [];
   /* Native scrolling the glide must not take over: a finger on the screen, or a
      click or key press until the page is still. */
   let touching = false;
@@ -331,9 +334,9 @@ export function setupHomeOpening(section: HTMLElement) {
     const y = window.scrollY;
     const now = performance.now();
     const moved = y - lastY;
-    const gap = now - lastT;
-    const dt = Math.max(8, gap) / 1000;
+    const dt = Math.max(8, now - lastT) / 1000;
     const from = lastY;
+    const fromT = lastT;
     lastY = y;
     lastT = now;
     if (held) {
@@ -343,21 +346,18 @@ export function setupHomeOpening(section: HTMLElement) {
     }
     /* A playing glide reads the reader's input itself. */
     if (glide || touching || Math.abs(moved) < 1) return;
-    const lo = openingStart();
-    const hi = openingEnd();
-    if (y <= lo || y >= hi) {
-      runDir = 0;
-      return;
-    }
-    /* A new run on a pause or a change of direction, counted from inside the
-       track: entering it from above or below starts at its edge. */
     const dir = moved > 0 ? 1 : -1;
-    if (dir !== runDir || gap > GESTURE_GAP) {
-      runDir = dir;
-      runFrom = Math.min(hi, Math.max(lo, from));
-    }
-    if ((y - runFrom) * dir < GLIDE_AFTER * track) return;
-    runDir = 0;
+    /* The speed over the last SPEED_WINDOW, in this direction only: a turn or a
+       pause starts the trail again from the previous position. */
+    trail = trail.filter((s) => now - s.t <= SPEED_WINDOW);
+    const head = trail[0];
+    if (!head || Math.sign(y - head.y) !== dir) trail = [{ t: Math.max(fromT, now - SPEED_WINDOW), y: from }];
+    trail.push({ t: now, y });
+    if (y <= openingStart() || y >= openingEnd()) return;
+    const first = trail[0];
+    const speed = (Math.abs(y - first.y) / Math.max(SPEED_MIN_SPAN, now - first.t)) * 1000;
+    if (speed < GLIDE_SPEED * track) return;
+    trail = [];
     startGlide(dir, Math.min(Math.abs(moved) / dt, (3 * track) / GLIDE_TIME));
   };
 
