@@ -4,9 +4,9 @@
    lower lip, a soft diagonal sheen across the face. Every card, plate and control
    takes it from HERE, never from a per-component copy.
 
-   Controls (buttons, store badges, social circles) live in global.css as
-   `.btn-primary-gradient` and `.btn-secondary-glow`; this file is
-   for SURFACES.
+   Controls (buttons, store badges, social circles) live in
+   components/common/Button.css as `.btn-primary-gradient` and
+   `.btn-secondary-glow`; this file is for SURFACES.
 
    Hooks (all optional, set them on the element or a parent):
      --lq-edge     border colour

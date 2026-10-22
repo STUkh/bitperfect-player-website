@@ -5,6 +5,7 @@ import Icon from './Icon';
 import Picture from './common/Picture';
 import { site } from '../data/site';
 import { withBase } from '../utils/nav';
+import './common/Button.css';
 import './HoldingPage.css';
 
 export interface HoldingPageProps {

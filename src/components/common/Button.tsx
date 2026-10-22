@@ -1,6 +1,7 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import { styleOf, type ClassProps, type StyleInput } from '../class-props';
+import './Button.css';
 
 type NativeProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement> & ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'style'>;
 

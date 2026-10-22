@@ -352,7 +352,7 @@
 }
 
 /* No hop and no gold glow: a social circle is a button, and the light on it comes
-   from `btn-secondary-glow` (global.css). */
+   from `btn-secondary-glow` (common/Button.css). */
 @media (prefers-reduced-motion: reduce) {
   .holding-social-link:hover {
     transform: none;
