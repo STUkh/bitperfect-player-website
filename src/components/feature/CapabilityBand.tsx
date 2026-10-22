@@ -7,7 +7,7 @@ import MediaSplit from '../sections/MediaSplit';
 import SectionHeading from '../sections/SectionHeading';
 import SpecList from '../sections/SpecList';
 import { reveal } from '../sections/bands';
-import Phone from './Phone';
+import Phone from '../devices/Phone';
 import { GlyphShapes } from '../primitives/Icon';
 import { EXTERNAL_LINK } from '../primitives/glyphs';
 import type { ScreenName } from '../../data/screens';

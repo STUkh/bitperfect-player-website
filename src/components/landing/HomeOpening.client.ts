@@ -1,4 +1,4 @@
-import { FAN } from '../feature/phone-fan';
+import { FAN } from '../devices/phone-fan';
 
 /**
  * One scalar drives the whole opening: how far the track has scrolled past the

@@ -19,8 +19,8 @@ buildSync({
   stdin: {
     contents: `
       import { renderToStaticMarkup } from 'react-dom/server';
-      import PhoneChassis from './src/components/feature/PhoneChassis';
-      import { phoneGeometry } from './src/components/feature/phone-geometry';
+      import PhoneChassis from './src/components/devices/PhoneChassis';
+      import { phoneGeometry } from './src/components/devices/phone-geometry';
       export const render = (w, h) => renderToStaticMarkup(<PhoneChassis geometry={phoneGeometry(w, h)} />);
       export const geometry = phoneGeometry;
     `,

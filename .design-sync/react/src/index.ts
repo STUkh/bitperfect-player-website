@@ -30,11 +30,11 @@ export { default as StoreBadges, type StoreBadgesProps } from '@site/components/
 export { default as FeatureArt, type FeatureArtProps } from '@site/components/primitives/FeatureArt';
 export { default as FeatureLinkCard, type FeatureLinkCardProps } from '@site/components/sections/FeatureLinkCard';
 export { default as FeatureMark, type FeatureMarkProps } from '@site/components/primitives/FeatureMark';
-export { default as FeatureScreens, type FeatureScreensProps } from '@site/components/feature/FeatureScreens';
+export { default as FeatureScreens, type FeatureScreensProps } from '@site/components/devices/FeatureScreens';
 export { default as PagerLink, type PagerLinkProps } from '@site/components/sections/PagerLink';
 export { default as PagerPair, type PagerPairProps } from '@site/components/sections/PagerPair';
-export { default as Phone, type PhoneProps } from '@site/components/feature/Phone';
-export { default as PhoneTrio, type PhoneTrioProps } from '@site/components/feature/PhoneTrio';
+export { default as Phone, type PhoneProps } from '@site/components/devices/Phone';
+export { default as PhoneTrio, type PhoneTrioProps } from '@site/components/devices/PhoneTrio';
 export { default as TechIndex, type TechIndexProps } from '@site/components/feature/TechIndex';
 export { default as CapabilityBand, type CapabilityBandProps } from '@site/components/feature/CapabilityBand';
 export { default as CTASection } from '@site/components/landing/CTASection';

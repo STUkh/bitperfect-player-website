@@ -1,10 +1,10 @@
 import Button from '../primitives/Button';
 import PlayCta from '../primitives/PlayCta';
 import Picture from '../primitives/Picture';
-import Phone from '../feature/Phone';
+import Phone from '../devices/Phone';
 import { useBehaviour } from '../_lib/behaviour';
 import { pro } from '../../data/site';
-import { fanStyle } from '../feature/phone-fan';
+import { fanStyle } from '../devices/phone-fan';
 import { setupHomeOpening } from './HomeOpening.client';
 import './HomeOpening.css';
 
