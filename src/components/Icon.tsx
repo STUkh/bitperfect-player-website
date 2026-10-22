@@ -1,7 +1,7 @@
 import { createElement } from "react";
 import { iconStroke } from "../utils/icon";
 import type { ClassProps } from "./class-props";
-import { FEATURE_GLYPHS, ICON_GLYPHS, PHOSPHOR, type Glyph } from "./glyphs";
+import { GLYPH_SETS, PHOSPHOR, type Glyph } from "./glyphs";
 import "./Icon.css";
 
 export interface IconProps extends ClassProps {
@@ -31,8 +31,7 @@ export default function Icon({ name, size = 20, stroke, set = "icon", className 
   const box = typeof size === "number" ? size : Number.parseFloat(size);
   const strokeWidth = stroke ?? iconStroke(box);
   const isPhosphor = set === "icon" && PHOSPHOR.includes(name);
-  const glyphs: Record<string, Glyph> = set === "feature" ? FEATURE_GLYPHS : ICON_GLYPHS;
-  const glyph = glyphs[name];
+  const glyph = GLYPH_SETS[set][name];
   return (
     <svg
       className={`icon ${className}`}

@@ -88,6 +88,8 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 - esbuild does not type-check previews: a missing required prop (e.g. `ClosingBanner`'s `eyebrow`) renders silently wrong instead of failing.
 - Measures, extra tracking steps and extra radii are arbitrary values, not tokens (DESIGN.md says so since 2026-10-22). Name a token in `conventions.md` only once it exists in `global.css`.
 - `HoldingPage`, `Icon` and `Surface` live outside the group folders; they are mapped to `landing` (HoldingPage) and `common` (the rest).
+- Every glyph's path data is in `src/components/glyphs.ts` (not exported; it is data). `FeatureMark` is `<Icon set="feature">`. The key-cap faces (`.btn-primary-gradient`, `.btn-secondary-glow`, `--btn-*`) are `common/Button.css`, so they reach `site.css` through `react/dist/index.css`, not the global compile.
+- `Header`, `MobileMenu`, `Footer` and `PlayCta` take `locale` and read their strings from `src/i18n` (`nav.*`, `footer.*`, `store.google_play`); `PlayCta`'s `label` defaults to `store.google_play`.
 - 2026-10-22: `PhoneFrame` + `PhoneScreen` and `PhoneNowPlaying` became one exported `Phone` (`screen`, or `src` + `width` + `height`). The old names, their previews and config entries are gone; delete their cards in the project on the next sync.
 
 ## Templates (Claude Design `templates/`)

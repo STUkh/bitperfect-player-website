@@ -16,6 +16,9 @@ export type ShapeTag = 'path' | 'circle' | 'rect' | 'polyline' | 'line';
 export type Shape = { el: ShapeTag } & Record<string, string>;
 export type Glyph = readonly Shape[];
 
+/** Types a set as `Record<name, Glyph>`, keeping its names for the props. */
+const glyphSet = <K extends string>(set: Record<K, Glyph>) => set;
+
 /**
  * `Icon`'s authored set. One geometry system: 24x24 box, round caps, 9px
  * nominal radius for every circular form so the signal-path marks read as one
@@ -25,7 +28,7 @@ export type Glyph = readonly Shape[];
  * (Color.kt / AGENTS.md) redrawn as vectors. The app pairs every status colour
  * with a mark for colourblind accessibility; the site inherits that rule.
  */
-export const ICON_GLYPHS = {
+export const ICON_GLYPHS = glyphSet({
   // ── Signal-path status marks ───────────────────────────────────────────
   'sig-bitperfect': [
     { el: 'circle', cx: '12', cy: '12', r: '9' },
@@ -168,7 +171,7 @@ export const ICON_GLYPHS = {
       stroke: 'none',
     },
   ],
-} satisfies Record<string, Glyph>;
+});
 
 export type IconName = keyof typeof ICON_GLYPHS;
 
@@ -198,7 +201,7 @@ export const PHOSPHOR: readonly string[] = ['telegram', 'tiktok', 'instagram', '
  * band a reconstruction puts back, drawn dashed because it is inferred rather
  * than recorded.
  */
-export const FEATURE_GLYPHS = {
+export const FEATURE_GLYPHS = glyphSet({
   'usb-dac': [
     { el: 'path', d: 'M3 8v8' },
     { el: 'path', d: 'M3 8h6' },
@@ -263,9 +266,15 @@ export const FEATURE_GLYPHS = {
     { el: 'circle', cx: '7.5', cy: '12', r: '1.6' },
     { el: 'path', d: 'M12 10.5h6M12 13.5h6' },
   ],
-} satisfies Record<string, Glyph>;
+});
 
 export type FeatureGlyphName = keyof typeof FEATURE_GLYPHS;
+
+/** Both authored sets, by `Icon`'s `set` prop. */
+export const GLYPH_SETS: Record<'icon' | 'feature', Record<string, Glyph>> = {
+  icon: ICON_GLYPHS,
+  feature: FEATURE_GLYPHS,
+};
 
 // ── Brand marks, drawn filled in `currentColor` on a 24-unit grid ─────────
 

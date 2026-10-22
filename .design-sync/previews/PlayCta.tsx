@@ -1,7 +1,8 @@
 import { PlayCta } from '@bitperfect/website-ds';
 
+/* No `label`: the default is the store line, "Get it on Google Play". */
 export function Default() {
-  return <PlayCta label="Get it on Google Play" size="lg" />;
+  return <PlayCta size="lg" />;
 }
 
 export function Medium() {
