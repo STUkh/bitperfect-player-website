@@ -3,6 +3,7 @@ import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import PageHeader from '../../components/common/PageHeader';
 import ClosingBanner from '../../components/common/ClosingBanner';
+import CrossLinkRow from '../../components/common/CrossLinkRow';
 import Button from '../../components/common/Button';
 import { allFaqItems } from '../../data/faq';
 import { site } from '../../data/site';
@@ -156,22 +157,14 @@ const categories = [
           </div>
 
           {/* Technical Manual Cross-link Section */}
-          <div class="mt-14 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <span class="mono-spec text-micro uppercase tracking-wider text-gold font-semibold">
-                Technical catalog
-              </span>
-              <h3 class="mt-1.5 text-title-sm font-bold text-text-primary">
-                Want more technical detail?
-              </h3>
-              <p class="mt-1.5 text-small text-pretty text-text-secondary max-w-xl">
-                Browse all 27 features, with exact sample rates, bit depths and filters.
-              </p>
-            </div>
-            <Button href={withBase('/features/catalog')} variant="secondary" size="md" className="shrink-0">
-              <span>See all 27 features</span>
-            </Button>
-          </div>
+          <CrossLinkRow
+            className="mt-14 pt-10"
+            eyebrow="Technical catalog"
+            title="Want more technical detail?"
+            body="Browse all 27 features, with exact sample rates, bit depths and filters."
+            href={withBase('/features/catalog')}
+            cta="See all 27 features"
+          />
         </div>
       </div>
     </Container>

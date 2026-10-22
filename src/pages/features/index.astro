@@ -13,9 +13,9 @@
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
-import Button from '../../components/common/Button';
 import PlayCta from '../../components/common/PlayCta';
 import CloseBand from '../../components/common/CloseBand';
+import CrossLinkRow from '../../components/common/CrossLinkRow';
 import FeatureArt from '../../components/feature/FeatureArt';
 import PhoneTrio from '../../components/feature/PhoneTrio.astro';
 import { indexOrder } from '../../components/feature/content';
@@ -119,28 +119,19 @@ const order = [...indexOrder];
       </div>
 
       {/* Hairline-separated reference row to full technical catalog (zero nested boxes, canonical Button) */}
-      <div class="mt-12 flex flex-col items-start justify-between gap-6 border-t border-border-subtle pt-8 md:flex-row md:items-center lg:mt-16 lg:pt-12">
-        <div class="max-w-2xl">
-          <div class="flex items-center gap-2">
-            <span class="mono-spec text-micro font-semibold tracking-wider text-gold uppercase">{t('features_index.catalog_eyebrow')}</span>
-            <span class="mono-spec text-micro tabular-nums text-text-tertiary uppercase">· {t('features_index.catalog_badge')}</span>
-          </div>
-          <h3 class="mt-2 text-title-sm font-bold text-text-primary sm:text-title-lg">
-            {t('features_index.catalog_title')}
-          </h3>
-          <p class="mt-2 text-small text-pretty text-text-secondary">
-            {t('features_index.catalog_body')}
-          </p>
-        </div>
-        <Button
-          href={withBase('features/catalog')}
-          variant="secondary"
-          size="md"
-          className="shrink-0 tabular-nums"
-        >
-          <span>{t('features_index.catalog_cta')}</span>
-        </Button>
-      </div>
+      <CrossLinkRow
+        className="mt-12 border-t border-border-subtle pt-8 lg:mt-16 lg:pt-12"
+        copyClassName="max-w-2xl"
+        eyebrow={t('features_index.catalog_eyebrow')}
+        badge={t('features_index.catalog_badge')}
+        title={t('features_index.catalog_title')}
+        titleClassName="mt-2 text-title-sm sm:text-title-lg"
+        body={t('features_index.catalog_body')}
+        bodyClassName="mt-2 text-small"
+        href={withBase('features/catalog')}
+        cta={t('features_index.catalog_cta')}
+        ctaClassName="tabular-nums"
+      />
     </Container>
   </section>
 
