@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import Container from '../common/Container';
+import FeatureArt from '../feature/FeatureArt';
 import FeatureMark from '../feature/FeatureMark';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';
@@ -15,23 +16,33 @@ import './FeaturesTeaser.css';
 const items = [
   {
     slug: 'usb-dac',
-    desc: "Your DAC, driven at the file's own rate. Up to 768 kHz and DSD512.",
+    desc: "Your DAC follows each file's rate, up to 768 kHz if it supports it. DSD plays as DSD where it can.",
   },
   {
     slug: 'ai-enhancer',
-    desc: "Rebuilds what compression discarded, on your phone's own hardware.",
+    desc: "Rebuilds the missing highs in 44.1 and 48 kHz files, on your phone. Off by default.",
   },
-  { slug: 'eq', desc: 'Seven filter shapes, one tap back to bit-perfect.' },
+  { slug: 'eq', desc: 'Parametric, graphic or AutoEQ. Off means no change.' },
   {
     slug: 'library',
-    desc: 'Albums to folders, indexed on device. Nothing travels.',
+    desc: 'Browse by album or folder. Your library stays on your phone.',
   },
-  { slug: 'casting', desc: 'Send to any UPnP renderer, or become one.' },
+  { slug: 'casting', desc: 'Send to network speakers, or turn the phone into one.' },
   {
     slug: 'dsp',
-    desc: 'Crossfeed, ReplayGain, true-peak guard. All optional.',
+    desc: 'Crossfeed, ReplayGain and clip protection. All optional.',
   },
 ];
+
+/* Where each photo's subject sits, so the wide crop keeps it. */
+const artY: Record<string, string> = {
+  'usb-dac': '48%',
+  'ai-enhancer': '45%',
+  eq: '55%',
+  library: '50%',
+  casting: '66%',
+  dsp: '62%',
+};
 
 const allFeaturesHref = withBase('features');
 
@@ -54,7 +65,7 @@ const allFeaturesHref = withBase('features');
  */
 export default function FeaturesTeaser() {
   return (
-    <section id="features" className="relative scroll-mt-20 bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38">
+    <section id="features" className="ground features-ground relative scroll-mt-20 bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38">
       <Container className="lg:px-20">
         <div className="flex items-end justify-between gap-12 lg:mb-15">
           {/*
@@ -67,7 +78,7 @@ export default function FeaturesTeaser() {
               className="r-rise text-headline-sm-m text-balance text-text-primary lg:text-headline-sm"
               style={{ '--i': '0' } as CSSProperties}
             >
-              Six things it does, each worth a page of its own
+              Six things it does
             </h2>
           </div>
           <a
@@ -78,46 +89,30 @@ export default function FeaturesTeaser() {
             <span>All features</span> <FeatureMark name="arrow-right" size={18} className="features-teaser-all-arrow" />
           </a>
         </div>
-        <div className="mt-7 grid grid-cols-1 lg:mt-0 lg:grid-cols-2 lg:gap-x-[72px]">
+        <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-0 lg:grid-cols-3 lg:gap-6">
           {items.map((item, i) => (
             <a
               key={item.slug}
               href={withBase(`features/${item.slug}`)}
-              className="focus-visible:focus-ring r-rise features-teaser-row group flex cursor-pointer items-start justify-between gap-6 border-t border-border-subtle py-6 hover:border-glass-border-hover lg:gap-[22px] lg:py-8"
-              style={{ '--i': i % 2 } as CSSProperties}
+              className="focus-visible:focus-ring r-rise lacquer lacquer-lift features-card group relative flex cursor-pointer flex-col overflow-hidden rounded-card-inner lg:rounded-card"
+              style={{ '--i': i % 3, '--art-y': artY[item.slug] ?? '50%' } as CSSProperties}
             >
-              <div>
-                {/* No mark. See the note in src/pages/features/index.astro. */}
-                <div className="text-title-sm tracking-[-0.01em] text-text-primary lg:text-title">
+              <div className="features-card-art relative overflow-hidden">
+                <FeatureArt slug={item.slug} ratio="16 / 7" />
+              </div>
+              <div className="relative flex flex-1 flex-col px-6 pt-3 pb-6 lg:px-7 lg:pt-4 lg:pb-7">
+                <h3 className="text-title-sm font-semibold tracking-[-0.01em] text-text-primary transition-colors duration-[var(--d-ui)] ease-ui group-hover:text-gold-light lg:text-title">
                   {featureName(item.slug)}
-                </div>
-                <p className="mt-2 max-w-[31ch] text-body-sm text-pretty text-text-secondary transition-colors duration-[var(--d-ui)] ease-ui group-hover:text-text-primary lg:mt-2.5">
+                </h3>
+                <p className="mt-2 text-body-sm text-pretty text-text-secondary transition-colors duration-[var(--d-ui)] ease-ui group-hover:text-text-primary">
                   {item.desc}
                 </p>
               </div>
-              {/*
-              The affordance. These six rows are the most valuable destinations on
-              the home page and they carried NO cue that they were destinations: a
-              title, a paragraph, a hairline, and nothing else until the pointer
-              happened to land on one. A visitor read them as bullets and left
-              having never seen the pages the heading promises. Nobody hovers on a
-              touchscreen, so a hover-only affordance is no affordance at all.
-
-              The arrow is the same mark the two `All features` links already use,
-              at rest in the quiet ink and answering the pointer with the section's
-              own gold-and-3px idiom, so it reads as one vocabulary rather than a
-              seventh widget.
-            */}
-              <FeatureMark
-                name="arrow-right"
-                size={18}
-                className="features-teaser-row-arrow mt-1 shrink-0 text-text-tertiary lg:mt-1.5"
-              />
             </a>
-          ))}{' '}
+          ))}
           <a
             href={allFeaturesHref}
-            className="focus-visible:focus-ring features-teaser-all inline-flex cursor-pointer items-center gap-2 border-t border-border-subtle pt-6 text-[15px] font-semibold text-gold hover:text-gold-light active:text-gold-deep lg:hidden"
+            className="focus-visible:focus-ring features-teaser-all inline-flex cursor-pointer items-center gap-2 pt-1 text-[15px] font-semibold text-gold hover:text-gold-light active:text-gold-deep lg:hidden"
           >
             <span>All features</span> <FeatureMark name="arrow-right" size={18} className="features-teaser-all-arrow" />
           </a>

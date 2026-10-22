@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import Container from './Container';
+import './PageHeader.css';
 
 export interface PageHeaderProps {
   children?: ReactNode;
@@ -49,7 +50,7 @@ export default function PageHeader(props: PageHeaderProps) {
           >
             {title}
           </h1>
-          <p className="mt-4 text-body text-pretty text-text-secondary lg:text-body-lg leading-relaxed">
+          <p className="mt-4 max-w-[68ch] text-body text-pretty text-text-secondary lg:text-body-lg leading-relaxed">
             {description}
           </p>
           {children}

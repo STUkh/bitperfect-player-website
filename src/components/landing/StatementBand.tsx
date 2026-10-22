@@ -2,19 +2,20 @@ import type { CSSProperties } from 'react';
 import { clsx as cx } from 'clsx';
 import Container from '../common/Container';
 import ImageSlot from '../common/ImageSlot';
+import './StatementBand.css';
 
 const facts = [
   {
     title: 'Your own files',
-    desc: 'FLAC to DSD, read off your own storage.',
+    desc: 'FLAC, ALAC, WAV and DSD, from your own storage.',
   },
   {
     title: 'Straight to your DAC',
-    desc: 'Taken over exclusively. Nothing else touches the sound.',
+    desc: 'The app talks to your DAC directly. While it does, other apps cannot play through it.',
   },
   {
-    title: 'It stays on the phone',
-    desc: 'No account, no analytics, no ads.',
+    title: 'Your music stays on the phone',
+    desc: 'No account needed. No analytics, no ads.',
   },
 ];
 
@@ -33,7 +34,7 @@ const facts = [
  */
 export default function StatementBand() {
   return (
-    <section className="bg-band-ivory pt-14 pb-15 lg:pt-29 lg:pb-30">
+    <section className="ground ground-statement bg-band-ivory pt-14 pb-15 lg:pt-29 lg:pb-30">
       <Container className="lg:px-20">
         <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-16">
           {/* 8/4, not 7/5. At 7 columns this headline set five lines of 46px type in
@@ -42,15 +43,12 @@ export default function StatementBand() {
           four lines and gives the facts a measure that wraps to two, so the pair
           finishes level. */}
           <div className="lg:col-span-8">
-            <span className="r-fade block text-[11px] font-bold tracking-[2.5px] text-band-gold-ink uppercase lg:tracking-[3px]">
-              What it is
-            </span>
             <h2
-              className="r-rise text-headline-m mt-4 text-balance text-band-ink lg:mt-[22px] lg:text-headline"
+              className="r-rise text-headline-m text-balance text-band-ink lg:text-headline"
               style={{ '--i': '1' } as CSSProperties}
             >
-              Most phones quietly rewrite your music on the way out.{' '}
-              <span className="text-band-gold-ink">This one leaves it alone.</span>
+              Many phones change your music on the way out.{' '}
+              <span className="text-band-gold-ink">This app sends it to your USB DAC unchanged.</span>
             </h2>
           </div>
           <div className="flex flex-col lg:col-span-4">
@@ -78,9 +76,10 @@ export default function StatementBand() {
         <ImageSlot
           name="home-statement"
           variant="ivory"
-          ratio="3 / 1"
-          ships="2560x853"
-          className="r-rise mt-10 lg:mt-18"
+          ratio="var(--listening-art-ratio, 16 / 9)"
+          ships="2560x1440"
+          alt="A phone connected by USB to a DAC and wired headphones."
+          className="r-rise mt-10 sm:[--listening-art-ratio:2/1] lg:mt-18"
         />
       </Container>
     </section>

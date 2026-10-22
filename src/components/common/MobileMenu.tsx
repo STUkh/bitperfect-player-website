@@ -1,7 +1,6 @@
 import { clsx as cx } from 'clsx';
 import { navLinks } from '../../data/navigation';
-import { site } from '../../data/site';
-import Button from './Button';
+import PlayCta from './PlayCta';
 import { isActive, resolveHref } from '../../utils/nav';
 import './MobileMenu.css';
 
@@ -65,18 +64,7 @@ export default function MobileMenu(props: MobileMenuProps) {
           {/* `size="lg"` brings px-9. A full-width button needs none of it, and at
           320px the 72px of horizontal padding pushed the panel 7px past the
           viewport, giving the whole page a horizontal scrollbar. */}
-          <Button
-            href={site.playUrl}
-            rel="noopener noreferrer"
-            variant="primary"
-            size="lg"
-            className="w-full gap-2 px-5 text-center"
-          >
-            <svg className="h-[22px] w-[22px] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M7.5 4.75 19 12 7.5 19.25Z" />
-            </svg>{' '}
-            Get it on Google Play
-          </Button>
+          <PlayCta label="Get it on Google Play" size="lg" className="w-full px-5 text-center" />
         </div>
       </div>
     </div>

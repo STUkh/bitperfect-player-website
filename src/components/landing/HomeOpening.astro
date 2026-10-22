@@ -1,0 +1,18 @@
+---
+/*
+  The site's entry to the React `HomeOpening`: it mounts the scroll-driven
+  choreography, which the static render cannot carry (nothing hydrates).
+  Claude Design renders `HomeOpening.tsx` directly, where `useBehaviour`
+  mounts it.
+*/
+import HomeOpening from './HomeOpening.tsx';
+---
+
+<HomeOpening />
+
+<script>
+  import { setupHomeOpening } from './HomeOpening.client';
+
+  const section = document.querySelector<HTMLElement>('[data-home-opening]');
+  if (section) setupHomeOpening(section);
+</script>

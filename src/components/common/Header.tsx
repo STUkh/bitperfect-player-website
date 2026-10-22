@@ -71,8 +71,8 @@ export default function Header({ pathname = '/' }: HeaderProps) {
             <div className="flex items-center gap-3">
               {/* Labelled from 640px up; icon-only below it, where the wordmark and
             the burger leave no room for a label. Never nothing. */}
-              <StoreBadges variant="light" size="icon" className="sm:hidden" />
-              <StoreBadges variant="light" size="sm" className="hidden sm:inline-flex" />{' '}
+              <StoreBadges size="icon" className="sm:hidden" />
+              <StoreBadges size="sm" className="hidden sm:inline-flex" />{' '}
               {/* Mobile Menu Button. 44x44: it measured 40x34, and it is the ONLY
             navigation affordance below 1024px, so it was the smallest target on
             the site carrying the most weight. The bars are unchanged; the box

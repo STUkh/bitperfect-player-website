@@ -49,7 +49,7 @@ export default function LegalDocument(props: LegalDocumentProps) {
       the first line of the agreement they came to read. The privacy policy's
       nine sections hid the problem; the second document surfaced it.
     */}
-        <details className="legal-toc-details" open>
+        <details className="legal-toc-details lacquer" open>
           <summary className="legal-toc-summary focus-visible:focus-ring">
             <span className="legal-toc-title">Table of Contents</span>{' '}
             <svg

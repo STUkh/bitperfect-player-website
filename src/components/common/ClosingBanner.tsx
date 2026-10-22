@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import Container from './Container';
 import Button from './Button';
+import './ClosingBanner.css';
 
 export interface ClosingBannerProps {
   eyebrow: string;

@@ -1,0 +1,6 @@
+/* The surface and the rise-on-hover come from `.lacquer` / `.lacquer-lift`
+   (src/styles/lacquer.css); only the press state is the pager's own. */
+.pager-link:active {
+  transform: translateY(0);
+  --lq-sheen: rgba(255, 255, 255, 0.04);
+}

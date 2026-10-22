@@ -39,7 +39,7 @@ export default function TechnicalCatalog(props: TechnicalCatalogProps) {
           <button
             type="button"
             data-filter="all"
-            className="catalog-filter-btn active-filter cursor-pointer inline-flex items-center min-h-[44px] border-b-2 border-gold px-3 sm:px-4 py-2 text-small font-medium text-gold transition-colors duration-[var(--d-ui)] focus-visible:focus-ring"
+            className="catalog-filter-btn active-filter cursor-pointer inline-flex items-center min-h-[44px] border-b-2 border-gold px-3 sm:px-4 py-2 text-small font-medium text-gold focus-visible:focus-ring"
           >
             {`All Capabilities (${technicalFeatures.length})`}
           </button>{' '}
@@ -49,7 +49,7 @@ export default function TechnicalCatalog(props: TechnicalCatalogProps) {
               <button
                 type="button"
                 data-filter={cat.id}
-                className="catalog-filter-btn cursor-pointer inline-flex items-center min-h-[44px] border-b-2 border-transparent px-3 sm:px-4 py-2 text-small font-medium text-text-secondary transition-colors duration-[var(--d-ui)] hover:text-text-primary focus-visible:focus-ring"
+                className="catalog-filter-btn cursor-pointer inline-flex items-center min-h-[44px] border-b-2 border-transparent px-3 sm:px-4 py-2 text-small font-medium text-text-secondary hover:text-text-primary focus-visible:focus-ring"
               >
                 {`${cat.name} (${count})`}
               </button>
@@ -62,7 +62,7 @@ export default function TechnicalCatalog(props: TechnicalCatalogProps) {
             <article
               data-category={feat.category}
               id={`feature-${feat.id}`}
-              className="catalog-card flex flex-col justify-between rounded-card-sm border border-border-subtle bg-surface-raised/80 p-5 transition-all duration-[var(--d-ui)] hover:border-border-gold/40 hover:bg-surface-raised"
+              className="catalog-card lacquer lacquer-lift flex flex-col justify-between rounded-card-sm p-5 lg:rounded-card lg:p-6"
             >
               <div>
                 {/* Top Category Label */}

@@ -42,7 +42,7 @@ export default function PhoneScreen({ name, alt = '', priority = false, classNam
       height="1236"
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
-      fetchPriority={priority ? 'high' : undefined}
+      {...(priority ? ({ fetchpriority: 'high' } as object) : {})}
       className={cx(['h-full w-full object-cover object-top', className])}
     />
   );

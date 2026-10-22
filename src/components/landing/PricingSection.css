@@ -16,3 +16,114 @@
 .pricing-legal-link:active {
   color: var(--color-gold-deep);
 }
+
+/* ── The lacquered plan cards ──
+   Two cards, one chassis. A diagonal wash lights each from the upper left, a 1px
+   rim catches the top edge, and the edge colour is the only thing that says which
+   card is on sale: warm gold on the Founder rate, cool hairline on the Standard. */
+.plan {
+  --plan-edge: rgba(255, 255, 255, 0.1);
+  --plan-rim: rgba(255, 255, 255, 0.14);
+  --plan-lit: rgba(255, 255, 255, 0.075);
+  --plan-base-top: #2f2f2f;
+  --plan-base-bottom: #212121;
+  border: 1px solid var(--plan-edge);
+  background:
+    linear-gradient(158deg, var(--plan-lit) 0%, transparent 46%),
+    linear-gradient(180deg, var(--plan-base-top) 0%, var(--plan-base-bottom) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--plan-rim),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 26px 56px -26px rgba(0, 0, 0, 0.75);
+}
+.plan-founder {
+  --plan-edge: rgba(232, 184, 75, 0.46);
+  --plan-rim: rgba(255, 226, 150, 0.3);
+  --plan-lit: rgba(232, 184, 75, 0.24);
+  --plan-base-top: #2b261c;
+  --plan-base-bottom: #1f1d19;
+}
+
+/* The specular band: one soft diagonal of light across the face of the card. */
+.plan-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, transparent 28%, rgba(255, 255, 255, 0.055) 46%, rgba(255, 255, 255, 0.015) 58%, transparent 72%),
+    radial-gradient(70% 38% at 50% 0%, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
+}
+.plan-founder .plan-sheen {
+  background:
+    linear-gradient(112deg, transparent 26%, rgba(255, 214, 120, 0.09) 46%, rgba(255, 214, 120, 0.02) 60%, transparent 74%),
+    radial-gradient(70% 38% at 50% 0%, rgba(255, 226, 150, 0.1) 0%, transparent 100%);
+}
+
+.plan-chip {
+  display: inline-flex;
+  height: 1.75rem;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0 0.75rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.plan-chip-gold {
+  color: #2b1d06;
+  background: linear-gradient(180deg, #f6d27a 0%, #e8b84b 55%, #d9a63c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 4px 12px -4px rgba(232, 184, 75, 0.45);
+}
+.plan-chip-neutral {
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* The numeral is the largest thing on the card; the currency sign is set small and
+   hung from the cap line, the way it is printed on a price tag. */
+.plan-price {
+  font-size: clamp(2.75rem, 2.2rem + 2.2vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: #fff6e3;
+}
+.plan-standard .plan-price {
+  color: #f2f2f2;
+}
+.plan-currency {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.08em;
+  font-size: 0.5em;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* ── The warm backdrop behind the band ──
+   A photograph of walnut and brass, faded in from the top and out at the foot so the
+   cards sit on graphite and the amber only shows beneath them. */
+.pricing-backdrop {
+  opacity: 0.42;
+}
+.pricing-backdrop-frame {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 22%, #000 66%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 22%, #000 66%, transparent 100%);
+}
+.pricing-backdrop-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 80%;
+}
+.pricing-stage {
+  background: radial-gradient(60% 46% at 50% 34%, rgba(20, 20, 20, 0.5) 0%, transparent 100%);
+}

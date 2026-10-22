@@ -1,7 +1,6 @@
 /* Interaction feedback runs on the UI curve. The row answers with its top
    hairline lifting to the hover border value, its mark and its paragraph
    coming up to full ink: three real changes, no second hue. */
-.features-teaser-row,
 .features-teaser-all {
   transition:
     color var(--d-ui) var(--ease-ui),
@@ -49,3 +48,39 @@
   }
 }
 */
+
+/* ── Ground: the spectrum plate behind the band, faint, fading into the page. ── */
+.features-ground {
+  --ground-image: url('/grounds/samples.svg');
+  --ground-size: 100% auto;
+  --ground-position: center 0;
+  --ground-opacity: 1;
+  --ground-mask: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+
+/* ── Card art band: the photo, flush in the lacquer, melting into the body. ── */
+.features-card-art {
+  position: relative;
+}
+.features-card-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(33, 33, 33, 0.85) 100%);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+.features-card .feature-art-img {
+  transition: transform calc(var(--d-ui) * 2) var(--ease-ui);
+}
+.features-card:hover .feature-art-img {
+  transform: scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .features-card .feature-art-img {
+    transition: none;
+  }
+  .features-card:hover .feature-art-img {
+    transform: none;
+  }
+}

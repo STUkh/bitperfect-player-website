@@ -13,16 +13,16 @@ import './PrivacyBand.css';
  */
 const commitments = [
   {
-    title: 'It opens straight into your library',
-    desc: 'There is no sign-up screen, because there is no server holding anything of yours.',
+    title: 'No account needed',
+    desc: 'You only need a Google Play subscription. Your library and play history stay on your phone.',
   },
   {
-    title: 'There is no analytics to switch off',
-    desc: 'It was never added to the app, so there is no advertising ID and no play history to leak.',
+    title: 'No analytics',
+    desc: 'The app has no advertising ID and sends no play history.',
   },
   {
     title: 'The AI stays on the phone',
-    desc: 'Restoration happens entirely on the phone. No audio is uploaded, because none of it needs to leave.',
+    desc: 'After a one-time model download, the AI runs on your phone. No audio is uploaded.',
   },
 ];
 
@@ -39,7 +39,7 @@ const commitments = [
  */
 export default function PrivacyBand() {
   return (
-    <section id="privacy" className="scroll-mt-20 bg-band-ivory pt-12 pb-13 lg:pt-24 lg:pb-26">
+    <section id="privacy" className="ground ground-halftone scroll-mt-20 bg-band-ivory pt-12 pb-13 lg:pt-24 lg:pb-26">
       <Container className="lg:px-20">
         {/*
       No eyebrow. `Privacy` restated the section id, the nav item and the headline
@@ -94,15 +94,16 @@ export default function PrivacyBand() {
         <ImageSlot
           name="home-privacy"
           variant="ivory"
-          ratio="3 / 1"
-          ships="2560x853"
-          className="r-rise mt-9 lg:mt-14"
+          ratio="var(--listening-art-ratio, 16 / 9)"
+          ships="2560x1440"
+          alt="The app's album library on a phone beside earphones on a walnut table."
+          className="r-rise mt-9 sm:[--listening-art-ratio:2/1] lg:mt-14"
         />
         <div className="r-fade mt-[26px] rounded-card-sm border border-band-ink/10 bg-band-well px-5 py-[18px] lg:mt-11 lg:rounded-card lg:px-[26px] lg:py-[22px]">
           <p className="text-[13px] leading-[1.6] text-pretty text-band-ink-muted lg:text-sm lg:leading-[1.65]">
-            <span className="font-semibold text-band-ink">The whole truth:</span> four network calls and no more. Crash
-            reports and album art lookup, both on by default and switchable in Settings, a one-time AI model download,
-            and the check that says your subscription is active.{' '}
+            <span className="font-semibold text-band-ink">The app goes online for:</span> crash reports, artist photos, artwork and lyrics lookups, headphone EQ
+            profiles, internet radio, a one-time AI model download, update checks and the subscription check. The first
+            two are on by default. You can turn them off in Settings.{' '}
             <a href={withBase('/privacy')} className="privacy-band-link focus-visible:focus-ring">
               Read the privacy policy
             </a>

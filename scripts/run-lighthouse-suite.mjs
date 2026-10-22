@@ -29,7 +29,6 @@ const ROUTES = [
   },
   { id: "catalog", path: "/features/catalog/", name: "Technical Catalog" },
   { id: "faq", path: "/faq/", name: "FAQ" },
-  { id: "changelog", path: "/changelog/", name: "Changelog" },
   { id: "privacy", path: "/privacy/", name: "Legal (Privacy)" },
 ];
 

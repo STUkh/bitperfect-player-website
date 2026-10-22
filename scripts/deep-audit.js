@@ -12,9 +12,6 @@ const ROUTES = [
   "/features/casting",
   "/features/dsp",
   "/features/ai-enhancer",
-  "/changelog",
-  "/changelog/1.2.0",
-  "/changelog/1.0.6",
   "/faq",
   "/faq/why-npu-ai-enhancer-not-working",
   "/terms",
@@ -191,7 +188,6 @@ async function deepAudit() {
 
         // Centering / max-width on editorial pages
         const isEditorial =
-          window.location.pathname.startsWith("/changelog") ||
           window.location.pathname.startsWith("/faq");
         let editorialLayout = null;
         if (isEditorial) {

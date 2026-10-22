@@ -1,3 +1,4 @@
+import PlayCta from './common/PlayCta';
 import Container from './common/Container';
 import Logo from './common/Logo';
 import Icon from './Icon';
@@ -95,16 +96,11 @@ export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProp
             {/* The one moving thing on the page. See the note at the top of this file. */}
             <div className="holding-signal" role="presentation" />
             <div className="holding-actions">
-              <a
-                href={site.playUrl}
-                rel="noopener noreferrer"
-                className="btn-primary-gradient focus-visible:focus-ring inline-flex h-[52px] cursor-pointer items-center justify-center gap-2.5 rounded-full px-7 text-body-sm font-semibold text-on-gold lg:h-[54px] lg:px-[30px]"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M5 3.5v17a1 1 0 0 0 1.52.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z" />
-                </svg>{' '}
-                <span>Get it on Google Play</span>
-              </a>
+              <PlayCta
+                label="Get it on Google Play"
+                size="md"
+                className="h-[52px] text-body-sm lg:h-[54px] lg:px-[30px]"
+              />
               {/*
             The two documents that are still live, stated as the two documents they
             are. `nav` rather than a pair of loose links: on a page with no header
@@ -136,7 +132,7 @@ export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProp
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${site.name} on ${social.label} (${social.handle})`}
-                  className="holding-social-link inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
+                  className="holding-social-link btn-secondary-glow inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
                   title={`${social.label}: ${social.handle}`}
                 >
                   <Icon name={social.id} size={15} />

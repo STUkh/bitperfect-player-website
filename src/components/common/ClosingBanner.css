@@ -1,0 +1,23 @@
+/* ── The closing plate: a guilloche rosette ──
+   One gold-line rosette (the guilloche plate) rolls in from the right edge, large
+   enough to be read as engraving rather than a picture. It is masked to fade before
+   the copy column so the centred text keeps its contrast. */
+.ground-rosette {
+  --ground-image: url('/grounds/guilloche.svg');
+  --ground-size: 1100px 1100px;
+  --ground-position: 118% 20%;
+  --ground-opacity: 1;
+  --ground-mask: linear-gradient(90deg, transparent 38%, #000 78%);
+}
+/* The plate's strokes are 8% gold; brightened so they read at engraving strength. */
+.ground-rosette::before {
+  filter: brightness(2.6);
+}
+@media (max-width: 767px) {
+  .ground-rosette {
+    --ground-size: 700px 700px;
+    --ground-position: 130% 30%;
+    --ground-mask: linear-gradient(90deg, transparent 20%, #000 90%);
+    --ground-opacity: 0.7;
+  }
+}

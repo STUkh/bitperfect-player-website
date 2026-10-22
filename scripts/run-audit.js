@@ -13,9 +13,6 @@ const ROUTES = [
   "/features/casting",
   "/features/dsp",
   "/features/ai-enhancer",
-  "/changelog",
-  "/changelog/1.2.0",
-  "/changelog/1.0.6",
   "/faq",
   "/faq/why-npu-ai-enhancer-not-working",
   "/terms",
@@ -355,7 +352,6 @@ async function runAudit() {
         // 8. Editorial centering / max-w check
         const editorialIssues = [];
         const isEditorial =
-          window.location.pathname.startsWith("/changelog") ||
           window.location.pathname.startsWith("/faq");
         if (isEditorial) {
           const main = document.querySelector("main");

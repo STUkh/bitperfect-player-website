@@ -351,18 +351,8 @@
   color: var(--color-gold);
 }
 
-.holding-social-link {
-  transition:
-    color var(--d-ui) var(--ease-ui),
-    border-color var(--d-ui) var(--ease-ui),
-    background-color var(--d-ui) var(--ease-ui),
-    box-shadow var(--d-ui) var(--ease-ui),
-    transform var(--d-ui) var(--ease-ui);
-}
-.holding-social-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px -2px rgba(232, 184, 75, 0.28);
-}
+/* No hop and no gold glow: a social circle is a button, and the light on it comes
+   from `btn-secondary-glow` (global.css). */
 @media (prefers-reduced-motion: reduce) {
   .holding-social-link:hover {
     transform: none;

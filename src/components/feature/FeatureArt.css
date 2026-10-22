@@ -1,7 +1,0 @@
-/* The plate's own type is drawn INSIDE the SVG so it scales with the art rather
-   than with the page. It still has to be the site's face, and an <svg aria-hidden="true" focusable="false"> does not
-   inherit `font-family` through the shadow of a `use`, so it is set here. */
-.feature-art text {
-  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  font-variant-numeric: tabular-nums;
-}

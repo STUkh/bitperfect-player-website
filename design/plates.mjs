@@ -78,10 +78,10 @@ const PLATES = {
     floor: RAISED,
     seam: "white-bottom",
   },
-  "home-statement": { ship: [2560, 853], fit: "fill", floor: GRAPHITE },
+  "home-statement": { ship: [2560, 1440], fit: "cover", floor: GRAPHITE },
   "home-interstitial-2": { ship: [2560, 640], fit: "fill", floor: BASE },
   "home-privacy": {
-    ship: [2560, 853],
+    ship: [2560, 1440],
     fit: "cover",
     position: "centre",
     floor: GRAPHITE,

@@ -1,0 +1,8 @@
+/* The S25 Ultra chassis is an SVG overlay (PhoneFrame.tsx); the screen sits in a
+   cutout beneath it. The cast shadow stays on the token so the ivory bands can null
+   it (`--shadow-device-cast: none`), and the radius follows the SVG's outer corner
+   (3.5 of 395.5 wide, 3.5 of 776 tall) so the shadow hugs the titanium. */
+.phone-frame-s25u {
+  border-radius: 0.9% / 0.45%;
+  box-shadow: var(--shadow-device-cast);
+}

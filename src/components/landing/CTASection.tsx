@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react';
 import Container from '../common/Container';
+import PlayCta from '../common/PlayCta';
 import { site, pro } from '../../data/site';
+import './CTASection.css';
 
 /* Read the headline term off the pricing model, so the closing action and the
    pricing card can never state two different prices. */
@@ -9,8 +11,8 @@ const headline = pro.periods.find((p) => p.id === pro.defaultPeriodId) ?? pro.pe
 /* The same conditional trial the pricing card uses, in the same order: the trial
    first, because it is what happens first. Null `trialDays` silences it here too. */
 const closingPrice = pro.trialDays
-  ? `Free for ${pro.trialDays} days for new customers, then $${headline.price} a year until you cancel in Play subscriptions.`
-  : `$${headline.price} for ${headline.label}, renewing until you cancel in Play subscriptions.`;
+  ? `Eligible new customers get ${pro.trialDays} days free. Then $${pro.founderPrice} a year, the Founder price, if you subscribe by ${pro.founderEndDate}. That price stays yours while you stay subscribed. Cancel anytime in Google Play.`
+  : `$${headline.price} a year, the Founder price, if you subscribe by ${pro.founderEndDate}. That price stays yours while you stay subscribed. Cancel anytime in Google Play.`;
 
 /**
  * The closing action, on white.
@@ -30,7 +32,7 @@ const closingPrice = pro.trialDays
  */
 export default function CTASection() {
   return (
-    <section id="cta" className="relative overflow-hidden bg-band-ivory pt-16 pb-18 lg:pt-30 lg:pb-32">
+    <section id="cta" className="ground ground-cta overflow-hidden bg-band-ivory pt-16 pb-18 lg:pt-30 lg:pb-32">
       <Container className="relative">
         <div className="flex flex-col items-center text-center">
           {/*
@@ -48,19 +50,11 @@ export default function CTASection() {
             className="r-rise mt-4 max-w-[42ch] text-body-sm text-pretty text-band-ink-muted lg:mt-6 lg:text-body-lg"
             style={{ '--i': '1' } as CSSProperties}
           >
-            On Google Play, for Android {site.minAndroid} and up. Plug in a DAC and watch the badge go bit-perfect.
+            On Google Play, for Android {site.minAndroid} and up. Plug in a USB DAC. The badge shows whether the sound is bit-perfect.
           </p>
-          <a
-            href={site.playUrl}
-            rel="noopener noreferrer"
-            className="btn-primary-gradient focus-visible:focus-ring r-rise mt-8 inline-flex h-[54px] cursor-pointer items-center justify-center gap-2.5 rounded-full px-8 text-body-sm font-semibold text-on-gold transition-transform duration-[180ms] ease-ui hover:-translate-y-px active:translate-y-0 lg:mt-10 lg:h-14 lg:px-9"
-            style={{ '--i': '2' } as CSSProperties}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M5 3.5v17a1 1 0 0 0 1.52.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z" />
-            </svg>{' '}
-            Get it on Google Play
-          </a>
+          <div className="r-rise mt-8 lg:mt-10" style={{ '--i': '2' } as CSSProperties}>
+            <PlayCta label="Get it on Google Play" size="lg" />
+          </div>
           {/*
         The one line that belongs here and nowhere else on this band. This is the
         last thing read before the store, and the app is a subscription. The old copy

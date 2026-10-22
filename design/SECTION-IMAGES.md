@@ -122,6 +122,8 @@ object, product, phone, device, any subject standing on the floor, pure black, #
 
 ## 3. `home-interstitial-1` — the hinge
 
+**Retired from the landing page.** Removed at the user’s request: decorative strip did not explain the product. Keep the following prompt as historical reference only; do not restore this slot automatically. Adjacent dark and ivory sections now meet directly.
+
 **Where** **Full-bleed band.** Sits directly after the pinned phone moment releases and directly before the white statement band at `#ffffff`. This is a dark-to-light seam and the band carries the transition physically.
 
 **Size** 5:1. Generate 3200x640, ship 2560x512. On the artboard: 1440 wide, 288 tall.
@@ -148,35 +150,27 @@ pure black, #000000, crushed shadows, blue-black, violet cast, vignette, corner 
 
 ---
 
-## 4. `home-statement` — ivory
+## 4. `home-statement` — Direct USB listening
 
-**Where** Inside section 2, the light band at `#ffffff`. A **contained plate** spanning the 1280 content column, sitting between the h2 ("Most phones quietly rewrite your music on the way out. This one leaves it alone.") and the three columns beneath it.
+**Where** Contained photograph in the corresponding ivory landing section, below the supporting facts. Replaces the abstract metal-on-paper image.
 
-This is a **photograph on a light ground**, not a letterpress figure. `BLOCK-GRAPHICS.md` slot 8 remains a drawn two-ink diagram and is unchanged — the two coexist, one atmospheric and one informational, and if only one ships it should be this one.
-
-**Size** 3:1. Generate 3072x1024, ship 2560x853.
-
-**Safe area** No type overlays it. But the plate must hold the white band's contrast floor at its edges, so the outer 8% on every side stays near-paper value.
+**Size** Generate wide 16:9; ship 2560×1440 WebP, quality 80. Display 16:9 on mobile and 2:1 from small tablet upward. Preserve the central subject and key connections in both crops. No text overlay.
 
 **Prompt**
 
-```
-A flat overhead photograph, shot from directly above with the camera square to the surface. One single long bar of milled aluminium, anodised deep graphite #1c1b21, lies horizontally across a sheet of clean uncoated white paper stock #ffffff, running unbroken from the left edge of the frame clean out through the right edge, so both ends are outside the picture. The bar is about one seventh of the frame height, its long edges crisp and true, its top face carrying a fine horizontal brush grain and one continuous thin specular line of deep gold #7d5a12 where a large soft overhead source catches the chamfer along its upper edge. Nothing else is in the frame. The paper above and below the bar is completely empty, its uncoated tooth clearly visible, fresh and clean stock, never aged, yellowed, stained or torn. Because the camera is directly overhead and the source is large and soft, there is no cast shadow and no drop shadow anywhere: only the narrowest warm grey contact penumbra hugging the bar's lower long edge where it meets the paper, no wider than a hairline. Even illumination across the whole sheet with no hotspot and no vignette. Fine paper grain, matte throughout, no gloss, no gradient. Still, exact, uninterrupted.
-```
-
-**MJ tail** `--ar 3:1 --style raw --v 7 --no drop shadow, cast shadow, soft shadow, aged paper, yellowed, stained, torn, crumpled, vignette, hotspot, dark background, graphite background, second object, broken bar, gap, angled camera, perspective, bright gold, neon, blue, purple, green, 3D render, text, letters, logo, watermark, people, hands`
-
-**Negative**
-
-```
-drop shadow, cast shadow, soft shadow beneath the object, long shadow, aged paper, parchment, yellowed, sepia, stained, torn, crumpled, folded, vignette, hotspot, uneven lighting, dark background, graphite background, black background, second object, two bars, broken bar, gap in the bar, bar ending inside the frame, angled camera, three-quarter view, perspective, depth of field, bright gold #e8b84b, yellow, neon, blue, cyan, purple, magenta, teal, green, glossy 3D render, CGI, text, letters, numbers, logo, watermark, ruler, scale, measurement marks, people, hands
+```text
+Create a new photorealistic editorial audio listening photograph, wide 16:9 composition, intended 2560x1440. INPUT ROLES: image 1 is a DAC hardware design reference only; image 2 is an open-back headphone construction reference only; image 3 is the EXACT REQUIRED full-screen music-player UI to display on the phone. Do not include the white catalog backgrounds, logos or lettering from the hardware reference images. Scene: quiet contemporary home listening desk of dark oiled walnut, soft diffused daylight from upper left, charcoal background gently out of focus, warm neutral materials with restrained contrast. Left: one modern unbranded phone with Samsung Galaxy S25 Ultra-inspired geometry: broad rectangular flat display, nearly square slightly rounded corners, thin straight graphite titanium-like sides, very thin even bezels and small centered punch-hole front camera. The PHONE DISPLAY MUST SHOW THE COMPLETE REAL FULL-SCREEN PLAYER FROM IMAGE 3, including its Wagner portrait album art, track title, seek bar, large pause button and bottom signal badge. Faithfully preserve this provided screenshot as screen content in perspective, not a generic player, no album grid or substitute UI, no black empty display. Center-right: a desktop DAC inspired by image 1, realistic substantial low rectangular chassis, satin dark graphite front with a wide completely blank dark smoked-glass display on the left, two dark rotary controls of different sizes on the upper right and one small selector below the display, practical headphone sockets below, accurately fitted walnut side panels and a modest walnut top-edge insert. Adapt the design so it is not an exact branded copy. Remove all branding, every R2R mark and R2R PRO inscription, all model numbers, all labels and all lettering on the wooden sides and top. Display is switched off: no illumination, level marks, bars, symbols, text or numbers. No gold trim. Far right: large realistic open-back headphones inspired by image 2, sculpted rounded-oval dark charcoal earcups with fine perforated mesh, a substantial outer suspension frame and separate leather suspension headband, dark cushions, discreet fitted WALNUT INSERTS in the outer frame and earcup perimeter. Remove Elite lettering and all emblems and logos. Do not turn them into ordinary closed-back round headphones. Exactly one fully visible continuous matte black USB cable joins the phone bottom USB-C port to a visible front USB-C input at lower left of the DAC. Both plugs and the entire U-shaped cable path are inside the frame. A separate single-sided braided headphone cable joins the DAC front headphone output to the near earcup; its entire unbranched path is also visible. Both earcups are turned outward enough to verify identical mirrored oval frames, the same continuous walnut rings, same three-spoke open grilles, equal cushions and matching yokes on one coherent suspension headband. Coherent actual wiring, no extra cables. All three objects complete and comfortably inside frame, key objects within middle 80 percent width and central 75 percent height, composed to tolerate a mild 2:1 crop. Moderate-size objects on a real desk, calm composition, realistic construction and scale. No people, no hands, no floating UI, no arrows, no symbols of AI, no sparkle, no glow, no neon, no sci-fi, no gold luxury ornament, no hardware branding or watermark. Screen UI text from image 3 is explicitly required; this is the only detailed text in the image.
 ```
 
-**Check** The bright gold trap from `BLOCK-GRAPHICS.md` applies in full: `#e8b84b` measures 1.60:1 on `#ffffff` and disappears. The specular must be `#7d5a12` or the plate looks unfinished. Then check the shadow — a soft drop shadow is the single most common thing every model adds to a light-ground image, and it is the one thing the white band forbids. Sample the paper 40px below the bar: it must still be within a few points of `#ffffff`. Finally confirm the bar exits both edges; a bar that stops inside the frame inverts the meaning of the section.
+**Check** Natural walnut and matte graphite, soft daylight, real hardware proportions and coherent cables. The image explains the listening context, not a measured technical result. No gold glow, generic security symbols or abstract metal blocks.
 
-**Fallback** Omit the plate entirely and let the h2 run straight into the three columns, which is what the artboard does now. Do not ship a grey box on the white band — a placeholder is visible on paper in a way it is not on graphite.
+**Source** Generated with the built-in image_gen tool. Raw: `design/generated-plates/home-statement-raw.png`. Final: `public/img/home-statement.webp`.
 
 ---
+
+**Hardware references** `docs/references/dac-hardware.png`, `docs/references/open-back-headphones.png`. Phone screen reference: `public/screens/now-playing-hero.webp`. Phone geometry: unbranded S25 Ultra. Final cleanup: graphite knob rings; remove all tiny hardware marks; preserve player UI text.
+
+**Physical consistency check** Trace both cables continuously between visible sockets. USB enters the front lower-left DAC input. One headphone lead enters the near earcup. Both earcups have matching mirrored frames, walnut rings, grilles, cushions and yokes. The redesigned DAC uses one coherent front panel and a completely blank dark display; no fabricated meter bars or readings.
 
 ## 5. `home-features-backdrop`
 
@@ -210,6 +204,8 @@ object, subject, product, pattern, repeating pattern, concentric rings, arcs, wa
 
 ## 6. `home-interstitial-2` — the hardware
 
+**Retired from the landing page.** Removed at the user’s request: decorative strip did not explain the product. Keep the following prompt as historical reference only; do not restore this slot automatically. Adjacent dark and ivory sections now meet directly.
+
 **Where** **Full-bleed band.** Sits directly after the features teaser and directly before the white privacy band. Dark-to-light seam. This is the page's one honest photograph of real hardware and the highest-value plate in the whole set after `home-hero`.
 
 Unlike band 1, this one **ends on a hard machined edge, not a tonal lift.** Two bands using the same fade trick would read as a device; a fade and a cut read as art direction. The cut is deliberate.
@@ -238,35 +234,23 @@ An extremely wide letterbox editorial macro photograph of real hardware. A small
 
 ---
 
-## 7. `home-privacy` — ivory
+## 7. `home-privacy` — A library on your phone
 
-**Where** Inside section 4, the light band at `#ffffff`. A **contained plate** spanning the 1280 content column, between the h2 ("No account. No telemetry. No ads.") and the three columns.
+**Where** Contained photograph in the corresponding ivory landing section, below the supporting facts. Replaces the abstract metal-on-paper image.
 
-**Sibling of `home-statement`.** Generate the two as a pair, `home-statement` first, then this one from its seed with the approved statement plate attached as a reference. Two ivories differing by a few points will not read as one press, and on the two loudest sections of the site that is visible in a way an off graphite plate is not.
-
-**Size** 3:1. Generate 3072x1024, ship 2560x853.
-
-**Safe area** No type overlays it.
+**Size** Generate wide 16:9; ship 2560×1440 WebP, quality 80. Display 16:9 on mobile and 2:1 from small tablet upward. Preserve the central subject and key connections in both crops. No text overlay.
 
 **Prompt**
 
-```
-A flat overhead photograph, shot from directly above with the camera square to the surface, matching the lighting, paper and grain of its companion plate exactly. A single solid block of machined metal lies alone at the centre of a sheet of clean uncoated white paper stock #ffffff. The block is milled from one billet, anodised deep graphite #1c1b21, roughly two and a half times as wide as it is tall and occupying about a third of the frame width, with sharp chamfered edges and matte bead-blasted faces. It has no ports, no fasteners, no openings and no markings of any kind. One single hairline gap runs around its midline, and along that gap a thin unbroken line of warm amber #ffb347 light escapes from inside, the only warmth in the frame. A continuous thin specular of deep gold #7d5a12 catches the chamfer along the block's upper edge. Nothing else is in the frame: no lines, no traces, no paths, no wires, nothing leaving the block and nothing approaching it. The paper on all four sides is completely empty, its uncoated tooth clearly visible, fresh and clean stock, never aged, yellowed, stained or torn. Because the camera is directly overhead and the source is large and soft, there is no cast shadow and no drop shadow: only the narrowest warm grey contact penumbra hugging the block's lower edge, no wider than a hairline. Even illumination across the whole sheet, no hotspot, no vignette. Fine paper grain, matte throughout, no gloss, no gradient. Sealed, self-contained, still.
-```
-
-**MJ tail** `--ar 3:1 --style raw --v 7 --no drop shadow, cast shadow, soft shadow, traces, lines, wires, paths, circuit, padlock, lock, keyhole, key, shield, badge, safe, vault, chain, fingerprint, eye, aged paper, yellowed, stained, vignette, dark background, bright gold, neon, blue, purple, green, 3D render, text, logo, people`
-
-**Negative**
-
-```
-drop shadow, cast shadow, soft shadow beneath the object, signal traces, drawn lines, wires, cables, paths, arrows, circuit board, PCB, padlock, lock, keyhole, key, shield, crest, badge, safe, vault, vault door, chain, handcuffs, fingerprint, eye, iris, camera, cctv, aged paper, parchment, yellowed, sepia, stained, torn, vignette, hotspot, dark background, black background, second object, angled camera, three-quarter view, perspective, bright gold #e8b84b, yellow, neon, blue, cyan, purple, magenta, teal, green, glossy 3D render, CGI, text, letters, numbers, logo, watermark, people, hands
+```text
+Generate a photorealistic editorial listening photograph, wide 16:9 composition, 2560x1440. The supplied image is a REFERENCE FOR THE EXACT PHONE SCREEN CONTENT ONLY: the real Bitperfect Player Library screen, preserve its recognizable album grid and interface faithfully within the photographed phone, do not turn it into a full-screen screenshot. A single slim modern graphite Android smartphone lies on a natural walnut side table in a quiet personal listening corner. Seen from a near-overhead three-quarter view with the phone face toward the camera, its screen clearly showing this local album library. Phone placed centrally, takes about half image height, small dark wired earphones with a casually curved black cable beside it, no external DAC or speakers. The scene feels private, personal and self-contained, all the music is visibly collected on this one device. One soft folded charcoal fabric at the edge and gentle window light from upper left, modest home environment. Calm background and tactile wood, low saturation, subdued neutral charcoal and warm brown, gentle soft shadows. The phone and earphones fit comfortably in the central 65 percent width with breathing room for a 4:3 central crop, no objects cut off. Phone chassis realistic graphite metal and glass, no decorative walnut phone case. No added text outside the real screen, no logos on hardware, no shield icons, no locks, no clouds, no wireless signals, no arrows, no illustrated symbols, no floating album covers, no chips, no gold, no brass, no luxury styling, no glow, no particles, no people, no watermark. Authentic restrained contemporary editorial photography.
 ```
 
-**Check** **Content constraint, carried over from `BLOCK-GRAPHICS.md` and it matters here.** This plate must show **no traces at all** — not returning ones, not any. The drawn figure in slot 9 shows three paths turning back at a boundary and a fourth crossing an explicit gate, because it is a diagram and it has to be truthful about the app's three optional network calls. This plate is atmosphere: a sealed object makes no closure claim. The moment you add returning traces it becomes a diagram, and a diagram showing nothing leaving contradicts the honest note printed directly beneath it. Reject any generation with lines on the paper.
+**Check** Natural walnut and matte graphite, soft daylight, real hardware proportions and coherent cables. The image explains the listening context, not a measured technical result. No gold glow, generic security symbols or abstract metal blocks.
 
-Then the two standing ivory traps: the specular must be `#7d5a12`, never `#e8b84b`, and there must be no drop shadow. Check the silhouette has not drifted toward a padlock or a shield.
+**Reference** `public/screens/library.webp` supplies the real app interface for the phone screen. Text on that screen is allowed; do not add promotional text or invent additional UI.
 
-**Fallback** Omit. Same reasoning as `home-statement` — do not put a grey box on paper.
+**Source** Generated with the built-in image_gen tool. Raw: `design/generated-plates/home-privacy-raw.png`. Final: `public/img/home-privacy.webp`.
 
 ---
 

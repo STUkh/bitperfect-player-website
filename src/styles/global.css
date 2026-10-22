@@ -2,6 +2,7 @@
    walked the whole repo, design/ artboards included, and compiled ~900 classes
    (66 KB) that no page uses into the render-blocking sheet. */
 @import "tailwindcss" source("..");
+@import "./lacquer.css";
 
 /* ── Manrope Variable Font ──
    Two subsets rather than one 350 KB file: latin covers the whole site, latin-ext
@@ -420,6 +421,11 @@
 :root {
   --d-ui: 180ms;
   --d-swap: 320ms;
+  /* Key-cap response: the face fades over 420ms and the sheen drifts over 800ms on one
+     soft ease-out, so a hover reads as light settling on lacquer, never a snap. */
+  --btn-fade: 420ms;
+  --btn-sheen: 800ms;
+  --btn-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --d-rise: 720ms;
   --d-long: 900ms;
   --stagger: 60ms;
@@ -689,13 +695,12 @@ body::after {
     inset 0 -1px 0 var(--color-gold-shadow-ink),
     var(--shadow-key);
   transition:
-    transform var(--d-ui) var(--ease-ui),
-    filter var(--d-ui) var(--ease-ui),
-    background-position var(--d-swap) var(--ease-reveal),
-    box-shadow var(--d-ui) var(--ease-ui);
+    filter var(--btn-fade) var(--btn-ease),
+    background-position var(--btn-sheen) var(--btn-ease),
+    box-shadow var(--btn-fade) var(--btn-ease);
 }
 .btn-primary-gradient:hover {
-  transform: translateY(-1.5px);
+  transform: none;
   filter: brightness(1.08) saturate(1.04);
   background-position:
     26% 8%,
@@ -707,7 +712,7 @@ body::after {
     0 0 20px -2px rgba(232, 184, 75, 0.28);
 }
 .btn-primary-gradient:active {
-  transform: translateY(0.5px);
+  transform: none;
   background-position:
     0% 0%,
     0% 0%;
@@ -734,24 +739,58 @@ body::after {
 
 /* ── Secondary Button — smoked graphite, top-rim specular only ── */
 .btn-secondary-glow {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  /* Smoked graphite, nearer black than the old #2a2a2a. The sheen is a wide, soft
+     band with long feathered edges, so sliding it on hover reads as light moving
+     across a lacquered face rather than a stripe wiping over it. Buttons never move:
+     the response is light only. */
+  background-color: rgba(255, 255, 255, 0.04);
+  background-image:
+    linear-gradient(
+      115deg,
+      transparent 6%,
+      rgba(255, 255, 255, 0.05) 26%,
+      rgba(255, 255, 255, 0.13) 40%,
+      rgba(255, 255, 255, 0.05) 54%,
+      transparent 76%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.075) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+  background-size:
+    260% 260%,
+    100% 100%;
+  background-position:
+    0% 0%,
+    0% 0%;
+  background-repeat: no-repeat;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    var(--shadow-key);
   transition:
-    transform var(--d-ui) var(--ease-ui),
-    background-color var(--d-ui) var(--ease-ui),
-    border-color var(--d-ui) var(--ease-ui),
-    color var(--d-ui) var(--ease-ui),
-    box-shadow var(--d-ui) var(--ease-ui);
+    background-color var(--btn-fade) var(--btn-ease),
+    background-position var(--btn-sheen) var(--btn-ease),
+    border-color var(--btn-fade) var(--btn-ease),
+    color var(--btn-fade) var(--btn-ease),
+    box-shadow var(--btn-fade) var(--btn-ease);
 }
 .btn-secondary-glow:hover {
-  transform: translateY(-1.5px);
+  transform: none;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.28);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.24);
+  background-position:
+    34% 12%,
+    0% 0%;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 6px 20px -4px rgba(0, 0, 0, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    var(--shadow-key-hover);
 }
 .btn-secondary-glow:active {
-  transform: translateY(0.5px);
+  transform: none;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
 }
 

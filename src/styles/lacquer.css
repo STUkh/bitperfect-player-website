@@ -1,0 +1,106 @@
+/* ── LACQUER: the site's glossy surface system ──
+   Graphite was the flat version of this. Lacquer is the same material lit properly:
+   a diagonal wash from the upper left, a 1px specular rim on the top edge, a darker
+   lower lip, a soft diagonal sheen across the face. Every card, plate and control
+   takes it from HERE, never from a per-component copy.
+
+   Controls (buttons, store badges, social circles) live in global.css as
+   `.btn-primary-gradient` and `.btn-secondary-glow`; this file is
+   for SURFACES.
+
+   Hooks (all optional, set them on the element or a parent):
+     --lq-edge     border colour
+     --lq-rim      top specular rim
+     --lq-lit      colour of the upper-left wash
+     --lq-top      face colour at the top      --lq-bottom   face colour at the foot
+     --lq-sheen    diagonal sheen colour       --lq-top-glow  glow at the top edge
+     --lq-drop     outer shadow
+   Gold spends itself in fills, borders and rims; it casts no outer glow. */
+.lacquer {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--lq-edge, rgba(255, 255, 255, 0.1));
+  background:
+    linear-gradient(158deg, var(--lq-lit, rgba(255, 255, 255, 0.075)) 0%, transparent 46%),
+    linear-gradient(180deg, var(--lq-top, #2f2f2f) 0%, var(--lq-bottom, #212121) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--lq-rim, rgba(255, 255, 255, 0.14)),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    var(--lq-drop, 0 26px 56px -26px rgba(0, 0, 0, 0.75));
+}
+.lacquer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      112deg,
+      transparent 28%,
+      var(--lq-sheen, rgba(255, 255, 255, 0.055)) 46%,
+      rgba(255, 255, 255, 0.015) 58%,
+      transparent 72%
+    ),
+    radial-gradient(70% 38% at 50% 0%, var(--lq-top-glow, rgba(255, 255, 255, 0.06)) 0%, transparent 100%);
+}
+.lacquer-gold {
+  --lq-edge: rgba(232, 184, 75, 0.46);
+  --lq-rim: rgba(255, 226, 150, 0.3);
+  --lq-lit: rgba(232, 184, 75, 0.24);
+  --lq-top: #2b261c;
+  --lq-bottom: #1f1d19;
+  --lq-sheen: rgba(255, 214, 120, 0.09);
+  --lq-top-glow: rgba(255, 226, 150, 0.1);
+}
+/* A lacquered card that is a link or a button: it rises a hair and the sheen brightens. */
+.lacquer-lift {
+  transition:
+    transform var(--d-ui) var(--ease-ui),
+    border-color var(--d-ui) var(--ease-ui),
+    box-shadow var(--d-ui) var(--ease-ui);
+}
+.lacquer-lift:hover {
+  transform: translateY(-2px);
+  --lq-edge: rgba(255, 255, 255, 0.18);
+  --lq-sheen: rgba(255, 255, 255, 0.085);
+  --lq-rim: rgba(255, 255, 255, 0.22);
+}
+.lacquer-gold.lacquer-lift:hover {
+  --lq-edge: rgba(242, 198, 94, 0.7);
+  --lq-sheen: rgba(255, 214, 120, 0.14);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lacquer-lift {
+    transition-duration: 0ms;
+  }
+  .lacquer-lift:hover {
+    transform: none;
+  }
+}
+
+/* ── GROUND: a textured plate behind a band ──
+   The plates are SVG/WebP files in public/grounds and public/img. A band opts in with
+   `ground ground-<name>`; the variant sets the file and where it sits:
+     --ground-image  --ground-size  --ground-position  --ground-opacity  --ground-mask
+   Variants are defined next to the band that uses them. The plate sits UNDER content
+   (z-index -1) and never takes a pointer. */
+.ground {
+  position: relative;
+  isolation: isolate;
+}
+.ground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--ground-image, none);
+  background-size: var(--ground-size, cover);
+  background-position: var(--ground-position, center);
+  background-repeat: var(--ground-repeat, no-repeat);
+  opacity: var(--ground-opacity, 1);
+  -webkit-mask-image: var(--ground-mask, none);
+  mask-image: var(--ground-mask, none);
+}

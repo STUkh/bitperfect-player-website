@@ -1,0 +1,306 @@
+/* ── The resting state ──
+   Written for the case where nothing pins: below 1024px, with reduced motion, or
+   with scripting off. Copy, the hero phone, then the heading and the two
+   other screens. The pinned block further down is the exception, and the script
+   only animates away from whichever of the two applies. */
+.home-opening {
+  position: relative;
+  background: var(--color-surface-base);
+  /* The script writes the progress here; the backdrops read it. */
+  --p: 0;
+  --hero-o: 0.8;
+  --show-o: 1;
+}
+
+.home-opening-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-bottom: 96px;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% -10%, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 70%),
+    var(--color-surface-base);
+}
+
+.ho-inner {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 109px clamp(20px, 6vw, 80px) 0;
+}
+
+.ho-copy {
+  display: flex;
+  max-width: 640px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Unpinned the stage is a grid with the phone group dissolved into it, so one
+   Now Playing phone is the hero's phone, centred under the copy, and the heading
+   introduces the two other screens as a pair. Nothing scrolls sideways and nothing
+   is cropped at any width. */
+.ho-inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 280px));
+  justify-content: center;
+  column-gap: 24px;
+  align-items: start;
+}
+.ho-group,
+.ho-lineup {
+  display: contents;
+}
+.ho-copy {
+  order: 1;
+  grid-column: 1 / -1;
+  justify-self: start;
+  width: 100%;
+}
+.ho-centre {
+  order: 2;
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(280px, 100%);
+  margin-top: 48px;
+  /* The chassis is translucent glass; an opaque ground at its radius makes the
+     centre phone a solid object, so a side phone passing behind it is a genuine
+     pass rather than showing through. */
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-phone-outer, 37px);
+}
+.ho-heading {
+  order: 3;
+  grid-column: 1 / -1;
+  margin: 88px 0 0;
+  text-align: center;
+}
+.ho-side {
+  order: 4;
+  margin-top: 40px;
+}
+.ho-glow {
+  display: none;
+}
+
+/* ── The backdrops ──
+   A defocused listening room behind the copy (speaker stack and lit valves on the
+   right, the left half near-black so the headline never competes) and an acoustic
+   hall behind the lineup. Unpinned, each sits behind its own part of the column. */
+.ho-backdrop {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ho-backdrop-hero {
+  top: 0;
+  height: min(100%, 860px);
+  opacity: var(--hero-o);
+}
+.ho-backdrop-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 55%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 40%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 55%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 40%);
+  mask-composite: intersect;
+  animation: ho-backdrop-settle 1100ms var(--ease-reveal, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+.ho-backdrop-frame img,
+.ho-backdrop-show img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ho-backdrop-frame img {
+  object-position: 74% 40%;
+}
+.ho-backdrop-show {
+  bottom: 0;
+  height: 50%;
+  opacity: calc(0.62 * var(--show-o));
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
+}
+.ho-backdrop-show img {
+  object-position: center bottom;
+}
+/* The veil keeps the heading legible over the lit wall. */
+.ho-backdrop-show::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(25, 25, 25, 0.55) 0%, transparent 45%);
+}
+
+/* ── The entrance ──
+   Load, not scroll: the backdrop settles from a slight zoom, copy rises in three
+   steps, the device eases up last. */
+@keyframes ho-backdrop-settle {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-in {
+  animation: hero-rise 800ms var(--ease-reveal, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+.hero-in-2 {
+  animation-delay: 90ms;
+}
+.hero-in-3 {
+  animation-delay: 190ms;
+}
+.ho-centre {
+  animation: hero-rise 900ms var(--ease-reveal, cubic-bezier(0.22, 1, 0.36, 1)) 280ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ho-backdrop-frame,
+  .hero-in,
+  .ho-centre {
+    animation: none;
+  }
+}
+
+/* ── Pinned: the track and the stage ──
+   The track length is the pin duration; the stage inside it is sticky. Only where
+   the script can run, on a wide screen, for a visitor who allows motion. Its start
+   state (p = 0) is declared here, so the first paint is already the hero and the
+   script only animates away from it; nothing shifts when it loads. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .home-opening {
+    /* 200vh of track: the choreography, then a hold at the end (see the script). */
+    height: 300vh;
+    --hero-o: clamp(0, calc(1 - var(--p) * 2), 1);
+    --show-o: clamp(0, calc((var(--p) - 0.35) / 0.45), 1);
+  }
+  .home-opening-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding-bottom: 0;
+  }
+  .ho-inner {
+    display: block;
+    height: 100%;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  .ho-backdrop-hero,
+  .ho-backdrop-show {
+    inset: 0;
+    height: auto;
+  }
+  .ho-backdrop-hero {
+    will-change: opacity;
+  }
+  .ho-backdrop-show {
+    will-change: opacity;
+  }
+
+  .ho-copy {
+    width: auto;
+    position: absolute;
+    left: clamp(20px, 6vw, 80px);
+    top: 50%;
+    width: min(560px, 46%);
+    transform: translateY(-50%);
+  }
+  .ho-title {
+    font-size: clamp(44px, 5.2vw, 72px);
+  }
+
+  .ho-heading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: max(9vh, 104px);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  /* The group is laid out at the finished lineup's largest size, `--ho-k` times
+     the hero phone, and scaled down to the hero phone at the start. The script
+     only ever scales it down from here, so the screens are never upscaled. */
+  .ho-group {
+    display: block;
+    --ho-k: 1.6;
+    --ho-w: calc(var(--ho-k) * min(300px, 30vh));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--ho-w);
+    margin: 0;
+    perspective: calc(var(--ho-w) * 6);
+    transform: translate3d(calc(-50% + min(1280px, 100vw) * 0.24), -50%, 0) scale(calc(1 / var(--ho-k)));
+  }
+  /* PhoneNowPlaying caps itself at the 300px module; here the group sizes it. */
+  .ho-group .phone-now-playing {
+    max-width: none;
+  }
+  /* Layers only while the script is animating. At rest they are dropped, so the
+     phones re-raster crisply at the scale they settled on. */
+  .home-opening[data-moving] .ho-copy,
+  .home-opening[data-moving] .ho-group,
+  .home-opening[data-moving] .ho-side {
+    will-change: transform, opacity;
+  }
+  .ho-glow {
+    display: block;
+    position: absolute;
+    left: -40%;
+    top: 0;
+    width: 180%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(232, 184, 75, 0.09), rgba(232, 184, 75, 0));
+    filter: blur(24px);
+    pointer-events: none;
+  }
+
+  .ho-lineup {
+    display: block;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+  .ho-centre {
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+  .ho-side {
+    margin: 0;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    filter: brightness(0.72);
+    transform: translate3d(0, 0, calc(var(--ho-w) * -0.14)) scale(0.9);
+  }
+}

@@ -1,0 +1,20 @@
+/* ── The closing band's ground ──
+   A faint engineering grid fades up from the foot, under a soft warm glow that
+   sits where the page ends. Ivory stays the colour; the plate is a whisper. */
+.ground-cta {
+  --ground-image:
+    linear-gradient(rgba(23, 23, 23, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.045) 1px, transparent 1px);
+  --ground-size: 44px 44px;
+  --ground-position: center bottom;
+  --ground-repeat: repeat;
+  --ground-mask: radial-gradient(70% 62% at 50% 100%, #000 0%, transparent 100%);
+}
+.ground-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(60% 46% at 50% 104%, rgba(232, 184, 75, 0.2) 0%, rgba(232, 184, 75, 0.06) 55%, transparent 100%);
+}

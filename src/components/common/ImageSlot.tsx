@@ -284,7 +284,7 @@ export default function ImageSlot(props: ImageSlotProps) {
               you think about the build, so the gate goes on when the tool is written.
               DESIGN.md, "The Prompt Never Ships".
             */
-            import.meta.env.DEV && !src && spec && (
+            import.meta.env.DEV && !plateSrc && spec && (
               <details
                 className={cx([
                   'slot-prompt group border-b',

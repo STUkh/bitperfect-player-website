@@ -35,7 +35,6 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
   type FooterLink = (typeof footerLinks)[keyof typeof footerLinks]['links'][number];
   const getLocalizedFooterLinkLabel = (link: FooterLink) => {
     if (link.href === '/faq') return t('footer.all_questions');
-    if (link.href === '/changelog') return t('footer.all_releases');
     if (link.href === '/privacy') return t('footer.privacy_policy');
     if (link.href === '/terms') return t('footer.terms_of_use');
     if (
@@ -93,7 +92,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
               <p className="mb-6 max-w-sm text-sm leading-relaxed text-pretty text-text-secondary">
                 {t('footer.tagline')}
               </p>
-              <StoreBadges variant="dark" className="flex-row flex-wrap" />
+              <StoreBadges className="flex-row flex-wrap" />
             </div>
             {/*
           Link Columns.
@@ -152,7 +151,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${site.name} on ${social.label} (${social.handle})`}
-                className="footer-social-link inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
+                className="footer-social-link btn-secondary-glow inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
                 title={`${social.label}: ${social.handle}`}
               >
                 <Icon name={social.id} size={18} />

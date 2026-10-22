@@ -23,7 +23,9 @@
 }
 
 .legal-grid .legal-toc-details {
-  background: rgba(23, 22, 30, 0.6);
+  /* On phones the index is a lacquered disclosure card (`.lacquer`); the sidebar
+     rules below take the surface off again from the desktop step. */
+  --lq-drop: 0 14px 30px -20px rgba(0, 0, 0, 0.7);
   border: 1px solid var(--color-border-subtle);
   border-radius: 12px;
   padding: 0.875rem 1.25rem;
@@ -32,7 +34,6 @@
     background-color 0.2s ease;
 }
 .legal-grid .legal-toc-details[open] {
-  background: rgba(23, 22, 30, 0.8);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -187,12 +188,25 @@
     max-height: calc(100vh - 8rem);
     overflow-y: auto;
     padding-right: 0.5rem;
+    /* The index scrolls, but its bar is not worth a grey stripe beside the text. */
+    scrollbar-width: none;
+  }
+  .legal-grid .legal-toc-wrapper::-webkit-scrollbar {
+    display: none;
   }
 
-  .legal-grid .legal-toc-details {
+  /* `[open]` carries its own background above and outranks the plain rule, so the
+     sidebar kept a tint at this width. Both states are flat here: a neutral
+     graphite page has no coloured panel in it. */
+  .legal-grid .legal-toc-details,
+  .legal-grid .legal-toc-details[open] {
     background: transparent;
     border: none;
+    box-shadow: none;
     padding: 0;
+  }
+  .legal-grid .legal-toc-details::before {
+    display: none;
   }
 
   /* The disclosure collapses into a plain sidebar heading at this width:
