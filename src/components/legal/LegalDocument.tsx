@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Icon from '../Icon';
+import { TOC_CHEVRON_PATH } from '../glyphs';
 import { useBehaviour } from '../behaviour';
 import { setupLegalDocument } from './LegalDocument.client';
 import './LegalDocument.css';
@@ -63,7 +64,7 @@ export default function LegalDocument(props: LegalDocumentProps) {
               strokeLinejoin="round"
               aria-hidden="true"
             >
-              <path d="M19 9l-7 7-7-7" />
+              <path d={TOC_CHEVRON_PATH} />
             </svg>
           </summary>
           <nav className="legal-toc" aria-label="Sections">

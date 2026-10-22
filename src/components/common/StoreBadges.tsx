@@ -1,6 +1,7 @@
 import { site } from "../../data/site";
 import Button from "./Button";
 import PlayStoreMark from "./PlayStoreMark";
+import { APPLE_PATH } from "../glyphs";
 
 export interface StoreBadgesProps {
   /**
@@ -12,10 +13,6 @@ export interface StoreBadgesProps {
   /** Extra classes for the wrapper row (e.g. `flex-row flex-wrap`, or `sm:hidden` to hide it). */
   className?: string;
 }
-
-/** currentColor path, 24-unit grid. */
-const APPLE_PATH =
-  "M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.207-2.98.804-.94 2.142-1.64 3.157-1.68.03.13.14.29.14.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.335-1.36-3.348-2.7-1.293-1.72-2.353-4.42-2.353-6.98 0-4.28 2.845-6.54 5.685-6.54 1.517 0 2.784.94 3.685.94.875 0 2.303-1.03 3.994-1.03.673 0 3.079.06 4.61 2.36-.13.08-2.716 1.61-2.716 4.65 0 3.61 3.207 4.9 3.207 4.94z";
 
 /* A store badge IS a secondary `Button`: the same chassis, radius, lacquer and hover.
    It is only taller and carries two lines of text, so the sizes below change padding,

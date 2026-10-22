@@ -5,6 +5,7 @@ import PlayCta from '../common/PlayCta';
 import SectionHeading from '../common/SectionHeading';
 import { reveal as stagger } from '../common/bands';
 import Picture from '../common/Picture';
+import { CHECK_SOLID_PATH, LINK_ARROW_PATH } from '../glyphs';
 import { pro, site } from '../../data/site';
 import { useTranslations } from '../../i18n/utils';
 import { withBase } from '../../utils/nav';
@@ -80,9 +81,6 @@ const governed = t('pricing.disclosure_governed', {
   termsLink: `<a href="${withBase('terms')}" class="pricing-legal-link focus-visible:focus-ring">${t('nav.terms')}</a>`,
   privacyLink: `<a href="${withBase('privacy')}" class="pricing-legal-link focus-visible:focus-ring">${t('nav.privacy')}</a>`,
 });
-
-const CHECK =
-  'M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z';
 
 /**
  * Pricing band. No props; prices and copy are the site's own.
@@ -187,7 +185,7 @@ export default function PricingSection() {
                       fill="currentColor"
                       aria-hidden="true"
                     >
-                      <path fillRule="evenodd" d={CHECK} clipRule="evenodd" />
+                      <path fillRule="evenodd" d={CHECK_SOLID_PATH} clipRule="evenodd" />
                     </svg>
                     <span className={cx('leading-snug', p.featured && i === 0 && 'font-semibold text-text-primary')}>
                       {point}
@@ -254,7 +252,7 @@ export default function PricingSection() {
                       aria-hidden="true"
                       focusable="false"
                     >
-                      <path d="M5 12h14m0 0-6-6m6 6-6 6" />
+                      <path d={LINK_ARROW_PATH} />
                     </svg>
                   </a>
                 )}

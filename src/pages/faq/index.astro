@@ -8,6 +8,7 @@ import Button from '../../components/common/Button';
 import { allFaqItems } from '../../data/faq';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/nav';
+import { DISCLOSURE_CHEVRON_POINTS, SEARCH } from '../../components/glyphs';
 
 const title = 'Frequently asked questions';
 const description =
@@ -42,8 +43,7 @@ const categories = [
     <div class="mt-8 relative max-w-xl">
       <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-text-tertiary">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          {SEARCH.map(({ el: El, ...attrs }) => <El {...attrs}></El>)}
         </svg>
       </div>
       <input
@@ -120,7 +120,7 @@ const categories = [
                     </span>
                     <div class="flex h-7 w-7 shrink-0 items-center justify-center text-text-tertiary transition-transform duration-200 group-hover:text-gold group-open:rotate-180 group-open:text-gold">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6 9 12 15 18 9"></polyline>
+                        <polyline points={DISCLOSURE_CHEVRON_POINTS}></polyline>
                       </svg>
                     </div>
                   </summary>

@@ -1,6 +1,7 @@
 import { clsx as cx } from 'clsx';
 import { useTone, type Tone } from './bands';
 import type { ClassProps } from '../class-props';
+import { BACK_CHEVRON_POINTS } from '../glyphs';
 
 export interface BackLinkProps extends ClassProps {
   /** Where it goes: the parent page. */
@@ -32,7 +33,7 @@ export default function BackLink({ href, label, className, ...props }: BackLinkP
       )}
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-        <polyline points="15 18 9 12 15 6" />
+        <polyline points={BACK_CHEVRON_POINTS} />
       </svg>{' '}
       <span>{label}</span>
     </a>

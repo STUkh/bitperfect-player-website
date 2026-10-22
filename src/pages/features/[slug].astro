@@ -33,6 +33,7 @@ import SectionHeading from '../../components/common/SectionHeading';
 import SpecList from '../../components/common/SpecList';
 import PagerPair from '../../components/feature/PagerPair';
 import FeatureMark from '../../components/feature/FeatureMark';
+import { CHECK_SOLID_PATH } from '../../components/glyphs';
 import FeatureScreens from '../../components/feature/FeatureScreens';
 import { indexOrder, getLocalizedFeaturePage } from '../../components/feature/content';
 import { getLocalizedFeatureBySlug } from '../../data/features';
@@ -265,7 +266,7 @@ const showSignalPath = slug === 'usb-dac';
                   <div class="flex items-center justify-between">
                     <span class="mono-spec text-device-label font-bold uppercase tracking-wider text-band-gold-ink">Direct</span>
                     <svg class="h-3.5 w-3.5 text-band-gold-ink" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d={CHECK_SOLID_PATH} clip-rule="evenodd" />
                     </svg>
                   </div>
                   <div class="mt-2">

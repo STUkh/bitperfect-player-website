@@ -3,6 +3,7 @@ import { imagePrompts } from '../../data/imagePrompts';
 import { plates } from '../../data/plates';
 import { withBase } from '../../utils/nav';
 import Picture from './Picture';
+import { PROMPT_CHEVRON_PATH } from '../glyphs';
 import type { ClassProps } from '../class-props';
 
 /**
@@ -323,7 +324,7 @@ export default function ImageSlot(props: ImageSlotProps) {
                     className="shrink-0 transition-transform duration-[180ms] ease-ui group-open:rotate-90"
                     aria-hidden="true"
                   >
-                    <path d="M9 5l7 7-7 7" />
+                    <path d={PROMPT_CHEVRON_PATH} />
                   </svg>{' '}
                   Generation prompt{' '}
                   <span className={cx(['ml-1', isIvory ? 'text-band-ink-muted/70' : 'text-white/30'])}>
