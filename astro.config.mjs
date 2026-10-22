@@ -5,6 +5,7 @@ import react from "@astrojs/react";
 import { buildImages } from "./scripts/images.mjs";
 import Beasties from "beasties";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 
@@ -56,6 +57,25 @@ const criticalCss = () => ({
   },
 });
 
+/* SEO audit of every build (scripts/seo-check.mjs). It runs here rather than
+   as an npm postbuild so that `npx astro build` (what CI runs), `npm run build`
+   and the visual-regression build are all checked, against whichever outDir
+   they wrote. Registered after the sitemap, so the sitemap it audits exists.
+   An error fails the build; warnings only print. */
+const seoCheck = () => ({
+  name: "seo-check",
+  hooks: {
+    "astro:build:done": ({ dir }) => {
+      try {
+        const script = fileURLToPath(new URL("./scripts/seo-check.mjs", import.meta.url));
+        execFileSync(process.execPath, [script, "--dist", fileURLToPath(dir)], { stdio: "inherit" });
+      } catch {
+        throw new Error("SEO check failed: fix the errors listed above (npm run seo re-runs it on dist/).");
+      }
+    },
+  },
+});
+
 // Custom domain on GitHub Pages: https://bit-perfect.com/
 export default defineConfig({
   site: "https://bit-perfect.com",
@@ -75,12 +95,15 @@ export default defineConfig({
        to the browser. The same components are what Claude Design builds with. */
     react(),
     sitemap({
-      /* /404 is not a page, and /policy is a noindex meta-refresh alias of
-         /privacy kept for store listings that already point at it. Listing a
-         noindex URL in the sitemap asks a crawler to index a page that tells it
-         not to. The two real legal routes, /privacy and /terms, stay in. */
-      filter: (page) => !page.includes("/404") && !page.includes("/policy"),
+      /* /404 is not a page, and /policy and /faq/npu-ai-enhancer are noindex
+         meta-refresh aliases (of /privacy, and of the AI Enhancer FAQ) kept
+         for links that already point at them. Listing a noindex URL in the
+         sitemap asks a crawler to index a page that tells it not to. The two
+         real legal routes, /privacy and /terms, stay in. */
+      filter: (page) =>
+        !page.includes("/404") && !page.includes("/policy") && !/\/faq\/npu-ai-enhancer\/?$/.test(page),
     }),
+    seoCheck(),
   ],
   vite: {
     plugins: [tailwindcss()],

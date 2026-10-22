@@ -1,9 +1,41 @@
-/* The row's arrow nudges toward where the link goes. Transform only, and held
-   still for visitors who asked for less motion. */
+/* Groups are numbered by the cascade, not by JSX: one counter on the index,
+   one step per rendered section. The numeral is decorative (aria-hidden); the
+   h2 carries the meaning. The per-row numbers come from the data and are not
+   sequential within a group, so they stay plain text. */
+.tech-index {
+  counter-reset: group;
+}
+.tech-index-group {
+  counter-increment: group;
+}
+.tech-index-num::before {
+  content: counter(group, decimal-leading-zero);
+}
+.tech-index-rule {
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  align-self: center;
+  background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+}
+
+/* The whole row is the link, and every hover state is keyed off the row, so
+   the title turns gold and the arrow nudges wherever the pointer sits in it:
+   on the number, the summary, the gap or the arrow. The arrow moves by
+   transform only, and is held still for visitors who asked for less motion. */
+.tech-index-title {
+  transition: color var(--d-ui) var(--ease-ui);
+}
 .tech-index-arrow {
   transition:
     transform var(--d-ui) var(--ease-ui),
     color var(--d-ui) var(--ease-ui);
+}
+.tech-index-row:hover .tech-index-title,
+.tech-index-row:focus-visible .tech-index-title,
+.tech-index-row:hover .tech-index-arrow,
+.tech-index-row:focus-visible .tech-index-arrow {
+  color: var(--color-gold-light);
 }
 .tech-index-row:hover .tech-index-arrow,
 .tech-index-row:focus-visible .tech-index-arrow {

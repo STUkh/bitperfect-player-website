@@ -5,7 +5,8 @@
  * scripted replace: the belt-and-braces form GitHub Pages requires.
  */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const target = `${base}/privacy`;
+const target = `${base}/privacy/`;
+const canonical = new URL(target, Astro.site).href;
 ---
 
 <!doctype html>
@@ -14,7 +15,7 @@ const target = `${base}/privacy`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Privacy Policy | Bitperfect Player</title>
-    <link rel="canonical" href={target} />
+    <link rel="canonical" href={canonical} />
     <meta http-equiv="refresh" content={`0; url=${target}`} />
     <meta name="robots" content="noindex" />
     <script is:inline define:vars={{ target }}>

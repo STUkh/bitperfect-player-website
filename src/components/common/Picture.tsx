@@ -1,5 +1,4 @@
 import type { CSSProperties } from 'react';
-import { clsx as cx } from 'clsx';
 import manifest from '../../data/images.json';
 import { withBase } from '../../utils/nav';
 

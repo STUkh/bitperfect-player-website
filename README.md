@@ -35,6 +35,29 @@ The workflow fails the build if the design direction contract is stripped from
 the emitted HTML, and warns if the privacy policy still contains publish
 placeholders.
 
+## SEO check
+
+Every `astro build` (local, CI, the visual-regression build) ends with
+`scripts/seo-check.mjs`, an audit of the built HTML. `npm run seo` re-runs it on
+`dist/`; `npm run seo -- --json` also writes `/private/tmp/claude-501/seo/report.json`.
+
+Per page it checks: one `<title>`, a meta description, one `<h1>`, `lang`,
+viewport, a canonical that is absolute and points at the page itself, Open Graph
+(`og:title/description/type/url/image`, the image file exists) and `twitter:card`,
+`alt` on every image, JSON-LD that parses and has `@context`/`@type`, and every
+internal link and asset resolving to a built file. Site-wide: `robots.txt` names
+the sitemap, the sitemap lists only built pages, and `noindex` pages (the
+`/policy` and `/faq/npu-ai-enhancer` redirects) are out of it while every
+indexable page is in.
+
+The output is a table (title and description length, h1 count, errors, warnings)
+then the findings. **ERROR** lines fail the build: fix the layout or page named.
+**warn** lines pass and are for a human: title outside 15-65 or description
+outside 70-165 characters, duplicate titles or descriptions, skipped heading
+levels, `alt=""` on an image that is not in a link or `aria-hidden`, images
+without `width`/`height`, and internal links without a trailing slash (GitHub
+Pages 301s `/faq` to `/faq/`; `withBase()` adds the slash for you).
+
 ## Before this can go in front of Play Console
 
 1. **Fill the placeholders in `src/PRIVACY_POLICY.md`** — two `[FILL IN ON PUBLISH]`

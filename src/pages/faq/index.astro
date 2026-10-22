@@ -8,18 +8,18 @@ import { allFaqItems } from '../../data/faq';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/nav';
 
-const title = 'Frequently asked questions | Bitperfect Player';
+const title = 'Frequently asked questions';
 const description =
   'Answers on USB DAC setup, bit-perfect playback, AI Enhancer, battery settings and audio formats.';
 
 const categories = [
   { id: 'all', label: 'All questions' },
   { id: 'engine', label: 'Bit-perfect playback' },
-  { id: 'hardware', label: 'Hardware & USB DACs' },
+  { id: 'hardware', label: 'Hardware and USB DACs' },
   { id: 'ai', label: 'On-device AI' },
   { id: 'dsp', label: 'EQ and formats' },
-  { id: 'battery', label: 'Battery & background play' },
-  { id: 'license', label: 'Subscription & privacy' },
+  { id: 'battery', label: 'Battery and background play' },
+  { id: 'license', label: 'Subscription and privacy' },
 ].map((cat) => ({
   ...cat,
   // Counted from the data, not typed: a question added to faq.ts updates the index.

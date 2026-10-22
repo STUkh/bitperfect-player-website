@@ -1,6 +1,3 @@
-import { pro, site } from "./site";
-import { useTranslations, type UIKey } from "../i18n/utils";
-
 export interface FAQItem {
   id: string;
   category: string;
@@ -21,7 +18,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "direct-hardware-bypass",
     "category": "engine",
     "q": "How does Bitperfect Player reach a USB DAC without root?",
-    "a": "Bitperfect Player communicates directly with your USB DAC. It supports UAC1 and UAC2 standards. No root is needed. While the app uses the DAC, other apps cannot play through it."
+    "a": "Bitperfect Player uses Android's USB host permission to talk to the DAC directly. It supports UAC1 and UAC2 standards. Android's system audio stack is never involved. While the app uses the DAC, other apps cannot play through it."
   },
   {
     "id": "bitperfect-lock",

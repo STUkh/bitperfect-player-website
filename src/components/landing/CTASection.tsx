@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import Container from '../common/Container';
 import PlayCta from '../common/PlayCta';
-import { site, pro } from '../../data/site';
+import { pro } from '../../data/site';
 import './CTASection.css';
 
 /* Read the headline term off the pricing model, so the closing action and the

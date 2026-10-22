@@ -40,6 +40,9 @@ jobs:
           key: img-${{ hashFiles('public/img/**', 'public/screens/**', 'scripts/images.mjs') }}
           restore-keys: img-
 
+      # The build ends with scripts/seo-check.mjs (the seo-check integration in
+      # astro.config.mjs): a missing title, canonical, OG card, alt or a broken
+      # internal link fails this step, so nothing below it deploys.
       - run: npx astro build
 
       - name: Check legal document completeness

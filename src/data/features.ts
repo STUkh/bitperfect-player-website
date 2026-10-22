@@ -8,7 +8,7 @@ export interface FeatureSpec {
 export interface FeatureBenefit {
   title: string;
   desc: string;
-  icon: string;
+  icon?: string;
 }
 
 export interface Feature {
@@ -328,18 +328,22 @@ export const features: Feature[] = [
       {
         title: "Restores upper band detail",
         desc: "Restores detail between 14 and 22 kHz inside the file's sample rate. It never invents ultrasonic content.",
+        icon: "waveform",
       },
       {
         title: "Runs on your phone",
         desc: "Full model on a supported neural chip, or Lite mode on the processor. Works offline after download.",
+        icon: "sparkle",
       },
       {
         title: "Checks hardware first",
         desc: "The app tests performance before enabling the model. It turns off if the phone cannot keep up.",
+        icon: "shield",
       },
       {
         title: "Honest signal badge",
         desc: "The signal badge shows Enhanced while active. It stops saying Bit-perfect as soon as sound changes.",
+        icon: "sig-bitperfect",
       },
     ],
     facts: [

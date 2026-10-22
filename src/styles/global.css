@@ -492,9 +492,10 @@ body {
    controls default to cursor: default unless explicitly styled.
    This guarantees every clickable, interactive element across all routes
    reliably displays cursor: pointer. */
-a,
+a[href],
 button,
 [role="button"],
+[role="tab"],
 summary,
 select,
 input[type="submit"],
@@ -507,12 +508,8 @@ label[for],
   cursor: pointer;
 }
 
-a:not([href]):not([role="button"]) {
-  cursor: default;
-}
-
 button:disabled,
-[role="button"][aria-disabled="true"],
+[aria-disabled="true"],
 input:disabled,
 select:disabled,
 [disabled] {

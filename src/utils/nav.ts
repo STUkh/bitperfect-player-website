@@ -12,10 +12,25 @@
 const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 
 /** Prefix an internal path ("privacy", "/privacy", "fonts/x.woff2") with the
- *  configured base. Safe with or without a leading slash on `path`. */
+ *  configured base. Safe with or without a leading slash on `path`.
+ *
+ *  A page path also gets its trailing slash ("privacy" → "/privacy/",
+ *  "features#x" → "/features/#x"): pages build to `privacy/index.html`, and
+ *  GitHub Pages answers `/privacy` with a 301 to `/privacy/`, so a bare link
+ *  costs every visitor and crawler a redirect hop and disagrees with the
+ *  canonical. Files (anything with an extension) and URL patterns ("*") are
+ *  left as written. `npm run seo` flags any link that still lacks the slash. */
 export function withBase(path: string): string {
   const clean = path.replace(/^\/+/, "");
-  return clean ? `${BASE}/${clean}` : `${BASE}/`;
+  const [, page, rest] = clean.match(/^([^?#]*)(.*)$/)!;
+  const slashed =
+    page &&
+    !page.endsWith("/") &&
+    !page.includes("*") &&
+    !/\.[a-z0-9]+$/i.test(page)
+      ? `${page}/`
+      : page;
+  return `${BASE}/${slashed}${rest}`;
 }
 
 /** True when `pathname` (Astro.url.pathname: already includes the base path
