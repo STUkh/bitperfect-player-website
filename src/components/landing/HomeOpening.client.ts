@@ -65,14 +65,17 @@ export function setupHomeOpening(section: HTMLElement) {
   /* The lineup's visual width in phone widths: the centre phone plus each side
      phone's offset and its turned, set-back half, with a little air. */
   const LINEUP_WIDTH = 2.85;
-  /* Seconds the glide takes over the whole track at its cruise. */
-  const GLIDE_TIME = 0.9;
+  /* Seconds the glide takes over the whole track at its cruise. Unhurried: the
+     glide is the page presenting the lineup, not a jump to it. */
+  const GLIDE_TIME = 1.7;
+  /* The fastest the glide starts, in cruises, however hard the flick was. */
+  const GLIDE_MAX_START = 1.6;
   /* Seconds to come up to the cruise from a slow start, and to ease back to it
      after the reader has pushed faster. */
-  const GLIDE_RISE = 0.12;
-  const GLIDE_RELAX = 0.25;
-  /* The share of the track the glide brakes over at its end. */
-  const BRAKE = 0.2;
+  const GLIDE_RISE = 0.2;
+  const GLIDE_RELAX = 0.3;
+  /* The share of the track the glide brakes over at its end: a long, soft landing. */
+  const BRAKE = 0.4;
   /* Milliseconds of stillness after a click or key press before gliding resumes. */
   const HOLD_QUIET = 200;
   /* How fast the reader has to scroll for the glide to take over, in tracks per
@@ -297,7 +300,7 @@ export function setupHomeOpening(section: HTMLElement) {
       glideDir = -glideDir;
       glideV = -pushed / dt;
     } else if (pushed > 0) {
-      glideV = Math.max(glideV, pushed / dt);
+      glideV = Math.max(glideV, Math.min(pushed / dt, GLIDE_MAX_START * cruise));
     }
     glideV =
       glideV < cruise
@@ -358,7 +361,7 @@ export function setupHomeOpening(section: HTMLElement) {
     const speed = (Math.abs(y - first.y) / Math.max(SPEED_MIN_SPAN, now - first.t)) * 1000;
     if (speed < GLIDE_SPEED * track) return;
     trail = [];
-    startGlide(dir, Math.min(Math.abs(moved) / dt, (3 * track) / GLIDE_TIME));
+    startGlide(dir, Math.min(Math.abs(moved) / dt, (GLIDE_MAX_START * track) / GLIDE_TIME));
   };
 
   const release = () => {
