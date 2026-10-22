@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import Container from '../common/Container';
 import FeatureArt from '../feature/FeatureArt';
+import FeatureLinkCard from '../feature/FeatureLinkCard';
 import FeatureMark from '../feature/FeatureMark';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';
@@ -89,26 +90,21 @@ export default function FeaturesTeaser() {
         </div>
         <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-0 lg:grid-cols-3 lg:gap-6">
           {items.map((item, i) => (
-            <a
+            <FeatureLinkCard
               key={item.slug}
               href={withBase(`features/${item.slug}`)}
-              className="focus-visible:focus-ring r-rise lacquer lacquer-lift features-card group relative flex cursor-pointer flex-col rounded-card-inner lg:rounded-card"
+              title={featureName(item.slug)}
+              body={item.desc}
+              className="lacquer lacquer-lift features-card"
               style={{ '--i': i % 3, '--art-y': artY[item.slug] ?? '50%' } as CSSProperties}
-            >
-              {/* The plate clips itself, 1px inside the card's radius: the card cannot
-                  clip, because its hover layer sits on the border (lacquer.css). */}
-              <div className="features-card-art relative overflow-hidden rounded-t-[15px] lg:rounded-t-[23px]">
-                <FeatureArt slug={item.slug} ratio="16 / 7" />
-              </div>
-              <div className="relative flex flex-1 flex-col px-6 pt-3 pb-6 lg:px-7 lg:pt-4 lg:pb-7">
-                <h3 className="text-title-sm font-semibold tracking-[-0.01em] text-text-primary transition-colors duration-[var(--d-ui)] ease-ui group-hover:text-gold-light lg:text-title">
-                  {featureName(item.slug)}
-                </h3>
-                <p className="mt-2 text-body-sm text-pretty text-text-secondary transition-colors duration-[var(--d-ui)] ease-ui group-hover:text-text-primary">
-                  {item.desc}
-                </p>
-              </div>
-            </a>
+              art={
+                /* The plate clips itself, 1px inside the card's radius: the card cannot
+                   clip, because its hover layer sits on the border (lacquer.css). */
+                <div className="features-card-art relative overflow-hidden rounded-t-[15px] lg:rounded-t-[23px]">
+                  <FeatureArt slug={item.slug} ratio="16 / 7" />
+                </div>
+              }
+            />
           ))}
           <a
             href={allFeaturesHref}
