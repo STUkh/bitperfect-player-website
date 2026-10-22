@@ -2,8 +2,10 @@ import Button from '../primitives/Button';
 import PlayCta from '../primitives/PlayCta';
 import Picture from '../primitives/Picture';
 import Phone from '../devices/Phone';
+import { phoneGeometry } from '../devices/phone-geometry';
 import { useBehaviour } from '../_lib/behaviour';
 import { pro } from '../../data/site';
+import { screens } from '../../data/screens';
 import { fanStyle } from '../devices/phone-fan';
 import { setupHomeOpening } from './HomeOpening.client';
 import './HomeOpening.css';
@@ -26,6 +28,10 @@ import './HomeOpening.css';
   down. Unpinned, the grid's two 280px columns with a 24px gap inside a
   clamp(20px, 6vw, 80px) gutter, and the hero phone across both, capped at 280px.
 */
+/* The centre phone's ground follows the hero capture's chassis corner. */
+const HERO = screens['now-playing-hero'];
+const HERO_RADIUS = phoneGeometry(HERO.w, HERO.h).radius;
+
 const PINNED = '(min-width: 1024px) and (prefers-reduced-motion: no-preference) and (scripting: enabled)';
 const PINNED_SIZES = `${PINNED} and (min-height: 1000px) 480px, ${PINNED} 48vh`;
 const SIDE_SIZES = `${PINNED_SIZES}, (min-width: 664px) 280px, calc((88vw - 24px) / 2)`;
@@ -134,7 +140,7 @@ export default function HomeOpening() {
               <div className="ho-side ho-left" data-phone="left">
                 <Phone screen="eq" fill frameSizes={SIDE_SIZES} />
               </div>
-              <div className="ho-centre" data-phone="centre">
+              <div className="ho-centre" data-phone="centre" style={{ borderRadius: HERO_RADIUS }}>
                 {/* 300px: the same module as the lineup the hero phone travels into. */}
                 <div className="ho-hero-phone">
                   <Phone

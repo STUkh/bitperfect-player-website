@@ -67,9 +67,9 @@
   margin-top: 48px;
   /* The chassis is translucent glass; an opaque ground at its radius makes the
      centre phone a solid object, so a side phone passing behind it is a genuine
-     pass rather than showing through. */
+     pass rather than showing through. Its radius is the chassis's own corner,
+     set inline from the phone's geometry (HomeOpening.tsx), as PhoneFrame does. */
   background: var(--color-surface-raised);
-  border-radius: var(--radius-phone-outer, 37px);
 }
 /* The hero phone caps itself at the lineup's 300px module; pinned, the group sizes it. */
 .ho-hero-phone {
