@@ -51,7 +51,7 @@ export default function StatementBand({ backgroundVariant }: FlowProps) {
           finishes level. */}
         <SectionHeading
           className="lg:col-span-8"
-          title="Android's mixer changes your music on the way out. "
+          title="The system mixer changes your music on the way out. "
           titleAccent="This app sends it to your USB DAC unchanged."
           titleClassName="text-headline-m lg:text-headline"
           reveal={1}

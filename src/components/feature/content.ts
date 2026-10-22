@@ -288,7 +288,7 @@ export const featurePages: Record<string, FeaturePage> = {
   },
 
   "usb-dac": {
-    lede: "Many Android phones convert audio to 48 kHz and 16-bit. Bitperfect Player sends music straight to your DAC at the file's native rate, if your DAC supports it.",
+    lede: "Standard system mixers often convert audio to 48 kHz and 16-bit. Bitperfect Player sends music straight to your DAC at the file's native rate, if your DAC supports it.",
     summary: [
       { label: "Max PCM", value: "32-bit / 768 kHz, DAC permitting" },
       { label: "DSD", value: "DSD64 to DSD512, DAC permitting" },
@@ -300,7 +300,7 @@ export const featurePages: Record<string, FeaturePage> = {
       {
         eyebrow: "Exclusive mode",
         title: "Only one app uses your DAC",
-        body: "Bitperfect takes over your USB DAC while music plays, so other apps cannot use it. Android asks your permission once.",
+        body: "Bitperfect takes over your USB DAC while music plays, so other apps cannot use it. The operating system asks your permission once.",
       },
       {
         eyebrow: "Rate switching",

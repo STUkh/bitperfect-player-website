@@ -73,8 +73,8 @@ export const technicalFeatures: TechnicalFeature[] = [
     "title": "Direct sound path",
     "category": "engine",
     "categoryLabel": "Core engine",
-    "summary": "Bit-perfect audio to your USB DAC. Bypasses Android's system mixer.",
-    "description": "Android's system mixer resamples audio to 48 kHz on many phones. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them.",
+    "summary": "Bit-perfect audio to your USB DAC. Bypasses the system mixer.",
+    "description": "Standard system mixers resample audio to 48 kHz on many devices. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them.",
     "audiophileBenefit": "You hear your files untouched, with no unwanted resampling or dither.",
     "specs": [
       {
@@ -668,7 +668,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "categoryLabel": "Hardware & outputs",
     "summary": "Turns your phone or portable player into a network receiver.",
     "description": "Acts as a DLNA/UPnP renderer up to 384 kHz, or a network player for music servers up to 768 kHz. Supported sample rates depend on your DAC.",
-    "audiophileBenefit": "Turns an Android device into a dedicated network streamer for your hi-fi system.",
+    "audiophileBenefit": "Turns your device into a dedicated network streamer for your hi-fi system.",
     "specs": [
       {
         "label": "Receiver modes",

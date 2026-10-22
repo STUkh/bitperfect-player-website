@@ -262,9 +262,9 @@ export const features: Feature[] = [
     accent: "gold",
     icon: "node-usb",
     description:
-      "Bypasses Android's system mixer and forced 48 kHz resampling. Delivers audio bit-for-bit to your USB DAC at up to 32-bit / 768 kHz and DSD512, if your DAC supports it.",
+      "Bypasses the system mixer and forced 48 kHz resampling. Delivers audio bit-for-bit to your USB DAC at up to 32-bit / 768 kHz and DSD512, if your DAC supports it.",
     overview:
-      "Android normally routes audio through a system mixer that forces 48 kHz resampling and 16-bit truncation. Bitperfect Player opens a direct connection to your USB DAC instead. Your DAC runs at the file's native sample rate, if supported.",
+      "Operating systems normally route audio through a system mixer that forces 48 kHz resampling and 16-bit truncation. Bitperfect Player opens a direct connection to your USB DAC instead. Your DAC runs at the file's native sample rate, if supported.",
     benefits: [
       {
         title: "Zero resampling or dithering",

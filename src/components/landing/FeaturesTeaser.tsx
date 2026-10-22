@@ -18,7 +18,7 @@ import './FeaturesTeaser.css';
 const items = [
   {
     slug: 'usb-dac',
-    desc: "Direct USB DAC output, past Android's mixer. Up to 768 kHz and DSD512.",
+    desc: "Direct USB DAC output, past the system mixer. Up to 768 kHz and DSD512.",
   },
   {
     slug: 'ai-enhancer',
