@@ -1,10 +1,8 @@
 import { useTranslations, type UIKey } from "../i18n/utils";
-import { releases } from "./changelog";
 
 export const navLinks = [
   { label: "Features", href: "/features" },
   { label: "FAQ", href: "/faq" },
-  { label: "Releases", href: "/changelog" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ] as const;
@@ -13,8 +11,8 @@ export const featureRoutes = [
   { slug: "usb-dac", name: "Direct USB DAC output" },
   { slug: "eq", name: "32-band parametric EQ" },
   { slug: "library", name: "Local lossless library" },
-  { slug: "casting", name: "Bi-directional streaming" },
-  { slug: "dsp", name: "Studio-grade DSP rack" },
+  { slug: "casting", name: "Two-way streaming" },
+  { slug: "dsp", name: "DSP rack" },
   { slug: "ai-enhancer", name: "AI Enhancer" },
 ] as const;
 
@@ -61,9 +59,9 @@ export const footerLinks = {
     links: [
       { label: "Direct USB DAC", href: "/features/usb-dac" },
       { label: "32-Band Parametric EQ", href: "/features/eq" },
-      { label: "Studio DSP & Crossfeed", href: "/features/dsp" },
+      { label: "DSP & Crossfeed", href: "/features/dsp" },
       { label: "Lossless Local Library", href: "/features/library" },
-      { label: "Hi-Res Network Casting", href: "/features/casting" },
+      { label: "Casting & Receiver Mode", href: "/features/casting" },
       { label: "On-Device AI Enhancer", href: "/features/ai-enhancer" },
       { label: "27 Technical Specs", href: "/features/catalog" },
     ],
@@ -72,22 +70,11 @@ export const footerLinks = {
     title: "FAQ",
     href: "/faq",
     links: [
-      { label: "Why NPU for AI Enhancer?", href: "/faq/why-npu-ai-enhancer-not-working" },
-      { label: "Direct Hardware Bypass", href: "/faq#direct-hardware-bypass" },
+      { label: "AI Enhancer and Neural Chips", href: "/faq/why-npu-ai-enhancer-not-working" },
+      { label: "How Direct USB Output Works", href: "/faq#direct-hardware-bypass" },
       { label: "External USB DAC Setup", href: "/faq#need-external-dac" },
       { label: "Supported Audio Formats", href: "/faq#supported-audio-formats" },
-      { label: "All Questions & Guides", href: "/faq" },
-    ],
-  },
-  releases: {
-    title: "Releases",
-    href: "/changelog",
-    links: [
-      ...releases.slice(0, 2).map((rel) => ({
-        label: `Version ${rel.version}`,
-        href: `/changelog/${rel.version}`,
-      })),
-      { label: "All Release Notes", href: "/changelog" },
+      { label: "All Questions", href: "/faq" },
     ],
   },
   legal: {

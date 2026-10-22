@@ -14,141 +14,147 @@ export const allFaqItems: FAQItem[] = [
   {
     "id": "what-is-bit-perfect",
     "category": "engine",
-    "q": "What does bit-perfect actually mean here?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Audio samples reaching your DAC match the source file bit-for-bit. Standard Android resamples audio to 48 kHz via AudioFlinger; our user-space USB driver bypasses the OS mixer completely."
+    "q": "What does bit-perfect mean?",
+    "a": "Your DAC gets the file's exact data. Many Android phones send sound through a system mixer, which often changes it to 48 kHz and 16-bit. Bitperfect can skip the mixer and send the file to a USB DAC unchanged. The badge shows when it is not."
   },
   {
     "id": "direct-hardware-bypass",
     "category": "engine",
-    "q": "How does direct hardware bypass work without root?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>An in-house user-space USB Audio Class (UAC1/UAC2) driver communicates directly via the Android USB Host API. It needs no root access and isolates music from system notification sounds."
+    "q": "How does Bitperfect reach a USB DAC without root?",
+    "a": "Bitperfect drives the USB DAC itself, using the USB Audio Class standard (UAC1 and UAC2). No root is needed. While Bitperfect uses the DAC, other apps cannot play through it."
   },
   {
     "id": "bitperfect-lock",
     "category": "engine",
-    "q": "What is Bitperfect Lock and why is it essential?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Bitperfect Lock is a one-touch switch that disables all software EQ, DSP plugins, and volume sliders. Volume control delegates strictly to your external DAC hardware attenuator."
+    "q": "What does Bit-perfect lock do?",
+    "a": "Bit-perfect lock is one switch. It turns off all EQ, effects and software volume, so none of them changes the sound. If your DAC cannot play the file's rate, the app still converts it and the badge shows Resampled. Volume moves to the DAC's own control. If the DAC has none, volume stays at 0 dB."
   },
   {
     "id": "dyadic-lossless-volume",
     "category": "engine",
-    "q": "How does 64-bit Dyadic Lossless Volume Control work?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Standard digital volume multiplies samples by fractions, truncating low bits. Dyadic volume scales by exact powers of two, giving 85 lossless steps at 16-bit and 25 steps at 24-bit."
+    "q": "How does dyadic (bit-exact) volume work?",
+    "a": "Normal digital volume rounds off the lowest bits. Optional dyadic volume uses exact n/256 steps instead. In the app it is called Alternative volume control. It works when the output is wider than the file: 85 steps for 16-bit files at 32-bit output, 20 steps for 24-bit files at 32-bit output or 16-bit files at 24-bit output."
   },
   {
     "id": "native-dsd-and-dop",
     "category": "engine",
-    "q": "Does Bitperfect Player support Native DSD and DoP?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes. It streams 1-bit DSD audio (DSF, DFF, and SACD ISO) via Native DSD and DoP from DSD64 to DSD512, plus real-time PCM-to-DSD conversion."
+    "q": "Does Bitperfect support native DSD and DoP?",
+    "a": "Yes. It plays DSF and DFF files and DSD disc images as native DSD or DoP, from DSD64 to DSD512. The rates you get depend on your DAC. If your DAC takes neither, the app converts to PCM and the badge shows it. It can also turn PCM into DSD as it plays, at the same rates."
   },
   {
     "id": "need-external-dac",
     "category": "hardware",
     "q": "Do I need an external DAC?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>No. The phone's built-in 3.5mm jack or internal speaker works too. However, Android routes internal audio through the system mixer, so the Bit-perfect status badge is reserved for direct USB output to an external DAC or dedicated DAP hardware output."
+    "a": "Not to play music. The phone's own 3.5mm jack and speaker work too. On most phones, the system mixer stays in that path, and the badge shows Resampled. A USB DAC or a supported DAP skips the mixer. On some phones, the app can also use the built-in DAC directly, after a test and with your permission."
   },
   {
     "id": "usb-dac-setup-guide",
     "category": "hardware",
-    "q": "How do I set up and configure an external USB DAC?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Connect your USB DAC with an OTG cable. When Android prompts to allow Bitperfect Player to access the USB device, tap \"Always allow\" to activate the Bit-perfect status indicator."
+    "q": "How do I set up a USB DAC?",
+    "a": "Connect the USB DAC with an OTG cable. Allow access when Android asks. The Bit-perfect badge shows when no effects or software volume are on, and the DAC runs at the file's rate and depth."
   },
   {
     "id": "usb-permission-dialog",
     "category": "hardware",
     "q": "Why does Android ask for USB permission every time?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Android requires user permission before an app can claim direct USB hardware access. Check \"Always use for this device\" in the prompt so future connections start automatically."
+    "a": "Android asks before any app can control a USB device. If the prompt offers to always open Bitperfect Player for this DAC, tick that box. After that, it connects without asking."
   },
   {
     "id": "dap-support",
     "category": "hardware",
-    "q": "Can I run Bitperfect Player on dedicated Digital Audio Players (DAPs)?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes. Dedicated hardware drivers support Android DAPs from FiiO, iBasso, HiBy, Astell&Kern, Shanling, and Cayin, including dual-DAC chips, balanced 4.4mm outputs, and hardware gain switches."
+    "q": "Does Bitperfect work on digital audio players (DAPs)?",
+    "a": "Yes. On supported DAPs from brands such as FiiO, iBasso, HiBy, Cayin and Shanling, Bitperfect sends sound straight to the player's bit-perfect output. The player's firmware sets the volume."
   },
   {
     "id": "why-npu-ai-enhancer-not-working",
     "category": "ai",
-    "q": "Why is AI Enhancer not working or disabled on my device?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>AI Enhancer requires a dedicated hardware NPU for real-time overtone restoration. It disables if your phone lacks an NPU, uses a brand-new chipset awaiting optimization, or has OEM firmware blocks (such as Motorola).",
+    "q": "Why is AI Enhancer off or not working?",
+    "a": "The full model runs on the neural chip of Snapdragon 8 Gen 1 and newer, and Dimensity 8300, 8400, 9300 and 9400 chips. Other phones get Lite mode, a lighter model on the main processor. AI Enhancer turns off if your phone is too slow for real time, or the model is not downloaded. It does not run while Bit-perfect lock is on, or with DSD, PCM-to-DSD, casting, AI Karaoke, or files other than 44.1 and 48 kHz.",
     "guideUrl": "/faq/why-npu-ai-enhancer-not-working"
   },
   {
     "id": "can-i-disable-ai",
     "category": "ai",
     "q": "Can I turn off the AI processing?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes, and it is off by default. Bitperfect Player outputs bit-perfect audio by default. When AI Enhancer is turned on, the signal status indicator updates from Bit-perfect to Enhanced because the audio samples have been reconstructed."
+    "a": "Yes. AI Enhancer is off by default, so it changes nothing until you turn it on. When it is on, the badge shows Enhanced instead of Bit-perfect, because the enhancer rebuilds part of the signal."
   },
   {
     "id": "ai-offline-operation",
     "category": "ai",
-    "q": "Do the AI features work offline without internet?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Yes. After a one-time 25 to 45 MB model download, all neural inference runs 100% locally on your NPU. Your audio files and listening data never leave your device."
+    "q": "Do the AI features work offline?",
+    "a": "Yes. Each AI feature downloads its model once. For AI Enhancer, that is about 10 to 60 MB, based on your chip. Then it works with no connection. The app still checks your subscription online at least once every 14 days. Your audio files and listening history never leave the phone."
   },
   {
     "id": "ai-features-breakdown",
     "category": "ai",
-    "q": "What is the difference between AI Enhancer, AI Karaoke, and AI Sonic Scan?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>AI Enhancer restores high-frequency harmonics on the NPU. AI Karaoke separates vocals and instruments in real time. AI Sonic Scan runs on the CPU to cluster tracks by acoustic similarity."
+    "q": "What do AI Enhancer, AI Karaoke and Sonic Scan do?",
+    "a": "AI Enhancer rebuilds the top octave of 44.1 and 48 kHz tracks as they play. AI Karaoke makes a vocal or instrumental version of 44.1, 88.2 and 176.4 kHz tracks just before playback. Sonic Scan checks your library in the background for tracks that sound alike."
   },
   {
     "id": "supported-audio-formats",
     "category": "dsp",
-    "q": "What audio formats does Bitperfect Player play?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>It decodes FLAC, ALAC, WAV, AIFF, DSD (DSF, DFF, SACD ISO), DCA (lossless multichannel audio), Dolby AC-3 / E-AC-3, APE, WavPack, TTA, TAK, Musepack, Opus, Ogg Vorbis, MP3, and AAC."
+    "q": "What audio formats can I play?",
+    "a": "It plays FLAC, ALAC, WAV, AIFF, DSD (DSF and DFF) and DSD disc images, Monkey's Audio, WavPack, True Audio, TAK, Musepack, Opus, Ogg Vorbis, MP3 and AAC."
   },
   {
     "id": "equalizer-modes",
     "category": "dsp",
-    "q": "What equalizer modes and tone tools are available?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Four modes: 1) Studio Target Curve; 2) 10-band Graphic EQ; 3) 32-band Parametric EQ with 7 biquad shapes and Q from 0.10 to 10.0; 4) AutoEQ with 4,000+ headphone profiles."
+    "q": "What EQ modes are there?",
+    "a": "Four modes. Studio has 14 simple tone sliders. Graphic EQ has 10 bands. Parametric EQ has up to 32 bands, seven filter shapes and Q from 0.10 to 10.0. AutoEQ adds headphone corrections."
   },
   {
     "id": "harmonic-tuning-explained",
     "category": "dsp",
-    "q": "What is Harmonic Tuning and how does it affect sound?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Harmonic Tuning models analog vacuum tubes (300B, KT88, EL34, 12AX7), adding subtle 2nd and 4th order harmonics with soft-knee saturation for natural warmth on solid-state DACs."
+    "q": "What is Harmonic Tuning?",
+    "a": "Harmonic Tuning adds harmonics, H2 to H8, in eight tube-style voicings such as 300B and KT88. They run from warm even-order to biting odd-order. Drive at 0 leaves the sound unchanged. The Expert tab has a fader for each harmonic."
   },
   {
     "id": "crossfeed-acoustics",
     "category": "dsp",
-    "q": "What is Crossfeed and when should I turn it on?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Headphones isolate hard-panned stereo channels into separate ears, causing fatigue. Crossfeed blends delayed, frequency-shaped signals across channels using Meier, Chu Moy, or BS2B models for a natural speaker stage."
+    "q": "What is Crossfeed?",
+    "a": "On headphones, hard-panned stereo can sound split between your ears. Crossfeed blends some of each channel into the other, so it sounds more like speakers. Three strengths: Subtle, Natural and Strong, modelled on Meier, Chu Moy and BS2B."
   },
   {
     "id": "battery-drain-dac",
     "category": "battery",
-    "q": "How much battery does an external USB DAC consume?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>USB DAC dongles draw 100 to 500 mA from your phone USB-C port. To save battery, use sensitive IEMs on the go, a powered OTG splitter for planar headphones, and Full RAM Playback."
+    "q": "How much battery does a USB DAC use?",
+    "a": "A USB DAC takes power from your phone's USB-C port, so battery life is shorter. Sensitive IEMs need less power. A powered OTG splitter lets planar headphones run without draining the phone."
   },
   {
     "id": "full-ram-playback",
     "category": "battery",
-    "q": "What is Full RAM Playback and how does it help?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Full RAM Playback loads the entire audio track into system RAM before play begins. This stops flash and microSD storage reads, eliminating bus latency and RF read noise."
+    "q": "What is Full RAM Playback?",
+    "a": "Full RAM Playback loads the whole encoded file into memory before it plays. The storage stays idle while you listen. Files too large for the memory limit use read-ahead instead."
   },
   {
     "id": "background-killing-prevention",
     "category": "battery",
-    "q": "Why did playback stop in the background, and how do I fix it?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>OEM battery savers (Samsung, Xiaomi, OnePlus) can stop background audio. Set Bitperfect Player to \"Unrestricted\" in Android Settings &gt; Apps &gt; Battery, and lock the app in recent tasks."
+    "q": "Why does playback stop in the background?",
+    "a": "Battery savers on some phones, such as Samsung, Xiaomi and OnePlus, can stop playback. In Android Settings > Apps > Battery, set Bitperfect Player to Unrestricted. Then lock the app in recent tasks."
   },
   {
     "id": "cost-and-plans",
     "category": "license",
     "q": "What does Bitperfect Player cost?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>$19.95 per year under the Limited Founder Offer active until May 31, 2027, locked in forever upon renewal until cancelled, with the first 14 days free for new customers. After May 31, 2027, or if a subscription is cancelled, the standard rate is $29.95 per year. One subscription covers the complete application; there are no hidden tiers, no ads, and nothing is switched off to sell you an upgrade. Billed securely through Google Play and cancellable at any time in your Google account settings."
+    "a": "Bitperfect Player has one plan with every feature and no ads. Limited Founder offer: $19.95 a year if you subscribe by May 31, 2027. You keep that price on every renewal while you stay subscribed. From June 1, 2027, new subscribers pay the standard price of $29.95 a year. If you cancel and come back after May 31, 2027, you pay the standard price too. Eligible new customers get 14 days free. Cancel during the trial and you pay nothing. The plan covers five devices, and you can buy more in the app. You pay and cancel in Google Play."
   },
   {
     "id": "device-allowance",
     "category": "license",
     "q": "How many devices does a subscription cover?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>One subscription covers five concurrently active devices (phones, tablets, or DAPs) linked to your Google Play account. If you manage extensive listening setups, device capacity packs can be purchased in the app in increments of five, up to twenty devices."
+    "a": "One subscription covers five phones, tablets or DAPs linked to your Google Play account. You can buy packs of five more in the app, up to twenty devices. You can also remove an old device from the list in the app."
   },
   {
     "id": "privacy-and-network-transfers",
     "category": "license",
     "q": "What does the app send over the internet?",
-    "a": "</polyline> </svg> </div> </summary> <div class=\"mt-4 text-body-sm text-pretty text-text-secondary leading-relaxed\" data-astro-cid-d7buufdx> <p data-astro-cid-d7buufdx>Only essential service requests: crash logs, artwork/lyrics lookups, AutoEQ profile fetches, Google Play license checks, and one-time NPU model weights. Audio files and history never leave your phone; zero ad or analytics SDKs."
+    "a": "Your audio files, library and listening history never leave your phone. There are no ads and no analytics. The app goes online for artwork, artist photos and lyrics. It also goes online for AutoEQ downloads, internet radio when you tune in, the one-time AI model download, update checks through Google Play and the subscription check. Crash reports and artist photos are on by default. You can turn both off in Settings."
+  },
+  {
+    "id": "do-i-need-an-account",
+    "category": "license",
+    "q": "Do I need an account?",
+    "a": "No. There is no sign-in today. Your subscription lives in your Google Play account. An optional account is planned, for backing up your settings and EQ presets. It will never be required. If you create one, it stores only your sign-in, your subscription link and your backups. Your music, library and listening history stay on your phone either way."
   }
 ];
 

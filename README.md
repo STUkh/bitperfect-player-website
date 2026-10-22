@@ -82,3 +82,8 @@ six signal-state colors), glass surfaces, backdrop blur, gradient CTAs, floating
 glow orbs, and a noise-grain overlay. The landing page uses the adopted TinniTone
 visual world, recolored to Bitperfect's palette. Legal pages use minimal styling.
 Colors and shadows are inherited from the Android app's `:core:ui` theme.
+
+FeatureArt imagery follows [the central art direction and prompt guide](docs/feature-art-prompts.md):
+natural walnut, matte graphite, restrained copper and soft daylight. Use this guide
+and its approved image references when generating or editing feature-card artwork;
+the interface's gold accents should not become gold styling on the depicted hardware.

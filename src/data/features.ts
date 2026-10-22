@@ -49,7 +49,7 @@ export const features: Feature[] = [
     benefits: [
       {
         title: "32 Fully Independent Bands",
-        desc: "Configure up to 32 distinct parametric filters across the audible spectrum (20 Hz to 20 kHz), with a gain range of -12 dB to +12 dB and an expanded range of -24 dB to +24 dB.",
+        desc: "Configure up to 32 distinct parametric filters across the audible spectrum (20 Hz to 20 kHz), with a gain range of -12 dB to +12 dB.",
         icon: "eq",
       },
       {
@@ -64,7 +64,7 @@ export const features: Feature[] = [
       },
       {
         title: "Bit-Perfect Lock",
-        desc: "Switch the EQ out of the path and the badge returns to Bit-perfect. While a band is active the app says Enhanced, because samples are being altered.",
+        desc: "Switch the EQ out of the path and the badge returns to Bit-perfect. While a band is active the badge shows Resampled, because samples are being altered.",
         icon: "sig-bitperfect",
       },
     ],
@@ -72,7 +72,7 @@ export const features: Feature[] = [
       "Up to 32 parametric bands per profile",
       "Seven filter shapes (bell, shelves, passes, notch, all pass)",
       "Q factor scales continuously from 0.10 to 10.0",
-      "Gain range -12.0 dB to +12.0 dB, expandable to -24.0 dB to +24.0 dB",
+      "Gain range -12.0 dB to +12.0 dB",
       "Every band placed anywhere across 20 Hz to 20 kHz",
       "One-tap bit-perfect bypass",
     ],
@@ -82,9 +82,9 @@ export const features: Feature[] = [
       { label: "Q Factor Range", value: "0.10 to 10.0" },
       {
         label: "Gain Range",
-        value: "-12.0 dB to +12.0 dB (expanded: -24.0 dB to +24.0 dB)",
+        value: "-12.0 dB to +12.0 dB",
       },
-      { label: "Bypass", value: "One tap back to bit-perfect" },
+      { label: "Bypass", value: "One tap to untouched audio" },
       { label: "Frequency Span", value: "20 Hz to 20 kHz" },
     ],
   },
@@ -125,7 +125,7 @@ export const features: Feature[] = [
     facts: [
       "Sources, Recent, Favourites, Playlists, Albums, Artists, Tracks, Genres",
       "Browse nested folders exactly as they're stored",
-      "Album art downloads and displays automatically, at full resolution",
+      "Embedded artwork shows automatically. Missing covers download only when you ask",
       "Playlist import: M3U, M3U8, PLS, XSPF, ASX and CUE",
       "The library updates itself when files change on storage",
       "No analytics and no remote lookups while you browse your library",
@@ -135,17 +135,17 @@ export const features: Feature[] = [
         label: "Library Views",
         value: "8, including albums, artists and genres",
       },
-      { label: "Search", value: "Instant, entirely on device" },
+      { label: "Search", value: "Instant, on your phone" },
       {
         label: "Storage Sources",
-        value: "Internal storage, MicroSD, USB OTG drives",
+        value: "Phone, SD, USB OTG and network",
       },
       {
         label: "Formats Played",
-        value: "15, from FLAC and DSD to DSD disc images and TAK",
+        value: "15, including FLAC, DSD and TAK",
       },
       { label: "Playlist Import", value: "M3U, M3U8, PLS, XSPF, ASX, CUE" },
-      { label: "Network Use", value: "None, ever" },
+      { label: "Network Use", value: "Index and search stay local" },
     ],
   },
   {
@@ -159,16 +159,16 @@ export const features: Feature[] = [
     description:
       "Cast lossless audio to any player on your network, or turn your phone into a receiver of its own.",
     overview:
-      "Bitperfect sends to DLNA and UPnP renderers, cast-enabled speakers and TVs, and FCast targets. It can also work the other way, turning your phone into a receiver with its own library browsing and queue.",
+      "Bitperfect sends to DLNA and UPnP renderers and cast-enabled speakers and TVs. It can also work the other way, turning your phone into a receiver for DLNA apps and music servers.",
     benefits: [
       {
         title: "Send to Any Speaker on Your Network",
-        desc: "Cast to any UPnP or DLNA speaker, media renderer or smart TV on your home network, along with cast-enabled speakers, wireless speakers and FCast.",
+        desc: "Cast to any UPnP or DLNA speaker, media renderer or smart TV on your home network, along with cast-enabled speakers and wireless speakers.",
         icon: "cast",
       },
       {
         title: "Turn Your Phone Into a Receiver",
-        desc: "Your phone can receive audio too, over DLNA, FCast and more, each one switched on independently in Settings.",
+        desc: "Your phone can receive audio too, as a DLNA renderer or a classic network player, each one switched on independently in Settings.",
         icon: "node-usb",
       },
       {
@@ -183,35 +183,35 @@ export const features: Feature[] = [
       },
     ],
     facts: [
-      "Send to DLNA, UPnP, cast-enabled speakers and TVs, and FCast",
-      "Receive over DLNA, FCast and more, each switched on independently",
+      "Send to DLNA, UPnP and cast-enabled speakers and TVs",
+      "Receive as a DLNA renderer or a network player, each switched on independently",
       "The DLNA path sends the file unchanged: nothing is re-encoded",
       "Every other path tells you exactly what conversion it made",
       "Background streaming continues with the screen locked",
-      "One receiver mode adds full library browsing, queues, artwork and stored playlists",
+      "As a DLNA renderer, the phone takes PCM up to 384 kHz",
     ],
     specs: [
       {
         label: "Send To",
-        value: "DLNA and UPnP, cast-enabled speakers and TVs, FCast",
+        value: "DLNA, UPnP, cast-enabled speakers and TVs",
       },
       {
         label: "Receive As",
         value:
-          "A DLNA renderer, an FCast target, an MPD or classic network player",
+          "A DLNA renderer or a classic network player",
       },
-      { label: "Receiver Ceiling", value: "Up to 384 kHz / 24-bit" },
+      { label: "Receiver Ceiling", value: "Up to 384 kHz over DLNA" },
       {
         label: "Network Discovery",
         value: "Automatic on your local network, no account",
       },
       {
         label: "Volume Control",
-        value: "Declined in bit-perfect mode, to stay exact",
+        value: "Never software gain under Bit-perfect lock",
       },
       {
         label: "Stream Format",
-        value: "Unchanged on DLNA; told exactly when it's not",
+        value: "Unchanged if accepted, always reported",
       },
     ],
   },
@@ -260,7 +260,7 @@ export const features: Feature[] = [
     specs: [
       {
         label: "DSP Modules",
-        value: "Four: crossfeed, gain, tone, peak guard",
+        value: "Crossfeed, ReplayGain, Harmonic Tuning, clip protection and more",
       },
       { label: "Crossfeed", value: "Meier, Chu Moy or BS2B" },
       { label: "Loudness", value: "ReplayGain: track, album or auto" },
@@ -319,15 +319,15 @@ export const features: Feature[] = [
         label: "USB Standard",
         value: "USB Audio Class 1 and 2, direct connection",
       },
-      { label: "Max PCM", value: "Up to 32-bit / 768 kHz" },
+      { label: "Max PCM", value: "Up to 32-bit / 768 kHz, DAC permitting" },
       { label: "DSD Support", value: "DSD64 to DSD512, DoP and native" },
       {
         label: "Resampling",
-        value: "None: your file's native rate, unchanged",
+        value: "Only if your DAC lacks the rate",
       },
       {
         label: "Access Mode",
-        value: "Exclusive, so nothing else can interrupt it",
+        value: "Exclusive: other apps cannot use the DAC",
       },
       {
         label: "Volume and Balance",
@@ -344,9 +344,9 @@ export const features: Feature[] = [
     accent: "gold",
     icon: "sparkle",
     description:
-      "Real-time restoration for 44.1 and 48 kHz material, filling back in detail that compression or a limited source strips out. Runs entirely on your phone's own neural hardware, nothing is sent anywhere.",
+      "Real-time restoration for 44.1 and 48 kHz material, filling back in detail that compression or a limited source strips out. Runs on your phone: the full model on a supported neural chip, a Lite model on the processor otherwise. Nothing is sent anywhere.",
     overview:
-      "On a 44.1 or 48 kHz source, lossy or lossless, the AI Enhancer runs on your phone's own neural chip to fill back in detail that a compressed or band-limited source is missing. It runs entirely on the device, and the DSP rack switches off automatically while it works: the two never run together.",
+      "On a 44.1 or 48 kHz source, lossy or lossless, the AI Enhancer runs on your phone, on a supported neural chip or in Lite mode on the processor, to fill back in detail that a compressed or band-limited source is missing. It runs entirely on the device, and the DSP rack switches off automatically while it works: the two never run together.",
     benefits: [
       {
         title: "Restores Detail, Not Invents It",
@@ -355,7 +355,7 @@ export const features: Feature[] = [
       },
       {
         title: "Entirely On-Device",
-        desc: "Runs on your phone's own neural chip, with no internet connection and no data uploaded, ever.",
+        desc: "Runs on your phone, on a supported neural chip or in Lite mode on the processor. It needs no connection while it plays and uploads nothing.",
         icon: "shield",
       },
       {
@@ -378,7 +378,7 @@ export const features: Feature[] = [
       "Nothing about your audio or your listening leaves the phone while it runs",
     ],
     specs: [
-      { label: "Processing", value: "On your phone's neural chip only" },
+      { label: "Processing", value: "On your phone, never uploaded" },
       { label: "Enable It", value: "One switch in Settings, off by default" },
       { label: "Your Data", value: "Never leaves your phone while it plays" },
       {

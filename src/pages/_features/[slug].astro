@@ -25,7 +25,6 @@
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
-import ImageSlot from '../../components/common/ImageSlot';
 import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens';
 import { featurePages, indexOrder } from '../../components/feature/content';
@@ -640,7 +639,6 @@ const showSignalPath = slug === 'usb-dac';
     the sections and never lives inside one, and it runs dark to light: the plate is
     itself a dark object, so it performs the transition. Prompt: SECTION-IMAGES.md.
   */}
-  <ImageSlot name={`feature-${slug}-interstitial`} variant="band" ratio="5 / 1" ships="2560x512" />
 
   {/* ── The white band: the specification in full ──
       The one light band on a feature route. No cards, no glass, no glows

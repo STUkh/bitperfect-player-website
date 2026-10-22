@@ -7,7 +7,7 @@ import { useTranslations, type UIKey } from "../i18n/utils";
 
 export const site = {
   name: "Bitperfect Player",
-  tagline: "Bit-perfect Hi-Res audio with on-device\u00A0AI",
+  tagline: "Bit-for-bit audio for your USB DAC. Optional on-device\u00A0AI.",
 
   /** Confirmed by the user as the primary CTA target. */
   playUrl:
@@ -260,15 +260,15 @@ export const compatibility = [
     what: "Sonic Scan and Similar Tracks",
     scope: "Local library analysis and acoustic similarity",
     devices: "Every phone on Android 8.0 or newer",
-    note: "Runs on any phone's processor. No special chip and no network connection needed.",
+    note: "Needs no special chip. Works offline after a one-time model download.",
     level: "universal",
   },
   {
     id: "ai-enhancer",
     what: "AI Enhancer",
     scope: "Real-time 14 to 22 kHz restoration on 44.1 and 48 kHz audio",
-    devices: "Phones with a supported neural chip (Android 8.0+)",
-    note: "Requires hardware neural acceleration for real-time inference. The app checks your chipset at startup and enables the toggle in Settings only when supported.",
+    devices: "Android 8.0 or newer, best on a supported neural chip",
+    note: "Phones with a supported neural chip run the full model. Other phones run a lighter model on the processor, if it can keep up in real time.",
     level: "npu",
   },
 ];
@@ -333,7 +333,7 @@ export const signalStates: {
   {
     id: "enhanced",
     label: signalStateColors.enhanced.label,
-    desc: "EQ, the DSP rack or the AI Enhancer is altering samples",
+    desc: "The AI Enhancer is changing the sound",
     token: signalStateColors.enhanced.token,
     glyph: signalStateColors.enhanced.glyph,
   },

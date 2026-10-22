@@ -133,7 +133,7 @@ the library has **8** browse views; the app plays **about 18** formats; there ar
    **Running the app proves what the app does; it does not prove what the store
    charges.** For a price, the Play Console is the only authority.
 
-2. **The 7-day free trial is published**, in the hero, on the pricing card and in the
+2. **The 14-day free trial is published** (`pro.periods[].trialDays` in `src/data/site.ts`; it was 7 days until the 2026-10 pricing update), in the hero, on the pricing card and in the
    FAQ. It is always phrased for "new customers": eligibility is the store's decision,
    roughly one trial per store account, so no copy may promise it to the reader.
    Every trial string is conditional on `pro.trialDays`; setting it to null must
@@ -159,7 +159,6 @@ the library has **8** browse views; the app plays **about 18** formats; there ar
      happens in the store. It may not promise a refund: §6 is that a subscription
      is not refundable part-way through a period and refunds are the store's
      decision, not ours.
-   - **Account & Settings Sync.** When you create an account, we securely store your email address solely for authentication and settings backup.
 
 5. **Product imagery is captured, not drawn.** Every screen inside a phone frame is
    a screenshot of the shipping Android build, taken against a library of eighteen
@@ -208,54 +207,53 @@ the repo that anticipates the change.
 
 ## Pending: account sync (do not act on this yet)
 
-The app has an optional email account for settings backup, but it is gated behind
-`BuildConfig.DEV_ACCOUNT_SYNC_ENABLED` (`-PdevAccountSync=true`), which no release
-build sets: checked 2026-10-19 in `../bitperfect-player` (`DEV_TOGGLES.md`,
-`app/build.gradle.kts`, `RootTabShell.kt`). The shipping app shows no sign-in and
-makes no account calls, so every "no account" claim below is still true and STAYS.
-`src/PRIVACY_POLICY.md` already discloses the account (§1, §2.11) and the email
-it would attach to the RevenueCat record (§2.10, §6), all written conditionally
-("when you create an account"), so the policy is ready ahead of the release.
+The app has an optional account for backing up settings and EQ presets (sign-in with
+Google, Apple or a one-time email code; backend in `../bitperfect-player/cloud-workers/account`),
+but it is gated behind `BuildConfig.DEV_ACCOUNT_SYNC_ENABLED` (`-PdevAccountSync=true`),
+which no release build sets: checked 2026-10-22. The shipping app shows no sign-in and
+makes no account calls, so every "no account" claim stays true.
 
-When the flag ships on, these move in the same release. The account is optional,
-so "no account required" stays true and only the absolute claims go:
+How the site talks about it now (2026-10-22, owner's decision): accounts are PLANNED,
+OPTIONAL and NOT AVAILABLE YET, and every account sentence is conditional ("once it is
+offered", "if you create one"). Never write it as if it ships.
 
-- `PRODUCT.md`, "zero user accounts".
-- `src/i18n/locales/en/landing.ts`: `privacy.title` "Zero accounts. Zero
-  telemetry.", `privacy.fact1_desc` "There is no sign-up screen, no password and no
-  profile.", `statement.fact3_desc` "No sign-up", and `landing.meta_description`
-  "no account".
-- This file: the house-voice line "no account" and §4's "there is no account".
+- `src/PRIVACY_POLICY.md` §1 (summary bullet) and §2.11 "Optional account (planned, not yet
+  available)": what an account would store (sign-in identity, subscription link, backups
+  of settings and EQ presets with the device name; never music, library, history,
+  favourites), deletion on request. §2.9, §2.10 and §6 refer to it conditionally.
+- `src/TERMS_OF_USE.md` §10 "Your account, once offered".
+- `src/data/faq.ts` "Do I need an account?".
 
-These stay true with an optional account: `src/data/features.ts` "No account is
-required", the AI download's "No account, no upload, no wait"
-(`features.ts`, `feature/content.ts`), casting's "no account", and policy §1 "We do
-not require account creation". `src/data/changelog.ts` is history and is not
-rewritten.
+When the flag ships on, in the same release: the policy §1 and §2.11 drop "planned, not
+yet available" (and §8's notice goes out first), the FAQ answer drops "There is no
+sign-in today" and "A future version will add", and the absolute "no account" lines
+become "no account required": `src/i18n/locales/en/landing.ts` (`privacy.title`,
+`privacy.fact1_desc`, `statement.fact3_desc`, the meta description) and the landing
+components that hard-code "No account" (`StatementBand`, `PrivacyBand`). "No account is
+required" claims stay true as they are.
 
 ## Where the copy actually lives
 
 Check the BUILT html before assuming a string ships. Several fields look live and
 are not:
 
-- Home page: `src/components/landing/*.astro`.
+- Home page: `src/components/landing/*.tsx`. Their copy is hard-coded in the
+  components; the `landing.*` keys in `src/i18n/locales/en/landing.ts` were never
+  read and were deleted on 2026-10-22.
 - `/features` index: its own `ROWS` map, plus `compatibility` and `faqItems`.
-- The six feature routes: `src/components/feature/content.ts` owns nearly all of it.
+- The six feature routes: `src/components/feature/content.ts` owns nearly all of it
+  (the `feature.<slug>.beat.*` i18n keys duplicated it and were never read; deleted
+  2026-10-22).
 - `src/data/features.ts` is mostly DEAD: only `specs` reaches a visitor. Its
   `title`, `tagline`, `badge`, `description`, `overview`, `facts` and `benefits`
   are read by nothing today.
 - The drawn phone screens in `src/components/feature/screens/` carry user-visible
   strings too, and are easy to miss in a copy pass. They were the last place
   jargon survived.
-- **`src/components/feature/FeatureArt.astro` draws SIX numerals as SVG text**, one
-  per card on the `/features` index: 768 kHz, 32 bands, 15 formats, 4 protocols,
-  8 voicings, 22 kHz rebuilt. These are real product claims set at 76px, and they
-  are invisible to any check that strips `<svg>` before reading a page, which is
-  what most text extraction does. Two of them had gone stale unnoticed (a "12
-  formats" that predated two format-count corrections, and a "64 bit float" that
-  advertised the engine's non-default precision). **When you change a number in
-  `content.ts` or `features.ts`, grep this file too**, and audit it with
-  `grep -oE "[0-9]+<tspan[^>]*>[^<]+</tspan>" dist/features/index.html`.
+- `src/components/feature/FeatureArt.tsx` is now a raster image per feature
+  (`public/img/features/<slug>.webp`) with no text in it. The six SVG numerals it
+  used to draw (768 kHz, 32 bands...) are gone, so a number change no longer has a
+  hidden second copy there.
 
 ## Third-party names and trademarks
 

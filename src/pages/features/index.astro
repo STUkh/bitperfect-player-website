@@ -14,6 +14,7 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import Button from '../../components/common/Button';
+import PlayCta from '../../components/common/PlayCta';
 import FeatureArt from '../../components/feature/FeatureArt';
 import PhoneTrio from '../../components/feature/PhoneTrio.astro';
 import { indexOrder } from '../../components/feature/content';
@@ -29,12 +30,12 @@ const compatRows = getLocalizedCompatibility(lang);
 /* Taglines only. The row's NAME comes from `getLocalizedFeatureName()`, so this page cannot
    call a route something the nav that points at it does not. */
 const ROWS: Record<(typeof indexOrder)[number], { tagline: string }> = {
-  'usb-dac': { tagline: 'The file reaches your DAC exactly as recorded' },
-  eq: { tagline: 'Precise tone control, off again in one tap' },
-  library: { tagline: 'Every album found instantly, without leaving the phone' },
+  'usb-dac': { tagline: 'Your DAC gets the file unchanged, or the badge says so' },
+  eq: { tagline: 'Tone control you can turn off in one tap' },
+  library: { tagline: 'Find any album instantly, on your phone' },
   casting: { tagline: 'Send to a network streamer or TV, or receive from another device' },
-  dsp: { tagline: 'Crossfeed, loudness matching and clip protection, all switchable' },
-  'ai-enhancer': { tagline: 'Recovers detail compression removed, right on the phone' },
+  dsp: { tagline: 'Headphone crossfeed, album loudness and clip protection, each adjustable' },
+  'ai-enhancer': { tagline: 'Rebuilds highs that compressed tracks lose, on your phone' },
 };
 
 const getRowTagline = (slug: (typeof indexOrder)[number]) => {
@@ -136,10 +137,6 @@ const order = [...indexOrder];
           className="shrink-0 tabular-nums"
         >
           <span>{t('features_index.catalog_cta')}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
         </Button>
       </div>
     </Container>
@@ -214,19 +211,12 @@ const order = [...indexOrder];
         <p class="r-rise mt-4 max-w-[51ch] text-body text-pretty text-text-secondary lg:mt-5 lg:text-body-lg" style="--i: 1">
           {t('features_index.cta_subtitle')}
         </p>
-        <Button
-          href={site.playUrl}
-          rel="noopener noreferrer"
-          variant="primary"
+        <PlayCta
+          label={t('features_index.cta_button')}
           size="lg"
           className="r-rise mt-8 lg:mt-10"
           style="--i: 2"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M5 3.5v17a1 1 0 0 0 1.52.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z"></path>
-          </svg>
-          <span>{t('features_index.cta_button')}</span>
-        </Button>
+        />
       </div>
     </Container>
   </section>

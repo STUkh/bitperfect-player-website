@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** October 19, 2026
+**Last updated:** October 22, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -31,8 +31,11 @@ Contact: support@bit-perfect.com
 - Artwork, song lyrics and headphone correction profiles are fetched from
   public, third-party providers as you use those features. These are
   retrievals into your device, not uploads of your library.
-- We do not require account creation or sign-in to use the App.
-- Account & Settings Sync: When you create an account, we securely store your email address solely for authentication and settings backup.
+- The App has no accounts today: there is no sign-in, and it makes no account-related
+  network calls. We plan to add an **optional** account in a future version, to back up
+  your settings and EQ presets. It will never be required to use the App or to
+  subscribe. If you create one once it is offered, Section 2.11 describes what we store,
+  and we will update this policy before the feature is switched on.
 - An active subscription registers your App installations: five with the base
   subscription, or 10, 15, or 20 with active device-capacity packs. A secure device
   registry hosted in the European Union holds pseudonymous device verification
@@ -161,8 +164,8 @@ headphone profile is looked up when you search the catalog for your model.
 Neither is a sweep of your library.
 
 Like the artwork lookup in 2.6, this is a retrieval, not a collection. The
-only information involved is the thing being looked up — a track's title,
-artist and album, or a headphone model name — and your device's IP address,
+only information involved is the thing being looked up (a track's title,
+artist and album, or a headphone model name) and your device's IP address,
 which any standard HTTP request inherently includes and which we do not
 receive, log, or retain ourselves. No account, identifier, playback history
 or audio of yours is sent with the request, and a downloaded profile is
@@ -190,7 +193,7 @@ plugins.
 ### 2.9 What we do NOT collect
 
 We do not collect, and the App does not request: your name, your email address
-(unless you create an account, Section 2.11), phone number, precise or approximate location, contacts, calendar,
+(unless you create the optional account once it is offered, Section 2.11), phone number, precise or approximate location, contacts, calendar,
 photos/videos outside the music-library scan scope you grant, biometric
 data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
@@ -216,8 +219,8 @@ to your data when the App verifies that access.
   trial, or due to renew. It receives the store's purchase record and a random identifier
   generated for your installation, which is not derived from your device's hardware or
   advertising identifiers. It receives no name, contact details or music library data,
-  except that if you sign in to an account (Section 2.11), your account email address is
-  attached to your subscription record. See RevenueCat's
+  except that once accounts are offered, if you create one and sign in (Section 2.11), your
+  account identifier is attached to your subscription record. See RevenueCat's
   [privacy policy](https://www.revenuecat.com/privacy).
 - **Installation verification.** The platform's integrity service checks that the
   installed App and device meet release security requirements. Our verification service
@@ -245,9 +248,32 @@ to your data when the App verifies that access.
 - **No account needed to subscribe.** The subscription does not require an account with
   us. Cancelling happens in your store account.
 
-### 2.11 Account & Settings Sync
+### 2.11 Optional account (planned, not yet available)
 
-Account & Settings Sync: When you create an account, we securely store your email address solely for authentication and settings backup.
+The App does not offer accounts today. There is no sign-in screen, and the App makes no
+account-related network calls. Everything in Sections 2.1 to 2.10 works without one.
+
+We plan to add an optional account in a future version. It will never be required to use
+the App or to subscribe, and you will be able to keep using the App without ever creating
+one. This section describes how it is designed to work. Before the feature is switched on
+we will update this policy (Section 8) and say so in the App.
+
+If you choose to create an account once it is offered, we will store:
+
+- **A sign-in identity.** Either the account identifier your sign-in provider (for example
+  Google) gives us, or your email address if you sign in with a one-time code sent by
+  email. We use it only to sign you in and to protect against abuse of sign-in, never for
+  marketing.
+- **The link to your subscription,** so that a new or restored installation can find the
+  subscription you already have.
+- **Backups you choose to make:** your App settings and your EQ presets, together with the
+  name of the device that made each backup. A backup is made only when you ask for one,
+  and restoring one keeps a copy of your previous settings on the device first.
+
+Your music files, library, playback history and favourites are never part of a backup
+and stay on your device, with or without an account. We will not sell account data or use
+it for advertising. You will be able to delete your account and its backups at any time by
+contacting support@bit-perfect.com, and we will add a way to do it from the App.
 
 ## 3. Permissions the App requests, and why
 
@@ -308,8 +334,8 @@ Section 2.1 may be processed in the EU.
 
 If you purchase the subscription, RevenueCat, the subscription-management provider
 described in Section 2.10, is based in the United States; the purchase record, the
-installation identifier and, if you are signed in, your account email address may be
-processed there. The verification and device registry
+installation identifier and, once accounts are offered and you sign in (Section 2.11),
+your account identifier may be processed there. The verification and device registry
 services described in Section 2.10 are hosted in the European Union.
 
 ## 7. Security

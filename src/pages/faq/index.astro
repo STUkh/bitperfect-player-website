@@ -8,18 +8,18 @@ import { allFaqItems } from '../../data/faq';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/nav';
 
-const title = 'Frequently Asked Questions & Knowledge Base | Bitperfect Player';
+const title = 'Frequently asked questions | Bitperfect Player';
 const description =
-  'Comprehensive answers regarding USB DAC setup, direct bit-perfect hardware bypass, hardware NPU requirements, battery optimization, and audio formats.';
+  'Answers on USB DAC setup, bit-perfect playback, AI Enhancer, battery settings and audio formats.';
 
 const categories = [
-  { id: 'all', label: 'All Questions' },
-  { id: 'engine', label: 'Audio Engine & Bit-Perfect' },
+  { id: 'all', label: 'All questions' },
+  { id: 'engine', label: 'Bit-perfect playback' },
   { id: 'hardware', label: 'Hardware & USB DACs' },
-  { id: 'ai', label: 'On-Device AI & NPU' },
-  { id: 'dsp', label: 'DSP, EQ & Formats' },
-  { id: 'battery', label: 'Battery & Optimization' },
-  { id: 'license', label: 'Licensing & Privacy' },
+  { id: 'ai', label: 'On-device AI' },
+  { id: 'dsp', label: 'EQ and formats' },
+  { id: 'battery', label: 'Battery & background play' },
+  { id: 'license', label: 'Subscription & privacy' },
 ].map((cat) => ({
   ...cat,
   // Counted from the data, not typed: a question added to faq.ts updates the index.
@@ -33,9 +33,9 @@ const categories = [
 <ContentLayout title={title} description={description}>
   <PageHeader
     maxWidth="wide"
-    eyebrow="Knowledge Base & FAQ"
-    title="Frequently Asked Questions"
-    description="Clear, direct answers on Android OS mixer bypass, USB DAC connections, hardware NPU requirements for neural audio, and battery management."
+    eyebrow="Help"
+    title="Frequently asked questions"
+    description="Answers on USB DACs, bit-perfect playback, AI Enhancer and battery settings."
   >
     {/* Live Search Input */}
     <div class="mt-8 relative max-w-xl">
@@ -48,7 +48,7 @@ const categories = [
       <input
         type="search"
         id="faq-search"
-        placeholder="Search questions (e.g., USB DAC, NPU, Bitperfect Lock, battery, DSD)..."
+        placeholder="Search: USB DAC, AI Enhancer, battery, DSD..."
         class="w-full rounded-lg border border-border-subtle bg-surface-raised pl-10 pr-4 py-3 text-small text-text-primary placeholder:text-text-tertiary focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
       />
     </div>
@@ -60,17 +60,14 @@ const categories = [
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 class="text-body font-bold text-text-primary">
-            Troubleshooting: Why is the AI Enhancer not working on your phone?
+            Why is AI Enhancer not working on your phone?
           </h2>
-          <p class="mt-0.5 text-caption text-text-secondary">
-            Learn why neural restoration requires a dedicated hardware NPU, chip optimization timelines, and Motorola firmware restrictions.
+          <p class="mt-0.5 max-w-[68ch] text-caption text-text-secondary">
+            See which phones run AI Enhancer on the neural chip, and why it may switch off on yours.
           </p>
         </div>
         <Button href={withBase('/faq/why-npu-ai-enhancer-not-working')} variant="secondary" size="md" className="shrink-0">
-          <span>Read Full NPU Guide</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+          <span>Check your phone</span>
         </Button>
       </div>
     </Container>
@@ -136,10 +133,7 @@ const categories = [
                           href={withBase(item.guideUrl)}
                           class="inline-flex items-center gap-1.5 rounded text-small font-semibold text-gold transition-colors hover:text-gold-light hover:underline focus-visible:focus-ring"
                         >
-                          <span>Read dedicated troubleshooting guide</span>
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                          </svg>
+                          <span>Read the full guide</span>
                         </a>
                       </div>
                     )}
@@ -151,13 +145,13 @@ const categories = [
 
           {/* Empty State when Search yields no results */}
           <div id="faq-empty-state" class="hidden py-16 text-center">
-            <p class="text-body text-text-tertiary">No matching questions found for your query.</p>
+            <p class="text-body text-text-tertiary">No questions match your search.</p>
             <button
               type="button"
               id="faq-reset-search"
               class="mt-3 cursor-pointer rounded text-small font-semibold text-gold hover:underline focus-visible:focus-ring"
             >
-              Clear search query
+              Clear search
             </button>
           </div>
 
@@ -165,20 +159,17 @@ const categories = [
           <div class="mt-14 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <span class="mono-spec text-micro uppercase tracking-wider text-gold font-semibold">
-                Audiophile Catalog
+                Technical catalog
               </span>
               <h3 class="mt-1.5 text-title-sm font-bold text-text-primary">
-                Curious about internal driver and engine architecture?
+                Want more technical detail?
               </h3>
               <p class="mt-1.5 text-small text-pretty text-text-secondary max-w-xl">
-                Review the 27 Technical Features Catalogue detailing our custom Rust Symphonia engine, UAC1/UAC2 drivers, and 64-bit volume control.
+                Browse all 27 features, with exact sample rates, bit depths and filters.
               </p>
             </div>
             <Button href={withBase('/features/catalog')} variant="secondary" size="md" className="shrink-0">
-              <span>Explore 27 Technical Capabilities</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
+              <span>See all 27 features</span>
             </Button>
           </div>
         </div>
@@ -187,11 +178,11 @@ const categories = [
   </section>
 
   <ClosingBanner
-    eyebrow="Direct Audio Support"
-    title="Have a question about your specific DAC or device?"
-    description="Our engineering team tests DAC chips, OTG dongles, and Android firmware daily."
+    eyebrow="Support"
+    title="Have a question about your DAC or phone?"
+    description="Send us your DAC or phone model and what the signal badge shows. We will help you check the setup."
     primaryHref="mailto:support@bit-perfect.com"
-    primaryLabel="Contact Support"
+    primaryLabel="Ask about your setup"
     secondaryHref={site.playUrl}
     secondaryLabel="Get on Google Play"
     secondaryExternal={true}

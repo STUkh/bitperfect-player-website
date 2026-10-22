@@ -13,6 +13,7 @@
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
+import PlayCta from '../../components/common/PlayCta';
 import FeatureArt from '../../components/feature/FeatureArt';
 import { indexOrder } from '../../components/feature/content';
 import { site, compatibility } from '../../data/site';
@@ -295,17 +296,12 @@ const order = [...indexOrder];
         <p class="r-rise mt-4 max-w-[51ch] text-body text-pretty text-text-secondary lg:mt-[22px] lg:text-body-lg" style="--i: 1">
           There is no higher tier to buy and nothing on this page is withheld for one.
         </p>
-        <a
-          href={site.playUrl}
-          rel="noopener noreferrer"
-          class="btn-primary-gradient focus-visible:focus-ring r-rise mt-6 inline-flex h-[54px] w-full cursor-pointer items-center justify-center gap-2.5 rounded-full px-8 text-body font-semibold lg:mt-8 lg:w-auto"
+        <PlayCta
+          label="Get it on Google Play"
+          size="lg"
+          className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
           style="--i: 2"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M5 3.5v17a1 1 0 0 0 1.52.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z"></path>
-          </svg>
-          <span>Get it on Google Play</span>
-        </a>
+        />
       </div>
     </Container>
   </section>

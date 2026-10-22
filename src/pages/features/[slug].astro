@@ -25,8 +25,7 @@
  */
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
-import Button from '../../components/common/Button';
-import ImageSlot from '../../components/common/ImageSlot';
+import PlayCta from '../../components/common/PlayCta';
 import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens';
 import { indexOrder, getLocalizedFeaturePage } from '../../components/feature/content';
@@ -207,17 +206,17 @@ const showSignalPath = slug === 'usb-dac';
                 </div>
                 <div class="flex items-baseline gap-2">
                   <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
-                  <span class="mono-spec text-small font-semibold tabular-nums text-band-ink">48 kHz / 16-bit (-75% data)</span>
+                  <span class="mono-spec text-small font-semibold tabular-nums text-band-ink">48 kHz / 16-bit (-83% data)</span>
                 </div>
               </div>
 
               <div class="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-4 lg:grid-cols-7 lg:gap-6">
                 {[
                   { num: '01', name: t('feature.usb-dac.signal_path.android.stage.0'), note: '192 kHz / 24-bit', altered: false },
-                  { num: '02', name: t('feature.usb-dac.signal_path.android.stage.1'), note: 'System audio track', altered: false },
+                  { num: '02', name: t('feature.usb-dac.signal_path.android.stage.1'), note: 'Shared system audio', altered: false },
                   { num: '03', name: t('feature.usb-dac.signal_path.android.stage.2'), note: 'Forced to 48 kHz', altered: true },
-                  { num: '04', name: t('feature.usb-dac.signal_path.android.stage.3'), note: 'Mixed with OS audio', altered: true },
-                  { num: '05', name: t('feature.usb-dac.signal_path.android.stage.4'), note: 'Digital attenuation', altered: true },
+                  { num: '04', name: t('feature.usb-dac.signal_path.android.stage.3'), note: 'Mixed with system sounds', altered: true },
+                  { num: '05', name: t('feature.usb-dac.signal_path.android.stage.4'), note: 'Level lowered', altered: true },
                   { num: '06', name: t('feature.usb-dac.signal_path.android.stage.5'), note: 'Cut to 16-bit', altered: true },
                   { num: '07', name: t('feature.usb-dac.signal_path.android.stage.6'), note: '48 kHz / 16-bit', altered: true },
                 ].map((st) => (
@@ -257,7 +256,7 @@ const showSignalPath = slug === 'usb-dac';
                   { num: '01', name: t('feature.usb-dac.signal_path.ours.stage.0'), note: '192 kHz / 24-bit lossless', highlight: 'Native bitstream' },
                   { num: '02', name: t('feature.usb-dac.signal_path.ours.stage.1'), note: 'Bypasses system mixer', highlight: 'Exclusive USB lock' },
                   { num: '03', name: t('feature.usb-dac.signal_path.ours.stage.2'), note: '0 mixers, 0 resamplers', highlight: 'Bit-for-bit unaltered' },
-                  { num: '04', name: t('feature.usb-dac.signal_path.ours.stage.3'), note: 'Native DAC clock lock', highlight: 'Bit-perfect output' },
+                  { num: '04', name: t('feature.usb-dac.signal_path.ours.stage.3'), note: 'DAC clock follows the file', highlight: 'Bit-perfect output' },
                 ].map((st) => (
                   <div class="flex flex-col justify-between border-t border-band-gold-ink/40 pt-3 text-left">
                     <div class="flex items-center justify-between">
@@ -280,7 +279,7 @@ const showSignalPath = slug === 'usb-dac';
           {/* Three counts that are all zero */}
           <div class="mt-10 grid grid-cols-1 gap-6 border-t border-band-rule pt-8 sm:grid-cols-3 lg:mt-14 lg:gap-12 lg:pt-10">
             {[
-              { num: '0', label: t('feature_detail.signal_path_resamples'), note: 'Never converted to 48 kHz' },
+              { num: '0', label: t('feature_detail.signal_path_resamples'), note: 'None, if your DAC supports the file rate' },
               { num: '0', label: t('feature_detail.signal_path_mixers'), note: 'Bypasses the system mixer' },
               { num: '0', label: t('feature_detail.signal_path_conversions'), note: 'Full dynamic range preserved' },
             ].map((stat) => (
@@ -493,16 +492,8 @@ const showSignalPath = slug === 'usb-dac';
     })
   }
 
-  {/*
-    The seam between the rail and the white band. Full-bleed, so it is a sibling of
-    the sections and never lives inside one, and it runs dark to light: the plate is
-    itself a dark object, so it performs the transition. Prompt: SECTION-IMAGES.md.
-  */}
-  {!['eq', 'library', 'casting'].includes(slug) ? (
-    <ImageSlot name={`feature-${slug}-interstitial`} variant="band" ratio="5 / 1" ships="2560x512" />
-  ) : (
-    <div class="h-px w-full bg-gradient-to-r from-transparent via-border-subtle to-transparent" />
-  )}
+  {/* The seam between the rail and the white band: a hairline, no image. */}
+  <div class="h-px w-full bg-gradient-to-r from-transparent via-border-subtle to-transparent" />
 
   {/* ── White specification band: the numbers, in full ── */}
   <section class="ground ground-drafting bg-band-ivory pt-13 pb-14 lg:pt-24 lg:pb-26">
@@ -586,17 +577,12 @@ const showSignalPath = slug === 'usb-dac';
         <p class="r-rise mt-4 max-w-[52ch] text-body text-pretty text-band-ink-muted lg:mt-[22px] lg:text-body-lg" style="--i: 1">
           {page.cta.body}
         </p>
-        <Button
-          href={site.playUrl}
-          rel="noopener noreferrer"
-          variant="primary"
+        <PlayCta
+          label={t('feature_detail.cta_button')}
           size="lg"
           className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
           style="--i: 2"
-        >
-          <FeatureMark name="play" size={20} />
-          <span>{t('feature_detail.cta_button')}</span>
-        </Button>
+        />
       </div>
     </Container>
   </section>

@@ -7,58 +7,29 @@
  * The three ivory bands need no divider: the colour change is the divider. A
  * hairline only sits between two adjacent graphite sections.
  *
- * The three image bands are full-bleed, so they are siblings of the sections and
- * never live inside one. Two of them sit on a DARK to LIGHT seam, which is the only
- * direction that works: the plate is itself a dark object, so it can perform the
- * transition into the white, where landing one on an white band's bottom edge gives
- * dark on dark and loses the crispest line on the page. The third is dark on dark
- * on purpose, so it reads as a breath before the close rather than a third
- * transition. All three now sit on a dark-to-light seam, because the closing action
- * moved to ivory as well: the page alternates instead of ending on its third
- * graphite block in a row. Prompts and safe areas: design/SECTION-IMAGES.md.
+ * The opening and features sections meet the ivory bands directly. Their former
+ * decorative image strips added height without explaining the product. The final
+ * quiet graphite-to-paper hinge remains before the closing action.
  */
 import LandingLayout from '../layouts/LandingLayout.astro';
-import HeroSection from '../components/landing/HeroSection';
-import PhoneShowcase from '../components/landing/PhoneShowcase.astro';
+import HomeOpening from '../components/landing/HomeOpening.astro';
 import StatementBand from '../components/landing/StatementBand';
 import FeaturesTeaser from '../components/landing/FeaturesTeaser';
 import PrivacyBand from '../components/landing/PrivacyBand';
 import PricingSection from '../components/landing/PricingSection';
 import CTASection from '../components/landing/CTASection';
-import ImageSlot from '../components/common/ImageSlot';
+import TextureStrip from '../components/common/TextureStrip';
 ---
 
 <LandingLayout
   title="Bit-perfect audio on Android"
   description="Bit-perfect USB output to your DAC, hi-res audio and DSD, on-device AI restoration, no account, no ads. For Android 8.0 and up."
 >
-  <HeroSection />
-  <hr class="section-divider" aria-hidden="true" />
-  <PhoneShowcase />
-  <ImageSlot
-    name="home-interstitial-1"
-    variant="band"
-    ratio="5 / 1"
-    ships="2560x512"
-    note="dark to light: the bottom edge arrives at the white"
-  />
+  <HomeOpening />
   <StatementBand />
   <FeaturesTeaser />
-  <ImageSlot
-    name="home-interstitial-2"
-    variant="band"
-    ratio="4 / 1"
-    ships="2560x640"
-    note="ends on a hard machined edge, not a fade"
-  />
+  <TextureStrip material="copper" />
   <PrivacyBand />
   <PricingSection />
-  <ImageSlot
-    name="home-interstitial-3"
-    variant="band"
-    ratio="6 / 1"
-    ships="2880x480"
-    note="dark to light: the closing band is white now"
-  />
   <CTASection />
 </LandingLayout>

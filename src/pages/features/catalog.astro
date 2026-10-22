@@ -6,27 +6,27 @@ import TechnicalCatalog from '../../components/feature/TechnicalCatalog.astro';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/nav';
 
-const title = 'Audiophile Architecture & 27 Technical Features | Bitperfect Player';
+const title = 'All 27 features | Bitperfect Player';
 const description =
-  'Full engineering documentation of all 27 capabilities of Bitperfect Player: Rust audio engine, custom UAC1/UAC2 drivers, dyadic volume, on-device AI, and hardware bypass.';
+  'All 27 features of Bitperfect Player: USB DAC output, UAC1 and UAC2, DSD, EQ, dyadic volume and on-device AI.';
 ---
 
 <ContentLayout title={title} description={description}>
   <PageHeader
     backHref={withBase('/features')}
-    backLabel="Back to Features Overview"
-    eyebrow="Full Specification Manual"
+    backLabel="Back to Features"
+    eyebrow="Full specifications"
     title="27 Audiophile Capabilities"
-    description="Android's default audio mixer resamples and compresses audio streams. Bitperfect Player bypasses the OS using custom user-space USB drivers, a Rust playback engine, and hardware isolation."
+    description="On many phones, Android converts every track to one sample rate. Bitperfect Player sends your file to a USB DAC unchanged, bit for bit. It tells you when it cannot."
   />
 
   {/* Full Catalog */}
   <TechnicalCatalog id="all-capabilities" />
 
   <ClosingBanner
-    eyebrow="Experience Pure Signal Delivery"
+    eyebrow="Get the app"
     title="Ready to hear your music bit-for-bit?"
-    description="Download Bitperfect Player on Google Play and bypass Android OS limitations today."
+    description="Install the app from Google Play and connect your DAC."
     primaryHref={site.playUrl}
     primaryLabel="Get it on Google Play"
     primaryExternal={true}
