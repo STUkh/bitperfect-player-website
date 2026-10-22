@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
-import Container from './Container';
+import Band from './Band';
 import Button from './Button';
+import SectionHeading from './SectionHeading';
 import './ClosingBanner.css';
 
 /**
@@ -53,41 +54,42 @@ export default function ClosingBanner(props: ClosingBannerProps) {
   const maxWidthClass = maxWidth === '760px' ? 'max-w-[760px]' : 'max-w-[840px]';
 
   return (
-    <section className="ground ground-rosette border-t border-border-subtle bg-surface-raised py-16 lg:py-24">
-      <Container>
-        <div className={cx(['mx-auto', maxWidthClass])}>
-          {top != null && <div className="w-full flex flex-col items-center text-center">{top}</div>}
-          <div className="flex flex-col items-center text-center">
-            <span className="mono-spec text-eyebrow uppercase tracking-widest text-gold">{eyebrow}</span>
-            <h2 className="mt-4 max-w-xl text-section-sm font-bold text-text-primary lg:text-section-lg text-balance">
-              {title}
-            </h2>
-            <p className="mt-3 max-w-xl text-body text-text-secondary text-pretty">{description}</p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+    <Band ground="ground-rosette" className="border-t border-border-subtle bg-surface-raised py-16 lg:py-24">
+      <div className={cx(['mx-auto', maxWidthClass])}>
+        {top != null && <div className="w-full flex flex-col items-center text-center">{top}</div>}
+        <SectionHeading
+          className="flex flex-col items-center text-center"
+          eyebrow={eyebrow}
+          eyebrowClassName="mono-spec text-eyebrow uppercase tracking-widest"
+          title={title}
+          titleClassName="mt-4 max-w-xl text-section-sm font-bold lg:text-section-lg"
+          lede={description}
+          ledeClassName="mt-3 max-w-xl text-body text-pretty"
+        >
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Button
+              href={primaryHref}
+              variant="primary"
+              size="lg"
+              target={primaryExternal ? '_blank' : undefined}
+              rel={primaryExternal ? 'noopener noreferrer' : undefined}
+            >
+              {primaryLabel}
+            </Button>
+            {secondaryHref && secondaryLabel && (
               <Button
-                href={primaryHref}
-                variant="primary"
+                href={secondaryHref}
+                variant="secondary"
                 size="lg"
-                target={primaryExternal ? '_blank' : undefined}
-                rel={primaryExternal ? 'noopener noreferrer' : undefined}
+                target={secondaryExternal ? '_blank' : undefined}
+                rel={secondaryExternal ? 'noopener noreferrer' : undefined}
               >
-                {primaryLabel}
+                {secondaryLabel}
               </Button>
-              {secondaryHref && secondaryLabel && (
-                <Button
-                  href={secondaryHref}
-                  variant="secondary"
-                  size="lg"
-                  target={secondaryExternal ? '_blank' : undefined}
-                  rel={secondaryExternal ? 'noopener noreferrer' : undefined}
-                >
-                  {secondaryLabel}
-                </Button>
-              )}
-            </div>
+            )}
           </div>
-        </div>
-      </Container>
-    </section>
+        </SectionHeading>
+      </div>
+    </Band>
   );
 }

@@ -1,8 +1,9 @@
-import type { CSSProperties } from 'react';
 import { clsx as cx } from 'clsx';
 import Button from '../common/Button';
 import Container from '../common/Container';
 import PlayCta from '../common/PlayCta';
+import SectionHeading from '../common/SectionHeading';
+import { reveal as stagger } from '../common/bands';
 import Picture from '../common/Picture';
 import { pro, site } from '../../data/site';
 import { useTranslations } from '../../i18n/utils';
@@ -83,8 +84,6 @@ const governed = t('pricing.disclosure_governed', {
 const CHECK =
   'M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z';
 
-const stagger = (i: number) => ({ '--i': String(i) }) as CSSProperties;
-
 /**
  * Pricing band. No props; prices and copy are the site's own.
  *
@@ -123,20 +122,15 @@ export default function PricingSection() {
       <div className="pricing-stage pointer-events-none absolute inset-0 z-[1]" aria-hidden="true"></div>
 
       <Container className="relative z-[2]">
-        <div className="lg:mx-auto lg:mb-13 lg:max-w-[760px] lg:text-center">
-          <h2
-            className="r-rise text-section-sm text-balance text-text-primary lg:text-headline-sm"
-            style={stagger(0)}
-          >
-            {t('pricing.heading')}
-          </h2>
-          <p
-            className="r-rise mt-3.5 text-base leading-[1.6] text-pretty text-text-secondary lg:mx-auto lg:mt-5 lg:max-w-[56ch] lg:text-body-lg"
-            style={stagger(1)}
-          >
-            {t('pricing.subheading')}
-          </p>
-        </div>
+        <SectionHeading
+          tone="graphite"
+          className="lg:mx-auto lg:mb-13 lg:max-w-[760px] lg:text-center"
+          title={t('pricing.heading')}
+          titleClassName="text-section-sm lg:text-headline-sm"
+          lede={t('pricing.subheading')}
+          ledeClassName="mt-3.5 text-base leading-[1.6] text-pretty lg:mx-auto lg:mt-5 lg:max-w-[56ch] lg:text-body-lg"
+          reveal={0}
+        />
 
         <div
           className="r-rise mx-auto mt-[26px] grid max-w-[920px] grid-cols-1 items-stretch gap-5 md:grid-cols-2 lg:mt-0 lg:gap-6"
