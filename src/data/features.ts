@@ -61,7 +61,7 @@ export const features: Feature[] = [
       },
       {
         title: "Bit-perfect lock",
-        desc: "Switch the EQ out of the path and the badge returns to Bit-perfect. While active, the badge shows Resampled.",
+        desc: "Switch the EQ out of the path and the badge returns to Bit-perfect. While active, the badge indicates active signal processing.",
       },
     ],
     facts: [
@@ -141,7 +141,7 @@ export const features: Feature[] = [
     id: "casting",
     slug: "casting",
     title: "Two-way streaming",
-    tagline: "Cast to any speaker on your network, or turn your phone into one",
+    tagline: "Cast to any network streamer, or turn your phone and DAC into a network receiver",
     badge: "Network audio",
     accent: "gold",
     icon: "cast",

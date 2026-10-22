@@ -186,7 +186,7 @@ export const featurePages: Record<string, FeaturePage> = {
       },
     ],
     cta: {
-      title: "Point it at a folder. It does the rest.",
+      title: "Select your music folder. Indexing runs entirely on your phone.",
       body: "No account needed. No audio leaves your phone.",
     },
   },
@@ -234,7 +234,7 @@ export const featurePages: Record<string, FeaturePage> = {
   },
 
   dsp: {
-    lede: "For listening when exact bits do not matter. Every module is optional. Bit-perfect lock turns them all off at once. Turning on the AI Enhancer turns the rack off.",
+    lede: "Precision acoustic processing for headphone crossfeed, loudness matching, and DAC overload protection. Every module is optional and bypassable with a single tap.",
     summary: [
       { label: "Tube voicings", value: "8" },
       // The artboard reads "Natural" here and on the crossfeed spec row. That is
@@ -390,7 +390,7 @@ export const featurePages: Record<string, FeaturePage> = {
       },
     ],
     cta: {
-      title: "Rebuild the highs.",
+      title: "High-frequency harmonic restoration on your phone.",
       body: "Included in the same subscription as everything else. Off until you switch it on.",
     },
   },

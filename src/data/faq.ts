@@ -1,3 +1,5 @@
+import { pro } from './site';
+
 export interface FAQItem {
   id: string;
   category: string;
@@ -24,7 +26,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "bitperfect-lock",
     "category": "engine",
     "q": "What does Bit-perfect lock do?",
-    "a": "Bit-perfect lock is one switch. It turns off all EQ, sound processing and software volume. If your DAC cannot play the file rate, the app converts it. The badge then shows Resampled. Volume moves to the DAC control. If the DAC has no hardware volume control, output stays fixed at 0 dBFS line level. That means full volume. Use an external amplifier with analog volume. Turn off the lock or use alternative volume if connecting sensitive headphones directly."
+    "a": "Bit-perfect lock is one switch. It turns off all EQ, sound processing and software volume. If your DAC cannot play the file rate, the app converts it. The badge then shows Resampled. Volume moves to the DAC control. If the DAC has no hardware volume control, output stays fixed at 0 dBFS line level. That means full volume. Use an external amplifier with analogue volume. Turn off the lock or use Alternative volume control if connecting sensitive headphones directly."
   },
   {
     "id": "dyadic-lossless-volume",
@@ -42,7 +44,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "need-external-dac",
     "category": "hardware",
     "q": "Do I need an external DAC?",
-    "a": "Not to play music. The headphone jack and built-in speaker work too. On most phones, Android's system mixer resamples that audio. The badge then shows Resampled. An external USB DAC is recommended for guaranteed bit-perfect output across all devices. On select phones, the app can drive the internal DAC directly. This depends on your phone's DAC chip and OS firmware. It requires a quick hardware test and your permission."
+    "a": "Not to play music. The headphone jack and built-in speaker work too. On most phones, Android's system mixer resamples that audio. The badge then shows Resampled. Use an external USB DAC for guaranteed bit-perfect output across all devices. On select phones, the app can drive the internal DAC directly. This depends on your phone's DAC chip and OS firmware. It requires a quick hardware test and your permission."
   },
   {
     "id": "usb-dac-setup-guide",
@@ -66,14 +68,14 @@ export const allFaqItems: FAQItem[] = [
     "id": "why-npu-ai-enhancer-not-working",
     "category": "ai",
     "q": "Why is AI Enhancer off or not working?",
-    "a": "The full model runs on a supported neural chip. Supported chips include Snapdragon 8 Gen 1 and newer, and Dimensity 8300 or newer. Other phones use Lite mode on the main processor. AI Enhancer turns off if your phone cannot keep up in real time. It requires a one-time model download first. It stays off while Bit-perfect lock is on. It works on 44.1 and 48 kHz tracks only. It skips DSD, cast-enabled speakers and TVs, and AI Karaoke.",
+    "a": "The full model runs on a supported neural chip. Supported chips include Snapdragon 8 Gen 1 and newer, and Dimensity 8300 or newer. Other phones use Lite mode on the main processor. AI Enhancer turns off if your phone cannot keep up in real time. It requires a one-time model download first. It stays off while Bit-perfect lock is on. It works on 44.1 and 48 kHz tracks only. It skips DSD tracks, network casting, and AI Karaoke.",
     "guideUrl": "/faq/why-npu-ai-enhancer-not-working"
   },
   {
     "id": "can-i-disable-ai",
     "category": "ai",
     "q": "Can I turn off the AI processing?",
-    "a": "Yes. AI Enhancer is off by default. It changes nothing until you switch it on. When on, the badge says Enhanced instead of Bit-perfect. This indicates restored high frequencies."
+    "a": "Yes. AI Enhancer is off by default. It changes nothing until you switch it on. When on, the badge says Enhanced instead of Bit-perfect. This shows that high frequencies have been restored."
   },
   {
     "id": "ai-offline-operation",
@@ -121,7 +123,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "full-ram-playback",
     "category": "battery",
     "q": "What is Full RAM Playback?",
-    "a": "Full RAM Playback loads tracks into memory before playing, based on available system RAM. Storage stays idle while you listen. This dynamic allocation stops Android from closing the app under memory pressure. Larger files like DSD disc images use continuous streaming prefetch without gaps."
+    "a": "Full RAM Playback loads tracks into memory before playing, based on available system RAM. Storage stays idle while you listen. Smart memory management keeps playback uninterrupted. Larger files like DSD disc images buffer seamlessly without dropouts."
   },
   {
     "id": "background-killing-prevention",
@@ -133,7 +135,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "cost-and-plans",
     "category": "license",
     "q": "What does Bitperfect Player cost?",
-    "a": "Bitperfect Player has one annual subscription with every feature and no ads. Limited Founder offer: $19.95 a year if you subscribe by May 31, 2027. That price stays yours on every renewal while you stay subscribed. From June 1, 2027, new subscribers pay the standard price of $29.95 a year. Cancel and come back after that date, and you pay the standard price. Eligible new customers get 14 days free. Cancel during the trial and you pay nothing. The plan covers five devices with the Google Play Store. More devices are a paid in-app add-on. You pay and cancel in Google Play."
+    "a": `Bitperfect Player has one annual subscription with every feature and no ads. Limited Founder offer: $19.95 a year if you subscribe by May 31, 2027. That price stays yours on every renewal while you stay subscribed. From June 1, 2027, new subscribers pay the standard price of $29.95 a year. Cancel and come back after that date, and you pay the standard price. ${pro.trialDays ? `Eligible new customers get ${pro.trialDays} days free. Cancel during the trial and you pay nothing. ` : ''}The plan covers five devices with the Google Play Store. More devices are a paid in-app add-on. You pay and cancel in Google Play.`
   },
   {
     "id": "device-allowance",
@@ -145,7 +147,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "privacy-and-network-transfers",
     "category": "license",
     "q": "What does the app send over the internet?",
-    "a": "Your audio files, library, history and favourites stay on your phone. There are no ads and no tracking. The app goes online for album art, lyrics, AutoEQ profiles, internet radio and subscription checks. Crash reports can be turned off in settings."
+    "a": "Your audio files, library, history and favourites stay on your phone. No account needed. There are no ads and no analytics. The app goes online for album art, lyrics, AutoEQ profiles, internet radio, model downloads and subscription checks. Crash reports can be turned off in settings."
   },
   {
     "id": "do-i-need-an-account",

@@ -100,8 +100,8 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "Switch internal processing between 32-bit and 64-bit floating point.",
-    "description": "32-bit float is the efficient default and uses less battery. 64-bit float delivers the lowest rounding noise across sound processing and volume. Native DSD passes directly to the DAC without float processing.",
-    "audiophileBenefit": "Preserves maximum dynamic range and avoids rounding noise during sound processing.",
+    "description": "32-bit float is the efficient default and uses less battery. 64-bit float delivers the lowest quantisation error across sound processing and volume. Native DSD passes directly to the DAC without float processing.",
+    "audiophileBenefit": "Preserves maximum dynamic range and avoids quantisation error during sound processing.",
     "specs": [
       {
         "label": "Precision options",
@@ -589,7 +589,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "ai",
     "categoryLabel": "On-device AI",
     "summary": "Rebuilds high frequencies, isolates vocals and finds similar tracks on your phone.",
-    "description": "Models download once, then run on your phone. AI Enhancer rebuilds the top octave of 44.1 and 48 kHz tracks. AI Karaoke isolates vocals on 44.1 kHz-family files. Sonic Scan finds similar tracks.",
+    "description": "Models download once, then run on your phone. AI Enhancer reconstructs harmonic detail between 14 and 22 kHz on 44.1 and 48 kHz tracks. AI Karaoke isolates vocals on 44.1 kHz-family files. Sonic Scan finds similar tracks.",
     "audiophileBenefit": "Restores compressed tracks offline. Full model runs on a neural chip; Lite mode runs on other phones. The badge shows Enhanced while active.",
     "specs": [
       {

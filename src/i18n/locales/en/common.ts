@@ -3,7 +3,7 @@ export const common = {
   "nav.features": "Features",
   "nav.faq": "FAQ",
   "nav.features_all": "All features",
-  "nav.features_all_desc": "The whole player, feature by feature",
+  "nav.features_all_desc": "The player, feature by feature",
   "nav.features_catalog": "Technical catalog",
   "nav.features_catalog_desc": "Every format, rate and spec in one list",
   "nav.features_menu": "Features menu",

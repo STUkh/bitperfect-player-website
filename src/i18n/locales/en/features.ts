@@ -129,7 +129,7 @@ export const features = {
   // DSP
   "feature.dsp.title": "DSP rack",
   "feature.dsp.tagline":
-    "Headphone crossfeed, album loudness and clip protection, each adjustable",
+    "Headphone crossfeed, tag-based ReplayGain, and true-peak protection",
 
   // AI ENHANCER
   "feature.ai-enhancer.title": "AI Enhancer",
