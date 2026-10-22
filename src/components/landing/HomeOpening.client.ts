@@ -18,6 +18,16 @@ import { FAN } from '../feature/phone-fan';
  *   0.46-0.68  the heading fades in
  *   0.80-1.00  a hold, so a fast flick lands on the finished lineup before the
  *              stage unpins
+ *
+ * One gesture plays the whole opening. When a scroll comes to rest inside the
+ * track, the page finishes it: on to the end if it moved down, back to the start
+ * if it moved up, and back to where it began if it moved less than `INTENT` (a
+ * stray nudge). The follow-through scrolls the page itself, so the choreography
+ * above stays scroll-linked and the spring carries it; any wheel, touch, pointer
+ * or key input hands control straight back. Anchor links, the keyboard and the
+ * scrollbar still scroll natively, and a scroll that ends outside the track is
+ * left alone.
+ *
  * `--p` is also written to the two backdrops, which cross-fade on it. Only to
  * them: on the section, an inherited custom property restyled the whole subtree
  * every frame.
@@ -51,6 +61,13 @@ export function setupHomeOpening(section: HTMLElement) {
   /* The lineup's visual width in phone widths: the centre phone plus each side
      phone's offset and its turned, set-back half, with a little air. */
   const LINEUP_WIDTH = 2.85;
+  /* Milliseconds without a scroll event before a gesture counts as at rest. */
+  const REST_DELAY = 140;
+  /* The least travel, as a fraction of the track, that counts as meaning to move. */
+  const INTENT = 0.03;
+  /* Seconds the follow-through takes over the whole track; shorter runs scale down. */
+  const FOLLOW_TIME = 1.2;
+  const FOLLOW_MIN = 0.35;
 
   let enabled = false;
   let running = false;
@@ -65,6 +82,12 @@ export function setupHomeOpening(section: HTMLElement) {
   let track = 0;
   /* Resize only flags; the next frame measures, so a burst of events lays out once. */
   let stale = false;
+
+  /* The gesture: where the scroll last came to rest, and the rest timer. */
+  let restY = 0;
+  let restTimer = 0;
+  /* The follow-through's frame, while one is playing. */
+  let follow = 0;
 
   /* Layout, measured on enable, resize and font load rather than every frame. */
   let w = 0;
@@ -183,10 +206,70 @@ export function setupHomeOpening(section: HTMLElement) {
     requestAnimationFrame(frame);
   };
 
+  /* Where the opening starts and finishes, as scroll positions. The track begins
+     under the header, so when it sits in the first screen its start is the page top. */
+  const openingStart = () => (top > vh ? top : 0);
+  const openingEnd = () => top + track;
+
+  const stopFollow = () => {
+    if (!follow) return;
+    cancelAnimationFrame(follow);
+    follow = 0;
+    restY = window.scrollY;
+  };
+
+  /* Scroll the page to `to` on an ease-out, so the motion already under way
+     carries on rather than restarting. */
+  const playTo = (to: number) => {
+    const from = window.scrollY;
+    const distance = to - from;
+    if (Math.abs(distance) < 1) return;
+    const duration = Math.max(FOLLOW_MIN, FOLLOW_TIME * (Math.abs(distance) / track)) * 1000;
+    const begin = performance.now();
+    const step = (now: number) => {
+      const t = clamp01((now - begin) / duration);
+      window.scrollTo({ top: from + distance * outCubic(t), behavior: 'instant' });
+      if (t < 1) {
+        follow = requestAnimationFrame(step);
+      } else {
+        follow = 0;
+        restY = window.scrollY;
+      }
+    };
+    follow = requestAnimationFrame(step);
+  };
+
+  /* The gesture is at rest: finish it if it stopped part-way through the track. */
+  const onRest = () => {
+    restTimer = 0;
+    if (!enabled || follow) return;
+    if (stale) {
+      stale = false;
+      measure();
+    }
+    const from = restY;
+    const at = window.scrollY;
+    restY = at;
+    const start = openingStart();
+    const end = openingEnd();
+    if (at <= start || at >= end) return;
+    const moved = at - from;
+    const back = from - start < end - from ? start : end;
+    playTo(Math.abs(moved) < INTENT * track ? back : moved > 0 ? end : start);
+  };
+
   const onScroll = () => {
     pending = true;
     start();
+    /* The follow-through's own scrolling is not a gesture. */
+    if (follow) return;
+    clearTimeout(restTimer);
+    restTimer = window.setTimeout(onRest, REST_DELAY);
   };
+
+  /* Any input of the reader's own takes the page back from the follow-through. */
+  const onInput = () => stopFollow();
+  const inputEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
 
   const onResize = () => {
     stale = true;
@@ -212,10 +295,14 @@ export function setupHomeOpening(section: HTMLElement) {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           window.addEventListener('scroll', onScroll, { passive: true });
+          for (const type of inputEvents) window.addEventListener(type, onInput, { passive: true });
           pending = true;
           start();
         } else {
           window.removeEventListener('scroll', onScroll);
+          for (const type of inputEvents) window.removeEventListener(type, onInput);
+          clearTimeout(restTimer);
+          stopFollow();
           jump();
         }
       }
@@ -230,6 +317,7 @@ export function setupHomeOpening(section: HTMLElement) {
     enabled = true;
     measure();
     jump();
+    restY = window.scrollY;
     window.addEventListener('resize', onResize);
     observer.observe(section);
     /* The heading's height, and so the band under it, changes once the font lands. */
@@ -247,6 +335,9 @@ export function setupHomeOpening(section: HTMLElement) {
     observer.unobserve(section);
     window.removeEventListener('resize', onResize);
     window.removeEventListener('scroll', onScroll);
+    for (const type of inputEvents) window.removeEventListener(type, onInput);
+    clearTimeout(restTimer);
+    stopFollow();
     /* Hand the composition back to the CSS resting state. */
     for (const el of layers) {
       el.style.transform = '';
