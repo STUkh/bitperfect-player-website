@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
-import BackLink from './BackLink';
+import BackLink from '../sections/BackLink';
 import Container from '../primitives/Container';
 import './PageHeader.css';
 

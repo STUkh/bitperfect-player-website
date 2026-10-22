@@ -1,8 +1,8 @@
 import type { FlowProps } from '../common/FlowBackdrop';
-import Band from '../common/Band';
+import Band from '../sections/Band';
 import ImageSlot from '../primitives/ImageSlot';
-import RuleList from '../common/RuleList';
-import SectionHeading from '../common/SectionHeading';
+import RuleList from '../sections/RuleList';
+import SectionHeading from '../sections/SectionHeading';
 import { withBase } from '../../utils/nav';
 import './PrivacyBand.css';
 

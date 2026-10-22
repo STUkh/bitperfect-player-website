@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import Container from '../primitives/Container';
 import FeatureArt from '../primitives/FeatureArt';
-import FeatureLinkCard from '../feature/FeatureLinkCard';
+import FeatureLinkCard from '../sections/FeatureLinkCard';
 import FeatureMark from '../primitives/FeatureMark';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';

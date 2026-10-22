@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import { cn } from '../../utils/cn';
-import BackLink from '../common/BackLink';
-import Band from '../common/Band';
-import MediaSplit from '../common/MediaSplit';
-import SectionHeading from '../common/SectionHeading';
-import SpecList from '../common/SpecList';
-import { reveal } from '../common/bands';
+import BackLink from '../sections/BackLink';
+import Band from '../sections/Band';
+import MediaSplit from '../sections/MediaSplit';
+import SectionHeading from '../sections/SectionHeading';
+import SpecList from '../sections/SpecList';
+import { reveal } from '../sections/bands';
 import Phone from './Phone';
 import { GlyphShapes } from '../primitives/Icon';
 import { EXTERNAL_LINK } from '../primitives/glyphs';

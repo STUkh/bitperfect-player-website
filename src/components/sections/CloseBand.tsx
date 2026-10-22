@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Band from './Band';
-import type { FlowProps } from './FlowBackdrop';
+import type { FlowProps } from '../common/FlowBackdrop';
 import SectionHeading from './SectionHeading';
 import type { Tone } from './bands';
 import type { ClassProps } from '../_lib/class-props';

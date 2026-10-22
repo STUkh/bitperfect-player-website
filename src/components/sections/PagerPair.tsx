@@ -1,5 +1,5 @@
 import { cn } from '../../utils/cn';
-import Band from '../common/Band';
+import Band from './Band';
 import PagerLink from './PagerLink';
 import type { ClassProps } from '../_lib/class-props';
 
