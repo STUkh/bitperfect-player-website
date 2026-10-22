@@ -13,6 +13,5 @@ import HomeOpening from './HomeOpening.tsx';
 <script>
   import { setupHomeOpening } from './HomeOpening.client';
 
-  const section = document.querySelector<HTMLElement>('[data-home-opening]');
-  if (section) setupHomeOpening(section);
+  document.querySelectorAll<HTMLElement>('[data-home-opening]').forEach((el) => setupHomeOpening(el));
 </script>

@@ -25,7 +25,10 @@ document head are Astro's job.
   - in React, `const ref = useBehaviour(setupX)` on the root element
     (`behaviour.ts`), which runs in Claude Design and never on the site;
   - on the site, a thin `<Name>.astro` wrapper renders the component and carries
-    a `<script>` that imports the `.client.ts` and calls it. That script must not
+    a `<script>` that imports the `.client.ts` and calls it on every element
+    carrying the component's `data-*` hook, `data-<name>=""` on the same element
+    the ref sits on: `document.querySelectorAll('[data-<name>]').forEach(...)`,
+    never an id or a styling class (`behaviour.ts`). That script must not
     import `behaviour.ts` or anything else that imports `react`: React is not
     tree-shakeable and would ship to every page. `Header.astro` is the example.
 - **Astro context** (`Astro.url`, the current path) comes in as a prop, supplied

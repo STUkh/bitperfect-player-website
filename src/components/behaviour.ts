@@ -12,6 +12,16 @@ import { useEffect, useRef } from 'react';
  * - In Claude Design the component renders client-side, and `useBehaviour`
  *   runs the same function from an effect. During the site's static render
  *   effects never run, so the hook costs the site nothing.
+ *
+ * Both find the same element. In React it is the one the ref sits on; on the
+ * site it is found by a `data-*` hook named after the component, which that
+ * element also carries (`data-home-opening`, `data-phone-trio`,
+ * `data-legal-document`, `data-mobile-menu-toggle`), and the wrapper's script
+ * is always the one line
+ *
+ *   document.querySelectorAll<HTMLElement>('[data-x]').forEach((el) => setupX(el));
+ *
+ * never an id or a styling class, so a restyle cannot unmount a behaviour.
  */
 export type Setup<T extends HTMLElement = HTMLElement> = (root: T) => (() => void) | void;
 

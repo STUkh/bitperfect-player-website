@@ -12,6 +12,5 @@ import Header from './Header.tsx';
 <script>
   import { setupMobileMenu } from './MobileMenu.client';
 
-  const toggle = document.getElementById('mobile-menu-toggle');
-  if (toggle) setupMobileMenu(toggle);
+  document.querySelectorAll<HTMLElement>('[data-mobile-menu-toggle]').forEach((el) => setupMobileMenu(el));
 </script>

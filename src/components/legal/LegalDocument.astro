@@ -43,13 +43,6 @@ type Props = Omit<LegalDocumentProps, 'children'>;
 <script>
   import { setupTocHighlighting } from './LegalDocument.client';
 
-  function setupAll() {
-    document.querySelectorAll<HTMLElement>('.legal-grid').forEach((root) => setupTocHighlighting(root));
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupAll);
-  } else {
-    setupAll();
-  }
+  // A module script runs after the document is parsed, so the elements are there.
+  document.querySelectorAll<HTMLElement>('[data-legal-document]').forEach((el) => setupTocHighlighting(el));
 </script>

@@ -38,7 +38,7 @@ export default function LegalDocument(props: LegalDocumentProps) {
   const sections = headings.filter((h) => h.depth === 2);
 
   return (
-    <div ref={ref} className="legal-grid">
+    <div ref={ref} className="legal-grid" data-legal-document="">
       {/* Left Navigation Sidebar */}
       <aside className="legal-toc-wrapper">
         {/*

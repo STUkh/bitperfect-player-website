@@ -82,6 +82,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
               <button
                 ref={toggleRef}
                 id="mobile-menu-toggle"
+                data-mobile-menu-toggle=""
                 className="flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-lg text-text-primary transition-colors duration-[var(--d-ui)] ease-ui hover:bg-white/[0.055] active:bg-white/[0.09] focus-visible:focus-ring lg:hidden"
                 aria-label="Toggle navigation menu"
                 aria-controls="mobile-menu"
