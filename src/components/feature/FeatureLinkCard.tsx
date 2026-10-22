@@ -18,7 +18,8 @@ export interface FeatureLinkCardProps extends ClassProps {
 
 /**
  * One feature as a whole-card link: the plate, then the name (gold on hover)
- * and a line. The card rises in the reveal (`r-rise`; set `--i` in `style`).
+ * and a line. The card fades up in its own entrance (`r-rise` with the
+ * card timing in FeatureLinkCard.css; set `--i` in `style`).
  * Its chassis is `className`: on the home page `lacquer lacquer-lift
  * features-card` (FeaturesTeaser.css), on /features `feature-card` with the
  * hover sweep (FeatureLinkCard.css). Render them in a 1/2/3 column grid.
@@ -28,7 +29,7 @@ export default function FeatureLinkCard({ href, title, body, art, className, sty
     <a
       href={href}
       className={cx(
-        'focus-visible:focus-ring r-rise group relative flex cursor-pointer flex-col rounded-card-inner lg:rounded-card',
+        'feature-link-card focus-visible:focus-ring r-rise group relative flex cursor-pointer flex-col rounded-card-inner lg:rounded-card',
         className,
       )}
       style={styleOf(style)}

@@ -1,3 +1,38 @@
+/* ── The entrance, both pages ──
+   The shared `r-rise` runs opacity and movement on one 720ms ease-out, which on
+   a card this size reads as a pop: half the opacity is spent in the first 200ms,
+   before the eye has found the card. Here they are separated. The fade is
+   longer and even (opacity wants a gentle start, not a front-loaded one), the
+   card travels a little further and settles on a long expo tail, and the plate
+   develops after the card, a slight zoom resolving to rest, the way a print
+   comes up in the tray. Cards in a row follow each other 110ms apart.
+   Compositor only: opacity and transform. */
+html.js .feature-link-card.r-rise:not(.is-visible) {
+  transform: translateY(28px) scale(0.985);
+}
+html.js .feature-link-card.r-rise:not(.is-settled) {
+  --card-delay: calc(var(--i) * 110ms + 60ms);
+  transition:
+    opacity 900ms cubic-bezier(0.25, 0.1, 0.25, 1) var(--card-delay),
+    transform 1200ms cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay);
+}
+html.js .feature-link-card.r-rise:not(.is-visible) .feature-art-img {
+  opacity: 0;
+  transform: scale(1.06);
+}
+html.js .feature-link-card.r-rise:not(.is-settled) .feature-art-img {
+  transition:
+    opacity 800ms cubic-bezier(0.25, 0.1, 0.25, 1) calc(var(--card-delay) + 140ms),
+    transform 1400ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--card-delay) + 140ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .feature-link-card.r-rise .feature-art-img {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* ── The /features index card chassis (`FeatureLinkCard className="feature-card"`) ──
    Moved from the page's scoped <style> when the card became a component, so
    every selector here is global now and specific to this card. The home page's
