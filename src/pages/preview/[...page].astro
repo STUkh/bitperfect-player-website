@@ -13,11 +13,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/common/Container';
 import Home from '../index.astro';
 import BackgroundConcepts from '../../components/preview/BackgroundConcepts.astro';
+import BackgroundFlow from '../../components/preview/BackgroundFlow.astro';
 import { featureRoutes } from '../../data/navigation';
 
 export function getStaticPaths() {
   if (!import.meta.env.DEV) return [];
-  return [{ params: { page: undefined } }, { params: { page: 'home' } }, { params: { page: 'backgrounds' } }];
+  return [{ params: { page: undefined } }, { params: { page: 'home' } }, { params: { page: 'backgrounds' } }, { params: { page: 'background-flow' } }];
 }
 
 const { page } = Astro.params;
@@ -28,6 +29,7 @@ const groups = [
     links: [
       { href: '/preview/home', label: 'Full landing page' },
       { href: '/preview/backgrounds', label: '20 CTA background concepts' },
+      { href: '/preview/background-flow', label: '4 full-bleed background compositions' },
       { href: '/preview/home#pricing', label: 'Pricing (Founder and Standard)' },
       { href: '/preview/home#features', label: 'Features teaser' },
       { href: '/', label: 'Live / (the holding page)' },
@@ -53,7 +55,9 @@ const groups = [
 ];
 ---
 
-{page === 'backgrounds' ? (
+{page === 'background-flow' ? (
+  <BackgroundFlow />
+) : page === 'backgrounds' ? (
   <BackgroundConcepts />
 ) : page === 'home' ? (
   <Home />

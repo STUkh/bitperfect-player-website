@@ -1,10 +1,11 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import Container from './Container';
+import FlowBackdrop, { type FlowProps } from './FlowBackdrop';
 import { ToneContext, toneGround, type Tone } from './bands';
 import type { ClassProps } from '../class-props';
 
-export interface BandProps extends Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'>, ClassProps {
+export interface BandProps extends Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'>, ClassProps, FlowProps {
   /** Ground colour, `graphite` (default) or `ivory`. The shells inside inherit it in TSX. */
   tone?: Tone;
   /** A backdrop class from the grounds (`ground-halftone`, `ground-cta`, `features-ground`...); adds the `ground` base. */
@@ -27,6 +28,7 @@ export interface BandProps extends Omit<HTMLAttributes<HTMLElement>, 'className'
 export default function Band({
   tone = 'graphite',
   ground,
+  backgroundVariant,
   as: Tag = 'section',
   containerClassName,
   bare = false,
@@ -35,7 +37,8 @@ export default function Band({
   ...rest
 }: BandProps) {
   return (
-    <Tag className={cn(ground && ['ground', ground], toneGround[tone], className)} {...rest}>
+    <Tag className={cn(backgroundVariant ? 'flow-surface' : ground && ['ground', ground], toneGround[tone], className)} {...rest}>
+      {backgroundVariant && <FlowBackdrop variant={backgroundVariant} light={tone === 'ivory'} />}
       <ToneContext.Provider value={tone}>
         {bare ? children : <Container className={containerClassName}>{children}</Container>}
       </ToneContext.Provider>

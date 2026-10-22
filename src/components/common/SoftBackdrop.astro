@@ -1,14 +1,18 @@
 ---
 import { backgroundConcepts, type BackgroundTheme } from '../../data/backgroundConcepts';
 import { withBase } from '../../utils/nav';
+import { flowBackgrounds } from '../../data/flowBackgrounds';
 import './SoftBackdrop.css';
 
 interface Props {
   variant?: string;
   theme?: BackgroundTheme;
+  family?: 'contained' | 'flow';
 }
-const { variant = '01', theme = 'dark' } = Astro.props;
-const concept = backgroundConcepts.find((item) => item.id === variant) ?? backgroundConcepts[0];
+const { variant = '01', theme = 'dark', family = 'contained' } = Astro.props;
+const concept = family === 'flow'
+  ? flowBackgrounds.find((item) => item.id === variant) ?? flowBackgrounds[0]
+  : backgroundConcepts.find((item) => item.id === variant) ?? backgroundConcepts[0];
 ---
 
 <span class="soft-backdrop" aria-hidden="true">

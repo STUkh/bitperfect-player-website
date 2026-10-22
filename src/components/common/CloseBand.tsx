@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
 import Band from './Band';
+import type { FlowProps } from './FlowBackdrop';
 import SectionHeading from './SectionHeading';
 import type { Tone } from './bands';
 import type { ClassProps } from '../class-props';
 
-export interface CloseBandProps extends ClassProps {
+export interface CloseBandProps extends ClassProps, FlowProps {
   /** Ground colour. Pick the one that alternates with the band above. */
   tone: Tone;
   /** A backdrop class (`ground-cta`); see `Band`. */
@@ -40,9 +41,9 @@ export interface CloseBandProps extends ClassProps {
  * buttons, for the catalog and help pages.
  */
 export default function CloseBand(props: CloseBandProps) {
-  const { tone, ground, id, className, containerClassName, action, children, ...heading } = props;
+  const { tone, ground, backgroundVariant, id, className, containerClassName, action, children, ...heading } = props;
   return (
-    <Band tone={tone} ground={ground} id={id} className={className} containerClassName={containerClassName}>
+    <Band tone={tone} ground={ground} backgroundVariant={backgroundVariant} id={id} className={className} containerClassName={containerClassName}>
       <SectionHeading tone={tone} reveal={0} className="flex flex-col items-center text-center" {...heading}>
         {action}
         {children}

@@ -19,6 +19,9 @@ import PrivacyBand from '../components/landing/PrivacyBand';
 import PricingSection from '../components/landing/PricingSection';
 import CTASection from '../components/landing/CTASection';
 import TextureStrip from '../components/common/TextureStrip';
+import { chooseFlowSequence } from '../utils/flow-background';
+
+const backgrounds = chooseFlowSequence('home', ['statement', 'features', 'privacy', 'pricing', 'cta']);
 ---
 
 <LandingLayout
@@ -26,10 +29,10 @@ import TextureStrip from '../components/common/TextureStrip';
   description="Bypass Android's system mixer. Send bit-perfect audio up to 768 kHz and DSD512 straight to your USB DAC. No account needed. No tracking, no ads."
 >
   <HomeOpening />
-  <StatementBand />
-  <FeaturesTeaser />
+  <StatementBand backgroundVariant={backgrounds[0]} />
+  <FeaturesTeaser backgroundVariant={backgrounds[1]} />
   <TextureStrip material="copper" />
-  <PrivacyBand />
-  <PricingSection />
-  <CTASection />
+  <PrivacyBand backgroundVariant={backgrounds[2]} />
+  <PricingSection backgroundVariant={backgrounds[3]} />
+  <CTASection backgroundVariant={backgrounds[4]} />
 </LandingLayout>

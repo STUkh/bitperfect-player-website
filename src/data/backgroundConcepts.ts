@@ -9,7 +9,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/01-dark.webp",
-        "bytes": 1730
+        "bytes": 1570
       },
       "light": {
         "src": "backgrounds/soft/v2/01-light.webp",
@@ -25,7 +25,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/02-dark.webp",
-        "bytes": 1734
+        "bytes": 1548
       },
       "light": {
         "src": "backgrounds/soft/v2/02-light.webp",
@@ -41,7 +41,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/03-dark.webp",
-        "bytes": 1662
+        "bytes": 1470
       },
       "light": {
         "src": "backgrounds/soft/v2/03-light.webp",
@@ -57,7 +57,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/04-dark.webp",
-        "bytes": 1776
+        "bytes": 1562
       },
       "light": {
         "src": "backgrounds/soft/v2/04-light.webp",
@@ -73,7 +73,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/05-dark.webp",
-        "bytes": 2272
+        "bytes": 2050
       },
       "light": {
         "src": "backgrounds/soft/v2/05-light.webp",
@@ -89,7 +89,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/06-dark.webp",
-        "bytes": 2154
+        "bytes": 1914
       },
       "light": {
         "src": "backgrounds/soft/v2/06-light.webp",
@@ -105,7 +105,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/07-dark.webp",
-        "bytes": 2600
+        "bytes": 2318
       },
       "light": {
         "src": "backgrounds/soft/v2/07-light.webp",
@@ -121,7 +121,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/08-dark.webp",
-        "bytes": 2166
+        "bytes": 1894
       },
       "light": {
         "src": "backgrounds/soft/v2/08-light.webp",
@@ -137,7 +137,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/09-dark.webp",
-        "bytes": 2486
+        "bytes": 2212
       },
       "light": {
         "src": "backgrounds/soft/v2/09-light.webp",
@@ -153,7 +153,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/10-dark.webp",
-        "bytes": 1576
+        "bytes": 1434
       },
       "light": {
         "src": "backgrounds/soft/v2/10-light.webp",
@@ -169,7 +169,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/11-dark.webp",
-        "bytes": 1900
+        "bytes": 1678
       },
       "light": {
         "src": "backgrounds/soft/v2/11-light.webp",
@@ -185,7 +185,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/12-dark.webp",
-        "bytes": 1862
+        "bytes": 1690
       },
       "light": {
         "src": "backgrounds/soft/v2/12-light.webp",
@@ -201,7 +201,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/13-dark.webp",
-        "bytes": 1780
+        "bytes": 1644
       },
       "light": {
         "src": "backgrounds/soft/v2/13-light.webp",
@@ -217,7 +217,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/14-dark.webp",
-        "bytes": 2324
+        "bytes": 2104
       },
       "light": {
         "src": "backgrounds/soft/v2/14-light.webp",
@@ -233,7 +233,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/15-dark.webp",
-        "bytes": 2524
+        "bytes": 2306
       },
       "light": {
         "src": "backgrounds/soft/v2/15-light.webp",
@@ -249,7 +249,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/16-dark.webp",
-        "bytes": 1990
+        "bytes": 1734
       },
       "light": {
         "src": "backgrounds/soft/v2/16-light.webp",
@@ -265,7 +265,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/17-dark.webp",
-        "bytes": 2332
+        "bytes": 2076
       },
       "light": {
         "src": "backgrounds/soft/v2/17-light.webp",
@@ -281,7 +281,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/18-dark.webp",
-        "bytes": 2416
+        "bytes": 2096
       },
       "light": {
         "src": "backgrounds/soft/v2/18-light.webp",
@@ -297,7 +297,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/19-dark.webp",
-        "bytes": 2212
+        "bytes": 2048
       },
       "light": {
         "src": "backgrounds/soft/v2/19-light.webp",
@@ -313,7 +313,7 @@ export const backgroundConcepts = [
     "variants": {
       "dark": {
         "src": "backgrounds/soft/v2/20-dark.webp",
-        "bytes": 2416
+        "bytes": 2204
       },
       "light": {
         "src": "backgrounds/soft/v2/20-light.webp",

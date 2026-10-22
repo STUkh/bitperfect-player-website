@@ -1,5 +1,6 @@
 /** Deterministic, already-soft RGBA fields. No AI calls or source photographs. */
 import sharp from 'sharp';
+import { softField } from './lib/soft-fields.mjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
@@ -9,45 +10,13 @@ const { size, layouts } = JSON.parse(readFileSync(join(root, 'design/soft-backgr
 const output = join(root, 'public/backgrounds/soft/v2');
 mkdirSync(output, { recursive: true });
 
-const palettes = {
-  dark: { warm: [144, 122, 97], pearl: [153, 151, 143], neutral: [124, 125, 124], shadow: [6, 7, 10], umber: [111, 83, 60], linen: [136, 128, 110], copper: [139, 94, 69] },
-  light: { warm: [213, 189, 154], pearl: [197, 199, 197], neutral: [169, 173, 172], shadow: [139, 137, 132], umber: [180, 150, 117], linen: [194, 185, 162], copper: [196, 155, 126] },
-};
-const smooth = (v) => { const t = Math.max(0, Math.min(1, v)); return t * t * (3 - 2 * t); };
-
-function raster(theme, fields) {
-  const pixels = Buffer.alloc(size * size * 4);
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
-      const u = x / (size - 1), v = y / (size - 1);
-      // Both derivatives are zero at the outside: the overlay meets any base cleanly.
-      const edge = smooth(Math.min(u, 1 - u) / 0.14) * smooth(Math.min(v, 1 - v) / 0.20);
-      const quiet = 1 - 0.45 * Math.exp(-(((u - 0.5) / 0.28) ** 4 + ((v - 0.48) / 0.36) ** 4));
-      let alpha = 0;
-      const rgb = [0, 0, 0];
-      for (const [cx, cy, sx, sy, angle, ink, strength] of fields) {
-        const dx = u - cx, dy = v - cy;
-        const rx = Math.cos(angle) * dx + Math.sin(angle) * dy;
-        const ry = -Math.sin(angle) * dx + Math.cos(angle) * dy;
-        const weight = Math.exp(-0.5 * ((rx / sx) ** 2 + (ry / sy) ** 2)) * strength;
-        alpha += weight;
-        for (let c = 0; c < 3; c++) rgb[c] += palettes[theme][ink][c] * weight;
-      }
-      const i = (y * size + x) * 4;
-      for (let c = 0; c < 3; c++) pixels[i + c] = alpha ? Math.round(rgb[c] / alpha) : 0;
-      pixels[i + 3] = Math.round(Math.min(0.65, alpha) * edge * quiet * (theme === 'light' ? 0.72 : 1) * 255);
-    }
-  }
-  return pixels;
-}
-
 const concepts = [];
 let total = 0;
 for (const { fields, ...layout } of layouts) {
   const variants = {};
   for (const theme of ['dark', 'light']) {
     const filename = `${layout.id}-${theme}.webp`;
-    const info = await sharp(raster(theme, fields), { raw: { width: size, height: size, channels: 4 } })
+    const info = await sharp(softField({ size, theme, fields }), { raw: { width: size, height: size, channels: 4 } })
       .webp({ quality: 80, alphaQuality: 100, effort: 6 }).toFile(join(output, filename));
     variants[theme] = { src: `backgrounds/soft/v2/${filename}`, bytes: info.size };
     total += info.size;

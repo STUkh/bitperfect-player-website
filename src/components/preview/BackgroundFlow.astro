@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SoftBackdrop from '../common/SoftBackdrop.astro';
+import Button from '../common/Button';
+import { flowBackgrounds } from '../../data/flowBackgrounds';
+import { chooseFlowSequence } from '../../utils/flow-background';
+import { withBase } from '../../utils/nav';
+import { site } from '../../data/site';
+
+const sectionKeys = ['opening', 'direct-output', 'closing'];
+const stableVariants = chooseFlowSequence('/background-flow', sectionKeys);
+const themes = ['dark', 'light'] as const;
+const total = flowBackgrounds.reduce((sum, item) => sum + item.variants.dark.bytes + item.variants.light.bytes, 0);
+---
+
+<BaseLayout title="Full-bleed light studies" description="Four full-bleed background compositions, shown across consecutive sections in light and dark themes." noindex={true}>
+  <main id="main-content" class="flow-study" data-flow-study data-mode="shared" data-theme="dark">
+    <header class="intro wrap">
+      <a href={withBase('preview/backgrounds')}>20 компактных вариантов</a>
+      <h1>Свет выходит за край.<br />Страница дышит целиком.</h1>
+      <p>Четыре композиции без бокового затухания. Один фон проходит через несколько секций, а затем растворяется перед сменой темы.</p>
+      <p class="small">8 прозрачных WebP 128×128 · {(total / 1024).toFixed(1)} КиБ за набор · статическая отрисовка</p>
+      <fieldset class="composition-picker">
+        <legend>Композиция</legend>
+        {flowBackgrounds.map((item, index) => <label><input type="radio" name="flow-composition" value={item.id} checked={index === 0} /><span>{item.title}</span></label>)}
+      </fieldset>
+      <div class="controls">
+        <label>Порядок тем <select data-theme-select><option value="dark">Тёмная → светлая</option><option value="light">Светлая → тёмная</option></select></label>
+        <label>Рисунок страницы <select data-mode-select><option value="shared">Общий фон на три секции</option><option value="seeded">Стабильный выбор для каждой секции</option></select></label>
+        <p class="selected-description" data-description>{flowBackgrounds[0].description}</p>
+      </div>
+      <p class="mode-note" data-mode-note>Общий слой проходит под всеми тремя секциями. Между ними нет перезапуска рисунка.</p>
+    </header>
+
+    <div class="page-composition" data-composition>
+      {themes.map((theme, themeIndex) => (
+        <>
+          {themeIndex === 1 && <div class="soft-bridge" data-flow-bridge aria-hidden="true"></div>}
+          <div class="flow-group soft-surface" data-group={themeIndex} data-soft-theme={theme}>
+            <div class="shared-layer"><SoftBackdrop family="flow" variant={flowBackgrounds[0].id} theme={theme} /></div>
+            <section class="scene opening" data-scene="0" data-stable={stableVariants[0]}>
+              <div class="section-layer"><SoftBackdrop family="flow" variant={stableVariants[0]} theme={theme} /></div>
+              <div class="scene-content wrap"><h2>Your music,<br />bit for bit.</h2><p>A player for your own files, your DAC and the way you listen.</p></div>
+            </section>
+            <section class="scene direct-output" data-scene="1" data-stable={stableVariants[1]}>
+              <div class="section-layer"><SoftBackdrop family="flow" variant={stableVariants[1]} theme={theme} /></div>
+              <div class="scene-content wrap split"><h2>Straight to<br />your DAC.</h2><div><p>FLAC, ALAC, WAV and DSD, from your own storage.</p><p>The app takes the DAC for itself. Other apps cannot play through it.</p></div></div>
+            </section>
+            <section class="scene closing" data-scene="2" data-stable={stableVariants[2]}>
+              <div class="section-layer"><SoftBackdrop family="flow" variant={stableVariants[2]} theme={theme} /></div>
+              <div class="scene-content wrap"><h2>Ready to hear your<br />music bit for bit?</h2><p>Install the app from Google Play and connect your DAC.</p><div class="actions"><Button href={site.playUrl} variant="primary" size="lg" rel="noopener noreferrer">Get it on Google Play</Button><a href={withBase('faq')}>Read the FAQ</a></div></div>
+            </section>
+          </div>
+        </>
+      ))}
+    </div>
+
+    <footer class="notes wrap"><h2>Что проверять при сравнении</h2><p>Свет доходит до границ окна, а не заканчивается внутри отступов. В общем режиме он один на три секции. Стабильный выбор зависит от страницы и секции, сохраняется после обновления и одинаков для обеих тем; соседние варианты не повторяются.</p><p>Это отдельный предпросмотр. Рабочие страницы сайта пока не изменены.</p></footer>
+  </main>
+</BaseLayout>
+
+<script>
+  import { flowBackgrounds } from '../../data/flowBackgrounds';
+  import { withBase } from '../../utils/nav';
+  const root = document.querySelector<HTMLElement>('[data-flow-study]');
+  if (root) {
+    const composition = root.querySelector<HTMLElement>('[data-composition]')!;
+    const radios = [...root.querySelectorAll<HTMLInputElement>('[name="flow-composition"]')];
+    const groups = [...root.querySelectorAll<HTMLElement>('[data-group]')];
+    const themeSelect = root.querySelector<HTMLSelectElement>('[data-theme-select]')!;
+    const modeSelect = root.querySelector<HTMLSelectElement>('[data-mode-select]')!;
+    let version = 0;
+
+    async function update(writeURL = true) {
+      const request = ++version;
+      const selectedId = radios.find((radio) => radio.checked)?.value;
+      const selected = flowBackgrounds.find((item) => item.id === selectedId) ?? flowBackgrounds[0];
+      const mode = modeSelect.value;
+      const firstTheme = themeSelect.value;
+      const sources = new Set<string>();
+      for (const item of flowBackgrounds) for (const theme of ['dark', 'light'] as const) sources.add(withBase(item.variants[theme].src));
+      composition.setAttribute('aria-busy', 'true');
+      try {
+        await Promise.all([...sources].map(async (src) => { const image = new Image(); image.src = src; await image.decode(); }));
+      } catch {
+        if (request === version) { composition.setAttribute('aria-busy', 'false'); root!.querySelector<HTMLElement>('[data-description]')!.textContent = 'Фоны не загрузились. Повторите выбор.'; }
+        return;
+      }
+      if (request !== version) return;
+      root!.dataset.mode = mode;
+      root!.dataset.theme = firstTheme;
+      for (const [index, group] of groups.entries()) {
+        const theme = (index === 0 ? firstTheme : firstTheme === 'dark' ? 'light' : 'dark') as 'dark' | 'light';
+        group.dataset.softTheme = theme;
+        group.querySelector<HTMLImageElement>('.shared-layer img')!.src = withBase(selected.variants[theme].src);
+        for (const scene of group.querySelectorAll<HTMLElement>('[data-scene]')) {
+          const variant = flowBackgrounds.find((item) => item.id === scene.dataset.stable)!;
+          scene.querySelector<HTMLImageElement>('.section-layer img')!.src = withBase(variant.variants[theme].src);
+        }
+      }
+      const bridge = root!.querySelector<HTMLElement>('[data-flow-bridge]')!;
+      bridge.style.setProperty('--soft-from', firstTheme === 'dark' ? '#1c1b21' : '#fff');
+      bridge.style.setProperty('--soft-to', firstTheme === 'dark' ? '#fff' : '#1c1b21');
+      root!.querySelector<HTMLElement>('[data-description]')!.textContent = selected.description;
+      root!.querySelector<HTMLElement>('[data-mode-note]')!.textContent = mode === 'shared'
+        ? 'Общий слой проходит под всеми тремя секциями. Между ними нет перезапуска рисунка.'
+        : 'Каждая секция получает вариант по стабильному ключу. Перезагрузка страницы не меняет результат.';
+      for (const radio of radios) radio.disabled = mode === 'seeded';
+      composition.setAttribute('aria-busy', 'false');
+      if (writeURL) history.replaceState(null, '', `#${selected.id}/${firstTheme}/${mode}`);
+    }
+    function restore() {
+      const [id, theme, mode] = location.hash.slice(1).split('/');
+      const radio = radios.find((item) => item.value === id);
+      if (radio) radio.checked = true;
+      if (theme === 'dark' || theme === 'light') themeSelect.value = theme;
+      if (mode === 'shared' || mode === 'seeded') modeSelect.value = mode;
+      update(false);
+    }
+    radios.forEach((radio) => radio.addEventListener('change', () => update()));
+    themeSelect.addEventListener('change', () => update());
+    modeSelect.addEventListener('change', () => update());
+    restore();
+    window.addEventListener('hashchange', restore);
+  }
+</script>
+
+<style>
+  .flow-study { background: #f5f4f1; color: #242320; }
+  .wrap { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+  .intro { padding-block: 56px 32px; }
+  .intro > a { font-size: 14px; color: #625d57; text-decoration: underline; text-underline-offset: 4px; }
+  h1 { margin-top: 28px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; letter-spacing: -0.035em; font-weight: 650; }
+  .intro > p { max-width: 68ch; color: #625d57; line-height: 1.7; margin-top: 20px; }
+  .intro .small, .intro .mode-note { font-size: 13px; }
+  .composition-picker { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 28px; padding: 0; border: 0; }
+  legend { font-size: 14px; margin-bottom: 12px; font-weight: 600; }
+  .composition-picker label { display: flex; gap: 8px; align-items: center; min-height: 44px; font-size: 14px; cursor: pointer; }
+  input { accent-color: #74562b; }
+  label:has(input:disabled) { opacity: .55; cursor: default; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; border-top: 1px solid #d6d2ca; margin-top: 20px; padding-top: 16px; }
+  .controls label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #625d57; }
+  select { min-height: 44px; max-width: 100%; background: transparent; color: #242320; border: 0; border-bottom: 1px solid #a39d92; padding: 8px; cursor: pointer; }
+  .selected-description { flex-basis: 100%; font-size: 14px; line-height: 1.6; color: #625d57; }
+  .shared-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  .scene { position: relative; padding-block: clamp(80px, 10vw, 144px); }
+  .section-layer { display: none; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  [data-mode='seeded'] .shared-layer { display: none; }
+  [data-mode='seeded'] .scene { isolation: isolate; }
+  [data-mode='seeded'] .section-layer { display: block; }
+  .scene h2 { font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 650; line-height: 1.07; letter-spacing: -0.035em; text-wrap: balance; }
+  .scene p { max-width: 49ch; color: var(--soft-muted); font-size: clamp(16px, 1.4vw, 20px); line-height: 1.65; margin-top: 24px; }
+  .opening p { max-width: 37ch; }
+  .split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center; }
+  .split > div p:first-child { margin-top: 0; }
+  .closing { text-align: center; }
+  .closing h2 { font-size: clamp(2rem, 4vw, 3.5rem); max-width: 22ch; margin-inline: auto; }
+  .closing p { margin-inline: auto; }
+  .actions { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; align-items: center; margin-top: 32px; }
+  .actions > a:not(:global(.btn-primary-gradient)) { color: var(--soft-ink); text-decoration: underline; text-underline-offset: 4px; padding: 12px 0; }
+  .notes { padding-block: 48px 64px; }
+  .notes h2 { font-size: 24px; font-weight: 650; letter-spacing: -.025em; }
+  .notes p { max-width: 76ch; line-height: 1.7; font-size: 14px; color: #625d57; margin-top: 14px; }
+  :is(a, select, input):focus-visible { outline: 2px solid #896632; outline-offset: 5px; }
+  @media (max-width: 700px) { .wrap { width: calc(100% - 40px); } .intro { padding-top: 32px; } .controls { align-items: flex-start; flex-direction: column; } .controls label { align-items: flex-start; flex-direction: column; } .scene { padding-block: 76px; } .split { grid-template-columns: 1fr; gap: 28px; } .scene h2 { font-size: clamp(2.25rem, 9vw, 3.75rem); } .closing h2 { font-size: 32px; } }
+</style>

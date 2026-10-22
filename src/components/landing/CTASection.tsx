@@ -1,3 +1,4 @@
+import type { FlowProps } from '../common/FlowBackdrop';
 import CloseBand from '../common/CloseBand';
 import PlayCta from '../common/PlayCta';
 import { reveal } from '../common/bands';
@@ -30,9 +31,10 @@ const closingPrice = pro.trialDays
  * sentence when `pro.trialDays` is null. The Android floor comes from `site.minAndroid`.
  * No eyebrow, and no build stamp under the button.
  */
-export default function CTASection() {
+export default function CTASection({ backgroundVariant }: FlowProps) {
   return (
     <CloseBand
+      backgroundVariant={backgroundVariant}
       id="cta"
       tone="ivory"
       ground="ground-cta"

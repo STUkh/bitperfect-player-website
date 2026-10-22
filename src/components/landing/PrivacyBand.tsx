@@ -1,3 +1,4 @@
+import type { FlowProps } from '../common/FlowBackdrop';
 import Band from '../common/Band';
 import ImageSlot from '../common/ImageSlot';
 import RuleList from '../common/RuleList';
@@ -40,9 +41,10 @@ const commitments = [
  * app's optional network calls with a link to the privacy policy. It runs tighter than
  * its neighbours on purpose. Static text; no data or i18n reads.
  */
-export default function PrivacyBand() {
+export default function PrivacyBand({ backgroundVariant }: FlowProps) {
   return (
     <Band
+      backgroundVariant={backgroundVariant}
       id="privacy"
       tone="ivory"
       ground="ground-halftone"

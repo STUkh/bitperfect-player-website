@@ -1,3 +1,7 @@
+.flow-surface {
+  position: relative;
+  isolation: isolate;
+}
 /* Static, already-soft 128px alpha fields. No filter, forced layer or animation. */
 .soft-surface {
   position: relative;

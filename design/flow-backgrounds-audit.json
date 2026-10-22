@@ -1,0 +1,14 @@
+{
+  "files": 8,
+  "size": [
+    128,
+    128
+  ],
+  "topAndBottomTransparent": true,
+  "sideEdgesRemainVisible": true,
+  "worstBodyContrast": {
+    "dark": 4.904620669250347,
+    "light": 4.712912978348987
+  },
+  "totalBytes": 15420
+}

@@ -15,6 +15,7 @@ const totalBytes = backgroundConcepts.reduce((sum, item) => sum + item.variants.
   <main id="main-content" class="studies" data-studies data-view="pair">
     <header class="intro wrap">
       <a href={withBase('preview')}>Все страницы предпросмотра</a>
+      <a class="flow-link" href={withBase('preview/background-flow')}>Четыре полноширинные композиции на целой странице</a>
       <h1>Свет и глубина.<br />Без лишней картинки.</h1>
       <p>20 новых композиций для белых и тёмных блоков. Только мягкие цветовые поля: без комнат, предметов и фотографической текстуры.</p>
       <p class="technical">40 WebP RGBA · 128×128 · {(totalBytes / 1024).toFixed(1)} КБ за весь набор · без blur во время показа</p>
@@ -139,6 +140,7 @@ const totalBytes = backgroundConcepts.reduce((sum, item) => sum + item.variants.
   .wrap { width: min(1280px, calc(100% - 48px)); margin-inline: auto; }
   .intro { padding-block: 24px 32px; }
   .intro > a { color: #625d57; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+  .intro > .flow-link { display: block; margin-top: 16px; }
   h1 { max-width: 22ch; margin-top: 28px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; font-weight: 650; letter-spacing: -0.035em; text-wrap: balance; }
   .intro p { max-width: 70ch; margin-top: 18px; color: #625d57; line-height: 1.7; }
   .intro .technical { font-size: 13px; }

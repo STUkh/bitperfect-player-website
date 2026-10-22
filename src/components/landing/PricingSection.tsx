@@ -1,3 +1,4 @@
+import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';
 import { clsx as cx } from 'clsx';
 import Button from '../common/Button';
 import Container from '../common/Container';
@@ -100,12 +101,13 @@ const governed = t('pricing.disclosure_governed', {
  * every string is a `pricing.*` key in `src/i18n/locales/en/landing.ts` via
  * `useTranslations()`. With `pro.trialDays` null the trial chip and sentence vanish.
  */
-export default function PricingSection() {
+export default function PricingSection({ backgroundVariant }: FlowProps) {
   return (
     <section
       id="pricing"
-      className="relative scroll-mt-20 overflow-hidden bg-surface-base pt-14 pb-15 lg:pt-29 lg:pb-30"
+      className={`${backgroundVariant ? "flow-surface " : ""}relative scroll-mt-20 overflow-hidden bg-surface-base pt-14 pb-15 lg:pt-29 lg:pb-30`}
     >
+      {backgroundVariant ? <FlowBackdrop variant={backgroundVariant} /> : (<>
       <div className="pricing-backdrop pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="pricing-backdrop-frame">
           <Picture
@@ -118,6 +120,7 @@ export default function PricingSection() {
       </div>
       <div className="pointer-events-none absolute inset-0 overhead-wash z-[1]" aria-hidden="true"></div>
       <div className="pricing-stage pointer-events-none absolute inset-0 z-[1]" aria-hidden="true"></div>
+      </>)}
 
       <Container className="relative z-[2]">
         <SectionHeading

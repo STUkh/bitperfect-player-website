@@ -108,7 +108,7 @@ export default function HomeOpening() {
           {/* No eyebrow: `The app itself` captioned a picture that captions itself
               (DESIGN.md, "The Eyebrow Budget Rule"). */}
           <h2 className="ho-heading text-section-sm text-balance text-text-primary lg:text-headline-sm" data-heading="">
-            One player for your DAC, your EQ and your library.
+            Bit-perfect sound with studio-grade control.
           </h2>
 
           <div className="ho-group" data-group="">

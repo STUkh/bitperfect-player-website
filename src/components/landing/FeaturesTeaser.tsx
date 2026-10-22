@@ -5,6 +5,7 @@ import FeatureLinkCard from '../feature/FeatureLinkCard';
 import FeatureMark from '../feature/FeatureMark';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';
+import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';
 import './FeaturesTeaser.css';
 
 /*
@@ -23,7 +24,7 @@ const items = [
     slug: 'ai-enhancer',
     desc: 'Rebuilds high frequencies that compression removes. Off by default.',
   },
-  { slug: 'eq', desc: 'Parametric, graphic or AutoEQ. Turn it off in one tap.' },
+  { slug: 'eq', desc: 'Parametric EQ, graphic EQ, or AutoEQ calibration profiles. One-tap bypass.' },
   {
     slug: 'library',
     desc: 'Browse your local files instantly by folder, album, artist or tag.',
@@ -31,7 +32,7 @@ const items = [
   { slug: 'casting', desc: 'Stream to cast-enabled speakers and TVs, or receive from your network.' },
   {
     slug: 'dsp',
-    desc: 'Crossfeed for headphones, album loudness and clip protection.',
+    desc: 'Headphone crossfeed, tag-based ReplayGain, and true-peak protection.',
   },
 ];
 
@@ -62,9 +63,10 @@ const allFeaturesHref = withBase('features');
  * on desktop and after the grid on mobile. Cards are told apart by photograph and
  * content, never by hue. No eyebrow.
  */
-export default function FeaturesTeaser() {
+export default function FeaturesTeaser({ backgroundVariant }: FlowProps = {}) {
   return (
-    <section id="features" className="ground features-ground relative scroll-mt-20 bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38">
+    <section id="features" className={`${backgroundVariant ? 'flow-surface ' : ''}ground features-ground relative scroll-mt-20 overflow-hidden bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38`}>
+      {backgroundVariant && <FlowBackdrop variant={backgroundVariant} />}
       <Container className="lg:px-20">
         <div className="flex items-end justify-between gap-12 lg:mb-15">
           {/*

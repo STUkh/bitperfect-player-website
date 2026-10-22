@@ -1,3 +1,4 @@
+import type { FlowProps } from '../common/FlowBackdrop';
 import Band from '../common/Band';
 import ImageSlot from '../common/ImageSlot';
 import RuleList from '../common/RuleList';
@@ -33,9 +34,10 @@ const facts = [
  * `ImageSlot` (`home-statement`, phone to DAC to headphones). Static text; no data or
  * i18n reads.
  */
-export default function StatementBand() {
+export default function StatementBand({ backgroundVariant }: FlowProps) {
   return (
     <Band
+      backgroundVariant={backgroundVariant}
       tone="ivory"
       ground="ground-statement"
       className="pt-14 pb-15 lg:pt-29 lg:pb-30"
