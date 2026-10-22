@@ -1722,13 +1722,13 @@
   }
  },
  "img/home-statement.webp": {
-  "key": "ee31d012eadc",
+  "key": "79eba66f17e5",
   "w": 2560,
   "h": 1440,
   "lqip": {
    "w": 32,
    "h": 18,
-   "src": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAABwBQCdASogABIAPu1mqk2ppaQiMAgBMB2JQBYdg9h3i/Ud3N2F9mB4cbu3pSemvx7KyGSAAP1ucDRNJhSkP4G4s7/KcFzEX9mrRGFVOhYo58RZEVS6YsYffgSPaiUb0Ff4Ls3RPxqsHloXkpEL9mnbKtGPceUSyTrx9TxZIHAaSdOjdjxdVKZgBgki7//fB5H0Qa+nsYZMg5iQydLmxPZ0PcvXf/IYgH2vg9afUTiUVdeQAAA="
+   "src": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAACQBQCdASogABIAPu1kqU2ppaQiMAgBMB2JQBWGarhqCrk5Q6dLcuyaWdm+Xn373TtU/ikJYAD9bnAyXrgksRGP8c3vAsBoXRrNqCXGKlM4LwXY9Sap5U++J9En1+xMs73iUBSZLd+UAa9FmBb0VCqYpIA7XcLzdwfzAtb1DJ+zUF0qAMP/SwQayvbOf4qAYJIu//ucbHvTcMd/iMkEZ6cZszJIYHsek/0MUr6PAdzmTOCgt0xhes4AAAA="
   },
   "sources": {
    "default": {
