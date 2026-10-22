@@ -30,6 +30,7 @@ import CloseBand from '../../components/common/CloseBand';
 import Band from '../../components/common/Band';
 import MediaSplit from '../../components/common/MediaSplit';
 import SectionHeading from '../../components/common/SectionHeading';
+import SpecList from '../../components/common/SpecList';
 import PagerLink from '../../components/feature/PagerLink';
 import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens';
@@ -166,16 +167,15 @@ const showSignalPath = slug === 'usb-dac';
           </p>
         </div>
 
-        <div class="grid grid-cols-2 gap-x-5 lg:col-span-4 lg:grid-cols-1 lg:gap-0 lg:py-1">
-          {
-            page.summary.map((row) => (
-              <div class="flex items-baseline justify-between gap-4 border-t border-border-subtle py-[11px] [&:nth-child(3)]:border-b [&:nth-child(4)]:border-b lg:py-[13px] lg:[&:nth-child(3)]:border-b-0">
-                <span class="text-caption text-text-tertiary">{row.label}</span>
-                <span class="text-small font-semibold tabular-nums text-text-primary">{row.value}</span>
-              </div>
-            ))
-          }
-        </div>
+        <SpecList
+          tone="graphite"
+          items={page.summary}
+          close="none"
+          className="grid grid-cols-2 gap-x-5 lg:col-span-4 lg:grid-cols-1 lg:gap-0 lg:py-1"
+          rowClassName="flex items-baseline justify-between gap-4 py-[11px] [&:nth-child(3)]:border-b [&:nth-child(4)]:border-b lg:py-[13px] lg:[&:nth-child(3)]:border-b-0"
+          labelClassName="text-caption"
+          valueClassName="text-small font-semibold tabular-nums"
+        />
       </div>
     </Container>
   </section>
@@ -366,36 +366,17 @@ const showSignalPath = slug === 'usb-dac';
             />
 
             {beat.stats && (
-              <div
-                class="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
+              <SpecList
+                tone={tone}
+                items={beat.stats}
+                labelTone="accent"
+                close="none"
+                className="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
                 style="--i: 3"
-              >
-                {beat.stats.map((stat) => (
-                  <div
-                    class:list={[
-                      'flex flex-col gap-1 border-t pt-3.5',
-                      onWhite ? 'border-band-rule' : 'border-border-subtle',
-                    ]}
-                  >
-                    <span
-                      class:list={[
-                        'text-label tracking-[1.5px] uppercase',
-                        onWhite ? 'text-band-gold-ink' : 'text-gold',
-                      ]}
-                    >
-                      {stat.label}
-                    </span>
-                    <span
-                      class:list={[
-                        'text-body-lg font-semibold tabular-nums',
-                        onWhite ? 'text-band-ink' : 'text-text-primary',
-                      ]}
-                    >
-                      {stat.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
+                rowClassName="flex flex-col gap-1 pt-3.5"
+                labelClassName="text-label tracking-[1.5px] uppercase"
+                valueClassName="text-body-lg font-semibold tabular-nums"
+              />
             )}
 
             {beat.chips && (
@@ -477,22 +458,15 @@ const showSignalPath = slug === 'usb-dac';
           </p>
         </div>
 
-        <div class="grid grid-cols-1 gap-x-12 lg:col-span-8 lg:grid-cols-2">
-          {
-            (feature?.specs ?? []).map((spec, i, all) => (
-              <div
-                class:list={[
-                  'flex flex-col gap-1.5 border-t border-band-rule py-4 lg:py-5',
-                  i >= all.length - 2 && 'lg:border-b',
-                  i === all.length - 1 && 'border-b',
-                ]}
-              >
-                <span class="mono-spec text-micro text-band-ink-muted uppercase tracking-wider">{spec.label}</span>
-                <span class="text-body-lg font-semibold tabular-nums text-band-ink">{spec.value}</span>
-              </div>
-            ))
-          }
-        </div>
+        <SpecList
+          tone="ivory"
+          items={feature?.specs ?? []}
+          close="grid-2"
+          className="grid grid-cols-1 gap-x-12 lg:col-span-8 lg:grid-cols-2"
+          rowClassName="flex flex-col gap-1.5 py-4 lg:py-5"
+          labelClassName="mono-spec text-micro uppercase tracking-wider"
+          valueClassName="text-body-lg font-semibold tabular-nums"
+        />
       </div>
     </Container>
   </section>

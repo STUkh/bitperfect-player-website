@@ -4,6 +4,7 @@ import { cn } from '../../utils/cn';
 import Band from '../common/Band';
 import MediaSplit from '../common/MediaSplit';
 import SectionHeading from '../common/SectionHeading';
+import SpecList from '../common/SpecList';
 import { reveal } from '../common/bands';
 import Phone from './Phone';
 import type { ScreenName } from '../../data/screens';
@@ -168,30 +169,7 @@ export default function CapabilityBand(props: CapabilityBandProps) {
         )}
 
         {specs && specs.length > 0 && (
-          <dl className="r-rise mt-8 w-full max-w-[560px] lg:mt-10" style={reveal(3)}>
-            {specs.map((spec, i) => (
-              <div
-                key={spec.label}
-                className={cx(
-                  'flex flex-col gap-1 border-t py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 lg:py-4',
-                  ivory ? 'border-band-rule' : 'border-border-subtle',
-                  i === specs.length - 1 && 'border-b',
-                )}
-              >
-                <dt className={cx('shrink-0 text-caption', ivory ? 'text-band-ink-muted' : 'text-text-tertiary')}>
-                  {spec.label}
-                </dt>
-                <dd
-                  className={cx(
-                    'text-small font-semibold tabular-nums sm:text-right',
-                    ivory ? 'text-band-ink' : 'text-text-primary',
-                  )}
-                >
-                  {spec.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <SpecList tone={tone} items={specs} className="r-rise mt-8 w-full max-w-[560px] lg:mt-10" style={reveal(3)} />
         )}
 
         {link && (
