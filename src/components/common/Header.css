@@ -23,16 +23,12 @@
   opacity: 0.85;
 }
 
-/* The bar is fixed and blurs what scrolls under it, so it is always its own
-   layer. Layout containment keeps its reflows from reaching the page. No paint
-   containment: the store badges' cast shadow hangs past the bottom edge. */
+/* The bar is OPAQUE, with no backdrop blur. At 80% graphite the blur turned the
+   page scrolling under it into a soft smudge, and the GPU re-blurred that strip on
+   every scrolled frame; a solid bar costs one flat fill. It is fixed, so it is its
+   own layer either way. Layout containment keeps its reflows from reaching the
+   page. No paint containment: the store badges' cast shadow hangs past the bottom
+   edge. */
 #site-header {
   contain: layout style;
-}
-@media (prefers-reduced-transparency: reduce) {
-  #site-header {
-    background-color: var(--color-surface-base);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
 }

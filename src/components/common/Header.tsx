@@ -29,7 +29,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
     <>
       <header
         id="site-header"
-        className="fixed top-0 right-0 left-0 z-50 border-b border-border-subtle/40 bg-surface-base/80 backdrop-blur-md transition-colors duration-200"
+        className="fixed top-0 right-0 left-0 z-50 border-b border-border-subtle/40 bg-surface-base"
       >
         <Container>
           <nav className="flex h-16 items-center justify-between lg:h-20" aria-label="Main navigation">

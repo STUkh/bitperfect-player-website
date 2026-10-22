@@ -10,6 +10,9 @@
   perspective-origin: 50% 40%;
   user-select: none;
 }
+/* The glow and the floor shadow are radial gradients with no blur filter: the
+   gradient is already soft, and the 20px and 6px blurs that sat on top of them
+   changed no pixel by more than 3/255 while costing a filter pass per raster. */
 .phone-trio-glow {
   position: absolute;
   left: 30%;
@@ -18,7 +21,6 @@
   height: 70%;
   border-radius: 50%;
   background: radial-gradient(closest-side, rgb(232 184 75 / 0.16), transparent);
-  filter: blur(20px);
   pointer-events: none;
 }
 .phone-trio-floor {
@@ -29,7 +31,6 @@
   height: 9%;
   border-radius: 50%;
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.7), transparent);
-  filter: blur(6px);
   pointer-events: none;
 }
 .phone-trio-scene {
