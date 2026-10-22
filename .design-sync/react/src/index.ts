@@ -3,6 +3,8 @@
 // sync. Only Surface (the page ground, for previews) is design-only.
 // Not exported:
 // MobileMenu (the panel Header renders and its burger opens).
+// PhoneFrame/PhoneChassis (Phone's internals). PhoneScreen and PhoneNowPlaying
+// are gone: every device is <Phone screen=... /> (2026-10-22).
 export { default as Button, type ButtonProps } from '@site/components/common/Button';
 export { default as Card, type CardProps } from '@site/components/common/Card';
 export { default as ClosingBanner, type ClosingBannerProps } from '@site/components/common/ClosingBanner';
@@ -20,8 +22,7 @@ export { default as FeatureArt, type FeatureArtProps } from '@site/components/fe
 export { default as FeatureMark, type FeatureMarkProps } from '@site/components/feature/FeatureMark';
 export { default as FeatureScreens, type FeatureScreensProps } from '@site/components/feature/FeatureScreens';
 export { default as PagerLink, type PagerLinkProps } from '@site/components/feature/PagerLink';
-export { default as PhoneFrame, type PhoneFrameProps } from '@site/components/feature/PhoneFrame';
-export { default as PhoneScreen, type PhoneScreenProps } from '@site/components/feature/PhoneScreen';
+export { default as Phone, type PhoneProps } from '@site/components/feature/Phone';
 export { default as PhoneTrio, type PhoneTrioProps } from '@site/components/feature/PhoneTrio';
 export { default as TechIndex, type TechIndexProps } from '@site/components/feature/TechIndex';
 export { default as CapabilityBand, type CapabilityBandProps } from '@site/components/feature/CapabilityBand';
@@ -34,5 +35,4 @@ export { default as StatementBand } from '@site/components/landing/StatementBand
 export { default as LegalDocument, type LegalDocumentProps } from '@site/components/legal/LegalDocument';
 export { default as HoldingPage, type HoldingPageProps } from '@site/components/HoldingPage';
 export { default as Icon, type IconProps } from '@site/components/Icon';
-export { default as PhoneNowPlaying, type PhoneNowPlayingProps } from '@site/components/PhoneNowPlaying';
 export { Surface, type SurfaceProps } from './Surface';

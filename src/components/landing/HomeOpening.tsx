@@ -1,11 +1,10 @@
 import Button from '../common/Button';
 import PlayCta from '../common/PlayCta';
 import Picture from '../common/Picture';
-import PhoneNowPlaying from '../PhoneNowPlaying';
-import PhoneFrame from '../feature/PhoneFrame';
-import PhoneScreen from '../feature/PhoneScreen';
+import Phone from '../feature/Phone';
 import { useBehaviour } from '../behaviour';
 import { pro } from '../../data/site';
+import { fanStyle } from '../feature/phone-fan';
 import { setupHomeOpening } from './HomeOpening.client';
 import './HomeOpening.css';
 
@@ -38,7 +37,8 @@ const trialLine = pro.trialDays
  * a gold `PlayCta` and a secondary "See what it does" button, the conditional trial
  * line (from `pro` in `src/data/site.ts`, omitted when `pro.trialDays` is null), the
  * heading "Every screen runs on the same engine.", and a lineup of the real Equaliser
- * and Library captures flanking `PhoneNowPlaying`.
+ * and Library captures flanking the Now Playing hero phone (`now-playing-hero`, the
+ * one eager screen on the page).
  *
  * Behaviour (desktop >= 1024px, motion allowed): the section is a tall track with a
  * sticky stage. `useBehaviour(setupHomeOpening)` smooths scroll progress `p` (0 to 1)
@@ -54,7 +54,7 @@ export default function HomeOpening() {
   const ref = useBehaviour<HTMLElement>(setupHomeOpening);
 
   return (
-    <section ref={ref} id="hero" className="home-opening" data-home-opening="">
+    <section ref={ref} id="hero" className="home-opening" data-home-opening="" style={fanStyle}>
       <div className="home-opening-stage">
         {/* The listening room behind the copy, then the acoustic hall behind the
             lineup. Decorative, so no alt. Their opacities follow `--p`. */}
@@ -121,17 +121,21 @@ export default function HomeOpening() {
               aria-label="Three app screens: Now Playing, equaliser and library"
             >
               <div className="ho-side ho-left" data-phone="left">
-                <PhoneFrame fill>
-                  <PhoneScreen name="eq" />
-                </PhoneFrame>
+                <Phone screen="eq" fill />
               </div>
               <div className="ho-centre" data-phone="centre">
-                <PhoneNowPlaying />
+                {/* 300px: the same module as the lineup the hero phone travels into. */}
+                <div className="ho-hero-phone">
+                  <Phone
+                    screen="now-playing-hero"
+                    fill
+                    priority
+                    alt="The Bitperfect Player Now Playing screen, mid-track, showing the album artwork, the transport controls and the file's FLAC format and rate"
+                  />
+                </div>
               </div>
               <div className="ho-side ho-right" data-phone="right">
-                <PhoneFrame fill>
-                  <PhoneScreen name="library" />
-                </PhoneFrame>
+                <Phone screen="library" fill />
               </div>
             </div>
           </div>

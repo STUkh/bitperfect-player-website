@@ -1,3 +1,5 @@
+/* The fan (`--fan-spread`, `--fan-turn`, `--fan-dim`) is set inline from phone-fan.ts,
+   which the home opening's lineup script reads too. */
 .phone-trio {
   position: relative;
   width: 100%;
@@ -51,21 +53,21 @@
   filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.55));
 }
 .phone-trio-left {
-  transform: translateX(-104%) translateZ(-120px) rotateY(20deg) scale(0.94);
-  filter: brightness(0.72);
+  transform: translateX(calc(-1 * var(--fan-spread))) translateZ(-120px) rotateY(var(--fan-turn)) scale(0.94);
+  filter: brightness(var(--fan-dim));
 }
 .phone-trio-right {
-  transform: translateX(104%) translateZ(-120px) rotateY(-20deg) scale(0.94);
-  filter: brightness(0.72);
+  transform: translateX(var(--fan-spread)) translateZ(-120px) rotateY(calc(-1 * var(--fan-turn))) scale(0.94);
+  filter: brightness(var(--fan-dim));
 }
 
 /* Hover: the side phones only. The centre phone stays still. */
 .phone-trio[data-open] .phone-trio-left:hover {
-  transform: translateX(-104%) translateZ(-120px) rotateY(20deg) scale(0.94) translateY(-2%);
+  transform: translateX(calc(-1 * var(--fan-spread))) translateZ(-120px) rotateY(var(--fan-turn)) scale(0.94) translateY(-2%);
   filter: brightness(1);
 }
 .phone-trio[data-open] .phone-trio-right:hover {
-  transform: translateX(104%) translateZ(-120px) rotateY(-20deg) scale(0.94) translateY(-2%);
+  transform: translateX(var(--fan-spread)) translateZ(-120px) rotateY(calc(-1 * var(--fan-turn))) scale(0.94) translateY(-2%);
   filter: brightness(1);
 }
 

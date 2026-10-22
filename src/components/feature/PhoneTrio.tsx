@@ -1,6 +1,7 @@
 import { clsx as cx } from 'clsx';
-import PhoneFrame from './PhoneFrame';
-import PhoneScreen from './PhoneScreen';
+import Phone from './Phone';
+import { fanStyle } from './phone-fan';
+import type { ScreenName } from '../../data/screens';
 import type { ClassProps } from '../class-props';
 import { useBehaviour } from '../behaviour';
 import { setupPhoneTrio } from './PhoneTrio.client';
@@ -12,19 +13,17 @@ import './PhoneTrio.css';
  * the centre phone when the stage scrolls into view. Side phones are dimmed
  * with brightness, never opacity, so no bezel shows through another.
  * Stacking comes from translateZ alone: hover never changes z-index. Each phone
- * is a `PhoneFrame` with a `PhoneScreen`. Fills its parent's width.
+ * is a `Phone` showing a capture. Fills its parent's width.
  */
 export interface PhoneTrioProps extends ClassProps {
-  /** Screen key for the left phone (see `PhoneScreen` `name`). Default `library`. */
-  leftScreen?: string;
-  /** Screen key for the centre phone. Default `now-playing`. */
-  centerScreen?: string;
-  /** Screen key for the right phone. Default `eq`. */
-  rightScreen?: string;
+  /** Capture for the left phone (see `Phone` `screen`). Default `library`. */
+  leftScreen?: ScreenName;
+  /** Capture for the centre phone. Default `now-playing`. */
+  centerScreen?: ScreenName;
+  /** Capture for the right phone. Default `eq`. */
+  rightScreen?: ScreenName;
   /** Load the centre screen eagerly. Only when the trio is above the fold. Default false. */
   priority?: boolean;
-  /** Prefix for the three frames' SVG ids; make it unique when two trios share a page. Default `trio`. */
-  idPrefix?: string;
 }
 
 export default function PhoneTrio({
@@ -33,28 +32,21 @@ export default function PhoneTrio({
   rightScreen = 'eq',
   className = '',
   priority = false,
-  idPrefix = 'trio',
 }: PhoneTrioProps) {
   const ref = useBehaviour<HTMLDivElement>(setupPhoneTrio);
   return (
-    <div ref={ref} className={cx(['phone-trio', className])} data-phone-trio="">
+    <div ref={ref} className={cx(['phone-trio', className])} data-phone-trio="" style={fanStyle}>
       <div className="phone-trio-glow" aria-hidden="true" />
       <div className="phone-trio-floor" aria-hidden="true" />
       <div className="phone-trio-scene">
         <div className="phone-trio-phone phone-trio-left">
-          <PhoneFrame fill idPrefix={`${idPrefix}-left`}>
-            <PhoneScreen name={leftScreen} />
-          </PhoneFrame>
+          <Phone screen={leftScreen} fill />
         </div>
         <div className="phone-trio-phone phone-trio-right">
-          <PhoneFrame fill idPrefix={`${idPrefix}-right`}>
-            <PhoneScreen name={rightScreen} />
-          </PhoneFrame>
+          <Phone screen={rightScreen} fill />
         </div>
         <div className="phone-trio-phone phone-trio-center">
-          <PhoneFrame fill idPrefix={`${idPrefix}-center`}>
-            <PhoneScreen name={centerScreen} priority={priority} />
-          </PhoneFrame>
+          <Phone screen={centerScreen} fill priority={priority} />
         </div>
       </div>
     </div>

@@ -71,6 +71,13 @@
   background: var(--color-surface-raised);
   border-radius: var(--radius-phone-outer, 37px);
 }
+/* The hero phone caps itself at the lineup's 300px module; pinned, the group sizes it. */
+.ho-hero-phone {
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  position: relative;
+}
 .ho-heading {
   order: 3;
   grid-column: 1 / -1;
@@ -265,8 +272,8 @@
     perspective: calc(var(--ho-w) * 6);
     transform: translate3d(calc(-50% + min(1280px, 100vw) * 0.24), -50%, 0) scale(calc(1 / var(--ho-k)));
   }
-  /* PhoneNowPlaying caps itself at the 300px module; here the group sizes it. */
-  .ho-group .phone-now-playing {
+  /* The hero phone caps itself at the 300px module; here the group sizes it. */
+  .ho-group .ho-hero-phone {
     max-width: none;
   }
   /* Layers only while the script is animating. At rest they are dropped, so the
@@ -305,7 +312,7 @@
     position: absolute;
     inset: 0;
     opacity: 0;
-    filter: brightness(0.72);
+    filter: brightness(var(--fan-dim));
     transform: translate3d(0, 0, calc(var(--ho-w) * -0.14)) scale(0.9);
   }
 }

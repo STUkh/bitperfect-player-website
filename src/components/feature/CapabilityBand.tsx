@@ -2,14 +2,14 @@ import type { CSSProperties, ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import { cn } from '../../utils/cn';
 import Container from '../common/Container';
-import PhoneFrame from './PhoneFrame';
-import PhoneScreen from './PhoneScreen';
+import Phone from './Phone';
+import type { ScreenName } from '../../data/screens';
 import type { ClassProps } from '../class-props';
 import './CapabilityBand.css';
 
 /**
  * One full-width band of a capability page (`/features/catalog/<id>`): copy on
- * one side, a real app capture in the site's `PhoneFrame` on the other. A page
+ * one side, a real app capture in the site's `Phone` on the other. A page
  * is a run of these that alternates ground AND side together: graphite with the
  * phone right, then ivory with the phone left, then graphite right again.
  *
@@ -238,9 +238,8 @@ export default function CapabilityBand(props: CapabilityBandProps) {
             )}
             style={reveal(2)}
           >
-            <PhoneFrame>
-              <PhoneScreen name={screen} alt={screenAlt} priority={opening} />
-            </PhoneFrame>
+            {/* `screen` comes from page data as a string; Phone leaves an unknown one dark. */}
+            <Phone screen={screen as ScreenName} alt={screenAlt} priority={opening} />
           </div>
         </div>
       </Container>

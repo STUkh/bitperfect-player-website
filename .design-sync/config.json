@@ -58,10 +58,7 @@
       "cardMode": "column",
       "viewport": "1280x900"
     },
-    "PhoneFrame": {
-      "cardMode": "column"
-    },
-    "PhoneScreen": {
+    "Phone": {
       "cardMode": "column"
     },
     "PhoneTrio": {
@@ -107,15 +104,13 @@
     "ImageSlot": "../groups/common.md",
     "Logo": "../groups/common.md",
     "PageHeader": "../groups/common.md",
-    "PhoneNowPlaying": "../groups/common.md",
     "StoreBadges": "../groups/common.md",
     "Surface": "../groups/common.md",
     "FeatureArt": "../groups/feature.md",
     "FeatureMark": "../groups/feature.md",
     "FeatureScreens": "../groups/feature.md",
     "PagerLink": "../groups/feature.md",
-    "PhoneFrame": "../groups/feature.md",
-    "PhoneScreen": "../groups/feature.md",
+    "Phone": "../groups/feature.md",
     "PhoneTrio": "../groups/feature.md",
     "CTASection": "../groups/landing.md",
     "FeaturesTeaser": "../groups/landing.md",

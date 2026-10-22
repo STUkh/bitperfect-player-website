@@ -300,10 +300,6 @@ html,body{margin:0;background:#191919}
 <p class="g-note">An image slot: the real plate once one exists, a registration frame until then. The frame keeps the aspect ratio when the plate lands.</p>
 <div class="g-frame g-stage-ivory" style="padding:28px"><x-import component-from-global-scope="BitperfectPlayer.ImageSlot" name="home-privacy" variant="ivory" ratio="3 / 1" ships="2560x853" hint-size="100%,300px"></x-import></div></div>
 
-<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneNowPlaying</p><span class="g-code">className</span></div>
-<p class="g-note">The hero device: the app's Now Playing capture in the site's phone frame. Fills its parent's width; size it with a wrapper.</p>
-<div class="g-stage" style="justify-content:center"><div style="width:240px"><x-import component-from-global-scope="BitperfectPlayer.PhoneNowPlaying" hint-size="240px,520px"></x-import></div></div></div>
-
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">TextureStrip</p><span class="g-code">material wood | copper | glass</span></div>
 <p class="g-note">Shown above under <a href="#materials">Materials</a>.</p></div>
 
@@ -317,7 +313,7 @@ html,body{margin:0;background:#191919}
 <h3 class="g-h3" style="color:var(--color-gold)">feature</h3>
 
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">CapabilityBand</p><span class="g-code">tone, media, title, titleAs, eyebrow, body, badge, specs, backHref, backLabel, screen, link</span></div>
-<p class="g-note">One band of a capability page: copy on one side, a real capture in the PhoneFrame on the other, 7/5 from lg. Alternate ground and side together.</p>
+<p class="g-note">One band of a capability page: copy on one side, a real capture in the Phone on the other, 7/5 from lg. Alternate ground and side together.</p>
 <div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.CapabilityBand" tone="ivory" media="left" title="How it works" body="Android's system mixer resamples audio to 48 kHz on many phones. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them." screen="output" hint-size="100%,760px"></x-import></div></div>
 
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">TechIndex</p><span class="g-code">base, id</span></div>
@@ -331,16 +327,16 @@ html,body{margin:0;background:#191919}
 <x-import component-from-global-scope="BitperfectPlayer.PagerLink" direction="next" href="/features/catalog/audio-pipeline-precision" label="Next" title="32-bit and 64-bit processing" hint-size="100%,96px"></x-import>
 </div></div></div>
 
-<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneFrame · PhoneScreen</p><span class="g-code">PhoneFrame: fill, screen, children · PhoneScreen: name, alt, priority</span></div>
-<p class="g-note">The site's one device, a Galaxy S25 Ultra chassis, around a capture of the shipping app. Never draw an app screen.</p>
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Phone</p><span class="g-code">screen | src + width + height, alt, priority, fill, sizes</span></div>
+<p class="g-note">The site's one device, a Galaxy S25 Ultra chassis drawn for the image it holds: a capture by name, or any image with its pixel size (a wide one turns it landscape). Never draw an app screen.</p>
 <div class="g-stage" style="justify-content:center;gap:40px">
-<x-import component-from-global-scope="BitperfectPlayer.PhoneFrame" hint-size="296px,640px"><x-import component-from-global-scope="BitperfectPlayer.PhoneScreen" name="eq-sculptor" hint-size="100%,100%"></x-import></x-import>
-<x-import component-from-global-scope="BitperfectPlayer.PhoneFrame" screen="signal-path" hint-size="296px,640px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Phone" screen="eq-sculptor" hint-size="296px,640px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Phone" screen="now-playing-hero" hint-size="296px,640px"></x-import>
 </div></div>
 
-<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneTrio</p><span class="g-code">leftScreen, centerScreen, rightScreen, priority, idPrefix</span></div>
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneTrio</p><span class="g-code">leftScreen, centerScreen, rightScreen, priority</span></div>
 <p class="g-note">Three phones in a shallow 3D fan, the sides dimmed by brightness and set back in depth. Fills its parent's width.</p>
-<div class="g-frame" style="padding:40px 24px"><x-import component-from-global-scope="BitperfectPlayer.PhoneTrio" left-screen="library" center-screen="now-playing" right-screen="eq" id-prefix="guide-trio" hint-size="100%,640px"></x-import></div></div>
+<div class="g-frame" style="padding:40px 24px"><x-import component-from-global-scope="BitperfectPlayer.PhoneTrio" left-screen="library" center-screen="now-playing" right-screen="eq" hint-size="100%,640px"></x-import></div></div>
 
 <div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">FeatureScreens</p><span class="g-code">slug, state</span></div>
 <p class="g-note">The phone for one beat of a feature route: the screen that answers the sentence beside it.</p>

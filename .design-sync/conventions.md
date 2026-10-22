@@ -13,11 +13,11 @@ No provider. `styles.css` loads Manrope, the tokens, component styles and image 
 | Chrome | `Header` (fixed; `pathname`), `Footer` (`pathname`) |
 | Home, in order | `HomeOpening` (hero + three-phone showcase, ONE block), `StatementBand` (ivory), `FeaturesTeaser`, `TextureStrip`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
 | Inner pages | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner`, `TechIndex` (the grouped capability index, no content props), `CapabilityBand` (copy beside a phone, `tone` graphite/ivory, `media` right/left, `specs`), `LegalDocument` (markdown children, `headings`) |
-| Phones (real captures) | `PhoneFrame` + `PhoneScreen`, `PhoneNowPlaying`, `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
+| Phones (real captures) | `Phone` (`screen`, or `src` `width` `height`; wide is landscape), `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
 | Primitives | `Button` (`variant` primary/secondary/outline, `size`, `href`), `PlayCta` (install: gold key-cap + `PlayStoreMark` + `label`), `PlayStoreMark`, `Card` (lacquer chassis; padding is yours; `as="a"` + `href`), `PagerLink` (`direction`, `href`, `label`, `title`), `StoreBadges`, `TextureStrip` (`material` wood/copper/glass), `ImageSlot`, `Logo`, `Container` (1280px column), `FeatureMark`, `FeatureArt`, `Icon` |
 | Whole page | `HoldingPage` |
 
-- Screen names (`PhoneScreen name=`, `PhoneTrio leftScreen/centerScreen/rightScreen`): now-playing, now-playing-hero, eq, eq-filters, eq-presets, eq-sculptor, library, tracks, album, sources, output, track-info, fidelity, signal-path, signal-clean, cast, cast-sheet, receiver, dsp, dsp-sheet, playback, ai, ai-enhancer, ai-karaoke, ai-neural.
+- Screen names (`Phone screen=`, `PhoneTrio leftScreen/centerScreen/rightScreen`): now-playing, now-playing-hero, eq, eq-filters, eq-presets, eq-sculptor, library, tracks, album, sources, output, track-info, fidelity, signal-path, signal-clean, cast, cast-sheet, receiver, dsp, dsp-sheet, playback, ai, ai-enhancer, ai-karaoke, ai-neural.
 - `FeatureArt slug=` / `FeatureScreens slug=`: usb-dac, eq, library, casting, dsp, ai-enhancer.
 - Each component's `.prompt.md` and `.d.ts` hold its full API; read them before using a prop.
 
@@ -63,7 +63,7 @@ Full rules: `guidelines/DESIGN.md`. Every compiled class: `_ds_bundle.css`.
     <section className="bg-band-ivory py-14 lg:py-28">
       <Container className="grid items-center gap-10 lg:grid-cols-2">
         <h2 className="text-section-m font-bold text-band-ink lg:text-headline-sm">Thirty-two bands, each one independent</h2>
-        <PhoneFrame><PhoneScreen name="eq-sculptor" /></PhoneFrame>
+        <Phone screen="eq-sculptor" />
       </Container>
     </section>
     <section className="bg-surface-base py-14 lg:py-28">

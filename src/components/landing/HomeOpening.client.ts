@@ -1,3 +1,5 @@
+import { FAN } from '../feature/phone-fan';
+
 /**
  * One scalar drives the whole opening: how far the track has scrolled past the
  * viewport top, as a fraction of the pin. It is smoothed rather than the scroll,
@@ -45,7 +47,7 @@ export function setupHomeOpening(section: HTMLElement) {
   /* Seconds the spring takes to roughly reach the scroll position. */
   const SMOOTH_TIME = 0.14;
   /* How far the side phones' centres sit from the centre phone's, in phone widths. */
-  const SPREAD = 1.04;
+  const SPREAD = FAN.spread;
   /* The lineup's visual width in phone widths: the centre phone plus each side
      phone's offset and its turned, set-back half, with a little air. */
   const LINEUP_WIDTH = 2.85;
@@ -128,8 +130,8 @@ export function setupHomeOpening(section: HTMLElement) {
     const z = (-(0.42 * s + 0.14) * w).toFixed(2);
     const sc = (0.9 + 0.04 * s).toFixed(4);
     const x = SPREAD * 100 * s;
-    left.style.transform = `translate3d(${(-x).toFixed(3)}%, 0, ${z}px) rotateY(${(20 * s).toFixed(3)}deg) scale(${sc})`;
-    right.style.transform = `translate3d(${x.toFixed(3)}%, 0, ${z}px) rotateY(${(-20 * s).toFixed(3)}deg) scale(${sc})`;
+    left.style.transform = `translate3d(${(-x).toFixed(3)}%, 0, ${z}px) rotateY(${(FAN.turn * s).toFixed(3)}deg) scale(${sc})`;
+    right.style.transform = `translate3d(${x.toFixed(3)}%, 0, ${z}px) rotateY(${(-FAN.turn * s).toFixed(3)}deg) scale(${sc})`;
     left.style.opacity = o;
     right.style.opacity = o;
   };

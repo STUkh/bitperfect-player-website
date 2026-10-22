@@ -1,0 +1,55 @@
+---
+/**
+ * Dev-only fixture: one `Phone` per aspect the geometry has to handle, in range,
+ * at both clamps and in landscape. `npm run dev`, then open /preview/phones.
+ *
+ * `getStaticPaths` is empty outside dev, so `astro build` emits nothing here (a
+ * static `phones.astro` would ignore it, hence the dynamic segment).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Phone from '../../components/feature/Phone';
+
+export function getStaticPaths() {
+  if (!import.meta.env.DEV) return [];
+  return [{ params: { fixture: 'phones' } }];
+}
+
+/* The declared size is what the device is drawn for; the image is cropped
+   object-cover from the top when it does not match. */
+const portrait = [
+  { label: '9:24 (clamped to 9:22.5)', w: 900, h: 2400 },
+  { label: '9:22.5', w: 900, h: 2250 },
+  { label: '9:20 (a capture)', w: 556, h: 1236 },
+  { label: '9:16', w: 900, h: 1600 },
+  { label: '1:1 (clamped to portrait 9:16)', w: 1000, h: 1000 },
+];
+const landscape = [
+  { label: '16:9 landscape', src: 'img/hero-backdrop.webp', w: 1672, h: 941 },
+  { label: '21:9 landscape', src: 'img/home-statement.webp', w: 2100, h: 900 },
+];
+---
+
+<BaseLayout title="Phone fixture" description="Dev-only phone geometry fixture." noindex>
+  <main class="bg-surface-base px-6 py-16" data-phone-fixture>
+    <div class="flex flex-wrap items-end gap-10">
+      {
+        portrait.map((p) => (
+          <figure class="m-0" data-aspect={p.label}>
+            <Phone src="screens/now-playing.webp" width={p.w} height={p.h} />
+            <figcaption class="mt-3 text-caption text-text-secondary">{p.label}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <div class="mt-16 grid gap-10 lg:grid-cols-2">
+      {
+        landscape.map((p) => (
+          <figure class="m-0" data-aspect={p.label}>
+            <Phone src={p.src} width={p.w} height={p.h} />
+            <figcaption class="mt-3 text-caption text-text-secondary">{p.label}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

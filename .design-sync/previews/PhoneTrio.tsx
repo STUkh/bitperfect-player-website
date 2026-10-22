@@ -5,9 +5,9 @@ export function Default() {
 }
 
 export function CastingLineup() {
-  return <PhoneTrio leftScreen="receiver" centerScreen="cast" rightScreen="signal-path" idPrefix="trio-cast" />;
+  return <PhoneTrio leftScreen="receiver" centerScreen="cast" rightScreen="signal-path" />;
 }
 
 export function OutputLineup() {
-  return <PhoneTrio leftScreen="output" centerScreen="now-playing-hero" rightScreen="dsp" idPrefix="trio-out" />;
+  return <PhoneTrio leftScreen="output" centerScreen="now-playing-hero" rightScreen="dsp" />;
 }

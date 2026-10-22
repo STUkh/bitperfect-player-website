@@ -86,7 +86,8 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 - A renamed prop breaks its preview's compile and drops the card to the floor card: grep the build log for `preview build failed`.
 - esbuild does not type-check previews: a missing required prop (e.g. `ClosingBanner`'s `eyebrow`) renders silently wrong instead of failing.
 - Measures, extra tracking steps and extra radii are arbitrary values, not tokens (DESIGN.md says so since 2026-10-22). Name a token in `conventions.md` only once it exists in `global.css`.
-- `HoldingPage`, `Icon`, `PhoneNowPlaying` and `Surface` live outside the group folders; they are mapped to `landing` (HoldingPage) and `common` (the rest).
+- `HoldingPage`, `Icon` and `Surface` live outside the group folders; they are mapped to `landing` (HoldingPage) and `common` (the rest).
+- 2026-10-22: `PhoneFrame` + `PhoneScreen` and `PhoneNowPlaying` became one exported `Phone` (`screen`, or `src` + `width` + `height`). The old names, their previews and config entries are gone; delete their cards in the project on the next sync.
 
 ## Templates (Claude Design `templates/`)
 
