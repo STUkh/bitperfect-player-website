@@ -223,17 +223,17 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
           className="r-rise mt-[34px] border-t border-border-subtle pt-6 lg:mx-auto lg:mt-18 lg:max-w-pricing lg:pt-[34px]"
           style={stagger(3)}
         >
-          <span className="block text-caption text-text-tertiary lg:mb-[26px]">{t('pricing.covers_title')}</span>
+          <span className="block text-caption text-text-tertiary lg:mb-[26px] lg:text-center">{t('pricing.covers_title')}</span>
           <div className="mt-[18px] lg:mt-0 lg:grid lg:grid-cols-3">
             {unlocks.map((unlock, i) => (
               <div
                 key={unlock.name}
                 className={cx(
-                  i > 0 && 'mt-[18px] border-t border-border-subtle pt-[18px] lg:mt-0 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-[34px]',
-                  i < 2 && 'lg:pr-[34px]',
+                  'lg:px-[34px] lg:text-center',
+                  i > 0 && 'mt-[18px] border-t border-border-subtle pt-[18px] lg:mt-0 lg:border-t-0 lg:border-l lg:pt-0',
                 )}
               >
-                <span className="block text-body-sm font-semibold tracking-title text-text-primary lg:text-body-lg">
+                <span className="block text-body-sm font-semibold tracking-title text-balance text-text-primary lg:text-body-lg">
                   {unlock.name}
                 </span>
                 {/* The one entry with a hardware condition gets a way to check it. */}
@@ -267,7 +267,9 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-1.5 lg:mx-auto lg:mt-9 lg:max-w-pricing lg:flex-row lg:flex-wrap lg:gap-x-[22px]">
+        {/* Centred under the centred heading and plans on desktop: the lines wrap as
+            a balanced block rather than a ragged left column. */}
+        <div className="mt-8 flex flex-col gap-1.5 lg:mx-auto lg:mt-9 lg:max-w-pricing lg:flex-row lg:flex-wrap lg:justify-center lg:gap-x-[22px] lg:gap-y-2 lg:text-center">
           {disclosures.map((line) => (
             <span key={line} className="text-xs text-text-tertiary">
               {line}
