@@ -105,28 +105,3 @@ html.js .lacquer-lift.r-rise.is-visible:hover {
     transform: none;
   }
 }
-
-/* ── GROUND: a textured plate behind a band ──
-   The plates are SVG/WebP files in public/grounds and public/img. A band opts in with
-   `ground ground-<name>`; the variant sets the file and where it sits:
-     --ground-image  --ground-size  --ground-position  --ground-opacity  --ground-mask
-   Variants are defined next to the band that uses them. The plate sits UNDER content
-   (z-index -1) and never takes a pointer. */
-.ground {
-  position: relative;
-  isolation: isolate;
-}
-.ground::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: var(--ground-image, none);
-  background-size: var(--ground-size, cover);
-  background-position: var(--ground-position, center);
-  background-repeat: var(--ground-repeat, no-repeat);
-  opacity: var(--ground-opacity, 1);
-  -webkit-mask-image: var(--ground-mask, none);
-  mask-image: var(--ground-mask, none);
-}

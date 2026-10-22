@@ -3,7 +3,6 @@ import { clsx as cx } from 'clsx';
 import Band from './Band';
 import Button from '../primitives/Button';
 import SectionHeading from './SectionHeading';
-import './ClosingBanner.css';
 
 /**
  * The closing call to action of a page: a centred band on a rosette ground with an

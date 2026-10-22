@@ -1,13 +1,8 @@
 /* ── The page header plate ──
    Flat graphite with two quiet lights: an overhead wash that falls from the top edge
-   and a fine brushed grain (the dither plate) that keeps a large flat field from
-   reading as a screen. Neither is decoration to look at; they are the material. */
-.ground-brushed {
-  --ground-image: url('/grounds/dither.svg');
-  --ground-size: 600px 300px;
-  --ground-repeat: repeat;
-  --ground-opacity: 0.5;
-}
+   and a fine brushed grain (`ground-brushed`, src/styles/grounds.css) that keeps a
+   large flat field from reading as a screen. Neither is decoration to look at; they
+   are the material. */
 .overhead-wash {
   background-color: var(--color-surface-raised);
   background-image: radial-gradient(

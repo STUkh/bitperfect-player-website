@@ -1,0 +1,209 @@
+/* ── GROUNDS: the textured plate behind a band ──
+   Every ground the site draws is defined HERE, in one sheet that ships with
+   global.css on every page. A variant used to live next to the band that first
+   used it, so a page that borrowed it without rendering that band (the halftone
+   on /features, the beats on a feature route) asked for a plate that was never
+   on the page, and the band went flat.
+
+   The plates are SVG/WebP files in public/grounds and public/img (drawn by
+   design/grounds.mjs). A band opts in with `ground ground-<name>`, or `Band
+   ground="ground-<name>"`; the variant sets the file and where it sits:
+     --ground-image  --ground-size  --ground-position  --ground-repeat
+     --ground-opacity  --ground-mask
+   Light motifs only sit on `band-ivory`, dark ones on graphite: their ink is baked
+   into the file. The plate sits UNDER content (z-index -1) and never takes a
+   pointer. */
+.ground {
+  position: relative;
+  isolation: isolate;
+}
+.ground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--ground-image, none);
+  background-size: var(--ground-size, cover);
+  background-position: var(--ground-position, center);
+  background-repeat: var(--ground-repeat, no-repeat);
+  opacity: var(--ground-opacity, 1);
+  -webkit-mask-image: var(--ground-mask, none);
+  mask-image: var(--ground-mask, none);
+}
+
+/* ── samples · dark ── the home features band, a feature route's dark beat ──
+   The spectrum plate behind the band, faint, fading into the page. */
+.features-ground,
+.ground-samples {
+  --ground-image: url('/grounds/samples.svg');
+  --ground-size: 100% auto;
+  --ground-position: center 0;
+  --ground-opacity: 1;
+  --ground-mask: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+
+/* ── interference · dark ── a feature route's dark beat ──
+   Two point sources above the band and the rings they throw. The plate fades
+   itself out below, so it only needs pinning to the top edge. */
+.ground-interference {
+  --ground-image: url('/grounds/interference.svg');
+  --ground-size: 100% auto;
+  --ground-position: center top;
+  --ground-opacity: 1;
+}
+@media (max-width: 1023px) {
+  .ground-interference {
+    --ground-size: 1400px auto;
+  }
+}
+
+/* ── halftone · light ── the privacy band, the /features compatibility band, a light beat ──
+   A fine halftone: dots large in the upper corners, thinning to nothing toward
+   the middle and the foot. The plate is 2400x1100 and pinned to the top. */
+.ground-halftone {
+  --ground-image: url('/grounds/halftone.svg');
+  --ground-size: 100% auto;
+  --ground-position: center top;
+  --ground-opacity: 0.9;
+  --ground-mask: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+@media (max-width: 1023px) {
+  .ground-halftone {
+    --ground-size: 960px auto;
+    --ground-position: left top;
+  }
+}
+
+/* ── harmonograph · light ── a feature route's light beat ──
+   One damped-pendulum figure, hung behind the screen (a light beat's art is on
+   the right) and masked out before it reaches the copy column. On a phone the
+   screen comes first, so the figure sits behind it and fades down the band. */
+.ground-harmonograph {
+  --ground-image: url('/grounds/harmonograph.svg');
+  --ground-size: 1100px 1100px;
+  --ground-position: 108% 50%;
+  --ground-opacity: 1;
+  --ground-mask: linear-gradient(90deg, transparent 34%, #000 72%);
+}
+@media (max-width: 1023px) {
+  .ground-harmonograph {
+    --ground-size: 760px 760px;
+    --ground-position: 50% 0;
+    --ground-mask: linear-gradient(180deg, #000 30%, transparent 70%);
+  }
+}
+
+/* ── grid · light ── the statement band ──
+   The same grid as the closing band, hung from the upper right so it sits behind
+   the fact stack and dies out before it reaches the headline. */
+.ground-statement {
+  --ground-image:
+    linear-gradient(rgba(23, 23, 23, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.05) 1px, transparent 1px);
+  --ground-size: 44px 44px;
+  --ground-position: right top;
+  --ground-repeat: repeat;
+  --ground-mask: radial-gradient(48% 78% at 88% 0%, #000 0%, transparent 100%);
+}
+.ground-statement::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(40% 60% at 92% 0%, rgba(232, 184, 75, 0.06) 0%, transparent 100%);
+}
+@media (max-width: 1023px) {
+  .ground-statement {
+    --ground-mask: radial-gradient(90% 40% at 100% 0%, #000 0%, transparent 100%);
+  }
+}
+
+/* ── grid · light ── the home closing band ──
+   A faint engineering grid fades up from the foot, under a soft warm glow that
+   sits where the page ends. Ivory stays the colour; the plate is a whisper. */
+.ground-cta {
+  --ground-image:
+    linear-gradient(rgba(23, 23, 23, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.045) 1px, transparent 1px);
+  --ground-size: 44px 44px;
+  --ground-position: center bottom;
+  --ground-repeat: repeat;
+  --ground-mask: radial-gradient(70% 62% at 50% 100%, #000 0%, transparent 100%);
+}
+.ground-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(60% 46% at 50% 104%, rgba(232, 184, 75, 0.2) 0%, rgba(232, 184, 75, 0.06) 55%, transparent 100%);
+}
+
+/* ── grid · light ── a capability page's ivory band ──
+   The statement band's fine grid, hung from the corner the phone sits in and
+   dying out before it reaches the copy. */
+.ground-capability-ivory {
+  --ground-image:
+    linear-gradient(rgba(23, 23, 23, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.05) 1px, transparent 1px);
+  --ground-size: 44px 44px;
+  --ground-position: left top;
+  --ground-repeat: repeat;
+  --ground-mask: radial-gradient(44% 80% at 8% 0%, #000 0%, transparent 100%);
+}
+.ground-capability-ivory[data-media='right'] {
+  --ground-position: right top;
+  --ground-mask: radial-gradient(44% 80% at 92% 0%, #000 0%, transparent 100%);
+}
+@media (max-width: 1023px) {
+  .ground-capability-ivory,
+  .ground-capability-ivory[data-media='right'] {
+    --ground-mask: radial-gradient(90% 36% at 100% 100%, #000 0%, transparent 100%);
+  }
+}
+
+/* ── dither · dark ── the page header, a capability page's graphite band ──
+   A fine brushed grain that keeps a large flat field from reading as a screen.
+   The page header and a capability page's opening band carry it at half
+   strength; a capability page's later graphite bands, fainter. */
+.ground-brushed {
+  --ground-image: url('/grounds/dither.svg');
+  --ground-size: 600px 300px;
+  --ground-repeat: repeat;
+  --ground-opacity: 0.5;
+}
+.ground-capability-graphite {
+  --ground-image: url('/grounds/dither.svg');
+  --ground-size: 600px 300px;
+  --ground-repeat: repeat;
+  --ground-opacity: 0.32;
+}
+.ground-capability-graphite.capability-band-opening {
+  --ground-opacity: 0.5;
+}
+
+/* ── guilloche · dark ── the closing banner ──
+   One gold-line rosette rolls in from the right edge, large enough to be read
+   as engraving rather than a picture. It is masked to fade before the copy
+   column so the centred text keeps its contrast. */
+.ground-rosette {
+  --ground-image: url('/grounds/guilloche.svg');
+  --ground-size: 1100px 1100px;
+  --ground-position: 118% 20%;
+  --ground-opacity: 1;
+  --ground-mask: linear-gradient(90deg, transparent 38%, #000 78%);
+}
+/* The plate's strokes are 8% gold; brightened so they read at engraving strength. */
+.ground-rosette::before {
+  filter: brightness(2.6);
+}
+@media (max-width: 767px) {
+  .ground-rosette {
+    --ground-size: 700px 700px;
+    --ground-position: 130% 30%;
+    --ground-mask: linear-gradient(90deg, transparent 20%, #000 90%);
+    --ground-opacity: 0.7;
+  }
+}

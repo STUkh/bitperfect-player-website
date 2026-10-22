@@ -49,15 +49,6 @@
 }
 */
 
-/* ── Ground: the spectrum plate behind the band, faint, fading into the page. ── */
-.features-ground {
-  --ground-image: url('/grounds/samples.svg');
-  --ground-size: 100% auto;
-  --ground-position: center 0;
-  --ground-opacity: 1;
-  --ground-mask: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
-}
-
 /* ── Card art band: the photo, flush in the lacquer, melting into the body. ── */
 .features-card-art {
   position: relative;

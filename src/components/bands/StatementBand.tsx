@@ -3,7 +3,6 @@ import Band from '../sections/Band';
 import ImageSlot from '../primitives/ImageSlot';
 import RuleList from '../sections/RuleList';
 import SectionHeading from '../sections/SectionHeading';
-import './StatementBand.css';
 
 const facts = [
   {

@@ -42,7 +42,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 - `ASSET_DIRS` = `screens img brand grounds`, in both `build-css.mjs` and `overrides/css.mjs`; a new public image folder must be added to both (and to the esbuild externals).
 - Every image path in a component goes through `withBase('img/x.webp')` from `utils/nav`, never a root-absolute string and never another helper: `nav.ts` hands it to `asset()`, which reads the computed `background-image` of the matching `.bpa-*` probe (a URL the browser already resolved against wherever `styles.css` is served). Links keep their site paths.
 - Grounds are referenced from CSS only (`--ground-image: url(/grounds/…)`), so the url rewrite covers them; `nav.ts` does not match `grounds/`. A component that builds a grounds path in TS would 404.
-- Known limitation: `PrivacyBand.css`, `FeaturesTeaser.css`, `PageHeader.css` and `ClosingBanner.css` use root-absolute `url('/grounds/*.svg')`. That is correct while the site base is `/`, and the design build rewrites them to `./assets/grounds/`. If the site base ever changes, these four need withBase-style handling.
+- Known limitation: `src/styles/grounds.css` (every ground plate) uses root-absolute `url('/grounds/*.svg')`. That is correct while the site base is `/`, and the design build rewrites them to `./assets/grounds/`. If the site base ever changes, that sheet needs withBase-style handling.
 - Phone screens are real captures and are never redrawn.
 
 ## Adding a component

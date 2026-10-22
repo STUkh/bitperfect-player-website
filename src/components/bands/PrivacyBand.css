@@ -16,20 +16,3 @@
 .privacy-band-link:active {
   color: var(--color-band-ink);
 }
-
-/* ── The privacy band's ground ──
-   A fine halftone: dots large in the upper corners, thinning to nothing toward
-   the middle and the foot. The plate is 2400x1100 and pinned to the top. */
-.ground-halftone {
-  --ground-image: url('/grounds/halftone.svg');
-  --ground-size: 100% auto;
-  --ground-position: center top;
-  --ground-opacity: 0.9;
-  --ground-mask: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
-}
-@media (max-width: 1023px) {
-  .ground-halftone {
-    --ground-size: 960px auto;
-    --ground-position: left top;
-  }
-}

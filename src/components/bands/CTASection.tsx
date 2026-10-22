@@ -3,7 +3,6 @@ import CloseBand from '../sections/CloseBand';
 import PlayCta from '../primitives/PlayCta';
 import { reveal } from '../sections/bands';
 import { pro } from '../../data/site';
-import './CTASection.css';
 
 /* Read the headline term off the pricing model, so the closing action and the
    pricing card can never state two different prices. */
