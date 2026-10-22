@@ -39,7 +39,7 @@ const criticalCss = () => ({
         preload: "swap",
         pruneSource: false,
         reduceInlineStyles: false,
-        allowRules: [/html\.js/, /is-visible/, /is-armed/, /is-active/, /data-(open|moving|armed|bound)/, /aria-expanded/],
+        allowRules: [/html\.js/, /perf-lite/, /is-visible/, /is-armed/, /is-active/, /data-(open|moving|armed|bound)/, /aria-expanded/],
         logLevel: "warn",
       });
       const walk = (d) =>

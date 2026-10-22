@@ -269,7 +269,6 @@
     top: 50%;
     width: var(--ho-w);
     margin: 0;
-    perspective: calc(var(--ho-w) * 6);
     transform: translate3d(calc(-50% + min(1280px, 100vw) * 0.24), -50%, 0) scale(calc(1 / var(--ho-k)));
   }
   /* The hero phone caps itself at the 300px module; here the group sizes it. */
@@ -298,13 +297,22 @@
     pointer-events: none;
   }
 
+  /* No 3D scene. The fan used to be a preserve-3d context under a perspective on
+     the group, which the GPU re-composited in depth on every frame and which was
+     the costliest thing left on the page. Each side phone now carries its OWN
+     `perspective()` at the head of its transform. Its transform-origin (its
+     centre) is the same point as the group's perspective-origin (the group's
+     centre), and for a shared origin perspective-on-the-parent and
+     perspective()-first are the same matrix, so the projection is unchanged.
+     What the 3D context also did was depth-sort: the sides sit behind the centre
+     phone, so z-index now says so. */
   .ho-lineup {
     display: block;
     position: relative;
-    transform-style: preserve-3d;
   }
   .ho-centre {
     position: relative;
+    z-index: 1;
     width: 100%;
     margin: 0;
   }
@@ -312,8 +320,14 @@
     margin: 0;
     position: absolute;
     inset: 0;
+    z-index: 0;
     opacity: 0;
     filter: brightness(var(--fan-dim));
-    transform: translate3d(0, 0, calc(var(--ho-w) * -0.14)) scale(0.9);
+    transform: perspective(calc(var(--ho-w) * 6)) translate3d(0, 0, calc(var(--ho-w) * -0.14)) scale(0.9);
+  }
+  /* Lite mode (a device that cannot hold the frame rate, see the script): the
+     fan slides out flat, a 2D transform with no projection at all. */
+  :root.perf-lite .ho-side {
+    transform: scale(0.9);
   }
 }

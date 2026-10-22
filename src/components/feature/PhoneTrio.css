@@ -6,9 +6,16 @@
   max-width: 1120px;
   margin-inline: auto;
   aspect-ratio: 10 / 7;
-  perspective: 1800px;
-  perspective-origin: 50% 40%;
+  /* cqw for the side phones' projection origin, below. */
+  container-type: inline-size;
   user-select: none;
+}
+/* Lite mode (see HomeOpening.client.ts) turns the fan flat. The turn is
+   important because the fan's own values are set inline. */
+:root.perf-lite .phone-trio {
+  --fan-turn: 0deg !important;
+  --fan-z: 0px;
+  --fan-z-in: 0px;
 }
 /* The glow and the floor shadow are radial gradients with no blur filter: the
    gradient is already soft, and the 20px and 6px blurs that sat on top of them
@@ -33,10 +40,17 @@
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.7), transparent);
   pointer-events: none;
 }
+/* No 3D scene: a preserve-3d context is composited in depth on every frame, the
+   costliest kind of layer there is. Each side phone instead carries its own
+   perspective(1800px) at the head of its transform, about the point that was the
+   stage's perspective-origin (50% 40% of the 10:7 stage): in the phone's own box
+   that is x 50%, y 24.5cqw (40% of 70cqw, less the 5% top of 70cqw). The two
+   translateY terms move the transform back to the phone's centre for the fan
+   itself, so the matrix is the one the 3D scene produced. Paint order already
+   puts the centre phone last, on top, which is what the depth sort did. */
 .phone-trio-scene {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
 }
 
 .phone-trio-phone {
@@ -53,22 +67,26 @@
   transform: none;
   filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.55));
 }
-.phone-trio-left {
-  transform: translateX(calc(-1 * var(--fan-spread))) translateZ(-120px) rotateY(var(--fan-turn)) scale(0.94);
+.phone-trio-left,
+.phone-trio-right {
+  transform-origin: 50% 24.5cqw;
+  transform: perspective(1800px) translateY(calc(50% - 24.5cqw)) var(--fan-t) translateY(calc(24.5cqw - 50%));
   filter: brightness(var(--fan-dim));
 }
+.phone-trio-left {
+  --fan-t: translateX(calc(-1 * var(--fan-spread))) translateZ(var(--fan-z, -120px)) rotateY(var(--fan-turn)) scale(0.94);
+}
 .phone-trio-right {
-  transform: translateX(var(--fan-spread)) translateZ(-120px) rotateY(calc(-1 * var(--fan-turn))) scale(0.94);
-  filter: brightness(var(--fan-dim));
+  --fan-t: translateX(var(--fan-spread)) translateZ(var(--fan-z, -120px)) rotateY(calc(-1 * var(--fan-turn))) scale(0.94);
 }
 
 /* Hover: the side phones only. The centre phone stays still. */
 .phone-trio[data-open] .phone-trio-left:hover {
-  transform: translateX(calc(-1 * var(--fan-spread))) translateZ(-120px) rotateY(var(--fan-turn)) scale(0.94) translateY(-2%);
+  --fan-t: translateX(calc(-1 * var(--fan-spread))) translateZ(var(--fan-z, -120px)) rotateY(var(--fan-turn)) scale(0.94) translateY(-2%);
   filter: brightness(1);
 }
 .phone-trio[data-open] .phone-trio-right:hover {
-  transform: translateX(var(--fan-spread)) translateZ(-120px) rotateY(calc(-1 * var(--fan-turn))) scale(0.94) translateY(-2%);
+  --fan-t: translateX(var(--fan-spread)) translateZ(var(--fan-z, -120px)) rotateY(calc(-1 * var(--fan-turn))) scale(0.94) translateY(-2%);
   filter: brightness(1);
 }
 
@@ -86,10 +104,10 @@
   transition: none;
 }
 .phone-trio[data-armed]:not([data-open]) .phone-trio-left {
-  transform: translateX(-6%) translateZ(-180px) scale(0.9);
+  --fan-t: translateX(-6%) translateZ(var(--fan-z-in, -180px)) scale(0.9);
 }
 .phone-trio[data-armed]:not([data-open]) .phone-trio-right {
-  transform: translateX(6%) translateZ(-180px) scale(0.9);
+  --fan-t: translateX(6%) translateZ(var(--fan-z-in, -180px)) scale(0.9);
 }
 .phone-trio[data-armed]:not([data-open]) .phone-trio-center {
   transform: translateY(5%) scale(0.96);

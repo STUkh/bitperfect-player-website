@@ -537,6 +537,11 @@ body::after {
   will-change: transform;
   contain: strict;
 }
+/* Lite mode (HomeOpening.client.ts): a full-screen layer composited on every
+   frame is the first thing a slow GPU is spared. */
+:root.perf-lite body::after {
+  display: none;
+}
 
 /* ── Selection ── */
 /*

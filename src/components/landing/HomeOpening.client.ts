@@ -96,6 +96,32 @@ export function setupHomeOpening(section: HTMLElement) {
   let endScale = 1;
   let endY = 0;
 
+  /*
+    Lite mode: the safety net for a device that cannot hold the frame rate here.
+    The loop already knows every frame's duration; if more than half of the last
+    40 animating frames took longer than 22ms (60fps is 16.7ms, so each of those
+    dropped at least one frame), `perf-lite` goes on the root, for the rest of the
+    visit (sessionStorage, read back by BaseLayout before first paint). It flattens
+    the fan here and drops the site-wide grain overlay; the photographs stay. A
+    device that keeps up never sees it.
+  */
+  const LITE_KEY = 'perf-lite';
+  let lite = document.documentElement.classList.contains(LITE_KEY);
+  const slow: number[] = [];
+  const watch = (ms: number) => {
+    if (lite) return;
+    slow.push(ms > 22 ? 1 : 0);
+    if (slow.length > 40) slow.shift();
+    if (slow.length < 40 || slow.reduce((a, b) => a + b, 0) <= 20) return;
+    lite = true;
+    document.documentElement.classList.add(LITE_KEY);
+    try {
+      sessionStorage.setItem(LITE_KEY, '1');
+    } catch {
+      /* Storage blocked: lite for this page only. */
+    }
+  };
+
   const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
   const span = (p: number, a: number, b: number) => clamp01((p - a) / (b - a));
   const inOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -147,14 +173,22 @@ export function setupHomeOpening(section: HTMLElement) {
       `translate3d(calc(-50% + ${(startX * (1 - move)).toFixed(2)}px), calc(-50% + ${(endY * move).toFixed(2)}px), 0) ` +
       `scale(${scale.toFixed(4)})`;
 
-    /* Depth is proportional to the phone, so the fan keeps its shape at any size. */
+    /* Depth is proportional to the phone, so the fan keeps its shape at any size.
+       The projection rides at the head of each side phone's own transform (see
+       HomeOpening.css, "No 3D scene"); lite mode drops it for a flat slide. */
     const s = outCubic(span(p, 0.3, 0.8));
     const o = span(p, 0.3, 0.46).toFixed(3);
     const z = (-(0.42 * s + 0.14) * w).toFixed(2);
     const sc = (0.9 + 0.04 * s).toFixed(4);
     const x = SPREAD * 100 * s;
-    left.style.transform = `translate3d(${(-x).toFixed(3)}%, 0, ${z}px) rotateY(${(FAN.turn * s).toFixed(3)}deg) scale(${sc})`;
-    right.style.transform = `translate3d(${x.toFixed(3)}%, 0, ${z}px) rotateY(${(-FAN.turn * s).toFixed(3)}deg) scale(${sc})`;
+    if (lite) {
+      left.style.transform = `translateX(${(-x).toFixed(3)}%) scale(${sc})`;
+      right.style.transform = `translateX(${x.toFixed(3)}%) scale(${sc})`;
+    } else {
+      const persp = `perspective(${(w * 6).toFixed(1)}px)`;
+      left.style.transform = `${persp} translate3d(${(-x).toFixed(3)}%, 0, ${z}px) rotateY(${(FAN.turn * s).toFixed(3)}deg) scale(${sc})`;
+      right.style.transform = `${persp} translate3d(${x.toFixed(3)}%, 0, ${z}px) rotateY(${(-FAN.turn * s).toFixed(3)}deg) scale(${sc})`;
+    }
     left.style.opacity = o;
     right.style.opacity = o;
   };
@@ -169,6 +203,7 @@ export function setupHomeOpening(section: HTMLElement) {
       settle();
       return;
     }
+    watch(now - last);
     /* Capped so a background tab or a long frame does not fling the spring. */
     const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
     last = now;
