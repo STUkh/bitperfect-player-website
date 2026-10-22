@@ -89,7 +89,7 @@ export default function HomeOpening() {
             </h1>
             <div className="hero-in hero-in-3 mt-9 flex flex-col items-start lg:mt-14">
               <p className="max-w-[44ch] text-body-sm text-pretty text-text-secondary lg:text-lede">
-                Android's system mixer resamples your files. Bitperfect Player sends them straight to your USB DAC unchanged, up to 768 kHz and DSD512. A live badge shows whether your music arrives untouched.
+                Bypass Android's mixer. Send bit-perfect audio straight to your USB DAC.
               </p>
               <div className="mt-[26px] flex w-full flex-col gap-3 min-[641px]:w-auto min-[641px]:flex-row min-[641px]:items-center lg:mt-9 lg:gap-4">
                 <PlayCta label="Get it on Google Play" className="h-[52px] text-body-sm lg:h-[54px] lg:px-[30px]" />
