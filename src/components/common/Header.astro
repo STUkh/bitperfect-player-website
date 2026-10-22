@@ -7,7 +7,7 @@
 import Header from './Header.tsx';
 ---
 
-<Header pathname={Astro.url.pathname} />
+<Header pathname={Astro.url.pathname} locale={Astro.currentLocale} />
 
 <script>
   import { setupMobileMenu } from './MobileMenu.client';

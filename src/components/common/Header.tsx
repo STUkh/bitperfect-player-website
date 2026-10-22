@@ -3,7 +3,8 @@ import Container from './Container';
 import StoreBadges from './StoreBadges';
 import MobileMenu from './MobileMenu';
 import Logo from './Logo';
-import { navLinks } from '../../data/navigation';
+import { getLocalizedNavLinks } from '../../data/navigation';
+import { useTranslations } from '../../i18n/utils';
 import { isActive, resolveHref, withBase } from '../../utils/nav';
 import { useBehaviour } from '../behaviour';
 import { setupMobileMenu } from './MobileMenu.client';
@@ -12,6 +13,8 @@ import './Header.css';
 export interface HeaderProps {
   /** The current page's path (e.g. `/features/eq/`); marks its nav link active and resolves in-page hrefs. Default `/`. */
   pathname?: string;
+  /** The page's locale (`Astro.currentLocale`); the default language when unset. */
+  locale?: string;
 }
 
 /**
@@ -22,7 +25,8 @@ export interface HeaderProps {
  * itself. The burger's behaviour is `setupMobileMenu`; on the site
  * `Header.astro` mounts it, in React `useBehaviour` does.
  */
-export default function Header({ pathname = '/' }: HeaderProps) {
+export default function Header({ pathname = '/', locale }: HeaderProps) {
+  const t = useTranslations(locale);
   const toggleRef = useBehaviour<HTMLButtonElement>(setupMobileMenu);
 
   return (
@@ -32,7 +36,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
         className="fixed top-0 right-0 left-0 z-50 border-b border-border-subtle/40 bg-surface-base"
       >
         <Container>
-          <nav className="flex h-16 items-center justify-between lg:h-20" aria-label="Main navigation">
+          <nav className="flex h-16 items-center justify-between lg:h-20" aria-label={t('nav.aria_main')}>
             {/* Logo. The -mx/-my pair cancels the padding, so the hover wash gets
           room to breathe without moving the wordmark by a pixel. */}
             <a
@@ -51,7 +55,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
             </a>
             {/* Desktop Nav (center) */}
             <div className="hidden items-center gap-8 lg:flex">
-              {navLinks.map((link) => {
+              {getLocalizedNavLinks(locale).map((link) => {
                 const active = isActive(pathname, link.href);
                 return (
                   <a
@@ -84,7 +88,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
                 id="mobile-menu-toggle"
                 data-mobile-menu-toggle=""
                 className="flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-lg text-text-primary transition-colors duration-[var(--d-ui)] ease-ui hover:bg-white/[0.055] active:bg-white/[0.09] focus-visible:focus-ring lg:hidden"
-                aria-label="Toggle navigation menu"
+                aria-label={t('nav.aria_toggle')}
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -102,7 +106,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
           </nav>
         </Container>
       </header>
-      <MobileMenu pathname={pathname} />
+      <MobileMenu pathname={pathname} locale={locale} />
     </>
   );
 }

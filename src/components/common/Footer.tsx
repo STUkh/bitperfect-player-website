@@ -151,7 +151,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
             </p>
             <p className="max-w-xl text-xs leading-relaxed text-text-tertiary">{t('footer.trademark_notice')}</p>
           </div>
-          <div className="flex items-center gap-3 shrink-0" aria-label="Official channels">
+          <div className="flex items-center gap-3 shrink-0" aria-label={t('footer.aria_channels')}>
             {site.socials.map((social) => (
               <Button
                 key={social.id}
@@ -160,8 +160,8 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
                 rel="noopener noreferrer"
                 variant="secondary"
                 size="sm"
-                aria-label={`${site.name} on ${social.label} (${social.handle})`}
-                title={`${social.label}: ${social.handle}`}
+                aria-label={t('footer.social_aria', { name: site.name, label: social.label, handle: social.handle })}
+                title={t('footer.social_title', { label: social.label, handle: social.handle })}
                 className="h-11 w-11 shrink-0 p-0"
               >
                 <Icon name={social.id} size={18} />

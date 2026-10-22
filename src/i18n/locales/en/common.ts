@@ -37,5 +37,8 @@ export const common = {
   "footer.all_questions": "All questions",
   "footer.privacy_policy": "Privacy policy",
   "footer.terms_of_use": "Terms of use",
+  "footer.aria_channels": "Official channels",
+  "footer.social_aria": "{name} on {label} ({handle})",
+  "footer.social_title": "{label}: {handle}",
 } as const;
 export default common;

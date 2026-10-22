@@ -1,10 +1,13 @@
 import { site } from '../../data/site';
 import Button, { type ButtonProps } from './Button';
 import PlayStoreMark from './PlayStoreMark';
+import { useTranslations } from '../../i18n/utils';
 
 export interface PlayCtaProps extends Omit<ButtonProps, 'href' | 'children'> {
-  /** The visible label, e.g. "Get it on Google Play". Shown beside the Play mark. */
-  label: string;
+  /** The visible label, shown beside the Play mark. Default `store.google_play` ("Get it on Google Play"). */
+  label?: string;
+  /** The page's locale, for the default label; the default language when unset. */
+  locale?: string;
 }
 
 /**
@@ -15,11 +18,12 @@ export interface PlayCtaProps extends Omit<ButtonProps, 'href' | 'children'> {
  * to `Button`. `href` and `children` are fixed. Never swap the mark for a play
  * triangle or add an arrow.
  */
-export default function PlayCta({ label, variant = 'primary', ...rest }: PlayCtaProps) {
+export default function PlayCta({ label, locale, variant = 'primary', ...rest }: PlayCtaProps) {
+  const t = useTranslations(locale);
   return (
     <Button href={site.playUrl} rel="noopener noreferrer" variant={variant} {...rest}>
       <PlayStoreMark />
-      <span>{label}</span>
+      <span>{label ?? t('store.google_play')}</span>
     </Button>
   );
 }

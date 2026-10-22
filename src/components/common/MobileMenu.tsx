@@ -1,16 +1,20 @@
 import { clsx as cx } from 'clsx';
-import { navLinks } from '../../data/navigation';
+import { getLocalizedNavLinks } from '../../data/navigation';
+import { useTranslations } from '../../i18n/utils';
 import PlayCta from './PlayCta';
 import { isActive, resolveHref } from '../../utils/nav';
 import './MobileMenu.css';
 
 export interface MobileMenuProps {
   pathname?: string;
+  /** The page's locale; the default language when unset. */
+  locale?: string;
 }
 
 /** The full-screen nav panel Header renders; its burger opens it. Not exported to the design system. */
 export default function MobileMenu(props: MobileMenuProps) {
-  const { pathname = '/' } = props;
+  const { pathname = '/', locale } = props;
+  const t = useTranslations(locale);
 
   return (
     <div
@@ -41,8 +45,8 @@ export default function MobileMenu(props: MobileMenuProps) {
       Dismissal is: the burger, or Escape. Both are bound below.
     */}
         {/* Main nav links */}
-        <nav className="flex flex-col gap-6" aria-label="Mobile navigation">
-          {navLinks.map((link) => {
+        <nav className="flex flex-col gap-6" aria-label={t('nav.aria_mobile')}>
+          {getLocalizedNavLinks(locale).map((link) => {
             const active = isActive(pathname, link.href);
             return (
               <a
@@ -65,7 +69,7 @@ export default function MobileMenu(props: MobileMenuProps) {
           {/* `size="lg"` brings px-9. A full-width button needs none of it, and at
           320px the 72px of horizontal padding pushed the panel 7px past the
           viewport, giving the whole page a horizontal scrollbar. */}
-          <PlayCta label="Get it on Google Play" size="lg" className="w-full px-5 text-center" />
+          <PlayCta locale={locale} size="lg" className="w-full px-5 text-center" />
         </div>
       </div>
     </div>
