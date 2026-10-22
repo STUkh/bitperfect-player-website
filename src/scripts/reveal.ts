@@ -14,6 +14,22 @@
  */
 import { onArrive } from "./in-view";
 
+/* The longest duration + delay of an element's transitions, in ms. */
+function transitionEnd(element: Element): number {
+  const cs = getComputedStyle(element);
+  const ms = (v: string) => v.split(",").map((t) => parseFloat(t) * (t.trim().endsWith("ms") ? 1 : 1000));
+  const durations = ms(cs.transitionDuration);
+  const delays = ms(cs.transitionDelay);
+  return Math.max(0, ...durations.map((d, i) => d + (delays[i % delays.length] || 0)));
+}
+
+/* Once the entrance has played, hand the element back its own transitions
+   (animations.css, `.is-settled`). A timer rather than transitionend: a
+   transition that has nothing to animate never fires the event. */
+function settle(element: Element): void {
+  window.setTimeout(() => element.classList.add("is-settled"), transitionEnd(element) + 50);
+}
+
 export function initFeatureMotion(): void {
   if (typeof window === "undefined") return;
 
@@ -33,7 +49,10 @@ export function initFeatureMotion(): void {
   } else {
     /* A third of the element (or of the screen, for a tall one) has to be in view
        above the bottom tenth: at 15% a card was rising before the reader reached it. */
-    onArrive(reveals, (element) => element.classList.add("is-visible"), {
+    onArrive(reveals, (element) => {
+      element.classList.add("is-visible");
+      settle(element);
+    }, {
       share: 0.35,
       margin: 0.1,
     });

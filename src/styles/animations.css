@@ -24,6 +24,13 @@
    transition began; a running opacity/transform transition is composited
    without it. On a long page that was dozens of idle full-size layers. */
 
+/* The reveal transition holds only until the entrance has played. Then
+   src/scripts/reveal.ts sets `.is-settled` and the element's OWN transition
+   applies again. Without this the reveal rule, the more specific of the two,
+   either kept a card's hover on the 600ms entrance curve with its stagger
+   delay, or a card's own `transition` (written to beat it) cut the entrance
+   short: opacity snapped and every card in the row popped in at once. */
+
 /* Every reveal target shares one delay contract. */
 .r-fade,
 .r-rise,
@@ -37,6 +44,8 @@
 /* ── r-fade: opacity only, --d-long ── */
 html.js .r-fade {
   opacity: 0;
+}
+html.js .r-fade:not(.is-settled) {
   transition: opacity var(--d-long) var(--ease-reveal) calc(var(--delay) + 90ms);
 }
 html.js .r-fade.is-visible {
@@ -47,6 +56,8 @@ html.js .r-fade.is-visible {
 html.js .r-rise {
   opacity: 0;
   transform: translateY(var(--rise-sm));
+}
+html.js .r-rise:not(.is-settled) {
   transition:
     opacity var(--d-rise) var(--ease-reveal) calc(var(--delay) + 72ms),
     transform var(--d-rise) var(--ease-reveal) calc(var(--delay) + 72ms);
@@ -60,6 +71,8 @@ html.js .r-rise.is-visible {
 html.js .r-rise-lg {
   opacity: 0;
   transform: translateY(var(--rise-lg));
+}
+html.js .r-rise-lg:not(.is-settled) {
   transition:
     opacity var(--d-long) var(--ease-reveal) calc(var(--delay) + 90ms),
     transform var(--d-long) var(--ease-reveal) calc(var(--delay) + 90ms);

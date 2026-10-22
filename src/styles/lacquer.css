@@ -82,7 +82,10 @@
   opacity: 0;
   transition: opacity var(--d-ui) var(--ease-ui);
 }
-.lacquer-lift:hover {
+/* The second selector out-ranks a revealed card's `transform: none`
+   (animations.css), which held every rising card on the home page flat. */
+.lacquer-lift:hover,
+html.js .lacquer-lift.r-rise.is-visible:hover {
   transform: translateY(-2px);
 }
 .lacquer-lift:hover::after {

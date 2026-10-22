@@ -32,8 +32,10 @@
 .feature-card {
   isolation: isolate;
 }
-.feature-card,
-html.js .feature-card.r-rise.is-visible {
+/* Its own transition, which applies once the entrance has settled
+   (animations.css). It used to be written to beat the reveal rule, which cut the
+   entrance itself short: the cards popped in. */
+.feature-card {
   transition: transform 220ms var(--ease-ui);
 }
 .feature-card::before,
