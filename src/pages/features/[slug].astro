@@ -27,6 +27,9 @@ import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import PlayCta from '../../components/common/PlayCta';
 import CloseBand from '../../components/common/CloseBand';
+import Band from '../../components/common/Band';
+import MediaSplit from '../../components/common/MediaSplit';
+import SectionHeading from '../../components/common/SectionHeading';
 import PagerLink from '../../components/feature/PagerLink';
 import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens';
@@ -338,158 +341,121 @@ const showSignalPath = slug === 'usb-dac';
       const ground = onWhite
         ? ['ground-harmonograph', 'ground-halftone'][sameColourFromEnd % 2]
         : ['ground-samples', 'ground-interference'][sameColourFromEnd % 2];
+      const tone = onWhite ? 'ivory' : 'graphite';
       return (
-        <section
-          class:list={[
-            'ground',
-            ground,
-            onWhite ? 'bg-band-ivory' : 'bg-surface-base',
-            onWhite ? 'py-16 lg:py-32' : 'py-14 lg:py-28',
-          ]}
-        >
-          <Container>
-            <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-              {/* The screen (art).
-                  First in the DOM so it leads cleanly on mobile before copy.
-                  Takes 6 columns on desktop, centred in its column. */}
+        <Band tone={tone} ground={ground} className={onWhite ? 'py-16 lg:py-32' : 'py-14 lg:py-28'}>
+          {/* The screen (art) is first in the DOM, so it leads cleanly on mobile
+              before the copy. 6 of 12 columns each from `lg`, art centred in its own. */}
+          <MediaSplit
+            split="6/6"
+            mediaFirst
+            mediaSide={artLeft ? 'left' : 'right'}
+            copyClassName="flex flex-col gap-3.5 lg:gap-4"
+          >
+            <FeatureScreens slot="media" slug={slug} state={i} />
+
+            <SectionHeading
+              className="contents"
+              tone={tone}
+              eyebrow={beat.eyebrow}
+              eyebrowTone={onWhite ? 'accent' : 'quiet'}
+              title={beat.title}
+              lede={beat.body}
+              ledeClassName="max-w-[52ch] text-body text-pretty lg:text-body-lg"
+              reveal={1}
+            />
+
+            {beat.stats && (
               <div
-                class:list={[
-                  'flex justify-center lg:col-span-6',
-                  artLeft ? 'lg:order-1' : 'lg:order-2',
-                ]}
+                class="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
+                style="--i: 3"
               >
-                <FeatureScreens slug={slug} state={i} />
-              </div>
-
-              {/* The content. Takes 6 columns on desktop. */}
-              <div
-                class:list={[
-                  'flex flex-col gap-3.5 lg:col-span-6 lg:gap-4',
-                  artLeft ? 'lg:order-2 lg:justify-self-end' : 'lg:order-1',
-                ]}
-              >
-                <span
-                  class:list={[
-                    'r-fade mono-spec text-micro font-medium tracking-[1.2px] uppercase lg:tracking-[1.5px]',
-                    onWhite ? 'text-band-gold-ink' : 'text-text-tertiary',
-                  ]}
-                >
-                  {beat.eyebrow}
-                </span>
-
-                <h2
-                  class:list={[
-                    'r-rise text-section-m text-balance lg:text-section',
-                    onWhite ? 'text-band-ink' : 'text-text-primary',
-                  ]}
-                  style="--i: 1"
-                >
-                  {beat.title}
-                </h2>
-
-                <p
-                  class:list={[
-                    'r-rise max-w-[52ch] text-body text-pretty lg:text-body-lg',
-                    onWhite ? 'text-band-ink-muted' : 'text-text-secondary',
-                  ]}
-                  style="--i: 2"
-                >
-                  {beat.body}
-                </p>
-
-                {beat.stats && (
-                  <div
-                    class="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
-                    style="--i: 3"
-                  >
-                    {beat.stats.map((stat) => (
-                      <div
-                        class:list={[
-                          'flex flex-col gap-1 border-t pt-3.5',
-                          onWhite ? 'border-band-rule' : 'border-border-subtle',
-                        ]}
-                      >
-                        <span
-                          class:list={[
-                            'text-label tracking-[1.5px] uppercase',
-                            onWhite ? 'text-band-gold-ink' : 'text-gold',
-                          ]}
-                        >
-                          {stat.label}
-                        </span>
-                        <span
-                          class:list={[
-                            'text-body-lg font-semibold tabular-nums',
-                            onWhite ? 'text-band-ink' : 'text-text-primary',
-                          ]}
-                        >
-                          {stat.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {beat.chips && (
-                  <div class="r-rise mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small tabular-nums" style="--i: 3">
-                    {beat.chips.map((chip, idx) => (
-                      <span
-                        class:list={[
-                          chip.active
-                            ? onWhite
-                              ? 'font-semibold text-band-gold-ink'
-                              : 'font-semibold text-gold'
-                            : onWhite
-                              ? 'text-band-ink-muted'
-                              : 'text-text-secondary',
-                        ]}
-                      >
-                        {chip.label}
-                        {idx < beat.chips!.length - 1 && (
-                          <span class="ml-2 text-text-tertiary/40">·</span>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {beat.signalStates && (
+                {beat.stats.map((stat) => (
                   <div
                     class:list={[
-                      'r-rise mt-2 flex flex-wrap gap-x-5 gap-y-2.5 border-t pt-4',
+                      'flex flex-col gap-1 border-t pt-3.5',
                       onWhite ? 'border-band-rule' : 'border-border-subtle',
                     ]}
-                    style="--i: 3"
                   >
-                    {signalStateKeys.map((key) => {
-                      const state = signalStateColors[key];
-                      return (
-                        <span class="inline-flex items-center gap-2 py-1 text-xs font-semibold">
-                          <span class="h-2.5 w-2.5 shrink-0 rounded-full" style={`background-color: ${state.hex};`} aria-hidden="true" />
-                          <span class={onWhite ? 'text-band-ink' : 'text-text-primary'}>{getSignalStateLabel(key)}</span>
-                        </span>
-                      );
-                    })}
+                    <span
+                      class:list={[
+                        'text-label tracking-[1.5px] uppercase',
+                        onWhite ? 'text-band-gold-ink' : 'text-gold',
+                      ]}
+                    >
+                      {stat.label}
+                    </span>
+                    <span
+                      class:list={[
+                        'text-body-lg font-semibold tabular-nums',
+                        onWhite ? 'text-band-ink' : 'text-text-primary',
+                      ]}
+                    >
+                      {stat.value}
+                    </span>
                   </div>
-                )}
-
-                {beat.note && (
-                  <p
-                    class:list={[
-                      'r-rise mt-2 border-t pt-3.5 text-small tabular-nums text-pretty',
-                      onWhite
-                        ? 'border-band-rule text-band-ink-muted'
-                        : 'border-border-subtle text-text-secondary',
-                    ]}
-                    style="--i: 3"
-                  >
-                    {beat.note}
-                  </p>
-                )}
+                ))}
               </div>
-            </div>
-          </Container>
-        </section>
+            )}
+
+            {beat.chips && (
+              <div class="r-rise mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small tabular-nums" style="--i: 3">
+                {beat.chips.map((chip, idx) => (
+                  <span
+                    class:list={[
+                      chip.active
+                        ? onWhite
+                          ? 'font-semibold text-band-gold-ink'
+                          : 'font-semibold text-gold'
+                        : onWhite
+                          ? 'text-band-ink-muted'
+                          : 'text-text-secondary',
+                    ]}
+                  >
+                    {chip.label}
+                    {idx < beat.chips!.length - 1 && (
+                      <span class="ml-2 text-text-tertiary/40">·</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {beat.signalStates && (
+              <div
+                class:list={[
+                  'r-rise mt-2 flex flex-wrap gap-x-5 gap-y-2.5 border-t pt-4',
+                  onWhite ? 'border-band-rule' : 'border-border-subtle',
+                ]}
+                style="--i: 3"
+              >
+                {signalStateKeys.map((key) => {
+                  const state = signalStateColors[key];
+                  return (
+                    <span class="inline-flex items-center gap-2 py-1 text-xs font-semibold">
+                      <span class="h-2.5 w-2.5 shrink-0 rounded-full" style={`background-color: ${state.hex};`} aria-hidden="true" />
+                      <span class={onWhite ? 'text-band-ink' : 'text-text-primary'}>{getSignalStateLabel(key)}</span>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+
+            {beat.note && (
+              <p
+                class:list={[
+                  'r-rise mt-2 border-t pt-3.5 text-small tabular-nums text-pretty',
+                  onWhite
+                    ? 'border-band-rule text-band-ink-muted'
+                    : 'border-border-subtle text-text-secondary',
+                ]}
+                style="--i: 3"
+              >
+                {beat.note}
+              </p>
+            )}
+          </MediaSplit>
+        </Band>
       );
     })
   }

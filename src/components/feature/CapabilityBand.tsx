@@ -1,7 +1,10 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import { cn } from '../../utils/cn';
-import Container from '../common/Container';
+import Band from '../common/Band';
+import MediaSplit from '../common/MediaSplit';
+import SectionHeading from '../common/SectionHeading';
+import { reveal } from '../common/bands';
 import Phone from './Phone';
 import type { ScreenName } from '../../data/screens';
 import type { ClassProps } from '../class-props';
@@ -61,8 +64,6 @@ export interface CapabilityBandProps extends ClassProps {
   children?: ReactNode;
 }
 
-const reveal = (i: number) => ({ '--i': String(i) }) as CSSProperties;
-
 /** A copy-and-phone band of a capability page; see `CapabilityBandProps`. */
 export default function CapabilityBand(props: CapabilityBandProps) {
   const {
@@ -86,15 +87,15 @@ export default function CapabilityBand(props: CapabilityBandProps) {
 
   const ivory = tone === 'ivory';
   const opening = titleAs === 'h1';
-  const Heading = titleAs;
 
   return (
-    <section
+    <Band
       id={id}
       data-media={media}
+      tone={tone}
+      ground={ivory ? 'ground-capability-ivory' : 'ground-capability-graphite'}
       className={cn(
-        'capability-band ground',
-        ivory ? 'ground-capability-ivory bg-band-ivory' : 'ground-capability-graphite bg-surface-base',
+        'capability-band',
         opening
           ? 'capability-band-opening border-b border-border-subtle pt-[26px] pb-16 lg:pt-11 lg:pb-24'
           : ivory
@@ -103,146 +104,132 @@ export default function CapabilityBand(props: CapabilityBandProps) {
         className,
       )}
     >
-      <Container>
-        {backHref && backLabel && (
-          <a
-            href={backHref}
-            className={cx(
-              'mb-6 inline-flex min-h-[44px] items-center gap-1.5 rounded text-caption font-medium transition-colors duration-[var(--d-ui)] focus-visible:focus-ring lg:mb-10',
-              ivory ? 'text-band-ink-muted hover:text-band-gold-ink' : 'text-text-tertiary hover:text-gold',
-            )}
+      {backHref && backLabel && (
+        <a
+          href={backHref}
+          className={cx(
+            'mb-6 inline-flex min-h-[44px] items-center gap-1.5 rounded text-caption font-medium transition-colors duration-[var(--d-ui)] focus-visible:focus-ring lg:mb-10',
+            ivory ? 'text-band-ink-muted hover:text-band-gold-ink' : 'text-text-tertiary hover:text-gold',
+          )}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>{' '}
-            <span>{backLabel}</span>
+            <polyline points="15 18 9 12 15 6" />
+          </svg>{' '}
+          <span>{backLabel}</span>
+        </a>
+      )}
+
+      <MediaSplit
+        mediaSide={media}
+        copyClassName="flex flex-col"
+        mediaClassName="r-fade"
+        mediaStyle={reveal(2)}
+        media={
+          /* `screen` comes from page data as a string; Phone leaves an unknown one dark. */
+          <Phone screen={screen as ScreenName} alt={screenAlt} priority={opening} />
+        }
+      >
+        <SectionHeading
+          className="contents"
+          tone={tone}
+          eyebrow={eyebrow}
+          eyebrowClassName="mono-spec mb-4 text-micro font-medium tracking-[1.2px] uppercase tabular-nums lg:mb-5 lg:tracking-[1.5px]"
+          title={title}
+          titleAs={titleAs}
+          titleClassName={opening ? 'text-headline-m lg:text-headline-sm' : 'text-section-m lg:text-section'}
+          lede={body}
+          ledeClassName={cx(
+            'mt-4 max-w-[56ch] text-pretty lg:mt-5',
+            opening ? 'text-lede-m lg:text-lede' : 'text-body lg:text-body-lg',
+          )}
+          reveal={1}
+        />
+
+        {badge && (
+          <span
+            className={cx(
+              'r-rise mt-6 inline-flex w-fit items-center text-label tracking-micro uppercase',
+              ivory
+                ? 'border-t border-band-rule pt-3 text-band-ink-muted'
+                : 'lacquer rounded-chip px-3.5 py-2 text-text-secondary [--lq-drop:none]',
+            )}
+            style={reveal(3)}
+          >
+            {badge}
+          </span>
+        )}
+
+        {specs && specs.length > 0 && (
+          <dl className="r-rise mt-8 w-full max-w-[560px] lg:mt-10" style={reveal(3)}>
+            {specs.map((spec, i) => (
+              <div
+                key={spec.label}
+                className={cx(
+                  'flex flex-col gap-1 border-t py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 lg:py-4',
+                  ivory ? 'border-band-rule' : 'border-border-subtle',
+                  i === specs.length - 1 && 'border-b',
+                )}
+              >
+                <dt className={cx('shrink-0 text-caption', ivory ? 'text-band-ink-muted' : 'text-text-tertiary')}>
+                  {spec.label}
+                </dt>
+                <dd
+                  className={cx(
+                    'text-small font-semibold tabular-nums sm:text-right',
+                    ivory ? 'text-band-ink' : 'text-text-primary',
+                  )}
+                >
+                  {spec.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        {link && (
+          <a
+            href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
+            className={cx(
+              'r-rise mt-6 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded text-small font-medium transition-colors duration-[var(--d-ui)] hover:underline focus-visible:focus-ring',
+              ivory ? 'text-band-ink-muted hover:text-band-gold-ink' : 'text-gold hover:text-gold-light',
+            )}
+            style={reveal(4)}
+          >
+            <span>{link.label}</span>
+            {link.external && (
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            )}
           </a>
         )}
 
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-12">
-          <div
-            className={cx(
-              'flex flex-col lg:col-span-7',
-              media === 'left' ? 'lg:order-2 lg:col-start-6 lg:pl-6' : 'lg:order-1 lg:pr-6',
-            )}
-          >
-            {eyebrow && (
-              <span
-                className={cx(
-                  'r-fade mono-spec mb-4 text-micro font-medium tracking-[1.2px] uppercase tabular-nums lg:mb-5 lg:tracking-[1.5px]',
-                  ivory ? 'text-band-gold-ink' : 'text-gold',
-                )}
-              >
-                {eyebrow}
-              </span>
-            )}
-
-            <Heading
-              className={cx(
-                'r-rise text-balance',
-                opening ? 'text-headline-m lg:text-headline-sm' : 'text-section-m lg:text-section',
-                ivory ? 'text-band-ink' : 'text-text-primary',
-              )}
-              style={reveal(1)}
-            >
-              {title}
-            </Heading>
-
-            {body && (
-              <p
-                className={cx(
-                  'r-rise mt-4 max-w-[56ch] text-pretty lg:mt-5',
-                  opening ? 'text-lede-m lg:text-lede' : 'text-body lg:text-body-lg',
-                  ivory ? 'text-band-ink-muted' : 'text-text-secondary',
-                )}
-                style={reveal(2)}
-              >
-                {body}
-              </p>
-            )}
-
-            {badge && (
-              <span
-                className={cx(
-                  'r-rise mt-6 inline-flex w-fit items-center text-label tracking-micro uppercase',
-                  ivory
-                    ? 'border-t border-band-rule pt-3 text-band-ink-muted'
-                    : 'lacquer rounded-chip px-3.5 py-2 text-text-secondary [--lq-drop:none]',
-                )}
-                style={reveal(3)}
-              >
-                {badge}
-              </span>
-            )}
-
-            {specs && specs.length > 0 && (
-              <dl className="r-rise mt-8 w-full max-w-[560px] lg:mt-10" style={reveal(3)}>
-                {specs.map((spec, i) => (
-                  <div
-                    key={spec.label}
-                    className={cx(
-                      'flex flex-col gap-1 border-t py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 lg:py-4',
-                      ivory ? 'border-band-rule' : 'border-border-subtle',
-                      i === specs.length - 1 && 'border-b',
-                    )}
-                  >
-                    <dt className={cx('shrink-0 text-caption', ivory ? 'text-band-ink-muted' : 'text-text-tertiary')}>
-                      {spec.label}
-                    </dt>
-                    <dd
-                      className={cx(
-                        'text-small font-semibold tabular-nums sm:text-right',
-                        ivory ? 'text-band-ink' : 'text-text-primary',
-                      )}
-                    >
-                      {spec.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-
-            {link && (
-              <a
-                href={link.href}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
-                className={cx(
-                  'r-rise mt-6 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded text-small font-medium transition-colors duration-[var(--d-ui)] hover:underline focus-visible:focus-ring',
-                  ivory ? 'text-band-ink-muted hover:text-band-gold-ink' : 'text-gold hover:text-gold-light',
-                )}
-                style={reveal(4)}
-              >
-                <span>{link.label}</span>
-                {link.external && (
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                )}
-              </a>
-            )}
-
-            {children != null && children !== false && (
-              <div className="r-rise mt-6" style={reveal(4)}>
-                {children}
-              </div>
-            )}
+        {children != null && children !== false && (
+          <div className="r-rise mt-6" style={reveal(4)}>
+            {children}
           </div>
-
-          <div
-            className={cx(
-              'r-fade flex justify-center lg:col-span-5',
-              media === 'left' ? 'lg:order-1 lg:col-start-1 lg:row-start-1' : 'lg:order-2',
-            )}
-            style={reveal(2)}
-          >
-            {/* `screen` comes from page data as a string; Phone leaves an unknown one dark. */}
-            <Phone screen={screen as ScreenName} alt={screenAlt} priority={opening} />
-          </div>
-        </div>
-      </Container>
-    </section>
+        )}
+      </MediaSplit>
+    </Band>
   );
 }
