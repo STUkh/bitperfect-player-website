@@ -92,10 +92,12 @@ export default function FeaturesTeaser() {
             <a
               key={item.slug}
               href={withBase(`features/${item.slug}`)}
-              className="focus-visible:focus-ring r-rise lacquer lacquer-lift features-card group relative flex cursor-pointer flex-col overflow-hidden rounded-card-inner lg:rounded-card"
+              className="focus-visible:focus-ring r-rise lacquer lacquer-lift features-card group relative flex cursor-pointer flex-col rounded-card-inner lg:rounded-card"
               style={{ '--i': i % 3, '--art-y': artY[item.slug] ?? '50%' } as CSSProperties}
             >
-              <div className="features-card-art relative overflow-hidden">
+              {/* The plate clips itself, 1px inside the card's radius: the card cannot
+                  clip, because its hover layer sits on the border (lacquer.css). */}
+              <div className="features-card-art relative overflow-hidden rounded-t-[15px] lg:rounded-t-[23px]">
                 <FeatureArt slug={item.slug} ratio="16 / 7" />
               </div>
               <div className="relative flex flex-1 flex-col px-6 pt-3 pb-6 lg:px-7 lg:pt-4 lg:pb-7">

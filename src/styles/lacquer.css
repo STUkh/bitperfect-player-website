@@ -54,25 +54,48 @@
   --lq-sheen: rgba(255, 214, 120, 0.09);
   --lq-top-glow: rgba(255, 226, 150, 0.1);
 }
-/* A lacquered card that is a link or a button: it rises a hair and the sheen brightens. */
+/* A lacquered card that is a link or a button: it rises a hair and the sheen brightens.
+
+   Only transform and opacity move. Changing the edge, rim and sheen on the card
+   itself re-rasterised the whole card, its 56px drop shadow included, on every
+   frame of the fade. Instead the lit state is painted once on `::after` — over the
+   border box, under the content, like the card's own border and rim — and fades
+   in. Its alphas are the "over" difference between rest and hover (0.10 to 0.18
+   white is 0.089 over 0.10), so at full opacity the pixels are the old hover's.
+   The card must not clip (`overflow: hidden`): this layer sits on the border. */
 .lacquer-lift {
-  transition:
-    transform var(--d-ui) var(--ease-ui),
-    border-color var(--d-ui) var(--ease-ui),
-    box-shadow var(--d-ui) var(--ease-ui);
+  --lq-lift-edge: rgba(255, 255, 255, 0.089);
+  --lq-lift-rim: rgba(255, 255, 255, 0.093);
+  --lq-lift-sheen: rgba(255, 255, 255, 0.032);
+  transition: transform var(--d-ui) var(--ease-ui);
+}
+.lacquer-lift::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border: 1px solid var(--lq-lift-edge);
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 28%, var(--lq-lift-sheen) 46%, transparent 58%) padding-box;
+  box-shadow: inset 0 1px 0 var(--lq-lift-rim);
+  opacity: 0;
+  transition: opacity var(--d-ui) var(--ease-ui);
 }
 .lacquer-lift:hover {
   transform: translateY(-2px);
-  --lq-edge: rgba(255, 255, 255, 0.18);
-  --lq-sheen: rgba(255, 255, 255, 0.085);
-  --lq-rim: rgba(255, 255, 255, 0.22);
 }
-.lacquer-gold.lacquer-lift:hover {
-  --lq-edge: rgba(242, 198, 94, 0.7);
-  --lq-sheen: rgba(255, 214, 120, 0.14);
+.lacquer-lift:hover::after {
+  opacity: 1;
+}
+/* Gold edge 0.46 to 0.70 and sheen 0.09 to 0.14, solved over the gold face. */
+.lacquer-gold.lacquer-lift {
+  --lq-lift-edge: rgba(234, 195, 99, 0.5);
+  --lq-lift-sheen: rgba(240, 200, 113, 0.06);
 }
 @media (prefers-reduced-motion: reduce) {
-  .lacquer-lift {
+  .lacquer-lift,
+  .lacquer-lift::after {
     transition-duration: 0ms;
   }
   .lacquer-lift:hover {
