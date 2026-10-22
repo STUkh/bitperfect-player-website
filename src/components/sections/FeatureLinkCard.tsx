@@ -21,8 +21,8 @@ export interface FeatureLinkCardProps extends ClassProps {
  * and a line. The card fades up in its own entrance (`r-rise` with the
  * card timing in FeatureLinkCard.css; set `--i` in `style`).
  * Its chassis is `className`: on the home page `lacquer lacquer-lift
- * features-card` (FeaturesTeaser.css), on /features `feature-card` with the
- * hover sweep (FeatureLinkCard.css). Render them in a 1/2/3 column grid.
+ * features-card` (FeaturesTeaser.css), on /features `lacquer lacquer-lift
+ * feature-card`, light-only hover (FeatureLinkCard.css). Render them in a 1/2/3 column grid.
  */
 export default function FeatureLinkCard({ href, title, body, art, className, style }: FeatureLinkCardProps) {
   return (

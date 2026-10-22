@@ -100,11 +100,10 @@ const order = [...indexOrder];
               href={withBase(`features/${slug}`)}
               title={getLocalizedFeatureName(slug, lang)}
               body={getRowTagline(slug)}
-              className="feature-card lacquer-card"
+              className="lacquer lacquer-lift feature-card"
               style={`--i: ${i % 3}`}
             >
               <Fragment slot="art">
-                <span class="feature-card-sweep" aria-hidden="true"></span>
                 <div class="feature-card-clip relative overflow-hidden">
                   <FeatureArt slug={slug} className="feature-card-art w-full" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 410px" />
                 </div>

@@ -33,17 +33,20 @@ html.js .feature-link-card.r-rise:not(.is-settled) .feature-art-img {
   }
 }
 
-/* ── The /features index card chassis (`FeatureLinkCard className="feature-card"`) ──
-   Moved from the page's scoped <style> when the card became a component, so
-   every selector here is global now and specific to this card. The home page's
-   card (`features-card`) is styled in FeaturesTeaser.css. */
+/* ── The /features index card (`FeatureLinkCard className="lacquer lacquer-lift feature-card"`) ──
+   The same lacquer card as the home page (src/styles/lacquer.css): the surface,
+   its rim and its sheen come from `.lacquer`, the lit hover state from
+   `.lacquer-lift`'s `::after`. Here the hover is light only: the card holds its
+   place, and the lit layer fades in on the key-caps' slow curve (`--btn-fade`,
+   `--btn-ease`), so it reads as light settling on lacquer, not a hop. */
 
 /*
   The plate is clipped 1px INSIDE the card's radius rather than by
   `overflow: hidden`. Apple does the same thing on its product tiles
   (`isolation: isolate; clip-path: inset(1px round var(--sk-tile-border-radius))`)
   and the reason is visible on exactly this palette: gold art meeting a dark card
-  corner under plain `overflow: hidden` leaves an aliased seam on the arc.
+  corner under plain `overflow: hidden` leaves an aliased seam on the arc. The
+  card itself cannot clip: its hover layer sits on the border.
 */
 .feature-card-clip {
   isolation: isolate;
@@ -55,94 +58,14 @@ html.js .feature-link-card.r-rise:not(.is-settled) .feature-art-img {
   }
 }
 
-
-/* Audiophile chassis: tactile elevation and diagonal light sheen.
-
-   Only transform and opacity animate. The rest and hover shadows are each
-   painted once, on ::before and ::after under the content, and cross-fade:
-   transitioning the card's own box-shadow re-rasterised the card, photograph
-   and all, on every frame of the hover. The card no longer clips, so the hover
-   shadow is not cut off; the plate clips itself (.feature-card-clip) and the sweep has
-   its own clipping layer. */
-.feature-card {
-  isolation: isolate;
+/* No movement. The second selector out-ranks `.lacquer-lift`'s own revealed-card
+   hover lift (lacquer.css). */
+.feature-card.lacquer-lift:hover,
+html.js .feature-card.lacquer-lift.r-rise.is-visible:hover {
+  transform: none;
 }
-/* Its own transition, which applies once the entrance has settled
-   (animations.css). It used to be written to beat the reveal rule, which cut the
-   entrance itself short: the cards popped in. */
-.feature-card {
-  transition: transform 220ms var(--ease-ui);
-}
-.feature-card::before,
-.feature-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
-  transition: opacity 220ms var(--ease-ui);
-}
-.feature-card::before {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 8px 24px -10px rgba(0, 0, 0, 0.45);
-}
-.feature-card::after {
-  opacity: 0;
-  box-shadow:
-    inset 0 1px 0 rgba(232, 184, 75, 0.35),
-    0 20px 42px -12px rgba(0, 0, 0, 0.7);
-}
-.feature-card:hover::before {
-  opacity: 0;
-}
-.feature-card:hover::after {
-  opacity: 1;
-}
-.feature-card:hover,
-html.js .feature-card.r-rise.is-visible:hover {
-  transform: translateY(-3px);
-}
-.feature-card:active,
-html.js .feature-card.r-rise.is-visible:active {
-  transform: translateY(-1px);
-}
-
-/* Specular light sweep on hover. The layer is the 240% gradient itself and it
-   moves by transform, cropped by its own clipping box: the same pixels as the
-   old background-position 0% to 100% sweep, without a repaint per frame.
-   -58.333% is the -140% of the card that 100% used to offset, over 240%. */
-.feature-card-sweep {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  overflow: hidden;
-  border-radius: inherit;
-  pointer-events: none;
-}
-.feature-card-sweep::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 240%;
-  height: 240%;
-  background: linear-gradient(
-    115deg,
-    transparent 22%,
-    rgba(232, 184, 75, 0.08) 42%,
-    rgba(255, 255, 255, 0.06) 48%,
-    transparent 65%
-  );
-  opacity: 0;
-  transition:
-    opacity 260ms ease,
-    transform 550ms var(--ease-reveal);
-}
-.feature-card:hover .feature-card-sweep::before {
-  opacity: 1;
-  transform: translate(-58.3333%, -58.3333%);
+.feature-card.lacquer-lift::after {
+  transition: opacity var(--btn-fade, 420ms) var(--btn-ease, cubic-bezier(0.22, 0.61, 0.36, 1));
 }
 
 /*
