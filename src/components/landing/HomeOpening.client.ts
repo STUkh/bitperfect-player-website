@@ -16,7 +16,9 @@
  *   0.46-0.68  the heading fades in
  *   0.80-1.00  a hold, so a fast flick lands on the finished lineup before the
  *              stage unpins
- * `--p` is also written to the section, which the backdrops cross-fade on.
+ * `--p` is also written to the two backdrops, which cross-fade on it. Only to
+ * them: on the section, an inherited custom property restyled the whole subtree
+ * every frame.
  *
  * The group is laid out at its largest size (`--ho-k` times the hero phone) and
  * only ever scaled down, so the screens are never upscaled. `data-moving` carries
@@ -33,6 +35,7 @@ export function setupHomeOpening(section: HTMLElement) {
   const group = section.querySelector<HTMLElement>('[data-group]');
   const left = section.querySelector<HTMLElement>('[data-phone="left"]');
   const right = section.querySelector<HTMLElement>('[data-phone="right"]');
+  const backdrops = Array.from(section.querySelectorAll<HTMLElement>('.ho-backdrop'));
 
   if (!copy || !heading || !group || !left || !right) return;
 
@@ -57,6 +60,9 @@ export function setupHomeOpening(section: HTMLElement) {
   let vh = window.innerHeight;
   let vw = window.innerWidth;
   let top = 0;
+  let track = 0;
+  /* Resize only flags; the next frame measures, so a burst of events lays out once. */
+  let stale = false;
 
   /* Layout, measured on enable, resize and font load rather than every frame. */
   let w = 0;
@@ -74,6 +80,7 @@ export function setupHomeOpening(section: HTMLElement) {
     vh = window.innerHeight;
     vw = window.innerWidth;
     top = section.getBoundingClientRect().top + window.scrollY;
+    track = section.offsetHeight - vh;
     w = group.offsetWidth;
     h = group.offsetHeight;
     k = parseFloat(getComputedStyle(group).getPropertyValue('--ho-k')) || 1;
@@ -90,12 +97,12 @@ export function setupHomeOpening(section: HTMLElement) {
   };
 
   const read = () => {
-    const track = section.offsetHeight - vh;
     raw = track > 0 ? clamp01((window.scrollY - top) / track) : 1;
   };
 
   const paint = (p: number) => {
-    section.style.setProperty('--p', p.toFixed(4));
+    const pv = p.toFixed(4);
+    for (const el of backdrops) el.style.setProperty('--p', pv);
 
     const fade = inOutCubic(span(p, 0, 0.26));
     copy.style.opacity = (1 - fade).toFixed(3);
@@ -141,6 +148,10 @@ export function setupHomeOpening(section: HTMLElement) {
     const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
     last = now;
     pending = false;
+    if (stale) {
+      stale = false;
+      measure();
+    }
     read();
 
     const omega = 2 / SMOOTH_TIME;
@@ -176,13 +187,17 @@ export function setupHomeOpening(section: HTMLElement) {
   };
 
   const onResize = () => {
-    measure();
+    stale = true;
     pending = true;
     start();
   };
 
   /* Snap straight to the scroll position, no spring: used on entry and exit. */
   const jump = () => {
+    if (stale) {
+      stale = false;
+      measure();
+    }
     read();
     pos = raw;
     vel = 0;
@@ -237,7 +252,7 @@ export function setupHomeOpening(section: HTMLElement) {
     }
     copy.style.pointerEvents = '';
     copy.style.visibility = '';
-    section.style.removeProperty('--p');
+    for (const el of backdrops) el.style.removeProperty('--p');
   };
 
   const sync = () => {

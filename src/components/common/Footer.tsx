@@ -71,7 +71,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
   const footerCols = ['1.5fr', ...sections.map(() => '1fr')].join(' ');
 
   return (
-    <footer className="border-t border-border-subtle bg-surface-raised">
+    <footer className="site-footer border-t border-border-subtle bg-surface-raised">
       <Container>
         <div className="py-12 lg:py-20">
           {/*

@@ -41,7 +41,6 @@
   left: 35%;
   top: 5%;
   width: 30%;
-  will-change: transform;
   transition:
     transform 520ms var(--ease-reveal),
     opacity 300ms var(--ease-reveal),
@@ -68,6 +67,13 @@
 .phone-trio[data-open] .phone-trio-right:hover {
   transform: translateX(104%) translateZ(-120px) rotateY(-20deg) scale(0.94) translateY(-2%);
   filter: brightness(1);
+}
+
+/* A layer per phone only for the reveal. The side phones' 3D transforms keep
+   them composited for the hover anyway, and after it the centre phone re-rasters
+   crisply instead of holding three layers for the life of the page. */
+.phone-trio[data-armed] .phone-trio-phone {
+  will-change: transform, opacity;
 }
 
 /* Reveal. `data-armed` is set by JS before the stage enters the view, so

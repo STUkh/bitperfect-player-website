@@ -15,7 +15,7 @@ export default function MobileMenu(props: MobileMenuProps) {
   return (
     <div
       id="mobile-menu"
-      className="pointer-events-none invisible fixed inset-0 z-40 flex flex-col bg-surface-base/98 backdrop-blur-xl opacity-0 transition-opacity duration-200 lg:hidden"
+      className="pointer-events-none invisible fixed inset-0 z-40 flex flex-col bg-surface-base opacity-0 transition-opacity duration-200 lg:hidden"
       aria-hidden="true"
       inert=""
     >

@@ -3,6 +3,7 @@ import { clsx as cx } from 'clsx';
 import Button from '../common/Button';
 import Container from '../common/Container';
 import PlayCta from '../common/PlayCta';
+import Picture from '../common/Picture';
 import { pro, site } from '../../data/site';
 import { useTranslations } from '../../i18n/utils';
 import { withBase } from '../../utils/nav';
@@ -110,15 +111,11 @@ export default function PricingSection() {
     >
       <div className="pricing-backdrop pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="pricing-backdrop-frame">
-          <img
-            src={withBase('img/pricing-backdrop.webp')}
-            srcSet={`${withBase('img/pricing-backdrop-960.webp')} 960w, ${withBase('img/pricing-backdrop.webp')} 1920w`}
+          <Picture
+            src="img/pricing-backdrop.webp"
             sizes="100vw"
-            width={1920}
-            height={1080}
-            alt=""
-            loading="lazy"
-            decoding="async"
+            art={[{ media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '100vh' }]}
+            position="50% 80%"
           />
         </div>
       </div>

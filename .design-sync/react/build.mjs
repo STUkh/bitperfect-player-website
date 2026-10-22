@@ -24,6 +24,15 @@ const siteNav = {
   },
 };
 
+// The responsive-image manifest names variants under public/_img that are never
+// copied into the design bundle; an empty one makes Picture fall back to masters.
+const noVariants = {
+  name: 'no-image-variants',
+  setup(b) {
+    b.onResolve({ filter: /(^|\/)data\/images\.json$/ }, () => ({ path: resolve(here, 'src/images.json') }));
+  },
+};
+
 await build({
   entryPoints: [resolve(here, 'src/index.ts')],
   outfile: resolve(here, 'dist/index.js'),
@@ -34,7 +43,7 @@ await build({
   external: ['react', 'react-dom', 'react/jsx-runtime', '/grounds/*', '/img/*', '/screens/*', '/brand/*'],
   tsconfig: resolve(here, 'tsconfig.json'),
   define: { 'import.meta.env.BASE_URL': '"/"', 'import.meta.env.DEV': 'false', 'import.meta.env.PROD': 'true' },
-  plugins: [siteNav],
+  plugins: [siteNav, noVariants],
   logLevel: 'warning',
 });
 

@@ -197,6 +197,10 @@
   .home-opening {
     /* 200vh of track: the choreography, then a hold at the end (see the script). */
     height: 300vh;
+  }
+  /* Resolved on the backdrops, which is where the script writes `--p`: written on
+     the section, an inherited property restyled the whole opening every frame. */
+  .ho-backdrop {
     --hero-o: clamp(0, calc(1 - var(--p) * 2), 1);
     --show-o: clamp(0, calc((var(--p) - 0.35) / 0.45), 1);
   }
@@ -268,6 +272,7 @@
   /* Layers only while the script is animating. At rest they are dropped, so the
      phones re-raster crisply at the scale they settled on. */
   .home-opening[data-moving] .ho-copy,
+  .home-opening[data-moving] .ho-heading,
   .home-opening[data-moving] .ho-group,
   .home-opening[data-moving] .ho-side {
     will-change: transform, opacity;

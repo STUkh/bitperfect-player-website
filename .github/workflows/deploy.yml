@@ -32,6 +32,14 @@ jobs:
 
       - run: npm ci
 
+      # AVIF/WebP variants from scripts/images.mjs. Keyed on the masters and the
+      # recipe, so an unchanged image set skips the encode (~80s cold).
+      - uses: actions/cache@v4
+        with:
+          path: public/_img
+          key: img-${{ hashFiles('public/img/**', 'public/screens/**', 'scripts/images.mjs') }}
+          restore-keys: img-
+
       - run: npx astro build
 
       - name: Check legal document completeness

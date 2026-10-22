@@ -1,3 +1,6 @@
+/* The panel is opaque, with no backdrop blur. At 98% the blur only shaped the
+   2% of page showing through, and it cost a full-screen blur on every frame of the fade and of
+   any scroll inside the panel. */
 #mobile-menu:target {
   opacity: 1 !important;
   visibility: visible !important;

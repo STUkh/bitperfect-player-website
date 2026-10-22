@@ -1,6 +1,6 @@
 import { clsx as cx } from 'clsx';
 import { screens } from '../../data/screens';
-import { withBase } from '../../utils/nav';
+import Picture from '../common/Picture';
 import type { ClassProps } from '../class-props';
 
 /**
@@ -38,21 +38,21 @@ export interface PhoneScreenProps extends ClassProps {
   alt?: string;
   /** Load eagerly with high fetch priority. Only for the one screen above the fold. Default lazy. */
   priority?: boolean;
+  /** Rendered width; default `278px`, the frame at its widest (the 556px master is its 2x). */
+  sizes?: string;
 }
 
-export default function PhoneScreen({ name, alt = '', priority = false, className }: PhoneScreenProps) {
+export default function PhoneScreen({ name, alt = '', priority = false, sizes = '278px', className }: PhoneScreenProps) {
   const known = screens.has(name);
   if (!known) return null;
 
   return (
-    <img
-      src={withBase(`screens/${name}.webp`)}
+    <Picture
+      src={`screens/${name}.webp`}
       alt={alt}
-      width="556"
-      height="1236"
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
-      {...(priority ? ({ fetchpriority: 'high' } as object) : {})}
+      sizes={sizes}
+      priority={priority}
+      position="50% 0%"
       className={cx(['h-full w-full object-cover object-top', className])}
     />
   );

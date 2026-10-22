@@ -2,6 +2,7 @@ import { clsx as cx } from 'clsx';
 import { imagePrompts } from '../../data/imagePrompts';
 import { plates } from '../../data/plates';
 import { withBase } from '../../utils/nav';
+import Picture from './Picture';
 import type { ClassProps } from '../class-props';
 
 /**
@@ -137,7 +138,8 @@ export default function ImageSlot(props: ImageSlotProps) {
     uses it, and deleting one empties it back to the section's own ground. No page is
     edited either way. An explicit `src` still wins, for a one-off that is not a plate.
   */
-  const plateSrc = src ?? (plates.has(name) ? withBase(`img/${name}.webp`) : undefined);
+  const platePath = src ? undefined : plates.has(name) ? `img/${name}.webp` : undefined;
+  const plateSrc = src ?? (platePath ? withBase(platePath) : undefined);
 
   const spec = imagePrompts[name];
 
@@ -201,13 +203,22 @@ export default function ImageSlot(props: ImageSlotProps) {
                  async because every one of them is below the fold — the first is 1400px
                  down — and a 2560px band blocking the render of a page whose argument is
                  that it is fast would be its own kind of contradiction. */
-              <img
-                src={plateSrc}
-                alt={alt}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
+              platePath ? (
+                <Picture
+                  src={platePath}
+                  alt={alt}
+                  sizes={isBand ? '100vw' : '(max-width: 1279px) 100vw, 1280px'}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <img
+                  src={plateSrc}
+                  alt={alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )
             ) : (
               <>
                 {/* Registration ticks, four corners. */}

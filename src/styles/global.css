@@ -43,12 +43,25 @@
     U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
     U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+/* The swap without the jump. While Manrope is in flight the text sets in a local
+   sans scaled to Manrope's measure — the advance widths of English text at weight
+   500 (0.474 em against Arial's 0.447) and its vertical metrics (ascent 2132,
+   descent 600, no gap, on a 2000 unit em) — so the line breaks, and the layout
+   under them, hold when the real face lands. Measured from the shipped woff2. */
+@font-face {
+  font-family: "Manrope Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Roboto");
+  size-adjust: 106.1%;
+  ascent-override: 100.5%;
+  descent-override: 28.3%;
+  line-gap-override: 0%;
+}
 
 /* ── Tailwind 4 Theme Tokens ──
    Mirrors the front matter of DESIGN.md. Every value here is measured from the
    approved artboards in design/*.dc.html; nothing is invented. */
 @theme {
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", "Manrope Fallback", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* ── Surfaces (graphite, never black) ──
@@ -571,6 +584,10 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
+  /* Fixed over every layer that moves: an explicit layer of its own, rastered
+     once, so scrolling and the layers under it never repaint the noise. */
+  will-change: transform;
+  contain: strict;
 }
 
 /* ── Selection ── */
@@ -690,10 +707,10 @@ body::after {
     0% 0%,
     0% 0%;
   background-repeat: no-repeat;
+  /* The outer shadows live on ::before (rest) and ::after (hover), see below. */
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 -1px 0 var(--color-gold-shadow-ink),
-    var(--shadow-key);
+    inset 0 -1px 0 var(--color-gold-shadow-ink);
   transition:
     filter var(--btn-fade) var(--btn-ease),
     background-position var(--btn-sheen) var(--btn-ease),
@@ -707,9 +724,63 @@ body::after {
     0% 0%;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 var(--color-gold-shadow-ink),
+    inset 0 -1px 0 var(--color-gold-shadow-ink);
+}
+/* ── Key-cap cast shadows, cross-faded ──
+   A blurred box-shadow that interpolates repaints its whole blur every frame of
+   the fade. Each end state is drawn once on its own pseudo-element at the exact
+   value it used to have, and only their opacity moves. Same border box, same
+   radius, so rest and hover are unchanged. The inset rims stay on the face. */
+.btn-primary-gradient::before,
+.btn-primary-gradient::after,
+.btn-secondary-glow::before,
+.btn-secondary-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity var(--btn-fade) var(--btn-ease);
+}
+/* The secondary key-cap has a 1px border: cast from the border box, as before. */
+.btn-secondary-glow::before,
+.btn-secondary-glow::after {
+  inset: -1px;
+}
+.btn-primary-gradient::before,
+.btn-secondary-glow::before {
+  box-shadow: var(--shadow-key);
+}
+.btn-primary-gradient::after {
+  opacity: 0;
+  box-shadow:
     0 8px 24px -4px rgba(0, 0, 0, 0.6),
     0 0 20px -2px rgba(232, 184, 75, 0.28);
+}
+.btn-secondary-glow::after {
+  opacity: 0;
+  box-shadow: var(--shadow-key-hover);
+}
+.btn-primary-gradient:hover::before,
+.btn-secondary-glow:hover::before,
+.btn-primary-gradient:active::before,
+.btn-primary-gradient:active::after,
+.btn-secondary-glow:active::before,
+.btn-secondary-glow:active::after {
+  opacity: 0;
+}
+.btn-primary-gradient:hover::after,
+.btn-secondary-glow:hover::after {
+  opacity: 1;
+}
+/* Layered, so a positioning utility at a call site still wins. */
+@layer components {
+  .btn-primary-gradient,
+  .btn-secondary-glow {
+    position: relative;
+    isolation: isolate;
+  }
 }
 .btn-primary-gradient:active {
   transform: none;
@@ -767,8 +838,7 @@ body::after {
   background-repeat: no-repeat;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
-    var(--shadow-key);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
   transition:
     background-color var(--btn-fade) var(--btn-ease),
     background-position var(--btn-sheen) var(--btn-ease),
@@ -786,8 +856,7 @@ body::after {
     0% 0%;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
-    var(--shadow-key-hover);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 .btn-secondary-glow:active {
   transform: none;
@@ -797,7 +866,11 @@ body::after {
 /* ── Button reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .btn-primary-gradient,
-  .btn-secondary-glow {
+  .btn-secondary-glow,
+  .btn-primary-gradient::before,
+  .btn-primary-gradient::after,
+  .btn-secondary-glow::before,
+  .btn-secondary-glow::after {
     transition-duration: 0ms;
     transform: none;
   }

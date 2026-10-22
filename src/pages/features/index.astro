@@ -99,7 +99,7 @@ const order = [...indexOrder];
                 style={`--i: ${i % 3}`}
               >
                 <div class="art-clip relative overflow-hidden">
-                  <FeatureArt slug={slug} className="art w-full" />
+                  <FeatureArt slug={slug} className="art w-full" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 410px" />
                 </div>
 
                 <div class="relative flex flex-1 flex-col px-6 pt-3 pb-6 lg:px-7 lg:pt-4 lg:pb-7">
@@ -264,12 +264,17 @@ const order = [...indexOrder];
     transform: translateY(-1px);
   }
 
-  /* Specular light sweep on hover */
+  /* Specular light sweep on hover. The layer is the 240% gradient itself and it
+     moves by transform, which the card's own clip crops: the same pixels as the
+     old background-position 0% to 100% sweep, without a repaint per frame.
+     -58.333% is the -140% of the card that 100% used to offset, over 240%. */
   .feature-card::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
+    top: 0;
+    left: 0;
+    width: 240%;
+    height: 240%;
     pointer-events: none;
     background: linear-gradient(
       115deg,
@@ -278,17 +283,15 @@ const order = [...indexOrder];
       rgba(255, 255, 255, 0.06) 48%,
       transparent 65%
     );
-    background-size: 240% 240%;
-    background-position: 0% 0%;
     opacity: 0;
     transition:
       opacity 260ms ease,
-      background-position 550ms var(--ease-reveal);
+      transform 550ms var(--ease-reveal);
     z-index: 5;
   }
   .feature-card:hover::before {
     opacity: 1;
-    background-position: 100% 100%;
+    transform: translate(-58.3333%, -58.3333%);
   }
 
   .art {

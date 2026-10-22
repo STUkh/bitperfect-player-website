@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { clsx as cx } from 'clsx';
 import { withBase } from '../../utils/nav';
+import { imageSet } from './Picture';
 import type { ClassProps } from '../class-props';
 import './TextureStrip.css';
 
@@ -28,8 +29,11 @@ export interface TextureStripProps extends ClassProps {
  */
 export default function TextureStrip({ material, className }: TextureStripProps) {
   const file = MATERIALS[material];
+  const set = imageSet(`img/${file}-tile.webp`);
   const style = {
     '--strip-img': `url("${withBase(`img/${file}-tile.webp`)}")`,
+    /* AVIF where `image-set()` with type() is understood; TextureStrip.css gates it. */
+    ...(set ? { '--strip-set': set } : {}),
   } as CSSProperties;
   return <div className={cx('texture-strip', className)} style={style} aria-hidden="true" />;
 }

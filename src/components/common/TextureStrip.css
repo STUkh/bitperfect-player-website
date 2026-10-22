@@ -11,6 +11,13 @@
   background-position: center;
   background-size: auto 100%;
 }
+/* A custom property cannot fall back to the declaration before it, so the AVIF
+   set is gated on support rather than stacked over the plain url. */
+@supports (background-image: image-set(url("x.avif") type("image/avif"))) {
+  .texture-strip {
+    background-image: var(--strip-set, var(--strip-img));
+  }
+}
 .texture-strip::before {
   content: "";
   position: absolute;

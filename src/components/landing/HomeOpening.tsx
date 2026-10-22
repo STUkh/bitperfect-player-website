@@ -1,6 +1,6 @@
 import Button from '../common/Button';
 import PlayCta from '../common/PlayCta';
-import { withBase } from '../../utils/nav';
+import Picture from '../common/Picture';
 import PhoneNowPlaying from '../PhoneNowPlaying';
 import PhoneFrame from '../feature/PhoneFrame';
 import PhoneScreen from '../feature/PhoneScreen';
@@ -60,27 +60,21 @@ export default function HomeOpening() {
             lineup. Decorative, so no alt. Their opacities follow `--p`. */}
         <div className="ho-backdrop ho-backdrop-hero" aria-hidden="true">
           <div className="ho-backdrop-frame">
-            <img
-              src={withBase('img/hero-backdrop.webp')}
-              srcSet={`${withBase('img/hero-backdrop-960.webp')} 960w, ${withBase('img/hero-backdrop.webp')} 1672w`}
+            <Picture
+              src="img/hero-backdrop.webp"
               sizes="100vw"
-              width="1672"
-              height="941"
-              alt=""
-              loading="eager"
-              decoding="async"
-              {...({ fetchpriority: "low" } as object)}
+              art={[{ media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '860px' }]}
+              position="74% 40%"
+              eager
             />
           </div>
         </div>
         <div className="ho-backdrop ho-backdrop-show" aria-hidden="true">
-          <img
-            src={withBase('img/showcase-backdrop.webp')}
-            srcSet={`${withBase('img/showcase-backdrop-960.webp')} 960w, ${withBase('img/showcase-backdrop.webp')} 1672w`}
+          <Picture
+            src="img/showcase-backdrop.webp"
             sizes="100vw"
-            alt=""
-            loading="lazy"
-            decoding="async"
+            art={[{ media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '100vh' }]}
+            position="50% 100%"
           />
         </div>
 

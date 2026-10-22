@@ -2,6 +2,7 @@ import PlayCta from './common/PlayCta';
 import Container from './common/Container';
 import Logo from './common/Logo';
 import Icon from './Icon';
+import Picture from './common/Picture';
 import { site } from '../data/site';
 import { withBase } from '../utils/nav';
 import './HoldingPage.css';
@@ -44,17 +45,14 @@ export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProp
     `aria-hidden` and an empty alt: it is the section's ground, not information.
     Everything it says, the headline says in words.
   */}
-      <picture className="holding-plate" aria-hidden="true">
-        <source media="(max-width: 1023px)" srcSet={withBase('img/holding/needle-portrait.webp')} />{' '}
-        <img
-          src={withBase('img/holding/needle.webp')}
-          alt=""
-          width="1536"
-          height="1024"
-          loading="eager"
-          decoding="async"
-        />
-      </picture>
+      <Picture
+        src="img/holding/needle.webp"
+        sizes="100vw"
+        art={[{ media: '(max-width: 1023px)', src: 'img/holding/needle-portrait.webp', sizes: '100vw' }]}
+        position="50% 58%"
+        priority
+        pictureClassName="holding-plate"
+      />
       <div className="holding-scrim" aria-hidden="true" />
       <header className="holding-bar">
         <Container>

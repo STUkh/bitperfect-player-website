@@ -13,6 +13,28 @@ import '../styles/global.css';
 import '../styles/animations.css';
 
 const { title, description, canonical, ogImage, noindex } = Astro.props;
+
+/* Chromium prerenders an internal page once the pointer rests on its link
+   (`moderate`: ~200ms hover, or pointerdown on touch), so the click lands on a
+   page that has already loaded, laid out and painted. Static pages, no state to go
+   stale. The two meta-refresh aliases are skipped: prerendering a redirect spends
+   the budget (two at a time) on a page nobody sees. Other browsers ignore the
+   block and get Astro's hover prefetch instead (astro.config.mjs). */
+const speculation = {
+  prerender: [
+    {
+      where: {
+        and: [
+          { href_matches: withBase('*') },
+          { not: { href_matches: withBase('policy') } },
+          { not: { href_matches: withBase('faq/npu-ai-enhancer') } },
+          { not: { selector_matches: '[download], [target=_blank], [rel~=external]' } },
+        ],
+      },
+      eagerness: 'moderate',
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -39,6 +61,7 @@ const { title, description, canonical, ogImage, noindex } = Astro.props;
       ogImage={ogImage}
       noindex={noindex}
     />
+    <script type="speculationrules" is:inline set:html={JSON.stringify(speculation)} />
     <slot name="head" />
   </head>
   <body>

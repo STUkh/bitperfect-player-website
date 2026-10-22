@@ -1,3 +1,16 @@
+/* Always below the fold and never measured by a script: skipped until it nears
+   the viewport. The sizes are estimates from the content (a two-column stack on a
+   phone, one row from 1024px); `auto` keeps the real height once rendered. */
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1100px;
+}
+@media (min-width: 1024px) {
+  .site-footer {
+    contain-intrinsic-size: auto 520px;
+  }
+}
+
 /* The derived desktop track list. See `footerCols` in the front matter. */
 @media (min-width: 1024px) {
   .footer-grid {
