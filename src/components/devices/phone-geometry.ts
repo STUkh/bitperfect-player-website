@@ -93,3 +93,38 @@ export function phoneGeometry(width: number, height: number): PhoneGeometry {
     key: `${orientation}-${length}`,
   };
 }
+
+/** Splits at `sep` outside parentheses, so a media condition or a calc() stays whole. */
+function splitTop(s: string, sep: string) {
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') depth++;
+    else if (s[i] === ')') depth--;
+    else if (s[i] === sep && depth === 0) {
+      parts.push(s.slice(start, i));
+      start = i + 1;
+    }
+  }
+  parts.push(s.slice(start));
+  return parts.map((p) => p.trim()).filter(Boolean);
+}
+
+/**
+ * Every width in a `sizes` list times `k`, its media condition kept:
+ * `(min-width: 1024px) 480px, 48vh` times 0.5 is `(min-width: 1024px) 240px, calc(48vh * 0.5)`.
+ * How a filled phone turns its frame's width into its screen's.
+ */
+export function scaleSizes(sizes: string, k: number): string {
+  return splitTop(sizes, ',')
+    .map((entry) => {
+      const parts = splitTop(entry, ' ');
+      const width = parts.pop()!;
+      const px = /^(\d+(?:\.\d+)?)px$/.exec(width);
+      const term = width.startsWith('calc(') && width.endsWith(')') ? `(${width.slice(5, -1)})` : width;
+      const scaled = px ? `${Math.round(Number(px[1]) * k)}px` : `calc(${term} * ${Math.round(k * 10000) / 10000})`;
+      return [...parts, scaled].join(' ');
+    })
+    .join(', ');
+}

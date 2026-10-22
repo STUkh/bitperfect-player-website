@@ -20,6 +20,17 @@ import './HomeOpening.css';
   decides eligibility (roughly one trial per store account). Setting `trialDays`
   back to null removes the line rather than leaving a broken promise on the fold.
 */
+/*
+  The phones' rendered widths, for the screens' `sizes` (HomeOpening.css). Pinned,
+  the group is laid out at --ho-k (1.6) times min(300px, 30vh) and only scaled
+  down. Unpinned, the grid's two 280px columns with a 24px gap inside a
+  clamp(20px, 6vw, 80px) gutter, and the hero phone across both, capped at 280px.
+*/
+const PINNED = '(min-width: 1024px) and (prefers-reduced-motion: no-preference) and (scripting: enabled)';
+const PINNED_SIZES = `${PINNED} and (min-height: 1000px) 480px, ${PINNED} 48vh`;
+const SIDE_SIZES = `${PINNED_SIZES}, (min-width: 664px) 280px, calc((88vw - 24px) / 2)`;
+const CENTRE_SIZES = `${PINNED_SIZES}, 280px`;
+
 const trialLine = pro.trialDays
   ? `Eligible new customers get ${pro.trialDays} days free. Then $${pro.founderPrice} a year, the Founder price, if you subscribe by ${pro.founderEndDate}. That price stays yours while you stay subscribed.`
   : null;
@@ -121,7 +132,7 @@ export default function HomeOpening() {
               aria-label="Three app screens: Now Playing, equaliser and library"
             >
               <div className="ho-side ho-left" data-phone="left">
-                <Phone screen="eq" fill />
+                <Phone screen="eq" fill frameSizes={SIDE_SIZES} />
               </div>
               <div className="ho-centre" data-phone="centre">
                 {/* 300px: the same module as the lineup the hero phone travels into. */}
@@ -129,13 +140,14 @@ export default function HomeOpening() {
                   <Phone
                     screen="now-playing-hero"
                     fill
+                    frameSizes={CENTRE_SIZES}
                     priority
                     alt="The Bitperfect Player Now Playing screen, mid-track, showing the album artwork, the transport controls and the file's FLAC format and rate"
                   />
                 </div>
               </div>
               <div className="ho-side ho-right" data-phone="right">
-                <Phone screen="library" fill />
+                <Phone screen="library" fill frameSizes={SIDE_SIZES} />
               </div>
             </div>
           </div>

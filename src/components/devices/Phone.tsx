@@ -1,7 +1,7 @@
 import { screens, type ScreenName } from '../../data/screens';
 import Picture from '../primitives/Picture';
 import PhoneFrame, { FRAME_WIDTH } from './PhoneFrame';
-import { phoneGeometry, type PhoneGeometry } from './phone-geometry';
+import { phoneGeometry, scaleSizes, type PhoneGeometry } from './phone-geometry';
 import type { ClassProps } from '../_lib/class-props';
 
 type Source =
@@ -36,18 +36,20 @@ export type PhoneProps = ClassProps &
     priority?: boolean;
     /** Take the parent's width instead of the device's own (portrait 296px, 344px from lg; landscape the column up to 620px). */
     fill?: boolean;
-    /** The image's rendered width, for the responsive pick. Default from the device's width; pass it with `fill`. */
+    /** With `fill`: the device's rendered width, in `sizes` syntax (`(min-width: 664px) 280px, 44vw`). The screen's `sizes` is worked out from it. */
+    frameSizes?: string;
+    /** The image's rendered width, for the responsive pick, when `frameSizes` cannot say it. Default from the device's width. */
     sizes?: string;
   };
 
 const px = (n: number) => `${Math.round(n)}px`;
 
 /* What the screen measures at the device's own width. A filled phone's width is
-   the parent's, which only the caller knows: 278px is the portrait screen at its
-   common size, and the 556px master is its 2x. */
-function defaultSizes(geometry: PhoneGeometry, fill: boolean) {
+   the parent's, which only the caller knows (`frameSizes`); without it, 278px is
+   the portrait screen at its common size, and the 556px master is its 2x. */
+function defaultSizes(geometry: PhoneGeometry, fill: boolean, frameSizes?: string) {
   const f = geometry.screenFraction;
-  if (fill) return '278px';
+  if (fill) return frameSizes ? scaleSizes(frameSizes, f) : '278px';
   if (geometry.orientation === 'landscape') {
     const max = FRAME_WIDTH.landscape.max;
     return `(min-width: ${max}px) ${px(max * f)}, ${Math.round(f * 100)}vw`;
@@ -73,7 +75,7 @@ function defaultSizes(geometry: PhoneGeometry, fill: boolean) {
  * Width: portrait 296px, 344px from `lg`; landscape the column's width up to
  * 620px; `fill` takes the parent's. Ivory bands null the cast shadow.
  */
-export default function Phone({ className, alt = '', priority = false, fill = false, sizes, ...source }: PhoneProps) {
+export default function Phone({ className, alt = '', priority = false, fill = false, frameSizes, sizes, ...source }: PhoneProps) {
   const capture = source.screen !== undefined ? (screens as Record<string, { w: number; h: number }>)[source.screen] : undefined;
   const fallback = Object.values(screens)[0];
   const [w, h] = source.src !== undefined ? [source.width, source.height] : [capture?.w ?? fallback.w, capture?.h ?? fallback.h];
@@ -86,7 +88,7 @@ export default function Phone({ className, alt = '', priority = false, fill = fa
         <Picture
           src={src}
           alt={alt}
-          sizes={sizes ?? defaultSizes(geometry, fill)}
+          sizes={sizes ?? defaultSizes(geometry, fill, frameSizes)}
           priority={priority}
           position="50% 0%"
           className="h-full w-full object-cover object-top"
