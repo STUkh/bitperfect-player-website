@@ -14,8 +14,10 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/common/Container';
 import PlayCta from '../../components/common/PlayCta';
+import Band from '../../components/common/Band';
 import CloseBand from '../../components/common/CloseBand';
 import CrossLinkRow from '../../components/common/CrossLinkRow';
+import SectionHeading from '../../components/common/SectionHeading';
 import FeatureArt from '../../components/feature/FeatureArt';
 import FeatureLinkCard from '../../components/feature/FeatureLinkCard';
 import PhoneTrio from '../../components/feature/PhoneTrio.astro';
@@ -32,8 +34,8 @@ const compatRows = getLocalizedCompatibility(lang);
 /* Taglines only. The row's NAME comes from `getLocalizedFeatureName()`, so this page cannot
    call a route something the nav that points at it does not. */
 const ROWS: Record<(typeof indexOrder)[number], { tagline: string }> = {
-  'usb-dac': { tagline: 'Your DAC gets the file unchanged, or the badge says so' },
-  eq: { tagline: 'Tone control you can turn off in one tap' },
+  'usb-dac': { tagline: 'Bit-perfect audio verified by a live signal badge' },
+  eq: { tagline: 'Parametric EQ with instant bit-perfect bypass' },
   library: { tagline: 'Find any album instantly, on your phone' },
   casting: { tagline: 'Stream to cast-enabled speakers and TVs, or receive on your phone' },
   dsp: { tagline: 'Headphone crossfeed, album loudness and clip protection, each adjustable' },
@@ -135,53 +137,51 @@ const order = [...indexOrder];
 
       Hairlines and space, no cards. Set on warm ivory to break the dark ground
       per DESIGN.md Strict Alternation Rule (Dark -> Light -> Dark). */}
-  <section id="compatibility" class="ground ground-halftone scroll-mt-24 bg-band-ivory pt-12 pb-14 lg:pt-24 lg:pb-26">
-    <Container>
-      <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
-        <div class="lg:col-span-4">
-          <h2 class="text-section-sm text-balance text-band-ink lg:text-section-lg">
-            {t('features_index.compat_title')}
-          </h2>
-          <p class="mt-4 max-w-[34ch] text-body text-pretty text-band-ink-muted lg:mt-5">
-            {t('features_index.compat_subtitle')}
-          </p>
-        </div>
+  <Band id="compatibility" tone="ivory" ground="ground-halftone" className="scroll-mt-24 pt-12 pb-14 lg:pt-24 lg:pb-26">
+    <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
+      <SectionHeading
+        tone="ivory"
+        className="lg:col-span-4"
+        title={t('features_index.compat_title')}
+        titleClassName="text-section-sm lg:text-section-lg"
+        lede={t('features_index.compat_subtitle')}
+        ledeClassName="mt-4 max-w-[34ch] text-body text-pretty lg:mt-5"
+      />
 
-        <div class="flex flex-col lg:col-span-8">
-          {
-            compatRows.map((row, i, all) => (
-              <div
-                class:list={[
-                  'grid grid-cols-1 gap-2 border-t border-band-rule py-6 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:py-7',
-                  i === all.length - 1 && 'border-b',
-                ]}
-              >
-                <div>
-                  <h3 class="text-body-lg font-semibold tracking-[-0.01em] text-band-ink lg:text-title-sm">
-                    {row.what}
-                  </h3>
-                  <p class="mt-1.5 text-caption text-pretty text-band-ink-muted lg:text-small">
-                    {row.scope}
-                  </p>
-                </div>
-                <div>
-                  <p class="text-body-sm font-semibold text-pretty text-band-ink lg:text-body">
-                    {row.devices}
-                  </p>
-                  <p class="mt-2 max-w-[52ch] text-caption leading-[1.62] tabular-nums text-pretty text-band-ink-muted lg:text-small">
-                    {row.note}
-                  </p>
-                </div>
+      <div class="flex flex-col lg:col-span-8">
+        {
+          compatRows.map((row, i, all) => (
+            <div
+              class:list={[
+                'grid grid-cols-1 gap-2 border-t border-band-rule py-6 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:py-7',
+                i === all.length - 1 && 'border-b',
+              ]}
+            >
+              <div>
+                <h3 class="text-body-lg font-semibold tracking-[-0.01em] text-band-ink lg:text-title-sm">
+                  {row.what}
+                </h3>
+                <p class="mt-1.5 text-caption text-pretty text-band-ink-muted lg:text-small">
+                  {row.scope}
+                </p>
               </div>
-            ))
-          }
-          <p class="mt-6 text-caption text-band-ink-muted">
-            {t('features_index.compat_min_android', { minAndroid: site.minAndroid })}
-          </p>
-        </div>
+              <div>
+                <p class="text-body-sm font-semibold text-pretty text-band-ink lg:text-body">
+                  {row.devices}
+                </p>
+                <p class="mt-2 max-w-[52ch] text-caption leading-[1.62] tabular-nums text-pretty text-band-ink-muted lg:text-small">
+                  {row.note}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+        <p class="mt-6 text-caption text-band-ink-muted">
+          {t('features_index.compat_min_android', { minAndroid: site.minAndroid })}
+        </p>
       </div>
-    </Container>
-  </section>
+    </div>
+  </Band>
 
   {/* ── Closing action, on graphite to strictly alternate after the ivory compatibility band ── */}
   <CloseBand

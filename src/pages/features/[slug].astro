@@ -186,123 +186,120 @@ const showSignalPath = slug === 'usb-dac';
       Separated strictly by 1px hairlines (border-band-rule) and whitespace with zero cards or nested boxes. */}
   {
     showSignalPath && (
-      <section class="bg-band-ivory py-14 lg:py-28">
-        <Container>
-          <div class="max-w-[58ch]">
-            <span class="r-fade mono-spec text-micro font-medium tracking-[1.2px] text-band-gold-ink uppercase lg:tracking-[1.5px]">
-              {t('feature_detail.signal_path_eyebrow')}
-            </span>
-            <h2 class="r-rise mt-3 text-section-m text-balance text-band-ink lg:mt-5 lg:text-headline" style="--i: 1">
-              {t('feature_detail.signal_path_title')}
-            </h2>
-            <p class="r-rise mt-3 text-body tabular-nums text-pretty text-band-ink-muted lg:mt-4 lg:text-lede" style="--i: 2">
-              {t('feature_detail.signal_path_subtitle')}
-            </p>
-          </div>
+      <Band tone="ivory" className="py-14 lg:py-28">
+        <SectionHeading
+          tone="ivory"
+          className="max-w-[58ch]"
+          eyebrow={t('feature_detail.signal_path_eyebrow')}
+          title={t('feature_detail.signal_path_title')}
+          titleClassName="mt-3 text-section-m lg:mt-5 lg:text-headline"
+          lede={t('feature_detail.signal_path_subtitle')}
+          ledeClassName="mt-3 text-body tabular-nums text-pretty lg:mt-4 lg:text-lede"
+          reveal={1}
+        />
 
-          <div class="mt-10 flex flex-col gap-10 lg:mt-14 lg:gap-12">
-            {/* ── Path 1: Standard Android System Mixer (7 Stages) ── */}
-            <div class="border-t border-band-rule pt-6 lg:pt-8">
-              <div class="flex flex-wrap items-baseline justify-between gap-3">
-                <div class="flex flex-wrap items-center gap-2.5">
-                  <span class="h-2 w-2 rounded-full bg-band-ink/35" aria-hidden="true" />
-                  <span class="text-label text-band-ink-muted uppercase">{t('feature_detail.signal_path_android')}</span>
-                  <span class="mono-spec text-micro font-semibold tabular-nums text-band-ink-muted uppercase">· 7 {t('feature_detail.signal_path_stages')}</span>
-                </div>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
-                  <span class="mono-spec text-small font-semibold tabular-nums text-band-ink">48 kHz / 16-bit (-83% data)</span>
-                </div>
+        <div class="mt-10 flex flex-col gap-10 lg:mt-14 lg:gap-12">
+          {/* ── Path 1: Standard Android System Mixer (7 Stages) ── */}
+          <div class="border-t border-band-rule pt-6 lg:pt-8">
+            <div class="flex flex-wrap items-baseline justify-between gap-3">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <span class="h-2 w-2 rounded-full bg-band-ink/35" aria-hidden="true" />
+                <span class="text-label text-band-ink-muted uppercase">{t('feature_detail.signal_path_android')}</span>
+                <span class="mono-spec text-micro font-semibold tabular-nums text-band-ink-muted uppercase">· 7 {t('feature_detail.signal_path_stages')}</span>
               </div>
-
-              <div class="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-4 lg:grid-cols-7 lg:gap-6">
-                {[
-                  { num: '01', name: t('feature.usb-dac.signal_path.android.stage.0'), note: '192 kHz / 24-bit', altered: false },
-                  { num: '02', name: t('feature.usb-dac.signal_path.android.stage.1'), note: 'Shared system audio', altered: false },
-                  { num: '03', name: t('feature.usb-dac.signal_path.android.stage.2'), note: 'Forced to 48 kHz', altered: true },
-                  { num: '04', name: t('feature.usb-dac.signal_path.android.stage.3'), note: 'Mixed with system sounds', altered: true },
-                  { num: '05', name: t('feature.usb-dac.signal_path.android.stage.4'), note: 'Level lowered', altered: true },
-                  { num: '06', name: t('feature.usb-dac.signal_path.android.stage.5'), note: 'Cut to 16-bit', altered: true },
-                  { num: '07', name: t('feature.usb-dac.signal_path.android.stage.6'), note: '48 kHz / 16-bit', altered: true },
-                ].map((st) => (
-                  <div class="flex flex-col justify-between border-t border-band-rule pt-3 text-left">
-                    <div class="flex items-center justify-between">
-                      <span class="mono-spec text-device-label font-medium uppercase text-band-ink-muted">Stage</span>
-                      {st.altered && <span class="h-1.5 w-1.5 rounded-full bg-band-gold-ink" aria-hidden="true" />}
-                    </div>
-                    <div class="mt-2">
-                      <span class="block text-caption font-semibold text-band-ink leading-tight">{st.name}</span>
-                      <span class:list={[
-                        'mono-spec mt-1 block text-device-label tabular-nums leading-tight',
-                        st.altered ? 'text-band-ink-muted line-through' : 'text-band-ink-muted'
-                      ]}>{st.note}</span>
-                    </div>
-                  </div>
-                ))}
+              <div class="flex items-baseline gap-2">
+                <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
+                <span class="mono-spec text-small font-semibold tabular-nums text-band-ink">48 kHz / 16-bit (-83% data)</span>
               </div>
             </div>
 
-            {/* ── Path 2: Bitperfect Direct USB Pipeline (4 Stages) ── */}
-            <div class="border-t border-band-rule pt-6 lg:pt-8">
-              <div class="flex flex-wrap items-baseline justify-between gap-3">
-                <div class="flex flex-wrap items-center gap-2.5">
-                  <span class="h-2 w-2 rounded-full bg-band-gold-ink" aria-hidden="true" />
-                  <span class="text-label font-bold tracking-wider text-band-gold-ink uppercase">{t('feature_detail.signal_path_ours')}</span>
-                  <span class="mono-spec text-micro font-bold tabular-nums text-band-gold-ink uppercase">· 4 {t('feature_detail.signal_path_stages')}</span>
-                </div>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
-                  <span class="mono-spec text-small font-bold tabular-nums text-band-gold-ink">192 kHz / 24-bit (100% native)</span>
-                </div>
-              </div>
-
-              <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4 lg:gap-8">
-                {[
-                  { num: '01', name: t('feature.usb-dac.signal_path.ours.stage.0'), note: '192 kHz / 24-bit lossless', highlight: 'Native bitstream' },
-                  { num: '02', name: t('feature.usb-dac.signal_path.ours.stage.1'), note: 'Bypasses system mixer', highlight: 'Exclusive USB lock' },
-                  { num: '03', name: t('feature.usb-dac.signal_path.ours.stage.2'), note: '0 mixers, 0 resamplers', highlight: 'Bit-for-bit unaltered' },
-                  { num: '04', name: t('feature.usb-dac.signal_path.ours.stage.3'), note: 'DAC clock follows the file', highlight: 'Bit-perfect output' },
-                ].map((st) => (
-                  <div class="flex flex-col justify-between border-t border-band-gold-ink/40 pt-3 text-left">
-                    <div class="flex items-center justify-between">
-                      <span class="mono-spec text-device-label font-bold uppercase tracking-wider text-band-gold-ink">Direct</span>
-                      <svg class="h-3.5 w-3.5 text-band-gold-ink" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                      </svg>
-                    </div>
-                    <div class="mt-2">
-                      <span class="block text-caption font-bold text-band-ink leading-tight">{st.name}</span>
-                      <span class="mono-spec mt-1 block text-device-label tabular-nums text-band-ink-muted leading-tight">{st.note}</span>
-                      <span class="mono-spec mt-1.5 block text-device-label font-semibold tracking-wider text-band-gold-ink uppercase">{st.highlight}</span>
-                    </div>
+            <div class="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-4 lg:grid-cols-7 lg:gap-6">
+              {[
+                { num: '01', name: t('feature.usb-dac.signal_path.android.stage.0'), note: '192 kHz / 24-bit', altered: false },
+                { num: '02', name: t('feature.usb-dac.signal_path.android.stage.1'), note: 'Shared system audio', altered: false },
+                { num: '03', name: t('feature.usb-dac.signal_path.android.stage.2'), note: 'Forced to 48 kHz', altered: true },
+                { num: '04', name: t('feature.usb-dac.signal_path.android.stage.3'), note: 'Mixed with system sounds', altered: true },
+                { num: '05', name: t('feature.usb-dac.signal_path.android.stage.4'), note: 'Level lowered', altered: true },
+                { num: '06', name: t('feature.usb-dac.signal_path.android.stage.5'), note: 'Cut to 16-bit', altered: true },
+                { num: '07', name: t('feature.usb-dac.signal_path.android.stage.6'), note: '48 kHz / 16-bit', altered: true },
+              ].map((st) => (
+                <div class="flex flex-col justify-between border-t border-band-rule pt-3 text-left">
+                  <div class="flex items-center justify-between">
+                    <span class="mono-spec text-device-label font-medium uppercase text-band-ink-muted">Stage</span>
+                    {st.altered && <span class="h-1.5 w-1.5 rounded-full bg-band-gold-ink" aria-hidden="true" />}
                   </div>
-                ))}
-              </div>
+                  <div class="mt-2">
+                    <span class="block text-caption font-semibold text-band-ink leading-tight">{st.name}</span>
+                    <span class:list={[
+                      'mono-spec mt-1 block text-device-label tabular-nums leading-tight',
+                      st.altered ? 'text-band-ink-muted line-through' : 'text-band-ink-muted'
+                    ]}>{st.note}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Three counts that are all zero */}
-          <div class="mt-10 grid grid-cols-1 gap-6 border-t border-band-rule pt-8 sm:grid-cols-3 lg:mt-14 lg:gap-12 lg:pt-10">
-            {[
-              { num: '0', label: t('feature_detail.signal_path_resamples'), note: 'None, if your DAC supports the file rate' },
-              { num: '0', label: t('feature_detail.signal_path_mixers'), note: 'Bypasses the system mixer' },
-              { num: '0', label: t('feature_detail.signal_path_conversions'), note: 'Full dynamic range preserved' },
-            ].map((stat) => (
-              <div>
-                <span class="block text-section-m tabular-nums font-bold text-band-gold-ink lg:text-section">{stat.num}</span>
-                <span class="mono-spec mt-1.5 block text-micro font-semibold tracking-[1.2px] text-band-ink uppercase lg:mt-2">
-                  {stat.label}
-                </span>
-                <span class="mt-1 block text-caption tabular-nums text-band-ink-muted">
-                  {stat.note}
-                </span>
+          {/* ── Path 2: Bitperfect Direct USB Pipeline (4 Stages) ── */}
+          <div class="border-t border-band-rule pt-6 lg:pt-8">
+            <div class="flex flex-wrap items-baseline justify-between gap-3">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <span class="h-2 w-2 rounded-full bg-band-gold-ink" aria-hidden="true" />
+                <span class="text-label font-bold tracking-wider text-band-gold-ink uppercase">{t('feature_detail.signal_path_ours')}</span>
+                <span class="mono-spec text-micro font-bold tabular-nums text-band-gold-ink uppercase">· 4 {t('feature_detail.signal_path_stages')}</span>
               </div>
-            ))}
-          </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-caption text-band-ink-muted">{t('feature_detail.signal_path_reaches_dac')}:</span>
+                <span class="mono-spec text-small font-bold tabular-nums text-band-gold-ink">192 kHz / 24-bit (100% native)</span>
+              </div>
+            </div>
 
-          <p class="mt-8 max-w-[64ch] text-small text-pretty text-band-ink-muted lg:mt-10">{SIGNAL_PATH.note}</p>
-        </Container>
-      </section>
+            <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4 lg:gap-8">
+              {[
+                { num: '01', name: t('feature.usb-dac.signal_path.ours.stage.0'), note: '192 kHz / 24-bit lossless', highlight: 'Native bitstream' },
+                { num: '02', name: t('feature.usb-dac.signal_path.ours.stage.1'), note: 'Bypasses system mixer', highlight: 'Exclusive USB lock' },
+                { num: '03', name: t('feature.usb-dac.signal_path.ours.stage.2'), note: '0 mixers, 0 resamplers', highlight: 'Bit-for-bit unaltered' },
+                { num: '04', name: t('feature.usb-dac.signal_path.ours.stage.3'), note: 'DAC clock follows the file', highlight: 'Bit-perfect output' },
+              ].map((st) => (
+                <div class="flex flex-col justify-between border-t border-band-gold-ink/40 pt-3 text-left">
+                  <div class="flex items-center justify-between">
+                    <span class="mono-spec text-device-label font-bold uppercase tracking-wider text-band-gold-ink">Direct</span>
+                    <svg class="h-3.5 w-3.5 text-band-gold-ink" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="mt-2">
+                    <span class="block text-caption font-bold text-band-ink leading-tight">{st.name}</span>
+                    <span class="mono-spec mt-1 block text-device-label tabular-nums text-band-ink-muted leading-tight">{st.note}</span>
+                    <span class="mono-spec mt-1.5 block text-device-label font-semibold tracking-wider text-band-gold-ink uppercase">{st.highlight}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Three counts that are all zero */}
+        <div class="mt-10 grid grid-cols-1 gap-6 border-t border-band-rule pt-8 sm:grid-cols-3 lg:mt-14 lg:gap-12 lg:pt-10">
+          {[
+            { num: '0', label: t('feature_detail.signal_path_resamples'), note: 'None, if your DAC supports the file rate' },
+            { num: '0', label: t('feature_detail.signal_path_mixers'), note: 'Bypasses the system mixer' },
+            { num: '0', label: t('feature_detail.signal_path_conversions'), note: 'Full dynamic range preserved' },
+          ].map((stat) => (
+            <div>
+              <span class="block text-section-m tabular-nums font-bold text-band-gold-ink lg:text-section">{stat.num}</span>
+              <span class="mono-spec mt-1.5 block text-micro font-semibold tracking-[1.2px] text-band-ink uppercase lg:mt-2">
+                {stat.label}
+              </span>
+              <span class="mt-1 block text-caption tabular-nums text-band-ink-muted">
+                {stat.note}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <p class="mt-8 max-w-[64ch] text-small text-pretty text-band-ink-muted lg:mt-10">{SIGNAL_PATH.note}</p>
+      </Band>
     )
   }
 
@@ -445,31 +442,30 @@ const showSignalPath = slug === 'usb-dac';
   <div class="h-px w-full bg-gradient-to-r from-transparent via-border-subtle to-transparent" />
 
   {/* ── White specification band: the numbers, in full ── */}
-  <section class="bg-band-ivory pt-13 pb-14 lg:pt-24 lg:pb-26">
-    <Container>
-      <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
-        <div class="lg:col-span-4">
-          <span class="text-eyebrow block text-band-gold-ink">{t('feature_detail.specifications_eyebrow')}</span>
-          <h2 class="mt-4 text-section-sm text-balance text-band-ink lg:mt-5 lg:text-section-lg font-bold">
-            {t('feature_detail.specifications_title')}
-          </h2>
-          <p class="mt-4 max-w-[34ch] text-body text-band-ink-muted lg:mt-5">
-            {t('feature_detail.specifications_subtitle')}
-          </p>
-        </div>
+  <Band tone="ivory" className="pt-13 pb-14 lg:pt-24 lg:pb-26">
+    <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
+      <SectionHeading
+        tone="ivory"
+        className="lg:col-span-4"
+        eyebrow={t('feature_detail.specifications_eyebrow')}
+        eyebrowClassName="text-eyebrow block"
+        title={t('feature_detail.specifications_title')}
+        titleClassName="mt-4 text-section-sm font-bold lg:mt-5 lg:text-section-lg"
+        lede={t('feature_detail.specifications_subtitle')}
+        ledeClassName="mt-4 max-w-[34ch] text-body lg:mt-5"
+      />
 
-        <SpecList
-          tone="ivory"
-          items={feature?.specs ?? []}
-          close="grid-2"
-          className="grid grid-cols-1 gap-x-12 lg:col-span-8 lg:grid-cols-2"
-          rowClassName="flex flex-col gap-1.5 py-4 lg:py-5"
-          labelClassName="mono-spec text-micro uppercase tracking-wider"
-          valueClassName="text-body-lg font-semibold tabular-nums"
-        />
-      </div>
-    </Container>
-  </section>
+      <SpecList
+        tone="ivory"
+        items={feature?.specs ?? []}
+        close="grid-2"
+        className="grid grid-cols-1 gap-x-12 lg:col-span-8 lg:grid-cols-2"
+        rowClassName="flex flex-col gap-1.5 py-4 lg:py-5"
+        labelClassName="mono-spec text-micro uppercase tracking-wider"
+        valueClassName="text-body-lg font-semibold tabular-nums"
+      />
+    </div>
+  </Band>
 
   {/* ── Prev and next ──
       Walks indexOrder and wraps at both ends, so the six routes form one ring
