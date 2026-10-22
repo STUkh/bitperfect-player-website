@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
-import { clsx as cx } from 'clsx';
 import Container from '../common/Container';
 import ImageSlot from '../common/ImageSlot';
+import RuleList from '../common/RuleList';
 import './StatementBand.css';
 
 const facts = [
@@ -52,27 +52,14 @@ export default function StatementBand() {
               <span className="text-band-gold-ink">This app sends it to your USB DAC unchanged.</span>
             </h2>
           </div>
-          <div className="flex flex-col lg:col-span-4">
-            {facts.map((fact, i) => (
-              <div
-                key={fact.title}
-                className={cx([
-                  'r-rise border-t border-band-rule py-5 lg:py-[26px]',
-                  i === facts.length - 1 && 'border-b border-band-rule',
-                ])}
-                style={{ '--i': i } as CSSProperties}
-              >
-                <div>
-                  <div className="text-base font-semibold tracking-[-0.01em] text-band-ink lg:text-[17px]">
-                    {fact.title}
-                  </div>
-                  <p className="mt-1.5 text-sm leading-[1.6] text-pretty text-band-ink-muted lg:text-[15px]">
-                    {fact.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <RuleList
+            tone="ivory"
+            items={facts.map((fact) => ({ title: fact.title, body: fact.desc }))}
+            className="flex flex-col lg:col-span-4"
+            itemClassName="py-5 lg:py-[26px]"
+            titleClassName="text-base font-semibold tracking-[-0.01em] lg:text-[17px]"
+            bodyClassName="mt-1.5 text-sm leading-[1.6] text-pretty lg:text-[15px]"
+          />
         </div>
         <ImageSlot
           name="home-statement"

@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
-import { clsx as cx } from 'clsx';
 import Container from '../common/Container';
 import ImageSlot from '../common/ImageSlot';
+import RuleList from '../common/RuleList';
 import { withBase } from '../../utils/nav';
 import './PrivacyBand.css';
 
@@ -72,28 +72,18 @@ export default function PrivacyBand() {
             Your listening never leaves the phone.
           </h2>
         </div>
-        <div className="mt-[30px] grid grid-cols-1 lg:mt-[68px] lg:grid-cols-3 lg:border-t lg:border-band-rule">
-          {commitments.map((c, i) => (
-            <div
-              key={c.title}
-              className={cx([
-                'r-rise border-t border-band-rule py-5 lg:border-t-0 lg:pt-[34px] lg:pb-0',
-                i === commitments.length - 1 && 'border-b border-band-rule lg:border-b-0',
-                i > 0 ? 'lg:border-l lg:border-band-rule lg:pl-10' : '',
-                i < commitments.length - 1 ? 'lg:pr-10' : '',
-              ])}
-              style={{ '--i': i } as CSSProperties}
-            >
-              {/* Ink, not gold: three 19px gold headings in a row on white read as
-                three links. Gold on this band belongs to the accent phrase in the
-                headline and nothing else. DESIGN.md, "The Gold Hierarchy Rule". */}
-              <div className="text-[17px] font-semibold tracking-[-0.01em] text-band-ink lg:text-[19px]">{c.title}</div>
-              <p className="mt-1.5 text-sm leading-[1.62] text-pretty text-band-ink-muted lg:mt-2.5 lg:text-[15px]">
-                {c.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+        {/* Ink, not gold: three 19px gold headings in a row on white read as
+            three links. Gold on this band belongs to the accent phrase in the
+            headline and nothing else. DESIGN.md, "The Gold Hierarchy Rule". */}
+        <RuleList
+          tone="ivory"
+          layout="columns"
+          items={commitments.map((c) => ({ title: c.title, body: c.desc }))}
+          className="mt-[30px] lg:mt-[68px] lg:grid-cols-3"
+          itemClassName="py-5 lg:pt-[34px] lg:pb-0"
+          titleClassName="text-[17px] font-semibold tracking-[-0.01em] lg:text-[19px]"
+          bodyClassName="mt-1.5 text-sm leading-[1.62] text-pretty lg:mt-2.5 lg:text-[15px]"
+        />
         <ImageSlot
           name="home-privacy"
           variant="ivory"
