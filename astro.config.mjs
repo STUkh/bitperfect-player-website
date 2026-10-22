@@ -107,5 +107,12 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    /* Astro inlines a stylesheet chunk below this size into the page and links
+       the rest. The chrome every page carries (Header, MobileMenu, Footer, Icon,
+       Button) is one chunk of about 5 KB, so at Vite's 4 KB default it became an
+       extra request on every page. 8 KB inlines it; the shared sheet (70 KB)
+       and the per-section ones (10 KB and up) stay linked, preloaded by the
+       critical-CSS step. Other assets keep Vite's default. */
+    build: { assetsInlineLimit: (file, content) => (file.endsWith(".css") ? content.length < 8192 : undefined) },
   },
 });
