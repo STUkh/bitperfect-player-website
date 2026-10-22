@@ -11,7 +11,7 @@ Maintainer rules for creating and re-syncing `@bitperfect/website-ds`, the Claud
   - `asset.ts`, which resolves an image path from its probe rule in the stylesheet.
 - Not exported: `DevOnlyBadge` (renders nothing outside the dev server) and `MobileMenu` (the panel `Header` renders; alone it is an invisible overlay). `HeroSection` and `PhoneShowcase` are gone: the hero and showcase are one `HomeOpening`.
 - History: tokens-only sync 2026-10-13; hand-written ports 2026-10-18; ports found drifted on 2026-10-21 (built from a working tree a `git reset` discarded), so the site moved to React and on 2026-10-22 the sync was rebuilt on the real components and the ports deleted.
-- Band shells (2026-10-22, step 3 of the component refactor): `Band`, `SectionHeading`, `MediaSplit`, `SpecList`, `RuleList`, `CloseBand`, `BackLink`, `CrossLinkRow` (common) and `PagerPair`, `FeatureLinkCard` (feature) are what the site's bands are built from; `CapabilityBand`, `ClosingBanner` and the landing bands now compose them. Their shared tone tokens live in `src/components/sections/bands.ts` (not `band.ts`: on a case-insensitive disk `./Band` would resolve to it). Tone reaches nested shells through React context in TSX only; from `.astro` every shell takes `tone`. Slot classes (`titleClassName`, `rowClassName`...) REPLACE the shell's default type, never merge with it.
+- Band shells (2026-10-22, step 3 of the component refactor): `Band`, `SectionHeading`, `MediaSplit`, `SpecList`, `RuleList`, `CloseBand`, `BackLink`, `CrossLinkRow`, `PagerPair`, `FeatureLinkCard` (all in `src/components/sections/`) are what the site's bands are built from; `CapabilityBand`, `ClosingBanner` and the landing bands now compose them. Their shared tone tokens live in `src/components/sections/bands.ts` (not `band.ts`: on a case-insensitive disk `./Band` would resolve to it). Tone reaches nested shells through React context in TSX only; from `.astro` every shell takes `tone`. Slot classes (`titleClassName`, `rowClassName`...) REPLACE the shell's default type, never merge with it.
 - Lacquer: on 2026-10-22 the lacquer surfaces and grounds were flattened as dead code, then restored the same day from the 2026-10-18 reference. `src/styles/lacquer.css` owns them; components never carry a private copy.
 
 ## Which file owns what
@@ -21,7 +21,7 @@ Maintainer rules for creating and re-syncing `@bitperfect/website-ds`, the Claud
 | `react/src/index.ts` | what is exported (one line per component) |
 | `config.json` | `docsMap` (groups), `overrides` (card mode, viewport), `provider`, `readmeHeader`, `guidelinesGlob` |
 | `conventions.md` | the README head the design agent reads first (budget ~5k, cap 7k chars) |
-| `groups/<group>.md` | one-line `category:` stubs for common/feature/landing/legal |
+| `groups/<group>.md` | one-line `category:` stubs for common/feature/landing/legal (Claude Design categories, not source folders) |
 | `previews/<Name>.tsx` | the cards (named exports = cells) |
 | `overrides/css.mjs` | copies site images into `ds-bundle/assets/` (`cfg.libOverrides`) |
 | `build-css.mjs` | `react/dist/site.css` |
@@ -47,7 +47,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 
 ## Adding a component
 
-1. Export it from `react/src/index.ts` (`export { default as X, type XProps } from '@site/components/<group>/X';`).
+1. Export it from `react/src/index.ts` (`export { default as X, type XProps } from '@site/components/<folder>/X';`, the folder by role: see `src/components/README.md`).
 2. Add `"X": "../groups/<group>.md"` to `cfg.docsMap`, or it lands in `general`.
 3. Write `previews/X.tsx` against the real props, one named export per state; add a `cfg.overrides.X` entry for a full-width band (`cardMode: column`, `viewport: 1280x900`).
 4. Give it a JSDoc on the component and every prop: that is its `.prompt.md`.
@@ -87,7 +87,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 - A renamed prop breaks its preview's compile and drops the card to the floor card: grep the build log for `preview build failed`.
 - esbuild does not type-check previews: a missing required prop (e.g. `ClosingBanner`'s `eyebrow`) renders silently wrong instead of failing.
 - Measures, extra tracking steps and extra radii are arbitrary values, not tokens (DESIGN.md says so since 2026-10-22). Name a token in `conventions.md` only once it exists in `global.css`.
-- `HoldingPage`, `Icon` and `Surface` live outside the group folders; they are mapped to `landing` (HoldingPage) and `common` (the rest).
+- Source folders (2026-10-22, step 5: `primitives/`, `sections/`, `devices/`, `chrome/`, `bands/`, `legal/`, `_lib/`) are not the Claude Design groups; `cfg.docsMap` still maps each component to common/feature/landing/legal by name, so a move changes nothing in the bundle. `HoldingPage` is `landing`, `Icon` and `Surface` are `common`.
 - Every glyph's path data is in `src/components/primitives/glyphs.ts` (not exported; it is data). `FeatureMark` is `<Icon set="feature">`. The key-cap faces (`.btn-primary-gradient`, `.btn-secondary-glow`, `--btn-*`) are `primitives/Button.css`, so they reach `site.css` through `react/dist/index.css`, not the global compile.
 - `Header`, `MobileMenu`, `Footer` and `PlayCta` take `locale` and read their strings from `src/i18n` (`nav.*`, `footer.*`, `store.google_play`); `PlayCta`'s `label` defaults to `store.google_play`.
 - 2026-10-22: `PhoneFrame` + `PhoneScreen` and `PhoneNowPlaying` became one exported `Phone` (`screen`, or `src` + `width` + `height`). The old names, their previews and config entries are gone; delete their cards in the project on the next sync.

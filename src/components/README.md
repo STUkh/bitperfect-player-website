@@ -8,10 +8,33 @@ with, so there is one source for the site and for design work.
 Pages, layouts and `SEOHead` stay Astro: routing, content collections and the
 document head are Astro's job.
 
+## Layout
+
+One folder per role. A component's `.css`, `.client.ts` and `.astro` wrapper sit
+beside it.
+
+| Folder | Holds |
+|---|---|
+| `primitives/` | the atoms: `Button`, `PlayCta`, `PlayStoreMark`, `StoreBadges`, `Icon` and `glyphs.ts`, `FeatureMark`, `Picture`, `FeatureArt`, `ImageSlot`, `TextureStrip`, `Card`, `Container`, `Logo` |
+| `sections/` | the band shells: `Band` and `bands.ts` (tone), `SectionHeading`, `MediaSplit`, `SpecList`, `RuleList`, `CloseBand`, `ClosingBanner`, `BackLink`, `CrossLinkRow`, `PagerPair` and `PagerLink`, `FeatureLinkCard` |
+| `devices/` | the phones: `Phone`, `PhoneFrame`, `PhoneChassis`, `phone-geometry.ts`, `phone-fan.ts`, `PhoneTrio`, `FeatureScreens` |
+| `chrome/` | `Header` (and its `MobileMenu`), `Footer`, `PageHeader`, `SEOHead.astro`, `HoldingPage` |
+| `bands/` | the concrete bands: the landing bands (`HomeOpening` through `CTASection`), `CapabilityBand`, `TechIndex`, the `FlowBackdrop`/`SoftBackdrop` grounds |
+| `legal/` | `LegalDocument` |
+| `_lib/` | `behaviour.ts` (`useBehaviour`), `class-props.ts` (`ClassProps`, `styleOf`) |
+| `preview/` | the `/preview/*` background studies; whole pages, not components |
+
+Each folder has an `index.ts` barrel of its React components and types. Pages
+and other components import a component by its own path
+(`../components/primitives/Button`), which keeps every page's stylesheet
+exactly what it uses; `.astro` wrappers and `.client.ts` behaviour are never in
+a barrel. Page data that only pages read lives in `src/data/` (the feature
+routes' copy is `src/data/feature-pages.ts`).
+
 ## Writing a component
 
 - **Classes.** Tailwind utilities in `className`. A component that takes extra
-  classes extends `ClassProps` (`class-props.ts`) and merges them with `cn()`
+  classes extends `ClassProps` (`_lib/class-props.ts`) and merges them with `cn()`
   (tailwind-merge, so a caller's `px-*` replaces the default rather than
   fighting it). Conditional lists use `cx()` (clsx).
 - **From `.astro` callers, always `className=`, never `class=`.** Astro's React
@@ -23,7 +46,7 @@ document head are Astro's job.
 - **Behaviour** (anything that was a client `<script>`) is a plain function in
   `<Name>.client.ts`: `setupX(root: HTMLElement) => cleanup`. It is wired twice:
   - in React, `const ref = useBehaviour(setupX)` on the root element
-    (`behaviour.ts`), which runs in Claude Design and never on the site;
+    (`_lib/behaviour.ts`), which runs in Claude Design and never on the site;
   - on the site, a thin `<Name>.astro` wrapper renders the component and carries
     a `<script>` that imports the `.client.ts` and calls it on every element
     carrying the component's `data-*` hook, `data-<name>=""` on the same element
@@ -43,7 +66,7 @@ document head are Astro's job.
 
 ## Migrating an `.astro` component
 
-1. `node scripts/astro-to-tsx.mjs src/components/.../Name.astro` writes
+1. `node scripts/astro-to-tsx.mjs src/components/<folder>/Name.astro` writes
    `Name.tsx` and `Name.css` and prints a TODO for everything it cannot port:
    scripts, `Astro.*`, named slots, generic classes in the stylesheet.
 2. Finish the TODOs by hand (above).
