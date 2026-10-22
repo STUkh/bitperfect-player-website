@@ -11,6 +11,7 @@ Maintainer rules for creating and re-syncing `@bitperfect/website-ds`, the Claud
   - `asset.ts`, which resolves an image path from its probe rule in the stylesheet.
 - Not exported: `DevOnlyBadge` (renders nothing outside the dev server) and `MobileMenu` (the panel `Header` renders; alone it is an invisible overlay). `HeroSection` and `PhoneShowcase` are gone: the hero and showcase are one `HomeOpening`.
 - History: tokens-only sync 2026-10-13; hand-written ports 2026-10-18; ports found drifted on 2026-10-21 (built from a working tree a `git reset` discarded), so the site moved to React and on 2026-10-22 the sync was rebuilt on the real components and the ports deleted.
+- Band shells (2026-10-22, step 3 of the component refactor): `Band`, `SectionHeading`, `MediaSplit`, `SpecList`, `RuleList`, `CloseBand`, `BackLink`, `CrossLinkRow` (common) and `PagerPair`, `FeatureLinkCard` (feature) are what the site's bands are built from; `CapabilityBand`, `ClosingBanner` and the landing bands now compose them. Their shared tone tokens live in `src/components/common/bands.ts` (not `band.ts`: on a case-insensitive disk `./Band` would resolve to it). Tone reaches nested shells through React context in TSX only; from `.astro` every shell takes `tone`. Slot classes (`titleClassName`, `rowClassName`...) REPLACE the shell's default type, never merge with it.
 - Lacquer: on 2026-10-22 the lacquer surfaces and grounds were flattened as dead code, then restored the same day from the 2026-10-18 reference. `src/styles/lacquer.css` owns them; components never carry a private copy.
 
 ## Which file owns what
@@ -32,7 +33,7 @@ Maintainer rules for creating and re-syncing `@bitperfect/website-ds`, the Claud
 node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 ```
 
-1. `react/build.mjs` bundles the components into `react/dist/index.js` (ESM, React external), collects their co-located stylesheets into `react/dist/index.css`, and emits `.d.ts` with tsc. tsc keeps `@site/*` as written and the converter reads the tree without the tsconfig, so `build.mjs` rewrites the alias in the emitted entry to a relative path; without that the converter finds 1 component instead of 32. esbuild treats `/grounds/*`, `/img/*`, `/screens/*`, `/brand/*` as external, so CSS `url()`s to them survive bundling.
+1. `react/build.mjs` bundles the components into `react/dist/index.js` (ESM, React external), collects their co-located stylesheets into `react/dist/index.css`, and emits `.d.ts` with tsc. tsc keeps `@site/*` as written and the converter reads the tree without the tsconfig, so `build.mjs` rewrites the alias in the emitted entry to a relative path; without that the converter finds 1 component instead of all of them. esbuild treats `/grounds/*`, `/img/*`, `/screens/*`, `/brand/*` as external, so CSS `url()`s to them survive bundling.
 2. `build-css.mjs` writes `react/dist/site.css`: the Tailwind 4 compile of `src/styles/global.css` (scanning `src/`, plus a safelist of token-backed utilities and the spacing/layout scale so classes an agent invents still compile), `animations.css`, `react/dist/index.css`, and one image probe rule per file in `public/{screens,img,brand,grounds}`. Root-absolute `url(/grounds/…)` etc. are rewritten to `./assets/…`. It copies `public/fonts` beside the CSS (the converter only lifts fonts from inside the package).
 3. `.ds-sync/resync.mjs` converts, diffs, validates and captures into `ds-bundle/`.
 
@@ -79,7 +80,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 
 ## Known warns
 
-- None on the 2026-10-22 build (32 components, render-check clean).
+- None on the 2026-10-22 shells build (41 components, render-check clean). `CrossLinkRow` and `SectionHeading` are `cardMode: column` because the grid cropped their cells (GRID_OVERFLOW). The `StoreBadges.tsx` TS2322 line in the d.ts step is a duplicate `@types/react` (site vs `.ds-sync`), pre-existing and non-blocking.
 
 ## Re-sync risks
 

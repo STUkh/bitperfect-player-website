@@ -88,6 +88,28 @@
     "CapabilityBand": {
       "cardMode": "column",
       "viewport": "1280x900"
+    },
+    "Band": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "CloseBand": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "MediaSplit": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "PagerPair": {
+      "cardMode": "column",
+      "viewport": "1280x900"
+    },
+    "CrossLinkRow": {
+      "cardMode": "column"
+    },
+    "SectionHeading": {
+      "cardMode": "column"
     }
   },
   "provider": {
@@ -124,6 +146,16 @@
     "HomeOpening": "../groups/landing.md",
     "TextureStrip": "../groups/common.md",
     "TechIndex": "../groups/feature.md",
-    "CapabilityBand": "../groups/feature.md"
+    "CapabilityBand": "../groups/feature.md",
+    "BackLink": "../groups/common.md",
+    "Band": "../groups/common.md",
+    "CloseBand": "../groups/common.md",
+    "CrossLinkRow": "../groups/common.md",
+    "MediaSplit": "../groups/common.md",
+    "RuleList": "../groups/common.md",
+    "SectionHeading": "../groups/common.md",
+    "SpecList": "../groups/common.md",
+    "FeatureLinkCard": "../groups/feature.md",
+    "PagerPair": "../groups/feature.md"
   }
 }

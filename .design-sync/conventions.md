@@ -4,7 +4,7 @@ The bit-perfect.com site's own React components. **Build from these first**; uti
 
 ## Setup
 
-No provider. `styles.css` loads Manrope, the tokens, component styles and image probes. The page ground is graphite `#191919` on `body`; wrap a loose component in `<Surface>` (`tone="graphite"` default, or `"ivory"`). Give your own text a weight (`font-medium`/`font-semibold`/`font-bold`): Manrope's variable default is 200. Never write an image URL: every picture comes from a component (they resolve their own paths).
+No provider. `styles.css` loads Manrope, the tokens, component styles and image probes. The page ground is graphite `#191919` on `body`; wrap a loose component in `<Surface>` (`tone="graphite"` default, or `"ivory"`). Give your own text a weight (`font-medium`/`font-semibold`/`font-bold`): Manrope's variable default is 200. Never write an image URL: components resolve their own pictures.
 
 ## Components by role
 
@@ -13,7 +13,8 @@ No provider. `styles.css` loads Manrope, the tokens, component styles and image 
 | Chrome | `Header` (fixed; `pathname`), `Footer` (`pathname`) |
 | Home, in order | `HomeOpening` (hero + three-phone showcase, ONE block), `StatementBand` (ivory), `FeaturesTeaser`, `TextureStrip`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
 | Inner pages | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner`, `TechIndex` (the grouped capability index, no content props), `CapabilityBand` (copy beside a phone, `tone` graphite/ivory, `media` right/left, `specs`), `LegalDocument` (markdown children, `headings`) |
-| Phones (real captures) | `Phone` (`screen`, or `src` `width` `height`; wide is landscape), `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
+| Band shells | `Band` (section: `tone` ground, Container inside; padding is yours), `SectionHeading` (`eyebrow`, title, accent, lede; sizes per slot, colours from `tone`), `MediaSplit` (copy beside media, 7/5 or 6/6, mirrored), `SpecList` (label/value hairline rows), `RuleList` (title-and-line entries on hairlines), `CloseBand` (centred last band), `BackLink`, `CrossLinkRow` (pointer + secondary `Button`), `PagerPair`, `FeatureLinkCard` |
+| Phones (real captures) | `Phone` (`screen`, or src + width + height; wide is landscape), `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
 | Primitives | `Button` (`variant` primary/secondary/outline, `size`, `href`), `PlayCta` (install: gold key-cap + `PlayStoreMark` + `label`), `PlayStoreMark`, `Card` (lacquer chassis; padding is yours; `as="a"` + `href`), `PagerLink` (`direction`, `href`, `label`, `title`), `StoreBadges`, `TextureStrip` (`material` wood/copper/glass), `ImageSlot`, `Logo`, `Container` (1280px column), `FeatureMark`, `FeatureArt`, `Icon` |
 | Whole page | `HoldingPage` |
 
@@ -49,7 +50,7 @@ Full rules: `guidelines/DESIGN.md`. Every compiled class: `_ds_bundle.css`.
 6. Buttons never move on hover; only the sheen and rim light up. No arrow or chevron inside a button or store badge; text links and `PagerLink` may carry one.
 7. Hero and showcase are one `HomeOpening`; never split or rebuild it.
 8. `TextureStrip` only on a dark-to-light seam, never under a block with its own photograph.
-9. Kickers (short gold mono uppercase label above a heading) only on `PageHeader` and `ClosingBanner` (their `eyebrow`), the hero and a plan card's label row; elsewhere the heading opens the block. `ClosingBanner`'s primary is a plain `Button`; an install close uses `PlayCta`.
+9. Kickers (short gold mono uppercase label above a heading) only on `PageHeader` and `ClosingBanner` (their `eyebrow`), the hero and a plan card's label row; elsewhere the heading opens the block (leave `SectionHeading`'s `eyebrow` empty). `ClosingBanner`'s primary is a plain `Button`; an install close uses `PlayCta`.
 10. Never draw an app screen; use a phone component.
 11. Manrope only; mono for numbers. No em or en dashes in copy.
 
@@ -60,29 +61,13 @@ Full rules: `guidelines/DESIGN.md`. Every compiled class: `_ds_bundle.css`.
   <Header pathname="/features/eq/" />
   <main className="pt-16">
     <PageHeader title="32-band parametric EQ" description="Shape the sound, then switch it off in one tap." backHref="/features" backLabel="All features" />
-    <section className="bg-band-ivory py-14 lg:py-28">
-      <Container className="grid items-center gap-10 lg:grid-cols-2">
-        <h2 className="text-section-m font-bold text-band-ink lg:text-headline-sm">Thirty-two bands, each one independent</h2>
-        <Phone screen="eq-sculptor" />
-      </Container>
-    </section>
-    <section className="bg-surface-base py-14 lg:py-28">
-      <Container className="grid gap-4 lg:grid-cols-3 lg:gap-6">
-        <Card className="p-[22px] lg:p-[34px]">
-          <h3 className="text-title font-semibold text-text-primary">Presets</h3>
-          <p className="mt-2 text-body-sm text-text-secondary">Save a curve per pair of headphones.</p>
-        </Card>
-      </Container>
-      <Container className="mt-14 grid gap-3 lg:grid-cols-2 lg:gap-6">
-        <PagerLink direction="prev" href="/features/usb-dac" label="Previous" title="USB DAC output" />
-        <PagerLink direction="next" href="/features/library" label="Next" title="Library" />
-      </Container>
-    </section>
-    <TextureStrip material="wood" />
-    <section className="bg-band-ivory py-14 text-center lg:py-24">
-      <h2 className="text-headline-sm-m font-bold text-band-ink lg:text-headline-sm">Hear it as it was mastered.</h2>
-      <PlayCta label="Get it on Google Play" size="lg" className="mt-8" />
-    </section>
+    <Band tone="ivory" className="py-16 lg:py-32">
+      <MediaSplit mediaSide="right" copyClassName="flex flex-col gap-4" media={<Phone screen="eq-sculptor" />}>
+        <SectionHeading className="contents" tone="ivory" title="Thirty-two bands, each one independent" lede="Place each filter anywhere from 20 Hz to 20 kHz." />
+      </MediaSplit>
+    </Band>
+    <PagerPair ariaLabel="More features" prev={{ href: '/features/usb-dac', label: 'Previous', title: 'USB DAC output' }} next={{ href: '/features/library', label: 'Next', title: 'Library' }} />
+    <CloseBand tone="ivory" className="py-14 lg:py-24" title="Hear it as it was mastered." action={<PlayCta label="Get it on Google Play" size="lg" className="mt-8" />} />
   </main>
   <Footer pathname="/features/eq/" />
 </>
