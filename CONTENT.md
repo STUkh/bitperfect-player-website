@@ -1,118 +1,12 @@
-# Content standard: Bitperfect Player website
+# Content decisions: Bitperfect Player website
 
-Companion to `DESIGN.md` (which owns look and layout) and `PRODUCT.md` (which owns
-facts). This file owns VOICE: how the site is allowed to talk about the product.
-Written 2026-08-31 during the content pass that de-jargoned the whole site.
+**The rules for writing site copy live in [`docs/writing-guide.md`](docs/writing-guide.md):
+voice, plain language, context that must survive, banned words and brands, settled
+vocabulary, facts, mechanics and a checklist.** Read it before you change any text.
 
-You are writing PRODUCTION marketing copy for an audiophile Android music player.
-Read `PRODUCT.md` (repo root) first. It is the factual source of truth.
-
-## The one rule that drives this whole pass
-
-**Write like a marketer who understands audio, not like the engineer who built it.**
-
-The site currently reads like an internal engineering doc. Visitors are audiophiles
-who care about SOUND, not about the software plumbing that produces it.
-
-### BANNED: software / implementation internals
-
-Never mention, in any user-visible string:
-
-- Storage & code internals: SQLite, FTS4, full-text index, magic bytes, content
-  sniffing, ring buffer, asynchronous buffer, ABIs, API level, HAL, AudioFlinger,
-  AudioTrack, "the engine coerces", "probe-gated at runtime", "runtime accelerator",
-  block sizes ("192 frames per inference", "350 ms blocks"), thread/process talk,
-  "compiled in", "signal path telemetry", byte-passthrough, "0 KB", "0 bytes".
-- Protocol / spec pedantry: USB HID, USB Audio Class Feature Unit, SlimProto,
-  MPD server, polyphase FIR, ITU-R BS.1770-4, DoP carrier frequencies,
-  "32 or 64-bit float arithmetic, switchable", "per-channel persistent history".
-- Anything that reads as a version number, a class name, or a config flag.
-
-### ALLOWED: audio facts an audiophile shops on
-
-Keep and lead with these. They are the product:
-
-- Sample rates and depths: up to 32-bit / 768 kHz, DSD64 to DSD512, 44.1/48 kHz.
-- EQ: up to 32 bands, 7 filter shapes, Q from 0.10 to 10.0, +/-24 dB, 20 Hz to 20 kHz.
-- Formats: FLAC, ALAC, WAV, AIFF, DSD, APE, WavPack, Opus, Vorbis, MP3, AAC.
-- Named audio concepts a listener knows: bit-perfect, lossless, hi-res, crossfeed,
-  ReplayGain, true-peak / inter-sample clipping, parametric EQ, headphone
-  compensation curves, exclusive USB output, UPnP / DLNA / Chromecast casting.
-- Devices: USB-C and Micro-USB OTG DAC dongles, desktop DACs, Android 8.0 and up.
-- Privacy in plain words: no account, no analytics, no ads, nothing uploaded.
-
-Simple test for any sentence: _would this appear on a high-end DAC manufacturer's
-product page?_ If it belongs in a commit message instead, cut it or translate it
-into what the listener hears or gets.
-
-### Translation examples (the standard to hit)
-
-- "A SQLite FTS4 index over title, performer and album, queried on device"
-  -> "Search your whole collection instantly. It never leaves the phone."
-- "dispatched by magic bytes rather than by file extension"
-  -> "Reads tags and artwork straight from the file, even when the extension lies."
-- "ITU-R BS.1770-4 style limiting with 4x polyphase oversampling"
-  -> "Catches the peaks that hide between samples, before your DAC clips on them."
-- "Roughly 350 ms (192 frames per inference)" -> cut entirely.
-- "All three ABIs in one release: 64-bit, 32-bit, and emulator builds"
-  -> "One download covers every supported phone."
-
-## Promise discipline (non-negotiable, from PRODUCT.md)
-
-- Market ONLY what ships today. NEVER mention prompt-driven / natural-language
-  playlists or semantic search. They are release-disabled.
-- No statement about what happens when a subscription lapses (see Decision 3).
-  The trial length IS published now, always phrased for new customers: see
-  Decision 2 below, which supersedes the "no trial length" rule this bullet used
-  to carry.
-- No invented benchmarks, no THD/SNR figures, no testimonials, no user counts,
-  no star ratings, no press quotes, no "award winning", no "#1".
-- Do not say or imply the app is free, or that a lower/higher tier exists.
-  ONE subscription, ONE term: $29.95 per year standard, with a $19.95 per year
-  Welcome Offer / Limited Founder Access,
-  with a trial for new customers (`src/TERMS_OF_USE.md` §4). The $15 / 3 months and $25 / 6 months
-  terms this bullet used to list are no longer sold and must not reappear in copy.
-- Keep the honesty that makes this brand credible: the app states when it is NOT
-  bit-perfect. Say that as a selling point, not as a disclaimer.
-- Do not invent capabilities. If you are unsure a claim is true, weaken it or cut
-  it; never upgrade it.
-
-## House voice
-
-- Confident, concrete, unhurried. Short declarative sentences. Second person.
-- Lead with the listener's experience, then the number that backs it.
-- No hype adjectives stacked ("revolutionary", "cutting-edge", "seamless",
-  "unparalleled", "game-changing", "immersive journey"). No exclamation marks.
-- No AI-tell constructions: no "It's not just X, it's Y", no "Unlock", no
-  "Elevate", no "Experience the difference", no "In today's world".
-- Ranges use "to" (`20 Hz to 20 kHz`). Never an em-dash or en-dash anywhere a
-  visitor can read it: use a period, comma, colon, parentheses or plain hyphen.
-- British-leaning spelling already in use (Favourites, neighbours, colour) stays.
-- Sentence case for headings. Never write "Pro" or "Pro tier".
-
-## Mechanical rules
-
-- Only edit copy. Do NOT change component structure, classes, layout, animation,
-  data shapes, exported names, or TypeScript types.
-- Keep string lengths in the same ballpark as what you replace: these strings sit
-  in a tuned layout. A summary row `value` is 1 to 4 words. A spec value is short.
-  A beat `body` is 2 to 4 sentences. Never double the length of a string.
-- Preserve the code comments that explain design decisions. Where a comment
-  documents a fact you changed, update the comment too.
-- `npm run build` must pass when you are done. Run it.
-
-## Settled vocabulary
-
-The site had two words for the same hardware. Use ONE:
-
-- **"neural chip"** in prose and in every site-chrome label.
-- **"Neural chip (NPU)"** only inside a drawn app-screen picker, where the mock is
-  depicting the app's own control.
-- Never "neural accelerator", never "runtime accelerator", never "silicon".
-
-Other settled choices: the seventh EQ shape is **All Pass** (there is no band pass);
-the library has **8** browse views; the app plays **about 18** formats; there are
-**5** signal states, and `Lossless` / `Hi-res` are not among them.
+This file keeps what the guide does not: decisions already taken (do not silently
+reverse them), changes waiting on a release, and where each piece of copy lives in
+the code. `PRODUCT.md` describes the product; `DESIGN.md` owns look and layout.
 
 ## Decisions taken 2026-08-31 (do not silently reverse)
 
@@ -257,46 +151,8 @@ are not:
 
 ## Third-party names and trademarks
 
-Policy set 2026-08-31. The site carries as few third-party brand names as it can.
-
-### Never on the marketing pages
-
-**Dolby, Dolby Digital, AC3, E-AC3 and DTS.** These are not ordinary trademarks:
-Dolby and DTS LICENSE their decoders, so advertising playback of them implies a
-licence this product may not hold. That is a commercial exposure, not an
-attribution question. The app can still open those files; the site does not sell
-them. Understating what the app plays is safe, overstating is not.
-
-Also off the marketing pages: **WMA** (Microsoft, and no audiophile buys for it),
-**SACD** (Sony and Philips, say "DSD disc images"), **Chromecast** (Google, and the
-Cast branding implies a certification we do not claim, say "cast-enabled speakers
-and TVs") and **Squeezebox** (Logitech, describe the capability instead).
-
-The advertised format list is therefore FIFTEEN: FLAC, ALAC, WAV, AIFF, DSD, DSD
-disc images, Monkey's Audio, WavPack, True Audio, TAK, Musepack, Opus, Ogg Vorbis,
-MP3 and AAC. If you change that list, change the COUNT everywhere it appears: the
-library beat title and body, the library summary row, the library spec row and the
-FAQ answer all state it.
-
-### Allowed, because the site cannot describe compatibility without them
-
-Format and protocol designations: FLAC, ALAC, WAV, AIFF, DSD, DSF, DoP, Opus, Ogg
-Vorbis, MP3, AAC, WavPack, Monkey's Audio, TAK, Musepack, True Audio, M3U, M3U8,
-PLS, XSPF, ASX, CUE, DLNA, UPnP, MPD, FCast, ReplayGain, USB Audio Class, UAC1,
-UAC2, Bluetooth, Wi-Fi. Plus the crossfeed names Meier, Chu Moy and BS2B, which are
-engineers' surnames and an open-source project rather than commercial brands.
-
-### Unavoidable, keep them
-
-**Android** and **Google Play** are the platform and the store. Google's badge
-guidelines require the exact phrase "Get it on Google Play", so that string is not
-ours to reword.
-
-**Apple, Apple App Store, iOS, macOS, Apple Keychain** stay in `TERMS_OF_USE.md` and
-`PRIVACY_POLICY.md`. Those clauses exist BECAUSE of Apple distribution, and a legal
-document that describes a platform has to name it. An inaccurate legal document is a
-far worse outcome than a brand mention. They are written conditionally ("where the
-App is distributed through the Apple App Store") so none of them implies an iOS
-release ships today.
-
-A trademark attribution line sits in the footer.
+The policy (which brands never appear, which designations are allowed, why
+"Get it on Google Play" is never reworded) is in `docs/writing-guide.md`, section 5.
+Set 2026-08-31; Chromecast, AirPlay and Roon were added to the never list on
+2026-10-22. The footer carries a trademark attribution line, and the legal documents
+keep their conditional Apple clauses.
