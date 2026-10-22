@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Tech Index" description="The /features/catalog page as the site renders it: PageHeader, the grouped TechIndex of all 27 capabilities (each row links to its page), the closing banner" -->
+<helmet><script src="./ds-base.js"></script><style>html,body{margin:0;background:#191919}</style></helmet>
+<div style="min-height:100vh;background:#191919;color:var(--color-text-primary)">
+<x-import component-from-global-scope="BitperfectPlayer.Header" pathname="/features/catalog" hint-size="100%,81px"></x-import>
+<main id="main-content" class="relative pt-[65px] lg:pt-[81px]">
+<x-import component-from-global-scope="BitperfectPlayer.PageHeader" back-href="/features" back-label="Back to features" max-width="wide" eyebrow="Full specifications" title="All 27 features" description="On many phones, Android converts every track to one sample rate. Bitperfect Player sends your file to a USB DAC unchanged, bit for bit. It tells you when it cannot." hint-size="100%,380px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.TechIndex" id="all-capabilities" base="/" hint-size="100%,2400px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.ClosingBanner" eyebrow="Get the app" title="Ready to hear your music bit for bit?" description="Install the app from Google Play and connect your DAC." primary-href="https://play.google.com/store/apps/details?id=com.bitperfect.player" primary-label="Get it on Google Play" primary-external="{{ yes }}" secondary-href="/faq" secondary-label="Read the FAQ" hint-size="100%,420px"></x-import>
+</main>
+<x-import component-from-global-scope="BitperfectPlayer.Footer" pathname="/features/catalog" hint-size="100%,320px"></x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { yes: true };
+  }
+}
+</script>
+</body>
+</html>

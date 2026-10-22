@@ -14,41 +14,35 @@ export interface CategoryInfo {
 
 export const technicalCategories: CategoryInfo[] = [
   {
-    id: "engine",
-    name: "Core Engine",
-    description:
-      "Direct USB output, precise processing and one switch for untouched sound.",
+    "id": "engine",
+    "name": "Core engine",
+    "description": "Direct USB output, precise processing and one switch for untouched sound."
   },
   {
-    id: "dsp",
-    name: "Sound Processing",
-    description:
-      "EQ, room and headphone correction, tube-style colour and exact volume steps.",
+    "id": "dsp",
+    "name": "Sound processing",
+    "description": "EQ, room and headphone correction, tube-style colour and exact volume steps."
   },
   {
-    id: "hardware",
-    name: "Hardware & Outputs",
-    description:
-      "Direct output to USB DACs, digital audio players and the phone's own port, if supported.",
+    "id": "hardware",
+    "name": "Hardware & outputs",
+    "description": "Direct output to USB DACs, digital audio players and the phone's own port, if supported."
   },
   {
-    id: "ai",
-    name: "On-Device AI",
-    description:
-      "Rebuilds the top octave on your phone. Separates vocals from instruments.",
+    "id": "ai",
+    "name": "On-device AI",
+    "description": "Rebuilds the top octave on your phone. Separates vocals from instruments."
   },
   {
-    id: "streaming",
-    name: "Streaming & Network",
-    description:
-      "High-resolution casting, receiver modes and plugins.",
+    "id": "streaming",
+    "name": "Streaming & network",
+    "description": "High-resolution casting, receiver modes and plugins."
   },
   {
-    id: "media",
-    name: "Formats, Radio & Interface",
-    description:
-      "Many file formats, internet radio, a dark theme and Android Auto.",
-  },
+    "id": "media",
+    "name": "Formats, radio & interface",
+    "description": "15 file formats, internet radio, a dark theme and Android Auto."
+  }
 ];
 
 export interface TechnicalFeature {
@@ -63,581 +57,699 @@ export interface TechnicalFeature {
   specs: { label: string; value: string }[];
   badge?: string;
   sdkUrl?: string;
+  /**
+   * The app captures its page shows, keys of `src/data/screens.ts`, in band
+   * order: the opening band, "How it works", "What you hear". The third falls
+   * back to the first when absent.
+   */
+  screens?: [opening: string, howItWorks: string, whatYouHear?: string];
 }
 
 export const technicalFeatures: TechnicalFeature[] = [
   {
-    number: 1,
-    id: "direct-sound-path",
-    title: "Direct Sound Path",
-    category: "engine",
-    categoryLabel: "Core Engine",
-    summary:
-      "Bit-perfect audio to your USB DAC. Android's system mixer is skipped.",
-    description:
-      "On many phones, Android converts all audio to 48 kHz and 16 bits. Bitperfect sends it straight to your USB DAC. PCM and DSD play at the file's own rate and depth, if your DAC supports them.",
-    audiophileBenefit:
-      "No rate change from Android's mixer. A DAC that supports the file plays it at its own rate and depth.",
-    specs: [
-      { label: "Mixer Bypass", value: "Direct to Your DAC" },
-      { label: "Sample Rates", value: "Up to 768 kHz, DAC-dependent" },
+    "number": 1,
+    "id": "direct-sound-path",
+    "screens": ["signal-clean", "output", "track-info"],
+    "title": "Direct sound path",
+    "category": "engine",
+    "categoryLabel": "Core engine",
+    "summary": "Bit-perfect audio to your USB DAC. Bypasses Android's system mixer.",
+    "description": "Android's system mixer resamples audio to 48 kHz on many phones. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them.",
+    "audiophileBenefit": "You hear your files untouched, with no unwanted resampling or dither.",
+    "specs": [
       {
-        label: "Signal Verification",
-        value: "Live Bit-Perfect Status",
-      },
-    ],
-    badge: "Core Architecture",
-  },
-  {
-    number: 2,
-    id: "audio-pipeline-precision",
-    title: "32-Bit and 64-Bit Processing",
-    category: "engine",
-    categoryLabel: "Core Engine",
-    summary:
-      "Switch the internal processing between 32-bit and 64-bit floating point.",
-    description:
-      "32-bit float is the default and uses less battery. 64-bit float gives the lowest rounding noise in effects, resampling and volume. DSD playback stays at 32-bit.",
-    audiophileBenefit:
-      "Keeps rounding error low when EQ, crossfeed and volume shape the sound.",
-    specs: [
-      { label: "Math Precision", value: "32-bit / 64-bit Float" },
-      { label: "Default Precision", value: "32-bit float" },
-      { label: "Highest Precision", value: "64-bit float" },
-    ],
-  },
-  {
-    number: 3,
-    id: "uac-usb-drivers",
-    title: "UAC1 & UAC2 USB DAC Support",
-    category: "engine",
-    categoryLabel: "Core Engine",
-    summary:
-      "Built-in USB Audio Class 1 and 2 support for your DAC.",
-    description:
-      "Replaces Android's USB audio handling, once you allow USB access. Bitperfect reads what your DAC reports. It sets the rate for each track. Works with UAC1 and UAC2 DACs.",
-    audiophileBenefit:
-      "Each track plays at its own rate, up to 768 kHz, if your DAC has it. If not, the badge says Resampled.",
-    specs: [
-      { label: "Supported Protocols", value: "UAC 1.0 & UAC 2.0" },
-      { label: "Rate Switching", value: "Follows each track's rate" },
-      { label: "USB Access", value: "Direct, once permitted" },
-    ],
-    badge: "Direct USB",
-  },
-  {
-    number: 4,
-    id: "symphony-rust-engine",
-    title: "One Engine for All Formats",
-    category: "engine",
-    categoryLabel: "Core Engine",
-    summary:
-      "One engine plays every supported format. No converter needed.",
-    description:
-      "FLAC, ALAC, WAV, DSD, archival lossless and lossy formats all play in the app. No file needs converting first.",
-    audiophileBenefit:
-      "Built to keep playback steady when the phone is busy.",
-    specs: [
-      { label: "Format Coverage", value: "Lossless, lossy and DSD" },
-      { label: "Decoding Model", value: "One engine, all formats" },
-      { label: "Archival Formats", value: "Monkey's Audio, WavPack, TAK" },
-    ],
-    badge: "Playback Engine",
-  },
-  {
-    number: 5,
-    id: "high-refresh-ui",
-    title: "Smooth Scrolling on High-Refresh Screens",
-    category: "media",
-    categoryLabel: "Formats, Radio & Interface",
-    summary:
-      "Library and player screens scroll smoothly on high-refresh displays.",
-    description:
-      "The app follows your screen's refresh rate. Long album and track lists scroll smoothly.",
-    audiophileBenefit:
-      "Browse a large library without the screen stuttering while music plays.",
-    specs: [
-      { label: "Refresh Rate", value: "Matches your display" },
-      {
-        label: "Scrolling",
-        value: "Smooth on long lists",
-      },
-      { label: "Theme", value: "Dark, near-black" },
-    ],
-  },
-  {
-    number: 6,
-    id: "bitperfect-lock",
-    title: "Bitperfect Lock",
-    category: "engine",
-    categoryLabel: "Core Engine",
-    summary:
-      "One switch turns off all effects and software volume. Nothing in the app alters the file.",
-    description:
-      "One tap turns off ReplayGain, dither, the true-peak limiter, crossfeed, EQ, the upsampler, PCM to DSD and the AI Enhancer. Volume moves to your DAC's control, or stays at full level if it has none.",
-    audiophileBenefit:
-      "A stray tap cannot change the sound. Files at rates your DAC lacks are still resampled, and the badge says Resampled.",
-    specs: [
-      { label: "Locks", value: "EQ, effects and volume" },
-      { label: "Volume", value: "DAC's own, else 0 dB" },
-      { label: "Activation", value: "One switch" },
-    ],
-    badge: "Purist Essential",
-  },
-  {
-    number: 7,
-    id: "pcm-to-dsd-converter",
-    title: "Real-Time PCM to DSD Conversion",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary: "Converts PCM to DSD up to DSD512, in real time as the track plays.",
-    description:
-      "Converts PCM to 1-bit Direct Stream Digital in real time, using a noise-shaping modulator. Outputs DSD64 up to DSD512, as high as your DAC accepts. Sent to your DAC as DoP.",
-    audiophileBenefit:
-      "Gives delta-sigma DACs a DSD stream instead of PCM. Useful if you prefer that sound.",
-    specs: [
-      { label: "Target Rates", value: "DSD64, DSD128, DSD256, DSD512" },
-      { label: "Transport", value: "DoP (DSD over PCM)" },
-      { label: "Modulator", value: "Noise-shaping delta-sigma" },
-    ],
-  },
-  {
-    number: 8,
-    id: "audiophile-src-resamplers",
-    title: "Six Sample Rate Converters",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Six converters, from fast to studio reference.",
-    description:
-      "Six converters: Half-Band (Fast), FFT Polyphase (Balanced, the default), Sinc-256 Light, Sinc-256, Sinc-512 and 1024-tap Studio Reference. Minimum or linear phase is set separately.",
-    audiophileBenefit:
-      "Pick the filter that suits your DAC and your ears.",
-    specs: [
-      { label: "Algorithms", value: "6 Selectable Converters" },
-      {
-        label: "Filter Profiles",
-        value: "Minimum or linear phase",
-      },
-      { label: "Top Converter", value: "1024-tap Studio Reference" },
-    ],
-  },
-  {
-    number: 9,
-    id: "dyadic-lossless-volume",
-    title: "Dyadic Bit-Exact Volume Steps",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Optional volume steps that lose no bits, when the output is wider than the file.",
-    description:
-      "Off by default. Works only when your DAC's output is wider than the file. 16-bit files at 32-bit output get 85 exact steps. 24-bit files at 32-bit, or 16-bit files at 24-bit, get 20.",
-    audiophileBenefit:
-      "Lowers volume in fixed steps, without cutting bits or adding dither.",
-    specs: [
-      { label: "16-bit to 32-bit", value: "85 exact steps" },
-      { label: "24-bit to 32-bit", value: "20 exact steps" },
-      { label: "Default", value: "Off, opt-in" },
-    ],
-    badge: "Mathematical Precision",
-  },
-  {
-    number: 10,
-    id: "gapless-playback",
-    title: "Gapless Playback",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Albums play without gaps. The next track loads in advance.",
-    description:
-      "The next track is read before the current one ends. Encoder padding is trimmed from ALAC files.",
-    audiophileBenefit:
-      "Classical movements, live recordings and concept albums play without gaps.",
-    specs: [
-      { label: "Track Joins", value: "Next track read ahead" },
-      { label: "Preparation", value: "Ready before the join" },
-      {
-        label: "Metadata Handling",
-        value: "Reads ALAC gapless tags",
-      },
-    ],
-  },
-  {
-    number: 11,
-    id: "full-ram-playback",
-    title: "Full RAM Playback",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Loads the whole file into memory before playback, if it fits. Storage stays idle.",
-    description:
-      "Pick Whole file read-ahead and the original file loads into memory first. Storage is not read during the track. Files too big for memory use read-ahead instead.",
-    audiophileBenefit:
-      "Storage stays idle while a track plays. No reads until the next file loads.",
-    specs: [
-      { label: "Storage Access", value: "Zero disk activity during play" },
-      {
-        label: "Memory Use",
-        value: "Whole file, if it fits",
+        "label": "Mixer bypass",
+        "value": "Direct to your DAC"
       },
       {
-        label: "Read-Ahead",
-        value: "Auto, Short, Long, Whole file",
+        "label": "Sample rates",
+        "value": "Up to 768 kHz, if your DAC supports it"
       },
+      {
+        "label": "Signal verification",
+        "value": "Live Bit-perfect badge"
+      }
     ],
+    "badge": "Core architecture"
   },
   {
-    number: 12,
-    id: "eq-and-studio",
-    title: "EQ & Studio",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Four EQ modes: Studio sliders, 10-band graphic EQ, parametric EQ up to 32 bands, and AutoEQ.",
-    description:
-      "Studio has 14 sliders, up to 6 dB up or down. Graphic EQ has 10 bands, from 31.5 Hz to 16 kHz. Parametric EQ has up to 32 bands in seven shapes, Q 0.10 to 10.0. AutoEQ downloads headphone corrections.",
-    audiophileBenefit:
-      "Shape the sound for your headphones and taste, from one slider to a full curve.",
-    specs: [
-      { label: "Parametric Bands", value: "Up to 32 bands" },
-      { label: "Filter Shapes", value: "7 Filter Types" },
-      { label: "AutoEQ Integration", value: "Online headphone catalogue" },
-    ],
-    badge: "Studio Suite",
+    "number": 2,
+    "id": "audio-pipeline-precision",
+    "screens": ["playback", "dsp", "signal-path"],
+    "title": "32-bit and 64-bit processing",
+    "category": "engine",
+    "categoryLabel": "Core engine",
+    "summary": "Switch internal processing between 32-bit and 64-bit floating point.",
+    "description": "32-bit float is the efficient default and uses less battery. 64-bit float delivers the lowest rounding noise across sound processing and volume. Native DSD passes directly to the DAC without float processing.",
+    "audiophileBenefit": "Preserves maximum dynamic range and avoids rounding noise during sound processing.",
+    "specs": [
+      {
+        "label": "Precision options",
+        "value": "32-bit and 64-bit float"
+      },
+      {
+        "label": "Default mode",
+        "value": "32-bit float (lower battery use)"
+      },
+      {
+        "label": "Studio mode",
+        "value": "64-bit float (lowest rounding noise)"
+      }
+    ]
   },
   {
-    number: 13,
-    id: "harmonic-tuning",
-    title: "Harmonic Tuning",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Eight tube-style voicings, from warm single-ended triode to bold push-pull.",
-    description:
-      "Eight voicings named after classic tubes, including the 300B, KT88, EL34 and 12AX7. Each adds 2nd to 8th order harmonics. A drive control sets the amount.",
-    audiophileBenefit:
-      "Adds warmth to DACs and headphones that sound clinical.",
-    specs: [
-      { label: "Voicings", value: "8 Tube-Inspired Voicings" },
-      { label: "Harmonic Structure", value: "2nd to 8th order" },
+    "number": 3,
+    "id": "uac-usb-drivers",
+    "screens": ["output", "track-info", "now-playing"],
+    "title": "UAC1 and UAC2 USB DAC support",
+    "category": "engine",
+    "categoryLabel": "Core engine",
+    "summary": "Dedicated USB Audio Class 1 and 2 communication for your DAC.",
+    "description": "Replaces standard Android USB audio once permitted. The app reads your DAC capabilities and matches each track rate. Compatible with UAC1 and UAC2 hardware.",
+    "audiophileBenefit": "Each track plays at its native rate, up to 768 kHz, when supported by your DAC.",
+    "specs": [
       {
-        label: "Expert Mode",
-        value: "Per-harmonic faders",
+        "label": "Protocols",
+        "value": "UAC1 and UAC2"
       },
+      {
+        "label": "Rate switching",
+        "value": "Automatic per track"
+      },
+      {
+        "label": "DAC communication",
+        "value": "Direct hardware access"
+      }
     ],
+    "badge": "Direct USB"
   },
   {
-    number: 14,
-    id: "audiophile-upsampler",
-    title: "Audiophile Upsampler up to 8x",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Upsamples by 2x, 4x or 8x, with a 96, 192 or 384 kHz cap.",
-    description:
-      "Raises the sample rate up to 8x. 44.1 kHz and 48 kHz files can reach 352.8 kHz or 384 kHz. You pick a cap of 96, 192 or 384 kHz. The default is 192 kHz. Output stops at the cap or your DAC's top rate.",
-    audiophileBenefit:
-      "Gives your DAC a higher-rate signal. Its filters work far above the range you can hear.",
-    specs: [
-      { label: "Multipliers", value: "2x, 4x or 8x" },
-      { label: "Output Cap", value: "96, 192 or 384 kHz" },
-      { label: "Default Cap", value: "192 kHz" },
+    "number": 4,
+    "id": "symphony-rust-engine",
+    "screens": ["tracks", "track-info", "album"],
+    "title": "One engine for all formats",
+    "category": "engine",
+    "categoryLabel": "Core engine",
+    "summary": "Decodes 15 formats in one engine. No conversion needed.",
+    "description": "Plays FLAC, ALAC, WAV, DSD and archival formats directly. Every file plays without prior conversion.",
+    "audiophileBenefit": "Smooth, stutter-free playback across all lossless and DSD formats.",
+    "specs": [
+      {
+        "label": "Format coverage",
+        "value": "Lossless, lossy and DSD"
+      },
+      {
+        "label": "Architecture",
+        "value": "Unified audio engine"
+      },
+      {
+        "label": "Archival codecs",
+        "value": "Monkey's Audio, WavPack, TAK, True Audio"
+      }
     ],
+    "badge": "Playback engine"
   },
   {
-    number: 15,
-    id: "acoustic-crossfeed",
-    title: "Crossfeed",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Three levels that mix each channel a little into the other, as speakers do.",
-    description:
-      "Mixes a filtered, quieter share of each channel into the other, as speakers do. Its three presets follow the Meier, Chu Moy and BS2B styles. Softens the hard left-right split of headphones. Stereo only.",
-    audiophileBenefit:
-      "A softer, less fatiguing stereo image for long sessions on headphones.",
-    specs: [
-      { label: "Models", value: "Meier, Chu Moy, BS2B" },
+    "number": 5,
+    "id": "high-refresh-ui",
+    "screens": ["library", "tracks", "now-playing-hero"],
+    "title": "Smooth scrolling on high-refresh screens",
+    "category": "media",
+    "categoryLabel": "Formats, radio & interface",
+    "summary": "Library and player screens scroll smoothly at your display's full refresh rate.",
+    "description": "The interface adapts to 60 Hz, 90 Hz and 120 Hz screens automatically. Fast scrolling through large music libraries stays fluid. Screen animations never interrupt audio playback.",
+    "audiophileBenefit": "Browse tens of thousands of tracks with zero audio stutter or dropouts.",
+    "specs": [
       {
-        label: "Cross-Mix",
-        value: "Low-Pass, Level-Attenuated",
+        "label": "Display support",
+        "value": "60 Hz, 90 Hz and 120 Hz"
       },
-      { label: "Strength Presets", value: "Subtle, Natural, Strong" },
-    ],
+      {
+        "label": "Audio isolation",
+        "value": "Screen updates never interrupt audio"
+      },
+      {
+        "label": "Visual style",
+        "value": "Near-black dark theme"
+      }
+    ]
   },
   {
-    number: 16,
-    id: "convolution-engine",
-    title: "Convolution Engine",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Loads your own impulse-response WAV files for room or headphone correction.",
-    description:
-      "Loads impulse-response WAV files from a folder you choose, for headphone or room correction. Mono, stereo or true-stereo. Short mono files add no delay. Longer or stereo files add about 21 ms at 48 kHz.",
-    audiophileBenefit:
-      "Applies a correction you trust, from a headphone profile to a room measurement, to every track.",
-    specs: [
-      { label: "Filter Format", value: "WAV FIR Impulse Responses (PCM)" },
-      { label: "Latency", value: "Zero up to 512 taps" },
-      { label: "Length per Channel", value: "Up to 131,072 taps" },
+    "number": 6,
+    "id": "bitperfect-lock",
+    "screens": ["playback", "signal-clean", "now-playing"],
+    "title": "Bit-perfect lock",
+    "category": "engine",
+    "categoryLabel": "Core engine",
+    "summary": "One switch disables sound processing and software volume.",
+    "description": "Disables EQ, crossfeed, upsampling and volume attenuation in one tap. Volume moves to your DAC hardware control, or stays at 0 dB.",
+    "audiophileBenefit": "Guarantees unaltered sample delivery. If your DAC lacks the rate, the badge shows Resampled.",
+    "specs": [
+      {
+        "label": "Locked controls",
+        "value": "EQ, sound processing, volume and AI Enhancer"
+      },
+      {
+        "label": "Volume routing",
+        "value": "Hardware DAC control or 0 dB fixed"
+      },
+      {
+        "label": "Signal honesty",
+        "value": "Badge shows Resampled if rate differs"
+      }
     ],
+    "badge": "Purist essential"
   },
   {
-    number: 17,
-    id: "native-direct-output",
-    title: "Native Direct Output",
-    category: "hardware",
-    categoryLabel: "Hardware & Outputs",
-    summary:
-      "Optional direct route to your phone's internal output, on supported devices.",
-    description:
-      "Sends PCM and DSD straight to the phone's internal output, on supported devices. It is off until you turn it on. It steps aside for Bluetooth or a USB DAC.",
-    audiophileBenefit:
-      "On supported devices, the badge can show Bit-perfect from the phone's own output, with no USB DAC.",
-    specs: [
-      { label: "Route", value: "Direct, opt-in per device" },
+    "number": 7,
+    "id": "pcm-to-dsd-converter",
+    "screens": ["playback", "signal-path", "track-info"],
+    "title": "Real-time PCM to DSD conversion",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Converts PCM files to 1-bit DSD in real time as tracks play.",
+    "description": "Transforms PCM audio into 1-bit Direct Stream Digital using a noise-shaping modulator. Outputs DSD64 up to DSD512, as high as your DAC accepts. Streams directly to your converter over DoP.",
+    "audiophileBenefit": "Sends native 1-bit pulse streams to delta-sigma DACs that sound best on DSD.",
+    "specs": [
       {
-        label: "Device Support",
-        value: "Checked per device",
+        "label": "Target rates",
+        "value": "DSD64, DSD128, DSD256, DSD512"
       },
       {
-        label: "Bluetooth",
-        value: "Steps aside",
+        "label": "Transport",
+        "value": "DoP (DSD over PCM)"
       },
-    ],
+      {
+        "label": "Modulator",
+        "value": "5th-order and 7th-order delta-sigma"
+      }
+    ]
   },
   {
-    number: 18,
-    id: "multichannel-downmix",
-    title: "Multichannel Downmix",
-    category: "dsp",
-    categoryLabel: "Sound Processing",
-    summary:
-      "Mixes 5.1, 7.1 and other surround layouts to stereo, using ITU levels.",
-    description:
-      "Mixes 3.0 to 7.1 layouts to stereo using ITU-R BS.775 levels. Choose full level with a limiter, or a fixed cut of about 7.6 dB for 5.1.",
-    audiophileBenefit:
-      "Plays surround DSD disc images and multichannel rips on stereo headphones. The centre channel stays in the mix.",
-    specs: [
+    "number": 8,
+    "id": "audiophile-src-resamplers",
+    "screens": ["playback", "signal-path", "dsp"],
+    "title": "Six sample rate converters",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Choose from six sample rate converters, from low-power to studio reference.",
+    "description": "Includes Half-band, FFT polyphase, Sinc-256 light, Sinc-256, Sinc-512 and 1024-tap studio reference filters. Choose linear phase or minimum phase independently. Active only when output rates differ from the source file.",
+    "audiophileBenefit": "Eliminates pre-ringing or preserves phase accuracy to match your DAC's acoustic response.",
+    "specs": [
       {
-        label: "Channel Configurations",
-        value: "3.0 to 7.1 Layouts",
+        "label": "Converter options",
+        "value": "6 selectable algorithms"
       },
       {
-        label: "Level Policy",
-        value: "Full level or fixed cut",
+        "label": "Phase control",
+        "value": "Linear phase or minimum phase"
       },
-      { label: "Clip Prevention", value: "Limiter at full level" },
-    ],
+      {
+        "label": "Peak precision",
+        "value": "1024-tap studio reference filter"
+      }
+    ]
   },
   {
-    number: 19,
-    id: "dap-direct-playback",
-    title: "DAP Direct Playback",
-    category: "hardware",
-    categoryLabel: "Hardware & Outputs",
-    summary:
-      "Sends music to supported portable players, which handle the output themselves.",
-    description:
-      "Works with HiBy, FiiO, iBasso, Cayin, Shanling, Lotoo and Questyle players. Plays through the player's own direct path. The player keeps control of volume.",
-    audiophileBenefit:
-      "The player's own output carries the music. The badge can show Bit-perfect without an external DAC.",
-    specs: [
+    "number": 9,
+    "id": "dyadic-lossless-volume",
+    "screens": ["playback", "signal-clean", "now-playing"],
+    "title": "Dyadic bit-exact volume steps",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Volume steps that lose zero bits when output depth exceeds file depth.",
+    "description": "Off by default. Applies mathematical dyadic step attenuation using pure bit shifts without roundoff error. Provides 85 exact steps for 16-bit files at 32-bit output. Provides 20 exact steps for 24-bit files at 32-bit output.",
+    "audiophileBenefit": "Attenuates volume with zero bit-depth truncation and zero added dither noise.",
+    "specs": [
       {
-        label: "Supported Brands",
-        value: "HiBy, FiiO, iBasso, Cayin, Shanling",
+        "label": "16-bit to 32-bit",
+        "value": "85 bit-exact steps"
       },
       {
-        label: "Output Path",
-        value: "Firmware direct path",
+        "label": "24-bit to 32-bit",
+        "value": "20 bit-exact steps"
       },
-      { label: "Gain Control", value: "Set by the player" },
+      {
+        "label": "Dither policy",
+        "value": "Zero dither needed for exact steps"
+      }
     ],
-    badge: "Portable Players",
+    "badge": "Mathematical precision"
   },
   {
-    number: 20,
-    id: "themes-and-palettes",
-    title: "Dark Theme & Accent Colours",
-    category: "media",
-    categoryLabel: "Formats, Radio & Interface",
-    summary:
-      "A dark interface, with eleven accent colours to choose from.",
-    description:
-      "One dark theme with near-white text. Eleven accent colours, from the default champagne gold to cobalt, teal or rose.",
-    audiophileBenefit:
-      "A calm dark screen for late-night listening, in an accent colour you choose.",
-    specs: [
+    "number": 10,
+    "id": "gapless-playback",
+    "screens": ["now-playing", "tracks", "album"],
+    "title": "Gapless playback",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Continuous playback with zero silence or pauses between tracks.",
+    "description": "Pre-loads and decodes upcoming audio before the active track finishes. Trims encoder delay and padding samples from lossy and lossless files automatically. Track transitions happen with sample-accurate timing.",
+    "audiophileBenefit": "Classical movements, live recordings and concept albums play without unwanted gaps.",
+    "specs": [
       {
-        label: "Accent Presets",
-        value: "Eleven, gold by default",
+        "label": "Handoff timing",
+        "value": "Sample-accurate transition"
       },
       {
-        label: "Background",
-        value: "Charcoal graphite, #131318",
+        "label": "Padding removal",
+        "value": "Trims encoder delay automatically"
       },
       {
-        label: "Interface Design",
-        value: "Simple, easy-to-read type",
-      },
-    ],
+        "label": "Queue preparation",
+        "value": "Continuous background audio loading"
+      }
+    ]
   },
   {
-    number: 21,
-    id: "on-device-ai",
-    title: "On-Device AI: Enhancer, Karaoke, Similar Tracks",
-    category: "ai",
-    categoryLabel: "On-Device AI",
-    summary:
-      "Rebuilds the top octave, isolates vocals and finds similar tracks, all on your phone.",
-    description:
-      "Models download once, then run on your phone. AI Enhancer rebuilds the top octave of 44.1 and 48 kHz tracks. AI Karaoke separates vocals from the instrumental in 44.1 kHz-family tracks. Sonic Scan finds similar tracks.",
-    audiophileBenefit:
-      "Rebuilds the top octave of 44.1 and 48 kHz files. It is off by default, and the badge says Enhanced while it works. Isolates vocals. No audio is uploaded.",
-    specs: [
-      { label: "Processing", value: "On your phone" },
-      { label: "AI Enhancer", value: "44.1 and 48 kHz files" },
+    "number": 11,
+    "id": "full-ram-playback",
+    "screens": ["playback", "track-info", "now-playing"],
+    "title": "Full RAM playback",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Loads the entire file into memory before playback so storage stays idle.",
+    "description": "Selecting Whole file read-ahead loads the track into memory before play begins. Storage bus activity stops completely while the music plays. Files larger than available memory use continuous read-ahead streaming instead.",
+    "audiophileBenefit": "Keeps storage idle while a track plays. No disk reads until the next track loads.",
+    "specs": [
       {
-        label: "AI Karaoke",
-        value: "Vocals or instrumental",
+        "label": "Storage activity",
+        "value": "Zero disk reads during playback"
       },
-    ],
-    badge: "On-Device Neural",
+      {
+        "label": "Memory allocation",
+        "value": "Whole track, if memory allows"
+      },
+      {
+        "label": "Read-ahead modes",
+        "value": "Auto, Short, Long, Whole file"
+      }
+    ]
   },
   {
-    number: 22,
-    id: "plugin-system-sdk",
-    title: "Plugin System & Public SDK",
-    category: "streaming",
-    categoryLabel: "Streaming & Network",
-    summary:
-      "Optional add-on apps, built on a public plugin SDK.",
-    description:
-      "Plugins are separate apps. The player checks each one's signature before connecting. Developers can build sources, catalogue pages, metadata and processing add-ons.",
-    audiophileBenefit:
-      "Add-ons are optional. Your local library plays the same with or without them.",
-    specs: [
+    "number": 12,
+    "id": "eq-and-studio",
+    "screens": ["eq", "eq-filters", "eq-presets"],
+    "title": "EQ and sound processing",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Four EQ modes: tone sliders, 10-band graphic EQ, 32-band parametric EQ, and AutoEQ.",
+    "description": "Tone sliders adjust sound up to 6 dB. Graphic EQ offers 10 bands. Parametric mode provides up to 32 bands in seven filter shapes, with Q from 0.10 to 10.0. AutoEQ downloads headphone profiles.",
+    "audiophileBenefit": "Corrects headphone frequency response and room acoustics with surgical precision.",
+    "specs": [
       {
-        label: "Public SDK",
-        value: "github.com/STUkh/bitperfect-player-plugin-SDK",
+        "label": "Parametric bands",
+        "value": "Up to 32 bands, -12 to +12 dB"
       },
       {
-        label: "Capabilities",
-        value: "Sources, Metadata, Processing",
+        "label": "Filter shapes",
+        "value": "7 types, Q from 0.10 to 10.0"
       },
-      { label: "Trust Model", value: "Signature-checked by the app" },
+      {
+        "label": "Headphone profiles",
+        "value": "5,000+ AutoEQ profiles"
+      }
     ],
-    sdkUrl: "https://github.com/STUkh/bitperfect-player-plugin-SDK",
-    badge: "Optional Add-ons",
+    "badge": "Equaliser suite"
   },
   {
-    number: 23,
-    id: "universal-casting",
-    title: "Casting to Speakers and TVs",
-    category: "streaming",
-    categoryLabel: "Streaming & Network",
-    summary:
-      "Send music to DLNA/UPnP and cast-enabled speakers and TVs on your network.",
-    description:
-      "Streams your local music to DLNA/UPnP and cast-enabled devices. Files play unchanged if the device accepts their format. Cast-enabled devices play up to 24-bit, 96 kHz. The app tells you when it converts a file.",
-    audiophileBenefit:
-      "Sends your library to your living room hi-fi, at full file quality where the device allows.",
-    specs: [
-      { label: "Protocols", value: "DLNA/UPnP, cast-enabled devices" },
+    "number": 13,
+    "id": "harmonic-tuning",
+    "screens": ["dsp", "dsp-sheet", "fidelity"],
+    "title": "Harmonic tuning",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Eight tube-style voicings, from warm single-ended triode to punchy push-pull.",
+    "description": "Eight voicings inspired by classic vacuum tubes, including 300B, KT88, EL34 and 12AX7 profiles. Adds controlled second through eighth-order harmonics to digital audio. An adjustable drive control dials in the exact colour you want.",
+    "audiophileBenefit": "Adds tube-style harmonic colour to your music, by choice.",
+    "specs": [
       {
-        label: "Cast-Enabled Devices",
-        value: "Up to 24-bit / 96 kHz",
+        "label": "Tube voicings",
+        "value": "8 profiles including 300B and KT88"
       },
-      { label: "Stream Integrity", value: "Bit-exact when accepted" },
-    ],
+      {
+        "label": "Harmonic spectrum",
+        "value": "Controlled 2nd to 8th harmonics"
+      },
+      {
+        "label": "Customisation",
+        "value": "Drive level and per-harmonic faders"
+      }
+    ]
   },
   {
-    number: 24,
-    id: "receiver-mode",
-    title: "Receiver Mode: Your Phone as a Network Player",
-    category: "hardware",
-    categoryLabel: "Hardware & Outputs",
-    summary:
-      "Turn your Android phone or player into a network receiver for your hi-fi.",
-    description:
-      "Your phone or player can be a DLNA/UPnP renderer, up to 384 kHz. It can also be a Logitech Media Server player, up to 768 kHz. The rate you hear depends on your DAC. Turn each mode on separately.",
-    audiophileBenefit:
-      "Turns a spare Android phone or player into a network player for your hi-fi. With Bit-perfect lock on, remote volume is ignored.",
-    specs: [
-      { label: "Receiver Modes", value: "DLNA/UPnP, LMS player" },
-      { label: "Remote Volume", value: "Ignored with Bit-perfect lock" },
-      { label: "Top Sample Rate", value: "Up to 768 kHz (LMS)" },
-    ],
-    badge: "Network Receiver",
+    "number": 14,
+    "id": "audiophile-upsampler",
+    "screens": ["dsp", "signal-path", "track-info"],
+    "title": "Audiophile upsampler up to 8x",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Upsamples audio by 2x, 4x or 8x with a selectable ceiling.",
+    "description": "Multiplies incoming sample rates by 2x, 4x or 8x using linear or minimum phase filters. 44.1 kHz and 48 kHz tracks reach 352.8 kHz or 384 kHz. Choose a ceiling of 96, 192 or 384 kHz. Output never exceeds your DAC's maximum rate.",
+    "audiophileBenefit": "Pushes digital reconstruction filter imaging artefacts far beyond the audible frequency spectrum.",
+    "specs": [
+      {
+        "label": "Rate multipliers",
+        "value": "2x, 4x or 8x"
+      },
+      {
+        "label": "Output ceiling",
+        "value": "96, 192 or 384 kHz"
+      },
+      {
+        "label": "Hardware limit",
+        "value": "Capped by your DAC's maximum rate"
+      }
+    ]
   },
   {
-    number: 25,
-    id: "comprehensive-audio-formats",
-    title: "Many Audio Formats",
-    category: "media",
-    categoryLabel: "Formats, Radio & Interface",
-    summary:
-      "Plays FLAC, ALAC, WAV, AIFF, DSD, APE and WavPack files.",
-    description:
-      "Plays FLAC, ALAC, WAV, AIFF, MP3, AAC, Opus and Ogg Vorbis. DSD plays as DSF, DFF or disc images. Archival formats: APE, WavPack, TTA, TAK and Musepack. Multichannel disc rips in common layouts play too.",
-    audiophileBenefit:
-      "Plays the files you have, with no conversion and no second player.",
-    specs: [
+    "number": 15,
+    "id": "acoustic-crossfeed",
+    "screens": ["dsp-sheet", "dsp", "now-playing"],
+    "title": "Acoustic crossfeed",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Simulates natural loudspeaker stereo imaging on headphones to reduce fatigue.",
+    "description": "Mixes a frequency-filtered, delayed share of each channel into the opposite ear. Emulates natural acoustic speaker listening. Three presets follow Meier, Chu Moy and BS2B models. Softens harsh hard-panned stereo recordings on headphones.",
+    "audiophileBenefit": "Transforms extreme left-right headphone separation into a fatigue-free forward soundstage.",
+    "specs": [
       {
-        label: "Lossless Formats",
-        value: "FLAC, ALAC, WAV, AIFF",
+        "label": "Circuit models",
+        "value": "Meier, Chu Moy and BS2B"
       },
-      { label: "DSD Support", value: "DSF, DFF, disc images" },
       {
-        label: "Archival Formats",
-        value: "APE, WavPack, TTA, TAK",
+        "label": "Preset levels",
+        "value": "Subtle, Natural and Strong"
       },
-    ],
+      {
+        "label": "Application",
+        "value": "Stereo audio on headphones"
+      }
+    ]
   },
   {
-    number: 26,
-    id: "android-auto-integration",
-    title: "Android Auto Integration",
-    category: "media",
-    categoryLabel: "Formats, Radio & Interface",
-    summary:
-      "Your library, favourites and radio on your car screen.",
-    description:
-      "Browse Recent, Favourites, Playlists, Albums, Artists, Radio and more on the car screen. Search from the car's own screen. Steering-wheel keys work too.",
-    audiophileBenefit:
-      "Find and play your library from the driver's seat, without handling your phone.",
-    specs: [
-      { label: "Platform", value: "Media browser app" },
+    "number": 16,
+    "id": "convolution-engine",
+    "screens": ["dsp-sheet", "dsp", "fidelity"],
+    "title": "Convolution engine",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Applies custom impulse-response WAV files for headphone and room acoustic correction.",
+    "description": "Loads standard FIR impulse-response WAV files directly from your device storage. Supports mono, stereo and true-stereo correction filters. Short filters run with zero latency. Longer room-correction filters run with partitioned efficiency.",
+    "audiophileBenefit": "Applies laboratory-grade acoustic correction filters to achieve reference headphone or room frequency response.",
+    "specs": [
       {
-        label: "Controls",
-        value: "Car screen, wheel keys",
+        "label": "Filter formats",
+        "value": "WAV FIR impulse responses (PCM)"
       },
-      { label: "Audio Delivery", value: "Through the car connection" },
-    ],
+      {
+        "label": "Zero latency",
+        "value": "Filters up to 512 taps"
+      },
+      {
+        "label": "Filter capacity",
+        "value": "Up to 131,072 taps per channel"
+      }
+    ]
   },
   {
-    number: 27,
-    id: "internet-radio",
-    title: "Internet Radio Search",
-    category: "media",
-    categoryLabel: "Formats, Radio & Interface",
-    summary:
-      "Search community radio stations. Filter by codec and bitrate.",
-    description:
-      "Search stations by codec (MP3, AAC or FLAC) and minimum bitrate. Paste any stream URL. Save favourites in folders. See live song titles as they play.",
-    audiophileBenefit:
-      "Find FLAC and high-bitrate stations. Listen in the same player as your library.",
-    specs: [
-      { label: "Directory", value: "Community, searched live" },
+    "number": 17,
+    "id": "native-direct-output",
+    "screens": ["output", "signal-path", "signal-clean"],
+    "title": "Native direct output",
+    "category": "hardware",
+    "categoryLabel": "Hardware & outputs",
+    "summary": "Direct hardware audio path to internal DACs and headphone jacks on supported devices.",
+    "description": "Routes PCM and DSD directly to integrated audiophile DAC chips on supported phones. It is disabled by default and requires opt-in confirmation. It yields automatically when you connect a USB DAC.",
+    "audiophileBenefit": "Enables bit-perfect playback from internal headphone ports without needing an external dongle.",
+    "specs": [
       {
-        label: "Codecs",
-        value: "MP3, AAC, FLAC",
+        "label": "Routing",
+        "value": "Direct internal hardware path"
       },
       {
-        label: "Metadata Tracking",
-        value: "Live song titles",
+        "label": "Compatibility",
+        "value": "Detected per device chipset"
       },
-    ],
+      {
+        "label": "Priority",
+        "value": "Yields automatically to USB DACs"
+      }
+    ]
   },
+  {
+    "number": 18,
+    "id": "multichannel-downmix",
+    "screens": ["dsp", "track-info", "signal-path"],
+    "title": "Multichannel downmix",
+    "category": "dsp",
+    "categoryLabel": "Sound processing",
+    "summary": "Mixes 3.0 to 7.1 surround sound down to stereo with standard speaker balancing.",
+    "description": "Mixes 3.0 to 7.1 surround sound down to stereo with standard speaker balancing. Choose full level with clip protection, or a fixed 7.6 dB cut for 5.1.",
+    "audiophileBenefit": "Listen to surround DSD disc images on stereo headphones without losing the centre channel.",
+    "specs": [
+      {
+        "label": "Source layouts",
+        "value": "3.0 to 7.1 surround channels"
+      },
+      {
+        "label": "Overload protection",
+        "value": "True-peak limiter or fixed gain cut"
+      },
+      {
+        "label": "Supported media",
+        "value": "Multichannel rips and DSD disc images"
+      }
+    ]
+  },
+  {
+    "number": 19,
+    "id": "dap-direct-playback",
+    "screens": ["output", "signal-clean", "now-playing"],
+    "title": "DAP direct playback",
+    "category": "hardware",
+    "categoryLabel": "Hardware & outputs",
+    "summary": "Direct bit-perfect output for supported digital audio players.",
+    "description": "Communicates directly with dedicated audio hardware on HiBy, FiiO, iBasso, Cayin, Shanling, Lotoo and Questyle players. Bypasses Android mixer layers completely. The portable player manages analogue volume and gain stages directly.",
+    "audiophileBenefit": "Drives balanced 4.4 mm and 2.5 mm outputs with bit-perfect sound and zero external adapters.",
+    "specs": [
+      {
+        "label": "Supported brands",
+        "value": "HiBy, FiiO, iBasso, Cayin, Shanling, Lotoo"
+      },
+      {
+        "label": "Output routing",
+        "value": "Dedicated hardware direct path"
+      },
+      {
+        "label": "Volume control",
+        "value": "Player hardware volume control"
+      }
+    ],
+    "badge": "Portable players"
+  },
+  {
+    "number": 20,
+    "id": "themes-and-palettes",
+    "screens": ["now-playing-hero", "library", "eq-sculptor"],
+    "title": "Dark theme and accent colours",
+    "category": "media",
+    "categoryLabel": "Formats, radio & interface",
+    "summary": "Dark interface with eleven accent colours designed for low-light listening.",
+    "description": "A clean dark theme built on deep charcoal backgrounds. Eleven selectable accent colours include champagne gold, cobalt, teal, amber and rose. High-contrast typography ensures readability in dim listening rooms.",
+    "audiophileBenefit": "A calm, dark screen that minimises glare during late-night listening sessions.",
+    "specs": [
+      {
+        "label": "Accent colours",
+        "value": "11 presets, gold by default"
+      },
+      {
+        "label": "Background",
+        "value": "OLED-friendly dark graphite"
+      },
+      {
+        "label": "Typography",
+        "value": "Distraction-free high contrast"
+      }
+    ]
+  },
+  {
+    "number": 21,
+    "id": "on-device-ai",
+    "screens": ["ai", "ai-enhancer", "ai-karaoke"],
+    "title": "On-device AI: Enhancer, Karaoke, Similar Tracks",
+    "category": "ai",
+    "categoryLabel": "On-device AI",
+    "summary": "Rebuilds high frequencies, isolates vocals and finds similar tracks on your phone.",
+    "description": "Models download once, then run on your phone. AI Enhancer rebuilds the top octave of 44.1 and 48 kHz tracks. AI Karaoke isolates vocals on 44.1 kHz-family files. Sonic Scan finds similar tracks.",
+    "audiophileBenefit": "Restores compressed tracks offline. Full model runs on a neural chip; Lite mode runs on other phones. The badge shows Enhanced while active.",
+    "specs": [
+      {
+        "label": "Compute",
+        "value": "Neural chip, with Lite mode on CPU"
+      },
+      {
+        "label": "Enhancer scope",
+        "value": "44.1 and 48 kHz tracks only"
+      },
+      {
+        "label": "Privacy",
+        "value": "Zero cloud uploads, 100% on device"
+      }
+    ],
+    "badge": "On-device neural"
+  },
+  {
+    "number": 22,
+    "id": "plugin-system-sdk",
+    "screens": ["sources", "library", "tracks"],
+    "title": "Plugin system and public SDK",
+    "category": "streaming",
+    "categoryLabel": "Streaming & network",
+    "summary": "Expand your player with optional add-on apps using a public SDK.",
+    "description": "Plugins run as separate standalone apps. The player verifies cryptographic signatures before allowing connection. Developers can build new audio sources, catalogue views, metadata providers and custom sound processing modules.",
+    "audiophileBenefit": "Keep your player core lean while expanding sources and sound processing when needed.",
+    "specs": [
+      {
+        "label": "Architecture",
+        "value": "Cryptographically signed Android apps"
+      },
+      {
+        "label": "Capabilities",
+        "value": "Audio sources, metadata and sound processing"
+      },
+      {
+        "label": "Public SDK",
+        "value": "Open developer repository on GitHub"
+      }
+    ],
+    "sdkUrl": "https://github.com/STUkh/bitperfect-player-plugin-SDK",
+    "badge": "Optional add-ons"
+  },
+  {
+    "number": 23,
+    "id": "universal-casting",
+    "screens": ["cast", "cast-sheet", "signal-path"],
+    "title": "Casting to speakers and TVs",
+    "category": "streaming",
+    "categoryLabel": "Streaming & network",
+    "summary": "Stream music to DLNA/UPnP and cast-enabled speakers and TVs.",
+    "description": "Streams local music over your Wi-Fi network. Files play unchanged when supported by your receiving device, up to 24-bit and 96 kHz.",
+    "audiophileBenefit": "Enjoy your lossless library on living room speakers without quality loss.",
+    "specs": [
+      {
+        "label": "Protocols",
+        "value": "DLNA/UPnP and cast-enabled devices"
+      },
+      {
+        "label": "Cast ceiling",
+        "value": "Up to 24-bit / 96 kHz"
+      },
+      {
+        "label": "Stream honesty",
+        "value": "Badge indicates when stream is converted"
+      }
+    ]
+  },
+  {
+    "number": 24,
+    "id": "receiver-mode",
+    "screens": ["receiver", "cast", "signal-path"],
+    "title": "Receiver mode: network player",
+    "category": "hardware",
+    "categoryLabel": "Hardware & outputs",
+    "summary": "Turns your phone or portable player into a network receiver.",
+    "description": "Acts as a DLNA/UPnP renderer up to 384 kHz, or a network player for music servers up to 768 kHz. Supported sample rates depend on your DAC.",
+    "audiophileBenefit": "Turns an Android device into a dedicated network streamer for your hi-fi system.",
+    "specs": [
+      {
+        "label": "Receiver modes",
+        "value": "DLNA/UPnP and music server player"
+      },
+      {
+        "label": "Volume lock",
+        "value": "Remote volume locked with Bit-perfect lock"
+      },
+      {
+        "label": "Top sample rate",
+        "value": "Up to 768 kHz, if your DAC supports it"
+      }
+    ],
+    "badge": "Network receiver"
+  },
+  {
+    "number": 25,
+    "id": "comprehensive-audio-formats",
+    "screens": ["tracks", "track-info", "album"],
+    "title": "15 audio formats",
+    "category": "media",
+    "categoryLabel": "Formats, radio & interface",
+    "summary": "Plays 15 formats directly, including FLAC, ALAC, DSD and archival rips.",
+    "description": "Plays 15 formats directly. Lossless formats include FLAC, ALAC, WAV, AIFF and DSD disc images. Archival and lossy formats include Monkey's Audio, WavPack, TAK, Opus and MP3. Multichannel rips in standard layouts play too.",
+    "audiophileBenefit": "Plays your entire lossless and archival music collection natively without converting a single file.",
+    "specs": [
+      {
+        "label": "Lossless formats",
+        "value": "FLAC, ALAC, WAV, AIFF"
+      },
+      {
+        "label": "1-bit DSD",
+        "value": "DSF, DFF and DSD disc images"
+      },
+      {
+        "label": "Archival codecs",
+        "value": "Monkey's Audio, WavPack, TAK, True Audio, Musepack"
+      }
+    ]
+  },
+  {
+    "number": 26,
+    "id": "android-auto-integration",
+    "screens": ["library", "album", "now-playing-hero"],
+    "title": "Android Auto integration",
+    "category": "media",
+    "categoryLabel": "Formats, radio & interface",
+    "summary": "Your local library, favourites and radio streams on your car dashboard.",
+    "description": "Browse Recent tracks, Favourites, Playlists, Albums, Artists and Radio from your car touchscreen. Search your library directly from the dashboard. Steering wheel buttons control playback and track skipping.",
+    "audiophileBenefit": "Enjoy your local lossless library on the road with clear, distraction-free vehicle controls.",
+    "specs": [
+      {
+        "label": "Platform",
+        "value": "Native Android Auto media interface"
+      },
+      {
+        "label": "Vehicle controls",
+        "value": "Touchscreen, rotary dial and steering wheel keys"
+      },
+      {
+        "label": "Library access",
+        "value": "Albums, artists, playlists, favourites and radio"
+      }
+    ]
+  },
+  {
+    "number": 27,
+    "id": "internet-radio",
+    "screens": ["sources", "library", "now-playing"],
+    "title": "Internet radio search",
+    "category": "media",
+    "categoryLabel": "Formats, radio & interface",
+    "summary": "Search global online radio stations. Filter by codec and stream bitrate.",
+    "description": "Search community stations by audio codec (MP3, AAC or FLAC) and minimum bitrate. Custom stream URLs paste directly into the player. Organise favourite stations in folders. Real-time song titles and bitrates display during playback.",
+    "audiophileBenefit": "Listen to lossless FLAC broadcasts and high-bitrate radio stations alongside your local music library.",
+    "specs": [
+      {
+        "label": "Station directory",
+        "value": "Community directory searched in real time"
+      },
+      {
+        "label": "Stream codecs",
+        "value": "FLAC, AAC and MP3"
+      },
+      {
+        "label": "Metadata display",
+        "value": "Live track titles and stream bitrate"
+      }
+    ]
+  }
 ];

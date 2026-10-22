@@ -22,7 +22,7 @@ const closingPrice = pro.trialDays
  * hairlines and space (DESIGN.md, "The Ivory Band Has No Shadows"), so the action
  * stands on the paper.
  *
- * Content: headline "Start listening bit for bit." (accent phrase in `band-gold-ink`,
+ * Content: headline "Your music, bit for bit." (accent phrase in `band-gold-ink`,
  * since gold ink on white is 1.06:1), one line of subtext, the gold `PlayCta` install
  * key-cap (large; filled with dark text, so it stays legible on white), and the price
  * line. The price line is built from `pro` in `src/data/site.ts` (trial days, Founder
@@ -44,13 +44,13 @@ export default function CTASection() {
             className="r-rise text-headline-m max-w-[16ch] text-balance text-band-ink lg:text-headline"
             style={{ '--i': '0' } as CSSProperties}
           >
-            Start listening <span className="text-band-gold-ink">bit for bit.</span>
+            Your music, <span className="text-band-gold-ink">bit for bit.</span>
           </h2>
           <p
             className="r-rise mt-4 max-w-[42ch] text-body-sm text-pretty text-band-ink-muted lg:mt-6 lg:text-body-lg"
             style={{ '--i': '1' } as CSSProperties}
           >
-            On Google Play, for Android {site.minAndroid} and up. Plug in a USB DAC. The badge shows whether the sound is bit-perfect.
+            Install the app from Google Play and plug in your USB DAC.
           </p>
           <div className="r-rise mt-8 lg:mt-10" style={{ '--i': '2' } as CSSProperties}>
             <PlayCta label="Get it on Google Play" size="lg" />

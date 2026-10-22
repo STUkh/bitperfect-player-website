@@ -1,0 +1,20 @@
+/* The row's arrow nudges toward where the link goes. Transform only, and held
+   still for visitors who asked for less motion. */
+.tech-index-arrow {
+  transition:
+    transform var(--d-ui) var(--ease-ui),
+    color var(--d-ui) var(--ease-ui);
+}
+.tech-index-row:hover .tech-index-arrow,
+.tech-index-row:focus-visible .tech-index-arrow {
+  transform: translateX(4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tech-index-arrow {
+    transition-duration: 0ms;
+  }
+  .tech-index-row:hover .tech-index-arrow,
+  .tech-index-row:focus-visible .tech-index-arrow {
+    transform: none;
+  }
+}

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Design System Guide" description="The Bitperfect Player website design system as it is in code: tokens, type ramp, lacquer and grounds, controls, one live example of every component, page recipes and the rules" -->
+<helmet><script src="./ds-base.js"></script><style>
+html,body{margin:0;background:#191919}
+.g{font-family:var(--font-sans);font-weight:400;color:var(--color-text-primary);background:#191919;-webkit-font-smoothing:antialiased;line-height:1.6}
+.g-note a{color:var(--color-gold);text-decoration:none}
+.g-wrap{max-width:1280px;margin:0 auto;padding:0 20px;box-sizing:border-box}
+@media (min-width:640px){.g-wrap{padding:0 32px}}
+.g-sec{border-top:1px solid var(--color-border-subtle);padding:72px 0;content-visibility:auto;contain-intrinsic-size:auto 1200px}
+.g-kicker{font-family:var(--font-mono);font-size:var(--text-micro);font-weight:600;letter-spacing:var(--tracking-micro);text-transform:uppercase;color:var(--color-gold);margin:0}
+.g-h1{font-size:var(--text-headline-m);line-height:var(--text-headline-m--line-height);letter-spacing:var(--text-headline-m--letter-spacing);font-weight:700;margin:16px 0 0;text-wrap:balance}
+@media (min-width:1024px){.g-h1{font-size:var(--text-headline);line-height:var(--text-headline--line-height);letter-spacing:var(--text-headline--letter-spacing)}}
+.g-h2{font-size:var(--text-section-m);line-height:var(--text-section-m--line-height);letter-spacing:var(--text-section-m--letter-spacing);font-weight:700;margin:12px 0 0}
+@media (min-width:1024px){.g-h2{font-size:var(--text-section-lg);line-height:var(--text-section-lg--line-height);letter-spacing:var(--text-section-lg--letter-spacing)}}
+.g-h3{font-size:var(--text-title-sm);line-height:var(--text-title-sm--line-height);font-weight:600;margin:48px 0 0}
+.g-lede{max-width:62ch;margin:16px 0 0;font-size:var(--text-body-lg);line-height:1.6;color:var(--color-text-secondary)}
+.g-note{max-width:72ch;margin:8px 0 0;font-size:var(--text-small);color:var(--color-text-secondary)}
+.g-code{font-family:var(--font-mono);font-size:var(--text-mono);letter-spacing:0.02em;color:var(--color-text-secondary)}
+.g-code-gold{font-family:var(--font-mono);font-size:var(--text-mono);color:var(--color-gold)}
+.g-grid{display:grid;gap:16px;margin-top:24px}
+.g-sw{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.g-chip{height:72px;border-radius:var(--radius-tile);border:1px solid var(--color-border-subtle)}
+.g-row{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;border-top:1px solid var(--color-border-subtle);padding:20px 0}
+@media (min-width:1024px){.g-row{grid-template-columns:260px minmax(0,1fr);gap:32px;align-items:baseline}}
+.g-stage{margin-top:16px;border:1px solid var(--color-border-subtle);border-radius:var(--radius-card-inner);background:var(--color-surface-base);padding:28px;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.g-stage-ivory{background:var(--color-band-ivory);color:var(--color-band-ink);border-color:var(--color-band-rule)}
+.g-frame{position:relative;margin-top:16px;border:1px solid var(--color-border-subtle);border-radius:var(--radius-card-inner);overflow:hidden;transform:translateZ(0);background:var(--color-surface-base)}
+.g-comp{border-top:1px solid var(--color-border-subtle);padding:40px 0}
+.g-comp-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px}
+.g-comp-name{font-size:var(--text-title);line-height:var(--text-title--line-height);font-weight:600;margin:0}
+.g-ol{margin:16px 0 0;padding:0;list-style:none;counter-reset:s}
+.g-ol li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;border-top:1px solid var(--color-border-subtle);padding:12px 0}
+.g-ol li::before{content:counter(s,decimal-leading-zero);font-family:var(--font-mono);font-size:var(--text-mono);color:var(--color-gold)}
+.g-ground{height:220px;display:flex;align-items:flex-end;padding:20px;box-sizing:border-box;border-radius:var(--radius-card-inner);overflow:hidden}
+.g-nav{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;border-top:1px solid var(--color-border-subtle);padding-top:20px;font-size:var(--text-small);font-weight:600}
+.g-nav a{color:var(--color-text-secondary)}
+.g-nav a:hover{color:var(--color-gold)}
+</style></helmet>
+<div class="g">
+
+<!-- Opening -->
+<section style="padding:72px 0 56px">
+<div class="g-wrap">
+<p class="g-kicker">Bitperfect Player · Website design system</p>
+<h1 class="g-h1">Graphite, ivory and one gold</h1>
+<p class="g-lede">The bit-perfect.com site as it is in code: the tokens from src/styles/global.css and lacquer.css, and the site's own React components, rendered live from the bundle. Build from the components first; the utilities are only glue between them.</p>
+<nav class="g-nav"><a href="#foundations">Foundations</a><a href="#materials">Materials</a><a href="#controls">Controls</a><a href="#components">Components</a><a href="#recipes">Page recipes</a><a href="#rules">Rules</a></nav>
+</div>
+</section>
+
+<!-- Foundations -->
+<section id="foundations" class="g-sec">
+<div class="g-wrap">
+<p class="g-kicker">Foundations</p>
+<h2 class="g-h2">Colour</h2>
+<p class="g-note">Every swatch is painted with its token, so what you see is what the bundle ships. The page ground is graphite <span class="g-code">#191919</span>, never <span class="g-code">#000</span>. Gold is the one accent.</p>
+<sc-for list="{{ colorGroups }}" as="grp" hint-placeholder-count="4">
+<h3 class="g-h3">{{ grp.name }}</h3>
+<p class="g-note">{{ grp.note }}</p>
+<div class="g-grid g-sw">
+<sc-for list="{{ grp.items }}" as="c" hint-placeholder-count="5">
+<div>
+<div class="g-chip" style="background:var({{ c.token }})"></div>
+<p style="margin:10px 0 0;font-size:var(--text-small);font-weight:600">{{ c.label }}</p>
+<p class="g-code" style="margin:2px 0 0">{{ c.token }}</p>
+<p class="g-code" style="margin:0;color:var(--color-text-tertiary)">{{ c.value }}</p>
+</div>
+</sc-for>
+</div>
+</sc-for>
+
+<h2 class="g-h2" style="margin-top:72px">Type</h2>
+<p class="g-note">Manrope only, a variable font whose default instance is weight 200: every text element names its weight (the body sets 400). Numbers, rates and identifiers take the mono stack with tabular figures (<span class="g-code">mono-spec</span>). Desktop steps first; the <span class="g-code">-m</span> steps are the phone sizes, stepping up at <span class="g-code">lg:</span>.</p>
+<div style="margin-top:24px">
+<sc-for list="{{ typeRamp }}" as="t" hint-placeholder-count="12">
+<div class="g-row">
+<div>
+<p class="g-code-gold" style="margin:0">{{ t.cls }}</p>
+<p class="g-code" style="margin:2px 0 0">{{ t.spec }}</p>
+</div>
+<p style="margin:0;overflow-wrap:anywhere;font-size:var(--text-{{ t.step }});line-height:var(--text-{{ t.step }}--line-height);letter-spacing:var(--text-{{ t.step }}--letter-spacing, 0);font-weight:var(--text-{{ t.step }}--font-weight, 400)">{{ t.sample }}</p>
+</div>
+</sc-for>
+</div>
+<div class="g-row">
+<div><p class="g-code-gold" style="margin:0">mono-spec</p><p class="g-code" style="margin:2px 0 0">--font-mono, tabular-nums, 0.02em</p></div>
+<p class="mono-spec" style="margin:0;font-size:var(--text-body-lg)">24-bit / 192 kHz · 768 kHz · DSD512</p>
+</div>
+<div class="g-row">
+<div><p class="g-code-gold" style="margin:0">heading-section</p><p class="g-code" style="margin:2px 0 0">section-sm, section-lg from sm, headline-sm from lg, 700</p></div>
+<p class="heading-section" style="margin:0">Six things it does</p>
+</div>
+
+<h2 class="g-h2" style="margin-top:72px">Radii</h2>
+<div class="g-grid g-sw">
+<sc-for list="{{ radii }}" as="r" hint-placeholder-count="8">
+<div>
+<div class="lacquer" style="height:88px;border-radius:var({{ r.token }})"></div>
+<p class="g-code-gold" style="margin:10px 0 0">{{ r.cls }}</p>
+<p class="g-code" style="margin:0">{{ r.token }}: {{ r.value }}</p>
+<p class="g-code" style="margin:0;color:var(--color-text-tertiary)">{{ r.use }}</p>
+</div>
+</sc-for>
+</div>
+
+<h2 class="g-h2" style="margin-top:72px">Shadows</h2>
+<p class="g-note">Depth comes from the surface ladder, a 1px top rim and a dark drop. Nothing casts a coloured shadow and gold emits no glow. On the ivory bands the device shadow is nulled.</p>
+<div class="g-grid g-sw">
+<sc-for list="{{ shadows }}" as="s" hint-placeholder-count="6">
+<div>
+<div style="height:96px;border-radius:var(--radius-card-sm);background:var(--color-surface-raised);box-shadow:var({{ s.token }})"></div>
+<p class="g-code-gold" style="margin:14px 0 0">{{ s.token }}</p>
+<p class="g-code" style="margin:0;color:var(--color-text-tertiary)">{{ s.use }}</p>
+</div>
+</sc-for>
+</div>
+
+<h2 class="g-h2" style="margin-top:72px">Motion</h2>
+<p class="g-note">A key-cap hover is light settling on lacquer: the face fades over <span class="g-code">--btn-fade</span> and the sheen drifts over <span class="g-code">--btn-sheen</span>, and nothing moves. Reveals rise with <span class="g-code">--ease-reveal</span>; reduced motion drops every transform.</p>
+<div style="margin-top:24px">
+<sc-for list="{{ motion }}" as="m" hint-placeholder-count="10">
+<div class="g-row">
+<p class="g-code-gold" style="margin:0">{{ m.token }}</p>
+<p style="margin:0;font-size:var(--text-small);color:var(--color-text-secondary)"><span class="g-code" style="color:var(--color-text-primary)">{{ m.value }}</span> · {{ m.use }}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- Materials -->
+<section id="materials" class="g-sec">
+<div class="g-wrap">
+<p class="g-kicker">Materials</p>
+<h2 class="g-h2">Lacquer</h2>
+<p class="g-note">The site's glossy surface: a diagonal wash from the upper left, a 1px specular rim, a darker lower lip and a soft sheen. Every card, plate and control takes it from lacquer.css. Use <span class="g-code">Card</span> (or the <span class="g-code">lacquer</span> class), never a flat glass box.</p>
+<div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+<div class="lacquer rounded-card" style="padding:28px"><p class="g-code-gold" style="margin:0">.lacquer</p><p style="margin:8px 0 0;font-size:var(--text-body-sm);color:var(--color-text-secondary)">Lit graphite: cards, plates.</p></div>
+<div class="lacquer lacquer-gold rounded-card" style="padding:28px"><p class="g-code-gold" style="margin:0">.lacquer .lacquer-gold</p><p style="margin:8px 0 0;font-size:var(--text-body-sm);color:var(--color-text-secondary)">Gold rim. The Founder plan only.</p></div>
+<a href="#materials" class="lacquer lacquer-lift rounded-card" style="padding:28px;display:block"><p class="g-code-gold" style="margin:0">.lacquer .lacquer-lift</p><p style="margin:8px 0 0;font-size:var(--text-body-sm);color:var(--color-text-secondary)">A linked card: hover it. It rises 2px and the sheen brightens.</p></a>
+</div>
+
+<h2 class="g-h2" style="margin-top:72px">Grounds</h2>
+<p class="g-note">A textured plate under a band: <span class="g-code">ground ground-&lt;name&gt;</span>. Each variant is defined beside the band that uses it and belongs to that band; a new design takes a ground only through its component.</p>
+<div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+<sc-for list="{{ grounds }}" as="gr" hint-placeholder-count="8">
+<div>
+<div class="g-ground {{ gr.cls }}" data-media="{{ gr.media }}"><span class="g-code" style="color:{{ gr.ink }}">{{ gr.name }}</span></div>
+<p class="g-code-gold" style="margin:10px 0 0">{{ gr.cls }}</p>
+<p class="g-code" style="margin:0;color:var(--color-text-tertiary)">{{ gr.use }}</p>
+</div>
+</sc-for>
+</div>
+
+<h2 class="g-h2" style="margin-top:72px">TextureStrip</h2>
+<p class="g-note">A narrow full-bleed ribbon of photographed material, only on a dark-to-light seam, never under a block with its own photograph. The home page uses copper.</p>
+<div class="g-frame">
+<x-import component-from-global-scope="BitperfectPlayer.TextureStrip" material="wood" hint-size="100%,56px"></x-import>
+<div style="height:16px"></div>
+<x-import component-from-global-scope="BitperfectPlayer.TextureStrip" material="copper" hint-size="100%,56px"></x-import>
+<div style="height:16px"></div>
+<x-import component-from-global-scope="BitperfectPlayer.TextureStrip" material="glass" hint-size="100%,56px"></x-import>
+</div>
+</div>
+</section>
+
+<!-- Controls -->
+<section id="controls" class="g-sec">
+<div class="g-wrap">
+<p class="g-kicker">Controls</p>
+<h2 class="g-h2">Buttons</h2>
+<p class="g-note">One full-radius chassis, three variants, three sizes. <span class="g-code">primary</span> is the machined gold key-cap: one per band. <span class="g-code">secondary</span> is graphite lacquer beside it, <span class="g-code">outline</span> stands alone on graphite.</p>
+<div class="g-stage">
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" size="sm" hint-size="120px,40px">Primary sm</x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" hint-size="150px,50px">Primary md</x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" size="lg" hint-size="180px,60px">Primary lg</x-import>
+</div>
+<div class="g-stage">
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" variant="secondary" size="sm" hint-size="120px,40px">Secondary sm</x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" variant="secondary" hint-size="160px,50px">See what it does</x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" variant="secondary" size="lg" hint-size="180px,60px">Read the FAQ</x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Button" href="#controls" variant="outline" hint-size="180px,50px">View on Google Play</x-import>
+</div>
+
+<h3 class="g-h3">PlayCta</h3>
+<p class="g-note">Every install button is this one: a Button that goes to the Play listing and carries the Google Play mark. Gold by default; secondary or outline when another action already holds the gold.</p>
+<div class="g-stage">
+<x-import component-from-global-scope="BitperfectPlayer.PlayCta" label="Get it on Google Play" size="lg" hint-size="280px,60px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.PlayCta" label="Claim Founder Offer" size="md" hint-size="240px,50px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.PlayCta" label="View on Google Play" variant="secondary" size="md" hint-size="240px,50px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.PlayCta" label="Get it on Google Play" size="sm" hint-size="200px,40px"></x-import>
+</div>
+
+<h3 class="g-h3">StoreBadges</h3>
+<p class="g-note">Graphite lacquer badges with the store mark and two lines of text, for the header and footer. <span class="g-code">sm</span> header, <span class="g-code">md</span> default, <span class="g-code">lg</span> 220px minimum, <span class="g-code">icon</span> 44x44 below 640px.</p>
+<div class="g-stage">
+<x-import component-from-global-scope="BitperfectPlayer.StoreBadges" size="sm" hint-size="140px,44px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.StoreBadges" size="md" hint-size="160px,52px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.StoreBadges" size="lg" hint-size="220px,60px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.StoreBadges" size="icon" hint-size="44px,44px"></x-import>
+</div>
+
+<h3 class="g-h3">PlayStoreMark</h3>
+<p class="g-note">The one Google Play glyph, in <span class="g-code">currentColor</span>: dark on the gold key-cap, white on a graphite badge.</p>
+<div class="g-stage">
+<span style="color:var(--color-text-primary)"><x-import component-from-global-scope="BitperfectPlayer.PlayStoreMark" size="{{ n16 }}" hint-size="16px,16px"></x-import></span>
+<span style="color:var(--color-text-primary)"><x-import component-from-global-scope="BitperfectPlayer.PlayStoreMark" hint-size="20px,20px"></x-import></span>
+<span style="color:var(--color-gold)"><x-import component-from-global-scope="BitperfectPlayer.PlayStoreMark" size="{{ n32 }}" hint-size="32px,32px"></x-import></span>
+</div>
+
+<h3 class="g-h3">The control rules</h3>
+<ol class="g-ol">
+<li>Buttons never move on hover or press. Only the face, the sheen and the rim light up.</li>
+<li>No arrow or chevron inside a button or a store badge. Text links and PagerLink may carry one.</li>
+<li>Gold fills are only the install key-cap and the Founder plan. Every other button, badge and chip is graphite lacquer.</li>
+<li>Every install button is PlayCta. Never a play triangle, never a hand-made gold button.</li>
+</ol>
+</div>
+</section>
+
+<!-- Components -->
+<section id="components" class="g-sec" style="content-visibility:visible">
+<div class="g-wrap">
+<p class="g-kicker">Components</p>
+<h2 class="g-h2">Every exported component, live</h2>
+<p class="g-note">Each one as <span class="g-code">window.BitperfectPlayer.&lt;Name&gt;</span>, grouped as the bundle groups them. Read its .d.ts before using a prop. The home bands take no props and carry the real copy; whole-page and pinned blocks are shown clipped.</p>
+
+<h3 class="g-h3" style="color:var(--color-gold)">common</h3>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Header</p><span class="g-code">pathname</span></div>
+<p class="g-note">The fixed site header: mark and wordmark, the nav, the Google Play badge. Reserve its height above the page (64px, 80px from lg).</p>
+<div class="g-frame" style="height:81px"><x-import component-from-global-scope="BitperfectPlayer.Header" pathname="/features" hint-size="100%,81px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Footer</p><span class="g-code">pathname, locale</span></div>
+<p class="g-note">The site footer on a raised graphite ground: brand block, link columns, copyright and social channels. No content props.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.Footer" pathname="/" hint-size="100%,520px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PageHeader</p><span class="g-code">eyebrow, title, description, backHref, backLabel, maxWidth, meta, children</span></div>
+<p class="g-note">The top band of an inner page on a brushed-metal ground. Once per page, directly under the Header.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.PageHeader" back-href="/features" back-label="Back to features" max-width="wide" eyebrow="Full specifications" title="All 27 features" description="On many phones, Android converts every track to one sample rate. Bitperfect Player sends your file to a USB DAC unchanged, bit for bit. It tells you when it cannot." hint-size="100%,380px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">ClosingBanner</p><span class="g-code">eyebrow, title, description, primaryHref, primaryLabel, secondaryHref, secondaryLabel</span></div>
+<p class="g-note">The closing call to action of a page on a rosette ground, just above the Footer. Its primary is a plain gold Button.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.ClosingBanner" eyebrow="Get the app" title="Ready to hear your music bit for bit?" description="Install the app from Google Play and connect your DAC." primary-href="https://play.google.com/store/apps/details?id=com.bitperfect.player" primary-label="Get it on Google Play" primary-external="{{ yes }}" secondary-href="/faq" secondary-label="Read the FAQ" hint-size="100%,420px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Card</p><span class="g-code">as, href, className, children</span></div>
+<p class="g-note">The lacquered card chassis. Padding is the caller's; add lacquer-lift for a linked card, lacquer-gold for the Founder plan only.</p>
+<div class="g-stage">
+<x-import component-from-global-scope="BitperfectPlayer.Card" class-name="max-w-[360px] p-[22px] lg:p-8" hint-size="360px,140px"><p class="text-title-sm font-semibold text-text-primary">Every sample, untouched</p><p class="mt-2 text-body-sm text-text-secondary">The chassis is the card; padding and shadow are the caller's classes.</p></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Card" as="a" href="#components" class-name="block max-w-[360px] cursor-pointer p-[22px] lacquer-lift lg:p-8" hint-size="360px,140px"><p class="text-title-sm font-semibold text-text-primary">A linked card</p><p class="mt-2 text-body-sm text-text-secondary">Rises a hair and brightens on hover.</p></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Card" class-name="lacquer-gold max-w-[360px] p-[22px] lg:p-8" hint-size="360px,140px"><p class="text-title-sm font-semibold text-text-primary">Founder plan</p><p class="mt-2 text-body-sm text-text-secondary">The one card that wears the gold rim.</p></x-import>
+</div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Container</p><span class="g-code">as, className, children</span></div>
+<p class="g-note">The page column: 1280px centred, a 20px gutter on phones and 32px from sm. Every band's content sits in one.</p>
+<div class="g-frame" style="padding:20px 0"><x-import component-from-global-scope="BitperfectPlayer.Container" hint-size="100%,48px"><div class="rounded-tile border border-border-subtle p-3 text-caption text-text-tertiary">Container: max-w-7xl, px-5 sm:px-8</div></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Button · PlayCta · StoreBadges · PlayStoreMark</p></div>
+<p class="g-note">Shown above under <a href="#controls">Controls</a>.</p></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Logo</p><span class="g-code">size sm | md | lg, alt</span></div>
+<p class="g-note">The Bitperfect mark. Pair it with the "Bitperfect Player" wordmark in text-body-lg font-bold.</p>
+<div class="g-stage">
+<x-import component-from-global-scope="BitperfectPlayer.Logo" size="sm" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Logo" size="md" hint-size="32px,32px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Logo" size="lg" hint-size="40px,40px"></x-import>
+<span style="display:inline-flex;align-items:center;gap:10px"><x-import component-from-global-scope="BitperfectPlayer.Logo" size="md" hint-size="32px,32px"></x-import><span class="text-body-lg font-bold text-text-primary">Bitperfect Player</span></span>
+</div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Icon</p><span class="g-code">name, size</span></div>
+<p class="g-note">The authored icon set on one 24px geometry; the stroke follows the size. The sig-* marks are the app's signal-path status only, never decoration. Not for use inside buttons.</p>
+<div class="g-stage">
+<span style="color:var(--color-bitperfect)"><x-import component-from-global-scope="BitperfectPlayer.Icon" name="sig-bitperfect" size="{{ n24 }}" hint-size="24px,24px"></x-import></span>
+<span style="color:var(--color-enhanced)"><x-import component-from-global-scope="BitperfectPlayer.Icon" name="sig-enhanced" size="{{ n24 }}" hint-size="24px,24px"></x-import></span>
+<span style="color:var(--color-resampled)"><x-import component-from-global-scope="BitperfectPlayer.Icon" name="sig-resampled" size="{{ n24 }}" hint-size="24px,24px"></x-import></span>
+<span style="color:var(--color-lossy)"><x-import component-from-global-scope="BitperfectPlayer.Icon" name="sig-lossy" size="{{ n24 }}" hint-size="24px,24px"></x-import></span>
+<span style="color:var(--color-text-secondary);display:inline-flex;gap:16px">
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="node-file" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="node-decode" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="node-engine" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="node-usb" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="node-dac" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="eq" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="cast" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="shield" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="arrow" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Icon" name="external" size="{{ n24 }}" hint-size="24px,24px"></x-import>
+</span>
+</div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">ImageSlot</p><span class="g-code">name, ratio, variant ivory | band | plate, ships, src, alt</span></div>
+<p class="g-note">An image slot: the real plate once one exists, a registration frame until then. The frame keeps the aspect ratio when the plate lands.</p>
+<div class="g-frame g-stage-ivory" style="padding:28px"><x-import component-from-global-scope="BitperfectPlayer.ImageSlot" name="home-privacy" variant="ivory" ratio="3 / 1" ships="2560x853" hint-size="100%,300px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneNowPlaying</p><span class="g-code">className</span></div>
+<p class="g-note">The hero device: the app's Now Playing capture in the site's phone frame. Fills its parent's width; size it with a wrapper.</p>
+<div class="g-stage" style="justify-content:center"><div style="width:240px"><x-import component-from-global-scope="BitperfectPlayer.PhoneNowPlaying" hint-size="240px,520px"></x-import></div></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">TextureStrip</p><span class="g-code">material wood | copper | glass</span></div>
+<p class="g-note">Shown above under <a href="#materials">Materials</a>.</p></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">Surface</p><span class="g-code">tone graphite | ivory</span></div>
+<p class="g-note">Design only, not on the site: the page ground for a loose component in a mockup. Bands that carry their own ground paint over it.</p>
+<div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+<x-import component-from-global-scope="BitperfectPlayer.Surface" tone="graphite" class-name="rounded-card-inner border border-border-subtle p-6" hint-size="100%,100px"><p class="text-body-sm font-semibold">Surface tone="graphite"</p><p class="text-caption text-text-tertiary">#191919, primary text</p></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.Surface" tone="ivory" class-name="rounded-card-inner p-6" hint-size="100%,100px"><p class="text-body-sm font-semibold">Surface tone="ivory"</p><p class="text-caption text-band-ink-muted">white band, band ink</p></x-import>
+</div></div>
+
+<h3 class="g-h3" style="color:var(--color-gold)">feature</h3>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">CapabilityBand</p><span class="g-code">tone, media, title, titleAs, eyebrow, body, badge, specs, backHref, backLabel, screen, link</span></div>
+<p class="g-note">One band of a capability page: copy on one side, a real capture in the PhoneFrame on the other, 7/5 from lg. Alternate ground and side together.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.CapabilityBand" tone="ivory" media="left" title="How it works" body="Android's system mixer resamples audio to 48 kHz on many phones. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them." screen="output" hint-size="100%,760px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">TechIndex</p><span class="g-code">base, id</span></div>
+<p class="g-note">The capability index on /features/catalog: every entry of technical-features.ts in its six categories. No content props. Clipped here.</p>
+<div class="g-frame" style="height:720px"><x-import component-from-global-scope="BitperfectPlayer.TechIndex" base="/" hint-size="100%,2400px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PagerLink</p><span class="g-code">direction, href, label, title</span></div>
+<p class="g-note">One half of the prev/next strip: a whole-card lacquer link. Two in a two-column grid, prev then next.</p>
+<div class="g-frame" style="padding:24px"><div class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
+<x-import component-from-global-scope="BitperfectPlayer.PagerLink" direction="prev" href="/features/catalog/internet-radio" label="Previous" title="Internet radio search" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.PagerLink" direction="next" href="/features/catalog/audio-pipeline-precision" label="Next" title="32-bit and 64-bit processing" hint-size="100%,96px"></x-import>
+</div></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneFrame · PhoneScreen</p><span class="g-code">PhoneFrame: fill, screen, children · PhoneScreen: name, alt, priority</span></div>
+<p class="g-note">The site's one device, a Galaxy S25 Ultra chassis, around a capture of the shipping app. Never draw an app screen.</p>
+<div class="g-stage" style="justify-content:center;gap:40px">
+<x-import component-from-global-scope="BitperfectPlayer.PhoneFrame" hint-size="296px,640px"><x-import component-from-global-scope="BitperfectPlayer.PhoneScreen" name="eq-sculptor" hint-size="100%,100%"></x-import></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.PhoneFrame" screen="signal-path" hint-size="296px,640px"></x-import>
+</div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PhoneTrio</p><span class="g-code">leftScreen, centerScreen, rightScreen, priority, idPrefix</span></div>
+<p class="g-note">Three phones in a shallow 3D fan, the sides dimmed by brightness and set back in depth. Fills its parent's width.</p>
+<div class="g-frame" style="padding:40px 24px"><x-import component-from-global-scope="BitperfectPlayer.PhoneTrio" left-screen="library" center-screen="now-playing" right-screen="eq" id-prefix="guide-trio" hint-size="100%,640px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">FeatureScreens</p><span class="g-code">slug, state</span></div>
+<p class="g-note">The phone for one beat of a feature route: the screen that answers the sentence beside it.</p>
+<div class="g-stage" style="justify-content:center;gap:40px">
+<x-import component-from-global-scope="BitperfectPlayer.FeatureScreens" slug="usb-dac" state="{{ n0 }}" hint-size="296px,640px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.FeatureScreens" slug="eq" state="{{ n1 }}" hint-size="296px,640px"></x-import>
+</div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">FeatureArt</p><span class="g-code">slug, ratio, sizes, compactBelowSm</span></div>
+<p class="g-note">The feature's photograph in a clipped aspect-ratio frame. No text; the card around it says what the feature is.</p>
+<div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+<x-import component-from-global-scope="BitperfectPlayer.FeatureArt" slug="usb-dac" class-name="w-full rounded-card-inner" hint-size="100%,180px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.FeatureArt" slug="eq" class-name="w-full rounded-card-inner" hint-size="100%,180px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.FeatureArt" slug="ai-enhancer" class-name="w-full rounded-card-inner" hint-size="100%,180px"></x-import>
+</div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">FeatureMark</p><span class="g-code">name, size</span></div>
+<p class="g-note">The six feature marks plus the utility glyphs the feature routes need, in currentColor. One weight, one colour: the drawing carries the identity.</p>
+<div class="g-stage" style="color:var(--color-text-primary)">
+<sc-for list="{{ marks }}" as="mk" hint-placeholder-count="6">
+<span style="display:inline-flex;flex-direction:column;align-items:center;gap:8px"><x-import component-from-global-scope="BitperfectPlayer.FeatureMark" name="{{ mk }}" size="{{ n32 }}" hint-size="32px,32px"></x-import><span class="g-code" style="color:var(--color-text-tertiary)">{{ mk }}</span></span>
+</sc-for>
+</div></div>
+
+<h3 class="g-h3" style="color:var(--color-gold)">landing</h3>
+<p class="g-note">The home bands, in page order. They take no props and carry the site's own copy; for other words, compose a band from the primitives.</p>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">HomeOpening</p><span class="g-code">no props</span></div>
+<p class="g-note">Hero and phone lineup as ONE pinned block with one travelling Now Playing phone. Never split or rebuild it. Clipped to its opening frame here.</p>
+<div class="g-frame" style="height:820px"><x-import component-from-global-scope="BitperfectPlayer.HomeOpening" hint-size="100%,820px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">StatementBand</p><span class="g-code">no props</span></div>
+<p class="g-note">The first ivory band, directly after HomeOpening: hairlines and space only.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.StatementBand" hint-size="100%,640px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">FeaturesTeaser</p><span class="g-code">no props</span></div>
+<p class="g-note">"Six things it does": six lacquered linked cards on graphite, the #features anchor.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.FeaturesTeaser" hint-size="100%,1100px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PrivacyBand</p><span class="g-code">no props</span></div>
+<p class="g-note">The second ivory band, on the halftone ground, after the copper TextureStrip.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.PrivacyBand" hint-size="100%,760px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">PricingSection</p><span class="g-code">no props</span></div>
+<p class="g-note">Two lacquered plan cards; the Founder plan is the gold one.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.PricingSection" hint-size="100%,1100px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">CTASection</p><span class="g-code">no props</span></div>
+<p class="g-note">The last band of the home page: ivory, no card, glass or shadow.</p>
+<div class="g-frame"><x-import component-from-global-scope="BitperfectPlayer.CTASection" hint-size="100%,560px"></x-import></div></div>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">HoldingPage</p><span class="g-code">eyebrow, headline, lede</span></div>
+<p class="g-note">A whole page, not a band: one screen, one picture, one action, with its own bar and footer. Clipped here.</p>
+<div class="g-frame" style="height:760px"><x-import component-from-global-scope="BitperfectPlayer.HoldingPage" eyebrow="Under construction" headline="New site on the way." lede="The player is still on Google Play, ready for your USB DAC." hint-size="100%,760px"></x-import></div></div>
+
+<h3 class="g-h3" style="color:var(--color-gold)">legal</h3>
+
+<div class="g-comp"><div class="g-comp-head"><p class="g-comp-name">LegalDocument</p><span class="g-code">headings, source, unresolved, children</span></div>
+<p class="g-note">The shell of /privacy and /terms: a sticky section index beside the rendered markdown. Excerpt of src/PRIVACY_POLICY.md.</p>
+<div class="g-frame"><div class="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8"><article class="prose-legal"><header class="mb-10"><h1>Privacy Policy</h1></header>
+<x-import component-from-global-scope="BitperfectPlayer.LegalDocument" headings="{{ legalHeadings }}" source="src/PRIVACY_POLICY.md" hint-size="100%,600px">
+<p><strong>Effective date:</strong> August 5, 2026</p>
+<p><strong>Last updated:</strong> October 22, 2026</p>
+<p>This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it collects it, and what control you have over your data.</p>
+<hr>
+<h2 id="1-summary-non-binding-the-full-sections-below-govern">1. Summary (non-binding: the full sections below govern)</h2>
+<ul><li>The App is a local/network music player. Your music library, playback history, and settings stay on your device.</li><li>The on-device AI audio enhancer processes audio <strong>entirely on your device</strong>. No audio is ever uploaded, streamed, or transmitted anywhere for enhancement.</li></ul>
+<h2 id="4-childrens-privacy">4. Children's privacy</h2>
+<p>The App is not directed at children under 13 (or the equivalent minimum age in your jurisdiction) and we do not knowingly collect personal data from children.</p>
+</x-import>
+</article></div></div></div>
+</div>
+</section>
+
+<!-- Recipes -->
+<section id="recipes" class="g-sec">
+<div class="g-wrap">
+<p class="g-kicker">Page recipes</p>
+<h2 class="g-h2">How the site composes its pages</h2>
+<p class="g-note">Every page sits in ContentLayout: Header, a main that clears the fixed header (pt-[65px] lg:pt-[81px]), the page, Footer. Bands alternate graphite and ivory.</p>
+<div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:40px">
+<sc-for list="{{ recipes }}" as="rc" hint-placeholder-count="4">
+<div>
+<p style="margin:0;font-size:var(--text-title-sm);font-weight:600">{{ rc.name }}</p>
+<p class="g-code" style="margin:4px 0 0">{{ rc.src }}</p>
+<ol class="g-ol">
+<sc-for list="{{ rc.steps }}" as="st" hint-placeholder-count="7">
+<li><span style="font-size:var(--text-small);color:var(--color-text-secondary)">{{ st }}</span></li>
+</sc-for>
+</ol>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- Rules -->
+<section id="rules" class="g-sec">
+<div class="g-wrap">
+<p class="g-kicker">Rules</p>
+<h2 class="g-h2">The rules, as the design agent gets them</h2>
+<p class="g-note">From conventions.md. The full reasoning is in DESIGN.md.</p>
+<ol class="g-ol" style="max-width:880px">
+<sc-for list="{{ rules }}" as="ru" hint-placeholder-count="11">
+<li><span style="font-size:var(--text-body-sm);color:var(--color-text-primary)">{{ ru }}</span></li>
+</sc-for>
+</ol>
+</div>
+</section>
+
+<footer style="border-top:1px solid var(--color-border-subtle);padding:32px 0;background:var(--color-surface-raised)">
+<div class="g-wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:var(--text-caption);color:var(--color-text-tertiary)">
+<span>Bitperfect Player · Design System Guide</span><span class="g-code" style="color:var(--color-text-tertiary)">src/styles/global.css · lacquer.css · conventions.md · DESIGN.md</span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// Values copied from src/styles/global.css and lacquer.css; the swatches,
+// type and shadows render through the live tokens, so a drift shows on sight.
+class Component extends DCLogic {
+  renderVals() {
+    const colorGroups = [
+      { name: 'Graphite surfaces', note: 'The surface ladder, darkest first. Neutral grey, never black.', items: [
+        { label: 'Base, the page ground', token: '--color-surface-base', value: '#191919' },
+        { label: 'Raised: footer, banners', token: '--color-surface-raised', value: '#222222' },
+        { label: 'Glass surface', token: '--color-glass-surface', value: '#2a2a2a' },
+        { label: 'Glass elevated', token: '--color-glass-elevated-surface', value: '#333333' },
+        { label: 'Overlay', token: '--color-surface-overlay', value: '#3c3c3c' },
+        { label: 'Phone screen', token: '--color-phone-screen', value: '#0d0d0d' },
+      ] },
+      { name: 'Text and rules on graphite', note: 'text-text-* only on graphite.', items: [
+        { label: 'Primary', token: '--color-text-primary', value: 'rgba(255,255,255,0.95)' },
+        { label: 'Secondary', token: '--color-text-secondary', value: 'rgba(255,255,255,0.72)' },
+        { label: 'Tertiary', token: '--color-text-tertiary', value: 'rgba(255,255,255,0.55)' },
+        { label: 'Hairline', token: '--color-border-subtle', value: 'rgba(255,255,255,0.09)' },
+        { label: 'Gold border', token: '--color-border-gold', value: 'rgba(232,184,75,0.28)' },
+      ] },
+      { name: 'Gold, the one accent', note: 'Gold text is fine on graphite. Gold fills: the install key-cap and the Founder plan only.', items: [
+        { label: 'Gold', token: '--color-gold', value: '#e8b84b' },
+        { label: 'Gold light', token: '--color-gold-light', value: '#f2c65e' },
+        { label: 'Gold deep', token: '--color-gold-deep', value: '#b3812f' },
+        { label: 'Gold warm', token: '--color-gold-warm', value: '#c99248' },
+        { label: 'Amber', token: '--color-amber', value: '#ffb347' },
+        { label: 'Champagne', token: '--color-champagne', value: '#fbe9c4' },
+        { label: 'Ink on gold', token: '--color-on-gold', value: '#191919' },
+      ] },
+      { name: 'Ivory band', note: 'The white paper band. text-band-* only here; no card, glass box or dark shadow on it.', items: [
+        { label: 'Ivory ground', token: '--color-band-ivory', value: '#ffffff' },
+        { label: 'Ink', token: '--color-band-ink', value: '#171717' },
+        { label: 'Ink muted', token: '--color-band-ink-muted', value: '#5e5a55' },
+        { label: 'Gold ink', token: '--color-band-gold-ink', value: '#a16c00' },
+        { label: 'Rule', token: '--color-band-rule', value: 'rgba(23,23,23,0.13)' },
+        { label: 'Well', token: '--color-band-well', value: 'rgba(23,23,23,0.05)' },
+      ] },
+      { name: 'Signal-path status', note: 'The app\'s own status colours, only beside its sig-* marks. Never decoration, never an accent.', items: [
+        { label: 'Bit-perfect', token: '--color-bitperfect', value: '#34d399' },
+        { label: 'Enhanced', token: '--color-enhanced', value: '#9582d9' },
+        { label: 'Resampled', token: '--color-resampled', value: '#fbbf24' },
+        { label: 'Lossy', token: '--color-lossy', value: '#94a3b8' },
+        { label: 'Unknown', token: '--color-unknown', value: '#8e8e93' },
+      ] },
+    ];
+    const T = (step, spec, sample) => ({ step, cls: 'text-' + step, spec, sample });
+    const typeRamp = [
+      T('display', '128 / 1.02 / -0.035em / 800', 'Pure sound.'),
+      T('headline-xl', '96 / 1.04 / -0.03em / 800', 'Six features, built on bit-perfect playback'),
+      T('headline', '72 / 1.06 / -0.025em / 700', 'Your music, bit for bit.'),
+      T('headline-sm', '56 / 1.1 / -0.02em / 700', 'Ready to hear your music bit for bit?'),
+      T('section-lg', '48 / 1.14 / -0.018em / 700', 'Six things it does'),
+      T('section', '40 / 1.2 / -0.015em / 600', 'What you hear'),
+      T('section-sm', '34 / 1.24 / -0.012em / 600', 'The numbers, in full'),
+      T('title-lg', '28 / 1.3 / -0.01em / 600', 'Direct sound path'),
+      T('title', '24 / 1.34 / -0.008em / 600', 'Founder Annual'),
+      T('title-sm', '21 / 1.36 / -0.006em / 600', 'Every sample, untouched'),
+      T('price', '128 / 0.92 / -0.04em / 600, tabular', '$19.95'),
+      T('price-sm', '64 / 1 / -0.035em / 600', '$29.95'),
+      T('lede', '24 / 1.5 / -0.005em', 'Bitperfect Player sends your file to a USB DAC unchanged.'),
+      T('body-lg', '20 / 1.6', 'Install the app from Google Play and connect your DAC.'),
+      T('body', '17 / 1.6', 'You hear your files untouched, with no unwanted resampling or dither.'),
+      T('body-sm', '16 / 1.6', 'The chassis is the card; padding and shadow are the caller\'s classes.'),
+      T('small', '15 / 1.55 / 0.005em', 'One switch disables sound processing and software volume.'),
+      T('caption', '13 / 1.45 / 0.01em / 500', 'Product names, logos and trademarks belong to their owners.'),
+      T('mono', '13 / 1.5 / 0.02em', '24-bit / 192 kHz'),
+      T('micro', '12 / 1.45 / 600', 'Signal verification'),
+      T('label', '12 / 1.2 / 3px / 700', 'FEATURES'),
+      T('device-label', '11 / 1.4 / 2px / 600', 'OUTPUT'),
+      T('display-m', 'phone: 46 / 1.06 / -0.035em / 800', 'Pure sound.'),
+      T('headline-xl-m', 'phone: 48 / 1.08 / -0.03em / 800', 'Six features, built on bit-perfect playback'),
+      T('headline-m', 'phone: 40 / 1.1 / -0.025em / 700', 'Your music, bit for bit.'),
+      T('headline-sm-m', 'phone: 32 / 1.15 / -0.02em / 700', 'Your music, bit for bit.'),
+      T('section-m', 'phone: 26 / 1.25 / -0.015em / 600', 'How it works'),
+      T('lede-m', 'phone: 19 / 1.55 / -0.005em', 'Bit-perfect audio to your USB DAC.'),
+      T('small-m', 'phone: 14 / 1.55 / 0.005em', 'Bypasses Android\'s system mixer.'),
+    ];
+    const radii = [
+      { cls: 'rounded-card', token: '--radius-card', value: '24px', use: 'cards from lg' },
+      { cls: 'rounded-card-sm', token: '--radius-card-sm', value: '20px', use: 'cards below lg' },
+      { cls: 'rounded-card-inner', token: '--radius-card-inner', value: '16px', use: 'a frame inside a card' },
+      { cls: 'rounded-tile', token: '--radius-tile', value: '14px', use: 'tiles' },
+      { cls: 'rounded-note', token: '--radius-note', value: '10px', use: 'notes' },
+      { cls: 'rounded-sm', token: '--radius-sm', value: '8px', use: 'small boxes' },
+      { cls: 'rounded-chip', token: '--radius-chip', value: '4px', use: 'chips, the badge' },
+      { cls: 'rounded-thumb', token: '--radius-thumb', value: '3px', use: 'thumbnails' },
+      { cls: 'rounded-phone-outer', token: '--radius-phone-outer', value: '37px', use: 'the phone chassis' },
+          ];
+    const shadows = [
+      { token: '--shadow-card', use: 'rim + 0 4px 24px black 40%' },
+      { token: '--shadow-card-hover', use: 'rim + 0 8px 32px black 50%' },
+      { token: '--shadow-elevated', use: 'rim, inner ring + 0 8px 32px' },
+      { token: '--shadow-key', use: 'a key-cap: casts, never emits' },
+      { token: '--shadow-key-hover', use: 'the key-cap on hover' },
+      { token: '--shadow-device', use: 'a phone chassis, 0 24px 70px' },
+    ];
+    const motion = [
+      { token: '--btn-fade', value: '420ms', use: 'key-cap face fade' },
+      { token: '--btn-sheen', value: '800ms', use: 'key-cap sheen drift' },
+      { token: '--btn-ease', value: 'cubic-bezier(0.22, 0.61, 0.36, 1)', use: 'the key-cap curve' },
+      { token: '--d-ui', value: '180ms', use: 'links, borders, lacquer-lift' },
+      { token: '--d-swap', value: '320ms', use: 'state swaps' },
+      { token: '--d-rise', value: '720ms', use: 'reveal rise' },
+      { token: '--d-long', value: '900ms', use: 'long reveals' },
+      { token: '--stagger', value: '60ms', use: 'per item, times --i' },
+      { token: '--rise-sm / --rise-lg', value: '20px / 56px', use: 'reveal travel' },
+      { token: '--ease-ui', value: 'cubic-bezier(0.4, 0, 0.2, 1)', use: 'UI transitions' },
+      { token: '--ease-reveal', value: 'cubic-bezier(0.165, 0.84, 0.44, 1)', use: 'reveals' },
+      { token: '--ease-out-expo', value: 'cubic-bezier(0.16, 1, 0.3, 1)', use: 'expo out' },
+    ];
+    const grounds = [
+      { cls: 'ground ground-brushed overhead-wash', name: 'brushed', media: '', ink: 'var(--color-text-secondary)', use: 'PageHeader, the feature route header' },
+      { cls: 'ground ground-capability-graphite capability-band-opening bg-surface-base', name: 'capability graphite', media: 'right', ink: 'var(--color-text-secondary)', use: 'CapabilityBand tone="graphite"' },
+      { cls: 'ground ground-capability-ivory bg-band-ivory', name: 'capability ivory', media: 'left', ink: 'var(--color-band-ink-muted)', use: 'CapabilityBand tone="ivory"' },
+      { cls: 'ground ground-rosette bg-surface-raised', name: 'rosette (guilloche)', media: '', ink: 'var(--color-text-secondary)', use: 'ClosingBanner' },
+      { cls: 'ground features-ground bg-surface-base', name: 'samples', media: '', ink: 'var(--color-text-secondary)', use: 'FeaturesTeaser' },
+      { cls: 'ground ground-statement bg-band-ivory', name: 'statement', media: '', ink: 'var(--color-band-ink-muted)', use: 'StatementBand' },
+      { cls: 'ground ground-halftone bg-band-ivory', name: 'halftone', media: '', ink: 'var(--color-band-ink-muted)', use: 'PrivacyBand, the features compatibility band' },
+      { cls: 'ground ground-cta bg-band-ivory', name: 'cta', media: '', ink: 'var(--color-band-ink-muted)', use: 'CTASection' },
+    ];
+    const recipes = [
+      { name: 'Home', src: 'src/pages/index.astro', steps: ['Header', 'HomeOpening', 'StatementBand (ivory)', 'FeaturesTeaser', 'TextureStrip material="copper"', 'PrivacyBand (ivory)', 'PricingSection', 'CTASection (ivory)', 'Footer'] },
+      { name: 'Feature page', src: 'src/pages/features/[slug].astro', steps: ['Header', 'Feature header: ground-brushed band, breadcrumb with FeatureMark chevron-right, h1, lede, spec rows', 'usb-dac only: the ivory signal-path comparison', 'One band per beat, graphite and ivory in turn, each with FeatureScreens slug state', 'Ivory specification band: "The numbers, in full"', 'PagerLink prev + next', 'Ivory closing band with PlayCta size="lg"', 'Footer'] },
+      { name: 'Catalogue', src: 'src/pages/features/catalog.astro', steps: ['Header', 'PageHeader maxWidth="wide", eyebrow "Full specifications", back to features', 'TechIndex', 'ClosingBanner "Ready to hear your music bit for bit?"', 'Footer'] },
+      { name: 'Capability page', src: 'src/pages/features/catalog/[id].astro', steps: ['Header', 'CapabilityBand graphite, media right, titleAs h1, back link, eyebrow "§ Category · NN", badge', 'CapabilityBand ivory, media left, "How it works"', 'CapabilityBand graphite, media right, "What you hear" + specs (+ SDK link)', 'PagerLink prev + next, wrapping in number order', 'ClosingBanner', 'Footer'] },
+    ];
+    const rules = [
+      'One accent, gold. No blue, violet or neon; graphite is neutral, never #000.',
+      'Bands alternate graphite and ivory. text-band-* only on ivory, text-text-* only on graphite. An ivory band holds no card, glass box or dark shadow.',
+      'Cards and plates are Card (or lacquer), never a flat bg-glass-surface box. No box inside a card; split with border-t border-border-subtle.',
+      'Gold text (links, label rows, active tab) is fine on graphite. Gold fills are only the install key-cap and the Founder plan; every other button, badge and chip is graphite lacquer (a store badge is a secondary Button).',
+      'Every install button is PlayCta. Never a play triangle, never a hand-made gold button.',
+      'Buttons never move on hover; only the sheen and rim light up. No arrow or chevron inside a button or store badge; text links and PagerLink may carry one.',
+      'Hero and showcase are one HomeOpening; never split or rebuild it.',
+      'TextureStrip only on a dark-to-light seam, never under a block with its own photograph.',
+      'Kickers (short gold mono uppercase label above a heading) only on PageHeader and ClosingBanner (their eyebrow), the hero and a plan card\'s label row; elsewhere the heading opens the block. ClosingBanner\'s primary is a plain Button; an install close uses PlayCta.',
+      'Never draw an app screen; use a phone component.',
+      'Manrope only; mono for numbers. No em or en dashes in copy.',
+    ];
+    const legalHeadings = [
+      { depth: 2, slug: '1-summary-non-binding-the-full-sections-below-govern', text: '1. Summary (non-binding: the full sections below govern)' },
+      { depth: 2, slug: '4-childrens-privacy', text: '4. Children\'s privacy' },
+    ];
+    return {
+      colorGroups, typeRamp, radii, shadows, motion, grounds, recipes, rules, legalHeadings,
+      marks: ['usb-dac', 'eq', 'library', 'casting', 'dsp', 'ai-enhancer', 'check', 'file', 'chip', 'dac', 'arrow-right', 'chevron-right'],
+      yes: true, n0: 0, n1: 1, n16: 16, n24: 24, n32: 32,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -32,7 +32,7 @@ export default function Header({ pathname = '/' }: HeaderProps) {
         className="fixed top-0 right-0 left-0 z-50 border-b border-border-subtle/40 bg-surface-base/80 backdrop-blur-md transition-colors duration-200"
       >
         <Container>
-          <nav className="flex h-16 items-center justify-between lg:h-20" aria-label="Main Navigation">
+          <nav className="flex h-16 items-center justify-between lg:h-20" aria-label="Main navigation">
             {/* Logo. The -mx/-my pair cancels the padding, so the hover wash gets
           room to breathe without moving the wordmark by a pixel. */}
             <a

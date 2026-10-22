@@ -16,21 +16,21 @@ import './FeaturesTeaser.css';
 const items = [
   {
     slug: 'usb-dac',
-    desc: "Your DAC follows each file's rate, up to 768 kHz if it supports it. DSD plays as DSD where it can.",
+    desc: "Direct USB DAC output, past Android's mixer. Up to 768 kHz and DSD512.",
   },
   {
     slug: 'ai-enhancer',
-    desc: "Rebuilds the missing highs in 44.1 and 48 kHz files, on your phone. Off by default.",
+    desc: 'Rebuilds high frequencies that compression removes. Off by default.',
   },
-  { slug: 'eq', desc: 'Parametric, graphic or AutoEQ. Off means no change.' },
+  { slug: 'eq', desc: 'Parametric, graphic or AutoEQ. Turn it off in one tap.' },
   {
     slug: 'library',
-    desc: 'Browse by album or folder. Your library stays on your phone.',
+    desc: 'Browse your local files instantly by folder, album, artist or tag.',
   },
-  { slug: 'casting', desc: 'Send to network speakers, or turn the phone into one.' },
+  { slug: 'casting', desc: 'Stream to cast-enabled speakers and TVs, or receive from your network.' },
   {
     slug: 'dsp',
-    desc: 'Crossfeed, ReplayGain and clip protection. All optional.',
+    desc: 'Crossfeed for headphones, album loudness and clip protection.',
   },
 ];
 

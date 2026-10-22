@@ -89,7 +89,7 @@ export default function HomeOpening() {
             </h1>
             <div className="hero-in hero-in-3 mt-9 flex flex-col items-start lg:mt-14">
               <p className="max-w-[44ch] text-body-sm text-pretty text-text-secondary lg:text-lede">
-                Your music goes straight to your USB DAC. A live badge shows whether it arrives unchanged.
+                Android's system mixer resamples your files. Bitperfect Player sends them straight to your USB DAC unchanged, up to 768 kHz and DSD512. A live badge shows whether your music arrives untouched.
               </p>
               <div className="mt-[26px] flex w-full flex-col gap-3 min-[641px]:w-auto min-[641px]:flex-row min-[641px]:items-center lg:mt-9 lg:gap-4">
                 <PlayCta label="Get it on Google Play" className="h-[52px] text-body-sm lg:h-[54px] lg:px-[30px]" />
@@ -108,7 +108,7 @@ export default function HomeOpening() {
           {/* No eyebrow: `The app itself` captioned a picture that captions itself
               (DESIGN.md, "The Eyebrow Budget Rule"). */}
           <h2 className="ho-heading text-section-sm text-balance text-text-primary lg:text-headline-sm" data-heading="">
-            Every screen runs on the same engine.
+            One player for your DAC, your EQ and your library.
           </h2>
 
           <div className="ho-group" data-group="">

@@ -23,7 +23,8 @@ export { default as PagerLink, type PagerLinkProps } from '@site/components/feat
 export { default as PhoneFrame, type PhoneFrameProps } from '@site/components/feature/PhoneFrame';
 export { default as PhoneScreen, type PhoneScreenProps } from '@site/components/feature/PhoneScreen';
 export { default as PhoneTrio, type PhoneTrioProps } from '@site/components/feature/PhoneTrio';
-export { default as TechnicalCatalog, type TechnicalCatalogProps } from '@site/components/feature/TechnicalCatalog';
+export { default as TechIndex, type TechIndexProps } from '@site/components/feature/TechIndex';
+export { default as CapabilityBand, type CapabilityBandProps } from '@site/components/feature/CapabilityBand';
 export { default as CTASection } from '@site/components/landing/CTASection';
 export { default as FeaturesTeaser } from '@site/components/landing/FeaturesTeaser';
 export { default as HomeOpening } from '@site/components/landing/HomeOpening';

@@ -135,7 +135,6 @@ for (const w of WIDTHS) {
 const settle = (pg, ms = 1200) => pg.waitForTimeout(ms);
 const SCENARIOS = [
   { name: 'js__menu-open', route: '/features/', w: 390, run: async (pg) => { await pg.click('#mobile-menu-toggle'); await settle(pg, 600); } },
-  { name: 'js__catalog-filter', route: '/features/catalog/', w: 1280, fullPage: true, run: async (pg) => { await pg.locator('.catalog-filter-btn').nth(2).click(); await settle(pg, 400); } },
   { name: 'js__legal-toc', route: '/privacy/', w: 1280, run: async (pg) => { await pg.locator('.md-content h2[id]').nth(3).scrollIntoViewIfNeeded(); await pg.mouse.wheel(0, 200); await settle(pg); } },
   { name: 'js__legal-toc', route: '/privacy/', w: 390, run: async () => {} },
   { name: 'js__showcase', route: '/vr-home/', w: 1280, run: async (pg) => {

@@ -14,15 +14,15 @@ import './PrivacyBand.css';
 const commitments = [
   {
     title: 'No account needed',
-    desc: 'You only need a Google Play subscription. Your library and play history stay on your phone.',
+    desc: 'You only need a Google Play subscription. Your music, library, history and favourites stay on your phone.',
   },
   {
     title: 'No analytics',
-    desc: 'The app has no advertising ID and sends no play history.',
+    desc: 'The app has no advertising ID and collects no play history.',
   },
   {
-    title: 'The AI stays on the phone',
-    desc: 'After a one-time model download, the AI runs on your phone. No audio is uploaded.',
+    title: 'AI runs on your phone',
+    desc: 'After a one-time model download, AI features run on your phone. No audio is uploaded.',
   },
 ];
 
@@ -104,9 +104,7 @@ export default function PrivacyBand() {
         />
         <div className="r-fade mt-[26px] rounded-card-sm border border-band-ink/10 bg-band-well px-5 py-[18px] lg:mt-11 lg:rounded-card lg:px-[26px] lg:py-[22px]">
           <p className="text-[13px] leading-[1.6] text-pretty text-band-ink-muted lg:text-sm lg:leading-[1.65]">
-            <span className="font-semibold text-band-ink">The app goes online for:</span> crash reports, artist photos, artwork and lyrics lookups, headphone EQ
-            profiles, internet radio, a one-time AI model download, update checks and the subscription check. The first
-            two are on by default. You can turn them off in Settings.{' '}
+            The app goes online for album art, lyrics, AutoEQ profiles, internet radio and subscription checks. Crash reports can be turned off in settings.{' '}
             <a href={withBase('/privacy')} className="privacy-band-link focus-visible:focus-ring">
               Read the privacy policy
             </a>

@@ -78,7 +78,7 @@ const categories = [
     <Container>
       <div class="faq-grid">
         {/* Category index: the Privacy page's sticky sidebar on desktop, a
-            single scrolling strip on phones. Toggle buttons, not links — they
+            single scrolling strip on phones. Toggle buttons, not links: they
             filter in place and change no URL. */}
         <aside class="faq-nav-wrapper">
           <p class="faq-nav-title" id="faq-cat-label">Categories</p>
@@ -103,7 +103,7 @@ const categories = [
         </aside>
 
         <div class="faq-main">
-          {/* Questions List — Clean Hairline Rows, Zero Nested Boxes */}
+          {/* Questions list: hairline rows, zero nested boxes */}
           <div class="divide-y divide-border-subtle border-b border-border-subtle" id="faq-items-container">
             {
               allFaqItems.map((item) => (
@@ -184,7 +184,7 @@ const categories = [
     primaryHref="mailto:support@bit-perfect.com"
     primaryLabel="Ask about your setup"
     secondaryHref={site.playUrl}
-    secondaryLabel="Get on Google Play"
+    secondaryLabel="Get it on Google Play"
     secondaryExternal={true}
   />
 </ContentLayout>
@@ -359,7 +359,7 @@ const categories = [
     }
   }
 
-  /* Desktop: the Privacy page's sidebar — same grid, rail and link states. */
+  /* Desktop: sidebar with same grid, rail and link states. */
   @media (min-width: 1024px) {
     .faq-grid {
       display: grid;

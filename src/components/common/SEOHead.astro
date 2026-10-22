@@ -16,7 +16,13 @@ const { title, description, canonical, ogImage, noindex = false } = Astro.props;
  * set in astro.config.mjs. */
 const resolvedCanonical = canonical || new URL(Astro.url.pathname, Astro.site).href;
 const resolvedOgImage = new URL(ogImage || withBase('og-image.png'), Astro.site).href;
-const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
+const trimmedTitle = title.trim();
+const fullTitle =
+  trimmedTitle === site.name ||
+  trimmedTitle.endsWith(` | ${site.name}`) ||
+  trimmedTitle.endsWith(`| ${site.name}`)
+    ? trimmedTitle
+    : `${trimmedTitle} | ${site.name}`;
 ---
 
 {/* Primary Meta */}

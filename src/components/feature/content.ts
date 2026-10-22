@@ -66,7 +66,7 @@ export const featurePages: Record<string, FeaturePage> = {
     lede: "Build an exact curve with up to 32 bands and seven filter shapes. One tap turns it off to hear the music without your curve.",
     summary: [
       { label: "Bands", value: "1 to 32" },
-      { label: "Filter types", value: "7" },
+      { label: "Filter shapes", value: "7" },
       { label: "Q range", value: "0.10 to 10.0" },
       { label: "Bypass", value: "One tap" },
     ],
@@ -93,8 +93,8 @@ export const featurePages: Record<string, FeaturePage> = {
           { label: "High shelf" },
           { label: "Low pass" },
           { label: "High pass" },
-          { label: "All pass" },
           { label: "Notch" },
+          { label: "All pass" },
         ],
       },
       {
@@ -107,7 +107,7 @@ export const featurePages: Record<string, FeaturePage> = {
         eyebrow: "Bypass",
         title: "One tap to hear the original file",
         body: "Bypass turns the EQ off completely. The badge shows Bit-perfect again when nothing else changes the sound. Compare your curve with the original.",
-        note: "With the EQ on, the badge cannot show Bit-perfect. Bypassed, the EQ changes nothing.",
+        note: "With EQ active, the badge cannot show Bit-perfect. Bypassed, the EQ alters nothing.",
       },
     ],
     cta: {
@@ -129,7 +129,7 @@ export const featurePages: Record<string, FeaturePage> = {
       {
         eyebrow: "Views",
         title: "Eight ways to browse your music",
-        body: "Sources, Recent, Favourites, Playlists, Albums, Artists, Tracks and Genres. Sources shows your real folders, the way you organised them.",
+        body: "Sources, Recent, Favourites, Playlists, Albums, Artists, Tracks, Genres. Sources shows your real folders, the way you organised them.",
         // LibraryTab.kt declares eight, with the songs tab labelled Tracks and
         // the folders tab labelled Sources.
         chips: [
@@ -187,12 +187,12 @@ export const featurePages: Record<string, FeaturePage> = {
     ],
     cta: {
       title: "Point it at a folder. It does the rest.",
-      body: "No account and no upload. Included with everything else.",
+      body: "No account needed. No audio leaves your phone.",
     },
   },
 
   casting: {
-    lede: "Send music to a device on your network. Or turn your phone into a receiver for DLNA apps and music servers.",
+    lede: "Stream music to cast-enabled speakers and TVs, or turn your phone into a network player.",
     summary: [
       { label: "Receiver protocols", value: "2" },
       { label: "Modes", value: "Sender and receiver" },
@@ -203,16 +203,16 @@ export const featurePages: Record<string, FeaturePage> = {
     beats: [
       {
         eyebrow: "Sending",
-        title: "Cast to DLNA devices on your network",
-        body: "DLNA devices on your network appear in the list: streamers, smart TVs, wireless speakers. If a device accepts the file as it is, nothing is re-encoded. If not, the app picks a format it can play. It tells you which happened.",
+        title: "Cast to speakers and TVs on your network",
+        body: "Cast to cast-enabled speakers and TVs, or DLNA players on your network. If a device accepts the file as it is, nothing is re-encoded. If not, the app picks a format it can play. It tells you which happened.",
       },
       {
         eyebrow: "Receiving",
         title: "Two ways to play to your phone",
-        body: "Turn on one or both. The phone can be a DLNA renderer that UPnP apps can find. Or it can be a classic network player for a music server. Either way, the app you already use plays to your phone and your DAC.",
+        body: "Turn on one or both. The phone can be a DLNA renderer that UPnP apps can find. Or it can be a network player for a music server. Either way, the app you already use plays to your phone and your DAC.",
         chips: [
           { label: "DLNA MediaRenderer", active: true },
-          { label: "Classic network player" },
+          { label: "Network player for music servers" },
         ],
       },
       {
@@ -283,12 +283,12 @@ export const featurePages: Record<string, FeaturePage> = {
     ],
     cta: {
       title: "Shape the sound, or turn it all off.",
-      body: "Crossfeed, ReplayGain and clip protection when you want them. Bit-perfect lock when you do not.",
+      body: "Four modules: Crossfeed, ReplayGain, Harmonic Tuning, true-peak limiter. Bit-perfect lock turns them off.",
     },
   },
 
   "usb-dac": {
-    lede: "Many Android phones change your music to 48 kHz and 16-bit before it reaches your DAC. Bitperfect sends it straight to your DAC at the file's own rate, when your DAC supports it.",
+    lede: "Many Android phones convert audio to 48 kHz and 16-bit. Bitperfect Player sends music straight to your DAC at the file's native rate, if your DAC supports it.",
     summary: [
       { label: "Max PCM", value: "32-bit / 768 kHz, DAC permitting" },
       { label: "DSD", value: "DSD64 to DSD512, DAC permitting" },
@@ -315,12 +315,12 @@ export const featurePages: Record<string, FeaturePage> = {
       {
         eyebrow: "Hardware",
         title: "Dongles and desktop DACs, same path",
-        body: "Works with UAC1 and UAC2 DACs, from a USB-C or Micro-USB dongle to a desk unit. If your DAC has its own volume control, Bitperfect uses it instead of software volume, which is not bit-perfect below full.",
+        body: "Works with UAC1 and UAC2 DACs, from a USB-C dongle to a desktop DAC. If your DAC has a hardware volume control, Bitperfect Player uses it. Software volume reduces bits below 100%.",
       },
       {
         eyebrow: "Honesty",
-        title: "The badge tells the truth, always",
-        body: "Bit-perfect shows only when nothing changes the file: no effects, same rate, same depth. With the AI Enhancer on, it shows Enhanced. With the EQ or the phone's speaker, it shows Resampled. Lossy means a lossy file or a lossy connection.",
+        title: "The badge tells you what reached the DAC",
+        body: "Bit-perfect shows only when nothing changes the file. Enhanced shows when AI Enhancer is active. Resampled shows if rate or depth changed. Lossy marks lossy files or connections. Unknown shows when state cannot be confirmed.",
         signalStates: true,
       },
       {
@@ -352,7 +352,7 @@ export const featurePages: Record<string, FeaturePage> = {
   },
 
   "ai-enhancer": {
-    lede: "The enhancer rebuilds the upper band, about 14 to 22 kHz, of 44.1 and 48 kHz files, on your phone.",
+    lede: "The enhancer rebuilds the upper band, about 14 to 22 kHz, of 44.1 and 48 kHz files. It is off by default and runs on your phone.",
     summary: [
       { label: "Reconstructs", value: "14 to 22 kHz" },
       { label: "Works on", value: "44.1 and 48 kHz" },
@@ -364,7 +364,7 @@ export const featurePages: Record<string, FeaturePage> = {
       {
         eyebrow: "What it does",
         title: "A plausible rebuild, not the original",
-        body: "It rebuilds the upper band, about 14 to 22 kHz, at the file's own sample rate. It adds nothing above that. It cannot turn a 128 kbps MP3 into a master.",
+        body: "It rebuilds the upper band, about 14 to 22 kHz, at the file's own sample rate. It works on 44.1 and 48 kHz files only. It adds nothing above that.",
         stats: [
           { label: "Band", value: "14 to 22 kHz" },
           { label: "Rates", value: "44.1 and 48 kHz" },
@@ -373,19 +373,19 @@ export const featurePages: Record<string, FeaturePage> = {
       {
         eyebrow: "Where it runs",
         title: "Only on your phone",
-        body: "Nothing is uploaded. It needs no network while it plays. The model downloads once, when you first turn it on. Then it works offline.",
+        body: "Audio stays on your phone. It needs no network while it plays. The model downloads once, when you first turn it on. Then it works offline.",
       },
       {
         eyebrow: "Hardware",
         title: "It turns off before it stutters",
-        body: "If your phone has a supported neural chip, the app runs the full model on it. If not, it runs a lighter model on the processor. If the phone cannot keep up in real time, the enhancer turns itself off. The signal path shows this.",
-        chips: [{ label: "Off" }, { label: "Neural chip", active: true }, { label: "Lite (processor)" }],
+        body: "It is off by default. A supported neural chip runs the full model. Other phones use Lite mode on the main processor. If the phone cannot keep up in real time, the enhancer turns itself off.",
+        chips: [{ label: "Off" }, { label: "Neural chip", active: true }, { label: "Lite mode" }],
       },
       {
         eyebrow: "Honesty",
-        title: "The badge stops saying bit-perfect",
-        body: "As soon as the enhancer changes the sound, the badge shows Enhanced. It does not run on DSD, while casting, or with Karaoke on. While it runs, the effects rack is off, and each affected row says why.",
-        note: "While the AI Enhancer is on, the effects rack is off.",
+        title: "The badge stops saying Bit-perfect",
+        body: "As soon as the enhancer changes the sound, the badge shows Enhanced. It does not run on DSD, while casting, or with Karaoke on. While it runs, the sound processing rack is off.",
+        note: "While the AI Enhancer is on, the sound processing rack is off.",
       },
     ],
     cta: {

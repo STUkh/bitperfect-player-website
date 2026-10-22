@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Capability Page" description="One capability page as /features/catalog/[id] composes it: three alternating CapabilityBands (graphite opening, ivory How it works, graphite What you hear with specs), the Previous/Next pager, the closing banner. Filled with Direct sound path" -->
+<helmet><script src="./ds-base.js"></script><style>html,body{margin:0;background:#191919}</style></helmet>
+<div style="min-height:100vh;background:#191919;color:var(--color-text-primary)">
+<x-import component-from-global-scope="BitperfectPlayer.Header" pathname="{{ path }}" hint-size="100%,81px"></x-import>
+<main id="main-content" class="relative pt-[65px] lg:pt-[81px]">
+<x-import component-from-global-scope="BitperfectPlayer.CapabilityBand" tone="graphite" media="right" title-as="h1" back-href="/features/catalog" back-label="All 27 capabilities" eyebrow="{{ eyebrow }}" title="{{ f.title }}" body="{{ f.summary }}" badge="{{ f.badge }}" screen="{{ f.screens.0 }}" hint-size="100%,760px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.CapabilityBand" tone="ivory" media="left" title="How it works" body="{{ f.description }}" screen="{{ f.screens.1 }}" hint-size="100%,760px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.CapabilityBand" tone="graphite" media="right" title="What you hear" body="{{ f.audiophileBenefit }}" specs="{{ f.specs }}" screen="{{ f.screens.2 }}" link="{{ sdkLink }}" hint-size="100%,760px"></x-import>
+<nav class="border-t border-border-subtle bg-surface-base pt-8 pb-10 lg:pt-14 lg:pb-18" aria-label="More features">
+<x-import component-from-global-scope="BitperfectPlayer.Container" hint-size="100%,96px">
+<div class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
+<x-import component-from-global-scope="BitperfectPlayer.PagerLink" direction="prev" href="{{ prev.href }}" label="Previous" title="{{ prev.title }}" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="BitperfectPlayer.PagerLink" direction="next" href="{{ next.href }}" label="Next" title="{{ next.title }}" hint-size="100%,96px"></x-import>
+</div>
+</x-import>
+</nav>
+<x-import component-from-global-scope="BitperfectPlayer.ClosingBanner" eyebrow="Get the app" title="Ready to hear your music bit for bit?" description="Install the app from Google Play and connect your DAC." primary-href="https://play.google.com/store/apps/details?id=com.bitperfect.player" primary-label="Get it on Google Play" primary-external="{{ yes }}" secondary-href="/faq" secondary-label="Read the FAQ" hint-size="100%,420px"></x-import>
+</main>
+<x-import component-from-global-scope="BitperfectPlayer.Footer" pathname="{{ path }}" hint-size="100%,520px"></x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// One entry of src/data/technical-features.ts, verbatim, and the page logic of
+// src/pages/features/catalog/[id].astro: eyebrow "§ <categoryLabel> · <NN>",
+// screens [opening, how, hear] (hear falls back to opening), the SDK link only
+// when the entry has an sdkUrl, prev/next walk `number` order and wrap.
+class Component extends DCLogic {
+  renderVals() {
+    const f = {
+      number: 1,
+      id: 'direct-sound-path',
+      screens: ['signal-clean', 'output', 'track-info'],
+      title: 'Direct sound path',
+      categoryLabel: 'Core engine',
+      summary: "Bit-perfect audio to your USB DAC. Bypasses Android's system mixer.",
+      description: "Android's system mixer resamples audio to 48 kHz on many phones. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them.",
+      audiophileBenefit: 'You hear your files untouched, with no unwanted resampling or dither.',
+      specs: [
+        { label: 'Mixer bypass', value: 'Direct to your DAC' },
+        { label: 'Sample rates', value: 'Up to 768 kHz, if your DAC supports it' },
+        { label: 'Signal verification', value: 'Live Bit-perfect badge' },
+      ],
+      badge: 'Core architecture',
+    };
+    const screens = [
+      (f.screens && f.screens[0]) || 'now-playing',
+      (f.screens && f.screens[1]) || 'playback',
+    ];
+    screens[2] = (f.screens && f.screens[2]) || screens[0];
+    return {
+      f: Object.assign({}, f, { screens }),
+      path: '/features/catalog/' + f.id,
+      eyebrow: '§ ' + f.categoryLabel + ' · ' + String(f.number).padStart(2, '0'),
+      sdkLink: f.sdkUrl ? { href: f.sdkUrl, label: 'View public SDK on GitHub', external: true } : undefined,
+      prev: { href: '/features/catalog/internet-radio', title: 'Internet radio search' },
+      next: { href: '/features/catalog/audio-pipeline-precision', title: '32-bit and 64-bit processing' },
+      yes: true,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -12,7 +12,7 @@ No provider. `styles.css` loads Manrope, the tokens, component styles and image 
 |---|---|
 | Chrome | `Header` (fixed; `pathname`), `Footer` (`pathname`) |
 | Home, in order | `HomeOpening` (hero + three-phone showcase, ONE block), `StatementBand` (ivory), `FeaturesTeaser`, `TextureStrip`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
-| Inner pages | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner`, `TechnicalCatalog`, `LegalDocument` (markdown children, `headings`) |
+| Inner pages | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner`, `TechIndex` (the grouped capability index, no content props), `CapabilityBand` (copy beside a phone, `tone` graphite/ivory, `media` right/left, `specs`), `LegalDocument` (markdown children, `headings`) |
 | Phones (real captures) | `PhoneFrame` + `PhoneScreen`, `PhoneNowPlaying`, `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
 | Primitives | `Button` (`variant` primary/secondary/outline, `size`, `href`), `PlayCta` (install: gold key-cap + `PlayStoreMark` + `label`), `PlayStoreMark`, `Card` (lacquer chassis; padding is yours; `as="a"` + `href`), `PagerLink` (`direction`, `href`, `label`, `title`), `StoreBadges`, `TextureStrip` (`material` wood/copper/glass), `ImageSlot`, `Logo`, `Container` (1280px column), `FeatureMark`, `FeatureArt`, `Icon` |
 | Whole page | `HoldingPage` |

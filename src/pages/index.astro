@@ -1,38 +1,35 @@
 ---
 /**
- * The site is parked. Everything except `/privacy`, `/terms` and the `/policy`
- * alias renders the holding page.
+ * The home page is six sections plus the held phone moment, and nothing else.
+ * Depth belongs on the features routes; this page states what the app is, shows
+ * it, and asks for the install.
  *
- * The real home page is `src/pages/_index.astro` and the six feature routes are
- * `src/pages/_features/`. Astro does not route a path whose file or folder starts
- * with an underscore, so nothing was deleted and bringing the site back is two
- * renames: drop the underscores, and restore the two navigation lists in
- * `src/data/navigation.ts` from the note left there.
+ * The three ivory bands need no divider: the colour change is the divider. A
+ * hairline only sits between two adjacent graphite sections.
  *
- * The headline is the picture in words. A cartridge held above the groove is a
- * record that has not started, which is what this page is actually reporting, and
- * it lets the page say it without a countdown, a percentage or a launch date
- * nobody has committed to.
+ * The opening and features sections meet the ivory bands directly. Their former
+ * decorative image strips added height without explaining the product. The final
+ * quiet graphite-to-paper hinge remains before the closing action.
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HoldingPage from '../components/HoldingPage';
+import LandingLayout from '../layouts/LandingLayout.astro';
+import HomeOpening from '../components/landing/HomeOpening.astro';
+import StatementBand from '../components/landing/StatementBand';
+import FeaturesTeaser from '../components/landing/FeaturesTeaser';
+import PrivacyBand from '../components/landing/PrivacyBand';
+import PricingSection from '../components/landing/PricingSection';
+import CTASection from '../components/landing/CTASection';
+import TextureStrip from '../components/common/TextureStrip';
 ---
 
-{/*
-  The title is BARE. `SEOHead` appends ` | ${site.name}` to anything that is not
-  exactly the site name, so a suffix here would ship it twice.
-
-  No `noindex`. This is the real front door for as long as it is up, it names the
-  product and it links to the store, so a crawler should have it. The pages that
-  no longer build simply leave the sitemap, which they already have.
-*/}
-<BaseLayout
-  title="Under construction"
-  description="We are rebuilding this site. The player is on Google Play. Privacy policy and terms of use are here."
+<LandingLayout
+  title="Bit-perfect audio on Android"
+  description="Bypass Android's system mixer. Send bit-perfect audio up to 768 kHz and DSD512 straight to your USB DAC. No account needed. No analytics, no ads."
 >
-  <HoldingPage
-    eyebrow="Under construction"
-    headline="New site on the way."
-    lede="The player is still on Google Play, ready for your USB DAC."
-  />
-</BaseLayout>
+  <HomeOpening />
+  <StatementBand />
+  <FeaturesTeaser />
+  <TextureStrip material="copper" />
+  <PrivacyBand />
+  <PricingSection />
+  <CTASection />
+</LandingLayout>

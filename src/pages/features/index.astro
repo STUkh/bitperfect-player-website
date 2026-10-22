@@ -33,9 +33,9 @@ const ROWS: Record<(typeof indexOrder)[number], { tagline: string }> = {
   'usb-dac': { tagline: 'Your DAC gets the file unchanged, or the badge says so' },
   eq: { tagline: 'Tone control you can turn off in one tap' },
   library: { tagline: 'Find any album instantly, on your phone' },
-  casting: { tagline: 'Send to a network streamer or TV, or receive from another device' },
+  casting: { tagline: 'Stream to cast-enabled speakers and TVs, or receive on your phone' },
   dsp: { tagline: 'Headphone crossfeed, album loudness and clip protection, each adjustable' },
-  'ai-enhancer': { tagline: 'Rebuilds highs that compressed tracks lose, on your phone' },
+  'ai-enhancer': { tagline: 'Rebuilds upper band detail on your phone, off by default' },
 };
 
 const getRowTagline = (slug: (typeof indexOrder)[number]) => {
@@ -198,7 +198,7 @@ const order = [...indexOrder];
 
   {/* ── Closing action, on graphite to strictly alternate after the ivory compatibility band ── */}
   <section
-    class="ground ground-interference relative overflow-hidden border-t border-border-subtle bg-surface-base pt-16 pb-18 lg:pt-28 lg:pb-30"
+    class="relative overflow-hidden border-t border-border-subtle bg-surface-base pt-16 pb-18 lg:pt-28 lg:pb-30"
   >
     <Container>
       <div class="flex flex-col items-center text-center">

@@ -30,37 +30,67 @@ const websiteSchema = {
   url: siteUrl,
 };
 
-/* ONE offer, because there is one plan: an auto-renewing annual subscription at
- * USD 35 (src/TERMS_OF_USE.md §4.1 and §4.3). The three-period map this built
- * from is kept as a map so a restored second term needs no edit here, and the
- * word `Pro` is gone from the description with the tier it named.
+/* ONE plan, ONE term: annual subscription. Founder offer at $19.95 USD / year
+ * until May 31, 2027; standard price $29.95 USD / year from June 1, 2027.
  *
- * The 7-day trial is deliberately NOT modelled here. Eligibility is the store's
- * decision, one trial per store account (Terms §4.2), so a rich result promising
+ * The 14-day trial is deliberately NOT modelled here. Eligibility is the store's
+ * decision, roughly one trial per store account, so a rich result promising
  * it to every searcher would be a claim the store refuses to honour for
  * returning customers. No aggregateRating / ratingValue either: inventing a
- * rating is a structured-data policy violation (BRIEF.md §4.1). */
+ * rating is a structured-data policy violation. */
 const softwareSchema = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
+  '@type': 'AudioApplication, SoftwareApplication',
   name: site.name,
   description,
   url: siteUrl,
-  applicationCategory: 'MultimediaApplication',
-  operatingSystem: 'Android 8.0+',
-  offers: pro.periods.map((period) => ({
-    '@type': 'Offer',
-    name: `${pro.name} - ${period.label}`,
-    price: period.price,
-    priceCurrency: pro.currency,
-    priceSpecification: {
-      '@type': 'UnitPriceSpecification',
-      price: period.price,
+  installUrl: site.playUrl,
+  applicationCategory: 'AudioApplication',
+  operatingSystem: 'Android 8.0 and up',
+  featureList: [
+    'Direct bit-perfect USB Audio Class 1 and 2 output bypassing Android\'s system mixer',
+    'PCM playback up to 768 kHz and 32-bit, DAC permitting',
+    'DSD playback up to DSD512 via DoP or Native DSD, DAC permitting',
+    'Five honest real-time signal states (Bit-perfect, Enhanced, Resampled, Lossy, Unknown)',
+    '32-band parametric equaliser with 7 filter shapes',
+    'DSP rack with crossfeed, loudness correction and true-peak limiter',
+    'Local lossless library indexing internal storage, MicroSD and network shares',
+    'Two-way streaming: DLNA casting and network receiver mode',
+    'Optional on-device AI Enhancer for 44.1 and 48 kHz tracks (off by default)',
+    'On-device Sonic Scan and Similar Tracks running offline',
+    'Private audio playback: no account needed, no ads, no analytics',
+  ],
+  offers: [
+    {
+      '@type': 'Offer',
+      name: `${pro.name} - Founder offer`,
+      price: pro.founderPrice,
       priceCurrency: pro.currency,
-      billingDuration: period.months,
-      unitCode: 'MON',
+      priceValidUntil: pro.founderEndDateIso,
+      url: site.playUrl,
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: pro.founderPrice,
+        priceCurrency: pro.currency,
+        billingDuration: 12,
+        unitCode: 'MON',
+      },
     },
-  })),
+    {
+      '@type': 'Offer',
+      name: `${pro.name} - Standard annual plan`,
+      price: pro.standardPrice,
+      priceCurrency: pro.currency,
+      url: site.playUrl,
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: pro.standardPrice,
+        priceCurrency: pro.currency,
+        billingDuration: 12,
+        unitCode: 'MON',
+      },
+    },
+  ],
 };
 ---
 

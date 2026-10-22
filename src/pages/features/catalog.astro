@@ -2,7 +2,7 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import PageHeader from '../../components/common/PageHeader';
 import ClosingBanner from '../../components/common/ClosingBanner';
-import TechnicalCatalog from '../../components/feature/TechnicalCatalog.astro';
+import TechIndex from '../../components/feature/TechIndex';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/nav';
 
@@ -14,18 +14,19 @@ const description =
 <ContentLayout title={title} description={description}>
   <PageHeader
     backHref={withBase('/features')}
-    backLabel="Back to Features"
+    backLabel="Back to features"
+    maxWidth="wide"
     eyebrow="Full specifications"
-    title="27 Audiophile Capabilities"
+    title="All 27 features"
     description="On many phones, Android converts every track to one sample rate. Bitperfect Player sends your file to a USB DAC unchanged, bit for bit. It tells you when it cannot."
   />
 
-  {/* Full Catalog */}
-  <TechnicalCatalog id="all-capabilities" />
+  {/* The index: six categories, each row a link to that capability's page. */}
+  <TechIndex id="all-capabilities" base={withBase('/')} />
 
   <ClosingBanner
     eyebrow="Get the app"
-    title="Ready to hear your music bit-for-bit?"
+    title="Ready to hear your music bit for bit?"
     description="Install the app from Google Play and connect your DAC."
     primaryHref={site.playUrl}
     primaryLabel="Get it on Google Play"

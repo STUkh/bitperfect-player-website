@@ -54,10 +54,6 @@
       "cardMode": "column",
       "viewport": "1280x900"
     },
-    "TechnicalCatalog": {
-      "cardMode": "column",
-      "viewport": "1280x900"
-    },
     "ImageSlot": {
       "cardMode": "column",
       "viewport": "1280x900"
@@ -87,6 +83,14 @@
     "HomeOpening": {
       "cardMode": "column",
       "viewport": "1280x900"
+    },
+    "TechIndex": {
+      "cardMode": "column",
+      "viewport": "1280x1800"
+    },
+    "CapabilityBand": {
+      "cardMode": "column",
+      "viewport": "1280x900"
     }
   },
   "provider": {
@@ -113,7 +117,6 @@
     "PhoneFrame": "../groups/feature.md",
     "PhoneScreen": "../groups/feature.md",
     "PhoneTrio": "../groups/feature.md",
-    "TechnicalCatalog": "../groups/feature.md",
     "CTASection": "../groups/landing.md",
     "FeaturesTeaser": "../groups/landing.md",
     "HoldingPage": "../groups/landing.md",
@@ -124,6 +127,8 @@
     "PlayCta": "../groups/common.md",
     "PlayStoreMark": "../groups/common.md",
     "HomeOpening": "../groups/landing.md",
-    "TextureStrip": "../groups/common.md"
+    "TextureStrip": "../groups/common.md",
+    "TechIndex": "../groups/feature.md",
+    "CapabilityBand": "../groups/feature.md"
   }
 }

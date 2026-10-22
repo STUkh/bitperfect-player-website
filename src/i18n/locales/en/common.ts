@@ -10,14 +10,14 @@ export const common = {
   "nav.pricing": "Pricing",
   "nav.privacy": "Privacy",
   "nav.terms": "Terms",
-  "nav.aria_main": "Main",
+  "nav.aria_main": "Main navigation",
   "nav.aria_toggle": "Toggle navigation menu",
   "nav.aria_legal": "Legal",
-  "nav.aria_mobile": "Mobile",
+  "nav.aria_mobile": "Mobile navigation",
   "nav.aria_breadcrumb": "Breadcrumb",
 
   // Store badges & links
-  "store.google_play": "Google Play",
+  "store.google_play": "Get it on Google Play",
 
   // Button labels & UI elements
 
@@ -28,13 +28,14 @@ export const common = {
     "Product names, logos and trademarks belong to their owners. We use them only to identify products. No endorsement or affiliation is implied.",
   "footer.features": "Features",
   "footer.support": "Support",
-  "footer.legal": "Legal & Support",
-  "footer.legal_support": "Legal & Support",
-  "footer.email_support": "Email Support",
-  "footer.contact_support": "Contact Support",
+  "footer.legal": "Legal and support",
+  "footer.legal_support": "Legal and support",
+  "footer.legal_and_support": "Legal and support",
+  "footer.email_support": "Email support",
+  "footer.contact_support": "Contact support",
   "footer.faq": "FAQ",
-  "footer.all_questions": "All Questions",
-  "footer.privacy_policy": "Privacy Policy",
-  "footer.terms_of_use": "Terms of Use",
+  "footer.all_questions": "All questions",
+  "footer.privacy_policy": "Privacy policy",
+  "footer.terms_of_use": "Terms of use",
 } as const;
 export default common;

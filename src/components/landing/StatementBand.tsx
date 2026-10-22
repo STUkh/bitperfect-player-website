@@ -11,7 +11,7 @@ const facts = [
   },
   {
     title: 'Straight to your DAC',
-    desc: 'The app talks to your DAC directly. While it does, other apps cannot play through it.',
+    desc: 'The app talks to your USB DAC directly. While it plays, other apps cannot use the DAC.',
   },
   {
     title: 'Your music stays on the phone',
@@ -48,7 +48,7 @@ export default function StatementBand() {
               className="r-rise text-headline-m text-balance text-band-ink lg:text-headline"
               style={{ '--i': '1' } as CSSProperties}
             >
-              Many phones change your music on the way out.{' '}
+              Android's mixer changes your music on the way out.{' '}
               <span className="text-band-gold-ink">This app sends it to your USB DAC unchanged.</span>
             </h2>
           </div>

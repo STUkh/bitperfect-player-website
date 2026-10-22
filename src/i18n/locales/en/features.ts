@@ -8,11 +8,11 @@ export const features = {
   // Features Index: Header
   "features_index.meta_title": "Features",
   "features_index.meta_description":
-    "Six features you can use today: bit-perfect USB DAC output, an EQ with up to 32 bands, a lossless library on your phone, casting, the DSP rack and AI Enhancer.",
+    "Six features you can use today: direct USB DAC output, a 32-band parametric EQ, a local lossless library, casting, a DSP rack and AI Enhancer.",
   "features_index.header_eyebrow": "Core capabilities",
   "features_index.header_title": "Six features, built on bit-perfect playback",
   "features_index.header_subtitle":
-    "Plays straight to your USB DAC. Adds an EQ with up to 32 bands, a searchable library on your phone, casting to and from other devices, a DSP rack and AI Enhancer.",
+    "Plays straight to your USB DAC. Adds an EQ with up to 32 bands, a local library, two-way streaming, a DSP rack and AI Enhancer.",
   "features_index.catalog_eyebrow": "Technical details",
   "features_index.catalog_badge": "27 capabilities",
   "features_index.catalog_title": "Want the full specifications?",
@@ -26,27 +26,27 @@ export const features = {
   // Features Index: Compatibility
   "features_index.compat_title": "Will it run on your phone?",
   "features_index.compat_subtitle":
-    "Playback, USB DAC, EQ, casting and Sonic Scan work on any phone with Android 8.0 or newer. AI Enhancer's full model needs a supported neural chip. Other phones run a lighter version, if the processor is fast enough.",
+    "Playback, USB DAC, EQ, casting and the DSP rack work on Android 8.0 or newer. AI Enhancer needs a supported neural chip for the full model, or runs Lite mode on the processor.",
   "features_index.compat_player_what": "Playback and processing",
   "features_index.compat_player_scope":
     "Playback, bit-perfect USB, EQ, casting and the DSP rack",
   "features_index.compat_player_devices": "Every phone on Android 8.0 or newer",
   "features_index.compat_player_note":
-    "The same app works on every supported phone.",
+    "One download covers every supported phone.",
   "features_index.compat_ai_library_what": "Sonic Scan and Similar Tracks",
   "features_index.compat_ai_library_scope":
-    "Scans your library on your phone to find similar tracks",
+    "Local library analysis and acoustic similarity",
   "features_index.compat_ai_library_devices":
     "Every phone on Android 8.0 or newer",
   "features_index.compat_ai_library_note":
-    "No special chip needed. Works offline after a one-time model download.",
+    "Needs no special chip. Works offline after a one-time model download.",
   "features_index.compat_ai_enhancer_what": "AI Enhancer",
   "features_index.compat_ai_enhancer_scope":
-    "Rebuilds the 14 to 22 kHz band live, on 44.1 and 48 kHz audio only. Off by default.",
+    "Real-time 14 to 22 kHz restoration on 44.1 and 48 kHz audio",
   "features_index.compat_ai_enhancer_devices":
     "Android 8.0 or newer, best on a supported neural chip",
   "features_index.compat_ai_enhancer_note":
-    "Phones with a supported neural chip run the full model. Others run a lighter model on the processor, if it is fast enough.",
+    "Phones with a supported neural chip run the full model. Other phones run Lite mode on the processor.",
   "features_index.compat_min_android": "Android {minAndroid} or newer.",
 
   // Features Index: Technical FAQ
@@ -56,7 +56,7 @@ export const features = {
   "features_index.cta_title_prefix": "Six features. ",
   "features_index.cta_title_highlight": "All in one plan.",
   "features_index.cta_subtitle":
-    "One annual subscription unlocks every feature. There are no other tiers.",
+    "One annual subscription covers every feature. There are no other tiers.",
   "features_index.cta_button": "Get it on Google Play",
 
   // ---------------------------------------------------------------------------
@@ -76,16 +76,16 @@ export const features = {
   "feature_detail.signal_path_eyebrow": "The path to your DAC",
   "feature_detail.signal_path_title": "Seven stages, or four.",
   "feature_detail.signal_path_subtitle":
-    "Take a 192 kHz / 24-bit file. Many Android phones send it through 7 stages and cut it to 48 kHz / 16-bit. Bitperfect uses 4 stages and sends it to your DAC unchanged. It handles up to 32-bit / 768 kHz and DSD512, if your DAC supports them.",
+    "Take a 192 kHz / 24-bit file. Many Android phones send it through 7 stages and cut it to 48 kHz / 16-bit. Bitperfect Player uses 4 stages and sends it to your DAC unchanged. It handles up to 32-bit / 768 kHz and DSD512, if your DAC supports them.",
   "feature_detail.signal_path_stages": "stages",
   "feature_detail.signal_path_reaches_dac": "Reaches the DAC at",
   "feature_detail.signal_path_resamples": "Rate conversions",
   "feature_detail.signal_path_mixers": "Mixer changes",
   "feature_detail.signal_path_conversions": "Bit-depth cuts",
   "feature_detail.signal_path_note":
-    "The Bit-perfect badge shows only when nothing changes. That means exclusive USB, no effects, and the file's own rate and depth. Effects or the phone's mixer show Resampled. The AI Enhancer shows Enhanced.",
+    "The Bit-perfect badge shows only when nothing changes. That means direct USB, no effects, and the file's own rate and depth. Effects or the phone mixer show Resampled. The AI Enhancer shows Enhanced.",
   "feature_detail.signal_path_android": "Typical Android path",
-  "feature_detail.signal_path_ours": "Bitperfect Player Direct Path",
+  "feature_detail.signal_path_ours": "Bitperfect Player direct path",
   "feature_detail.signal_state.bitperfect": "Bit-perfect",
   "feature_detail.signal_state.enhanced": "Enhanced",
   "feature_detail.signal_state.resampled": "Resampled",
@@ -100,16 +100,16 @@ export const features = {
   "feature.usb-dac.title": "Direct USB DAC output",
   "feature.usb-dac.tagline": "Your DAC gets the file unchanged, or the badge says so",
 
-  "feature.usb-dac.signal_path.android.stage.0": "Source File",
-  "feature.usb-dac.signal_path.android.stage.1": "App Handoff",
-  "feature.usb-dac.signal_path.android.stage.2": "Rate Converter",
-  "feature.usb-dac.signal_path.android.stage.3": "System Mixer",
-  "feature.usb-dac.signal_path.android.stage.4": "Software Volume",
-  "feature.usb-dac.signal_path.android.stage.5": "Bit-Depth Cut",
-  "feature.usb-dac.signal_path.android.stage.6": "USB Output",
-  "feature.usb-dac.signal_path.ours.stage.0": "Source File",
-  "feature.usb-dac.signal_path.ours.stage.1": "Exclusive USB Access",
-  "feature.usb-dac.signal_path.ours.stage.2": "Bit-Exact Delivery",
+  "feature.usb-dac.signal_path.android.stage.0": "Source file",
+  "feature.usb-dac.signal_path.android.stage.1": "App handoff",
+  "feature.usb-dac.signal_path.android.stage.2": "Rate converter",
+  "feature.usb-dac.signal_path.android.stage.3": "System mixer",
+  "feature.usb-dac.signal_path.android.stage.4": "Software volume",
+  "feature.usb-dac.signal_path.android.stage.5": "Bit-depth cut",
+  "feature.usb-dac.signal_path.android.stage.6": "USB output",
+  "feature.usb-dac.signal_path.ours.stage.0": "Source file",
+  "feature.usb-dac.signal_path.ours.stage.1": "Exclusive USB access",
+  "feature.usb-dac.signal_path.ours.stage.2": "Bit-exact delivery",
   "feature.usb-dac.signal_path.ours.stage.3": "Hardware DAC",
 
   // EQ
@@ -124,7 +124,7 @@ export const features = {
   // CASTING
   "feature.casting.title": "Two-way streaming",
   "feature.casting.tagline":
-    "Send to a network streamer or TV, or receive from another device",
+    "Stream to cast-enabled speakers and TVs, or receive on your phone",
 
   // DSP
   "feature.dsp.title": "DSP rack",
@@ -134,7 +134,7 @@ export const features = {
   // AI ENHANCER
   "feature.ai-enhancer.title": "AI Enhancer",
   "feature.ai-enhancer.tagline":
-    "Rebuilds highs lost in lossy files. Off by default. When on, the badge says Enhanced.",
+    "Rebuilds upper band detail on your phone, off by default",
 } as const;
 
 export default features;

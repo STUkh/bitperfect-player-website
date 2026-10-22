@@ -47,7 +47,12 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
     ) {
       return t('footer.email_support');
     }
-    if (link.label === 'Google Play') return t('store.google_play');
+    if (
+      (link.label as string) === 'Google Play' ||
+      (link.label as string) === 'Get it on Google Play'
+    ) {
+      return t('store.google_play') || 'Get it on Google Play';
+    }
     return link.label;
   };
 

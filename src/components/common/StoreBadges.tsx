@@ -144,7 +144,7 @@ export default function StoreBadges({
           size="sm"
           className={SIZES[size].pad}
         >
-          <span className="text-sm font-medium">Direct APK</span>
+          <span className="text-sm font-medium">Download APK</span>
         </Button>
       )}
     </div>

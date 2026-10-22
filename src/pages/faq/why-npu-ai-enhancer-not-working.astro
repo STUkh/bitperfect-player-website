@@ -5,199 +5,167 @@ import PageHeader from '../../components/common/PageHeader';
 import ClosingBanner from '../../components/common/ClosingBanner';
 import { withBase } from '../../utils/nav';
 
-const title = 'AI Enhancer and the Neural Chip: Troubleshooting Guide | Bitperfect Player';
+const title = 'Why AI Enhancer may be unavailable | Bitperfect Player';
 const description =
-  'Why AI Enhancer works best with a neural chip, what happens without one, and how to set up your USB DAC for bit-perfect playback.';
+  'Why AI Enhancer may be unavailable on your phone: neural chip requirements, supported processors, Motorola firmware locks and USB DAC setup.';
 ---
 
 <ContentLayout title={title} description={description}>
   <PageHeader
     maxWidth="760px"
     backHref={withBase('/faq')}
-    backLabel="Back to Knowledge Base & FAQ"
-    eyebrow="Hardware & Driver Guide"
-    title="Why AI Enhancer runs best on a neural chip"
-    description="How AI Enhancer uses a neural chip, what runs without one, and how to set up a USB DAC."
+    backLabel="Back to FAQ"
+    eyebrow="Hardware guide"
+    title="Why AI Enhancer may be unavailable"
+    description="Processor requirements, sample rate limits, Motorola firmware locks and USB DAC setup."
   />
 
   {/* Main Centered Editorial Column */}
   <section class="py-12 lg:py-20">
     <Container>
       <article class="mx-auto max-w-[760px] space-y-14 [&_p]:max-w-[68ch]">
-        {/* Section 1: The Core NPU Requirement */}
-        <div id="the-real-time-neural-challenge">
+        {/* Intro */}
+        <div id="overview">
           <h2 class="text-title-lg font-bold text-text-primary text-balance">
-            Restoring detail as music plays
+            How AI Enhancer operates
           </h2>
           <div class="mt-4 space-y-4 text-body text-pretty text-text-secondary leading-relaxed">
             <p>
-              AI Enhancer is a neural network. As a track plays, it restores high-frequency detail that MP3 and AAC remove. The result is an estimate, not the original master. It is off until you turn it on. While it works, the badge says Enhanced.
+              AI Enhancer uses a neural network to restore high frequencies. It processes music as it plays. The result is an estimate, not the original master.
             </p>
             <p>
-              AI Enhancer works on 44.1 kHz and 48 kHz PCM. It skips hi-res, DSD and cast playback. It also turns off if your phone cannot keep up, so the music does not stutter.
+              The feature is off by default. It changes nothing until you turn it on. While active, the badge says Enhanced instead of Bit-perfect.
             </p>
             <p>
-              AI Enhancer is built for a <strong>neural chip (NPU)</strong>. Phones with a supported chip run the full model on it. Other phones can run a lighter model, if their processor keeps up in real time.
+              Review these four areas if AI Enhancer is unavailable or turns off.
             </p>
           </div>
         </div>
 
-        {/* Section 2: Three Reasons AI Enhancer May Be Disabled — Clean Editorial Hairlines, Zero Nested Boxes */}
-        <div id="three-reasons" class="border-t border-border-subtle pt-12">
+        {/* Section 1: Processor & neural chip requirements */}
+        <div id="processor-requirements" class="border-t border-border-subtle pt-12">
           <h2 class="text-title-lg font-bold text-text-primary text-balance">
-            Why AI Enhancer may be unavailable
+            1. Processor and neural chip requirements
           </h2>
           <p class="mt-3 text-body text-pretty text-text-secondary leading-relaxed">
-            First, check that Bit-perfect lock is off. It turns AI Enhancer off. If AI Enhancer still will not turn on or does not use your neural chip, check these three things:
+            AI Enhancer is designed for a dedicated neural chip. Supported hardware runs the full model. Other phones run Lite mode on the main processor.
           </p>
+          <ul class="mt-6 space-y-3 pl-5 list-disc text-body-sm text-pretty text-text-secondary leading-relaxed">
+            <li>
+              <strong class="text-text-primary">Supported neural chips:</strong> Snapdragon 8 Gen 1 through 8 Elite, and Dimensity 8300 through 9400.
+            </li>
+            <li>
+              <strong class="text-text-primary">Google Tensor and Samsung Exynos:</strong> Supported on recent chips with dedicated models in app updates.
+            </li>
+            <li>
+              <strong class="text-text-primary">Lite mode on main processor:</strong> Other phones run Lite mode on the main processor.
+            </li>
+            <li>
+              <strong class="text-text-primary">Real-time processing:</strong> The feature turns off if processing cannot keep up in real time.
+            </li>
+            <li>
+              <strong class="text-text-primary">One-time model download:</strong> Each chip requires a one-time model download of 10 to 60 MB.
+            </li>
+          </ul>
+        </div>
 
-          <div class="mt-8 border-b border-border-subtle">
-            {/* Reason 01 */}
-            <div class="border-t border-border-subtle py-7">
-              <div>
-                <h3 class="text-body-lg font-bold text-text-primary">
-                  Your phone has no supported neural chip
-                </h3>
-                <p class="mt-2 text-body-sm text-pretty text-text-secondary leading-relaxed">
-                  The full model needs a supported neural chip: Snapdragon 8 Gen 1 up to the 8 Elite family, or the Dimensity 8300, 8400, 9300 and 9400 families. Other phones run a lighter model on the main processor. If that cannot keep up in real time, AI Enhancer turns off.
-                </p>
-              </div>
-            </div>
+        {/* Section 2: Sample rate restrictions */}
+        <div id="sample-rate-restrictions" class="border-t border-border-subtle pt-12">
+          <h2 class="text-title-lg font-bold text-text-primary text-balance">
+            2. Sample rate and playback restrictions
+          </h2>
+          <p class="mt-3 text-body text-pretty text-text-secondary leading-relaxed">
+            AI Enhancer works only on standard-resolution audio. It turns off automatically when playback conditions do not match:
+          </p>
+          <ul class="mt-6 space-y-3 pl-5 list-disc text-body-sm text-pretty text-text-secondary leading-relaxed">
+            <li>
+              <strong class="text-text-primary">Standard sample rates only:</strong> Works exclusively on 44.1 kHz and 48 kHz PCM tracks.
+            </li>
+            <li>
+              <strong class="text-text-primary">Hi-res tracks disabled:</strong> Automatically disabled on 96 kHz, 192 kHz and higher sample rates.
+            </li>
+            <li>
+              <strong class="text-text-primary">DSD tracks disabled:</strong> Stays off for DSD audio files and DSD disc images.
+            </li>
+            <li>
+              <strong class="text-text-primary">Bit-perfect lock active:</strong> Bit-perfect lock turns off all sound processing, including AI Enhancer.
+            </li>
+            <li>
+              <strong class="text-text-primary">Cast playback:</strong> Stays off when streaming audio to cast-enabled speakers and TVs.
+            </li>
+            <li>
+              <strong class="text-text-primary">AI Karaoke active:</strong> Disabled while AI Karaoke stem separation is running.
+            </li>
+          </ul>
+        </div>
 
-            {/* Reason 02 */}
-            <div class="border-t border-border-subtle py-7">
-              <div>
-                <h3 class="text-body-lg font-bold text-text-primary">
-                  Your chip is newer than the current models
-                </h3>
-                <p class="mt-2 text-body-sm text-pretty text-text-secondary leading-relaxed">
-                  Each chip needs its own model. Support for a new chip may come in a later app update. Until then, AI Enhancer works as it does on phones without a supported chip. Keep Bitperfect Player updated.
-                </p>
-              </div>
-            </div>
-
-            {/* Reason 03 */}
-            <div class="border-t border-border-subtle py-7">
-              <div>
-                <h3 class="text-body-lg font-bold text-text-primary">
-                  Some manufacturers block apps from the neural chip
-                </h3>
-                <p class="mt-2 text-body-sm text-pretty text-text-secondary leading-relaxed">
-                  This can happen even when the phone has a neural chip. <strong>Motorola</strong> is one reported case. When the chip does not respond, AI Enhancer works as it does on phones without one.
-                </p>
-                <p class="mt-3 text-body-sm text-pretty text-text-secondary leading-relaxed">
-                  To ask for access, post your phone model in the official Lenovo support thread:
-                </p>
-                <a
-                  href="https://forums.lenovo.com/topic/view/16436/10046553"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="mt-3 inline-flex items-center gap-1.5 rounded text-small font-semibold text-gold transition-colors duration-[var(--d-ui)] hover:text-gold-light hover:underline focus-visible:focus-ring"
-                >
-                  <span>Ask Lenovo / Motorola for chip access</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                </a>
-              </div>
-            </div>
+        {/* Section 3: Motorola firmware restrictions */}
+        <div id="firmware-restrictions" class="border-t border-border-subtle pt-12">
+          <h2 class="text-title-lg font-bold text-text-primary text-balance">
+            3. Motorola firmware restrictions
+          </h2>
+          <p class="mt-3 text-body text-pretty text-text-secondary leading-relaxed">
+            Some device manufacturers lock third-party applications out of the neural chip in their system firmware.
+          </p>
+          <ul class="mt-6 space-y-3 pl-5 list-disc text-body-sm text-pretty text-text-secondary leading-relaxed">
+            <li>
+              <strong class="text-text-primary">Firmware lock:</strong> Even with a compatible processor, system firmware may block neural chip access.
+            </li>
+            <li>
+              <strong class="text-text-primary">Motorola devices:</strong> Several Motorola phone models restrict third-party neural access by default.
+            </li>
+            <li>
+              <strong class="text-text-primary">Automatic fallback:</strong> When the chip is locked, the app falls back to Lite mode.
+            </li>
+            <li>
+              <strong class="text-text-primary">Official support thread:</strong> You can request neural chip access on Lenovo's official support forum.
+            </li>
+          </ul>
+          <div class="mt-6">
+            <a
+              href="https://forums.lenovo.com/topic/view/16436/10046553"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded text-small font-semibold text-gold transition-colors duration-[var(--d-ui)] hover:text-gold-light hover:underline focus-visible:focus-ring"
+            >
+              <span>Ask Lenovo and Motorola for chip access</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
           </div>
         </div>
 
-        {/* Section 3: USB DAC Setup & Troubleshooting — Clean 2x2 Architectural Hairline Grid */}
+        {/* Section 4: USB DAC setup and troubleshooting */}
         <div id="usb-dac-setup" class="border-t border-border-subtle pt-12">
           <h2 class="text-title-lg font-bold text-text-primary text-balance">
-            Set up your USB DAC
+            4. USB DAC setup and troubleshooting
           </h2>
           <p class="mt-3 text-body text-pretty text-text-secondary leading-relaxed">
-            To use a USB DAC with an Android phone, check these four things:
+            Follow these steps to set up your USB DAC for direct output:
           </p>
-
-          <div class="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
-            <div class="border-t border-border-subtle pt-5">
-              <span class="mono-spec text-caption font-semibold text-gold uppercase tracking-wider">
-                Hardware
-              </span>
-              <h3 class="mt-2 text-body-lg font-bold text-text-primary">Cable and host mode</h3>
-              <p class="mt-2 text-small text-pretty text-text-secondary leading-relaxed">
-                Micro-USB phones need an OTG cable to act as the USB host. USB-C phones do this on their own with a USB-C DAC dongle or a C-to-C cable.
-              </p>
-            </div>
-
-            <div class="border-t border-border-subtle pt-5">
-              <span class="mono-spec text-caption font-semibold text-gold uppercase tracking-wider">
-                Android
-              </span>
-              <h3 class="mt-2 text-body-lg font-bold text-text-primary">USB permission prompt</h3>
-              <p class="mt-2 text-small text-pretty text-text-secondary leading-relaxed">
-                Plug in the DAC and allow access when Android asks. Bitperfect Player then has sole use of the DAC. Other apps cannot play through it.
-              </p>
-            </div>
-
-            <div class="border-t border-border-subtle pt-5">
-              <span class="mono-spec text-caption font-semibold text-gold uppercase tracking-wider">
-                Volume
-              </span>
-              <h3 class="mt-2 text-body-lg font-bold text-text-primary">DAC volume and app volume</h3>
-              <p class="mt-2 text-small text-pretty text-text-secondary leading-relaxed">
-                If your DAC has its own volume control over USB, Bitperfect Player uses it. Your file keeps its full bit depth. App volume below full is not bit-perfect, and the badge shows it.
-              </p>
-            </div>
-
-            <div class="border-t border-border-subtle pt-5">
-              <span class="mono-spec text-caption font-semibold text-gold uppercase tracking-wider">
-                Badge
-              </span>
-              <h3 class="mt-2 text-body-lg font-bold text-text-primary">Bit-perfect status</h3>
-              <p class="mt-2 text-small text-pretty text-text-secondary leading-relaxed">
-                Check the signal badge on Now Playing. It says Bit-perfect only when your file reaches the DAC at its own rate and bit depth, with no effects on. DSD shows its level instead, such as DSD128. Otherwise it says Enhanced, Resampled or Lossy.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 4: Bitperfect Lock & Direct Bypass */}
-        <div id="bitperfect-lock-bypass" class="border-t border-border-subtle pt-12">
-          <h2 class="text-title-lg font-bold text-text-primary text-balance">
-            Bit-perfect lock and direct output
-          </h2>
-          <div class="mt-4 space-y-4 text-body text-pretty text-text-secondary leading-relaxed">
-            <p>
-              <strong>Why direct output matters:</strong> On many phones, Android's mixer converts all audio to 48 kHz, often at 16-bit, before your DAC gets it. Direct USB output skips the mixer.
-            </p>
-            <p>
-              Bitperfect Player has its own USB driver for UAC1 and UAC2 DACs. With no effects on and volume set on the DAC or at full in the app, your file reaches the DAC unchanged, at its own rate and bit depth, if your DAC supports them.
-            </p>
-            <p>
-              <strong>What Bit-perfect lock does:</strong> It turns off every effect, including EQ, crossfeed, dither, the true-peak limiter, ReplayGain, upsampling and AI Enhancer. Volume goes to your DAC's control, or stays at full if it has none. It cannot stop a rate change your DAC needs, so check the badge.
-            </p>
-          </div>
-        </div>
-
-        {/* Section 5: Battery Optimization */}
-        <div id="battery-optimization" class="border-t border-border-subtle pt-12">
-          <h2 class="text-title-lg font-bold text-text-primary text-balance">
-            Battery use and background playback
-          </h2>
-          <div class="mt-4 space-y-4 text-body text-pretty text-text-secondary leading-relaxed">
-            <p>
-              Many USB DAC dongles take power from your phone, so your battery drains faster while you listen.
-            </p>
-            <h3 class="text-body-lg font-bold text-text-primary pt-2">
-              Keep playback going with the screen off
-            </h3>
-            <p>
-              Many Android phones close background apps. This can stop playback when the screen turns off. To keep playback going:
-            </p>
-            <ol class="list-decimal list-inside space-y-2 text-small pl-2">
-              <li>Open Android <strong>Settings &gt; Apps &gt; Bitperfect Player &gt; Battery</strong>.</li>
-              <li>Change the setting from <em>Optimized</em> to <strong>Unrestricted</strong>.</li>
-              <li>If your phone offers it, long-press the Bitperfect Player card in the app switcher and select <strong>Lock App</strong>.</li>
-              <li>In Bitperfect Player settings, set <strong>Source read-ahead</strong> to <strong>Whole file</strong>. Each track then loads into memory, so storage stays idle.</li>
-            </ol>
-          </div>
+          <ul class="mt-6 space-y-3 pl-5 list-disc text-body-sm text-pretty text-text-secondary leading-relaxed">
+            <li>
+              <strong class="text-text-primary">Cable connection:</strong> Connect with a USB-C cable or an OTG adapter. USB-C phones enter host mode automatically.
+            </li>
+            <li>
+              <strong class="text-text-primary">Android permission:</strong> Connect the DAC and allow access when Android asks. Tick the box to remember this device.
+            </li>
+            <li>
+              <strong class="text-text-primary">Hardware volume:</strong> Control volume on the DAC hardware. Software volume inside Android alters the bitstream.
+            </li>
+            <li>
+              <strong class="text-text-primary">Check the signal badge:</strong> The Now Playing badge confirms audio status. It shows Bit-perfect, Enhanced, Resampled or Lossy.
+            </li>
+            <li>
+              <strong class="text-text-primary">Direct output bypass:</strong> Bitperfect Player talks directly to UAC1 and UAC2 DACs. This skips Android's system mixer.
+            </li>
+            <li>
+              <strong class="text-text-primary">Background playback:</strong> Set battery usage to Unrestricted in Android settings. Lock the app in your recent tasks screen.
+            </li>
+          </ul>
         </div>
       </article>
     </Container>

@@ -41,7 +41,7 @@ export default function MobileMenu(props: MobileMenuProps) {
       Dismissal is: the burger, or Escape. Both are bound below.
     */}
         {/* Main nav links */}
-        <nav className="flex flex-col gap-6" aria-label="Mobile Navigation">
+        <nav className="flex flex-col gap-6" aria-label="Mobile navigation">
           {navLinks.map((link) => {
             const active = isActive(pathname, link.href);
             return (

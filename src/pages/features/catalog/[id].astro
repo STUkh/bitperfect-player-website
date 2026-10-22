@@ -1,0 +1,103 @@
+---
+/**
+ * One page per capability in src/data/technical-features.ts, linked from the
+ * index on /features/catalog.
+ *
+ * Three CapabilityBands that alternate ground and side together: the graphite
+ * opening (phone right), the ivory "How it works" (phone left), the graphite
+ * "What you hear" with the spec rows (phone right). Then the prev and next pair,
+ * which walks the 27 in `number` order and wraps at both ends, and the same
+ * closing banner as the index. Every visible string is the entry's own or one
+ * the site already uses.
+ */
+import ContentLayout from '../../../layouts/ContentLayout.astro';
+import Container from '../../../components/common/Container';
+import ClosingBanner from '../../../components/common/ClosingBanner';
+import CapabilityBand from '../../../components/feature/CapabilityBand';
+import PagerLink from '../../../components/feature/PagerLink';
+import { technicalFeatures, type TechnicalFeature } from '../../../data/technical-features';
+import { site } from '../../../data/site';
+import { withBase } from '../../../utils/nav';
+import { useTranslations } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  const order = [...technicalFeatures].sort((a, b) => a.number - b.number);
+  return order.map((feature, index) => ({
+    params: { id: feature.id },
+    props: {
+      feature,
+      prev: order[(index - 1 + order.length) % order.length],
+      next: order[(index + 1) % order.length],
+    },
+  }));
+}
+
+interface Props {
+  feature: TechnicalFeature;
+  prev: TechnicalFeature;
+  next: TechnicalFeature;
+}
+
+const { feature, prev, next } = Astro.props as Props;
+const t = useTranslations(Astro.currentLocale);
+
+const [openingScreen, howScreen, hearScreen] = feature.screens ?? ['now-playing', 'playback'];
+const number = String(feature.number).padStart(2, '0');
+---
+
+<ContentLayout title={`${feature.title} | Bitperfect Player`} description={feature.summary}>
+  <CapabilityBand
+    tone="graphite"
+    media="right"
+    titleAs="h1"
+    backHref={withBase('/features/catalog')}
+    backLabel="All 27 capabilities"
+    eyebrow={`§ ${feature.categoryLabel} · ${number}`}
+    title={feature.title}
+    body={feature.summary}
+    badge={feature.badge}
+    screen={openingScreen}
+  />
+
+  <CapabilityBand tone="ivory" media="left" title="How it works" body={feature.description} screen={howScreen} />
+
+  <CapabilityBand
+    tone="graphite"
+    media="right"
+    title="What you hear"
+    body={feature.audiophileBenefit}
+    specs={feature.specs}
+    screen={hearScreen ?? openingScreen}
+    link={feature.sdkUrl ? { href: feature.sdkUrl, label: 'View public SDK on GitHub', external: true } : undefined}
+  />
+
+  <nav class="border-t border-border-subtle bg-surface-base pt-8 pb-10 lg:pt-14 lg:pb-18" aria-label={t('feature_detail.more_features')}>
+    <Container>
+      <div class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
+        <PagerLink
+          direction="prev"
+          href={withBase(`features/catalog/${prev.id}`)}
+          label={t('feature_detail.prev')}
+          title={prev.title}
+        />
+        <PagerLink
+          direction="next"
+          href={withBase(`features/catalog/${next.id}`)}
+          label={t('feature_detail.next')}
+          title={next.title}
+        />
+      </div>
+    </Container>
+  </nav>
+
+  <ClosingBanner
+    eyebrow="Get the app"
+    title="Ready to hear your music bit for bit?"
+    description="Install the app from Google Play and connect your DAC."
+    primaryHref={site.playUrl}
+    primaryLabel="Get it on Google Play"
+    primaryExternal={true}
+    secondaryHref={withBase('/faq')}
+    secondaryLabel="Read the FAQ"
+  />
+</ContentLayout>

@@ -66,8 +66,9 @@ export const site = {
  */
 export const nav = [
   { label: "Features", href: "/features" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/faq" },
   { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
 ];
 
 /**
@@ -102,8 +103,8 @@ export const pro = {
   plans: {
     founder: {
       id: "founder",
-      name: "Limited Founder Offer",
-      badge: "LIMITED FOUNDER OFFER · ENDS MAY 31, 2027",
+      name: "Founder offer",
+      badge: "FOUNDER OFFER · SUBSCRIBE BY MAY 31, 2027",
       price: 19.95,
       perMonth: "1.66",
       currency: "$",
@@ -113,7 +114,7 @@ export const pro = {
     },
     standard: {
       id: "standard",
-      name: "Standard Annual Plan",
+      name: "Standard annual plan",
       badge: "STANDARD ANNUAL PLAN",
       price: 29.95,
       perMonth: "2.50",
@@ -186,15 +187,15 @@ export const pro = {
   unlocks: [
     {
       name: "Every feature, no tiers",
-      desc: "Bit-perfect USB output, the 32-band parametric EQ, the DSP rack, the local library, casting and receiver mode. One subscription carries all of it.",
+      desc: "Bit-perfect USB output, 32-band parametric EQ, DSP rack, local library, casting and receiver mode. One subscription covers all of it.",
     },
     {
       name: "AI Enhancer",
-      desc: "Optional on-device restoration for 44.1 and 48 kHz material, running on your phone's own hardware. Off by default.",
+      desc: "Rebuilds high frequencies in 44.1 and 48 kHz files, on your phone. Off by default. Full model on a supported neural chip; Lite mode on other phones.",
     },
     {
       name: "Sonic Scan and Similar Tracks",
-      desc: "On-device analysis of your library to find similar tracks and build a queue that flows, entirely offline. Your subscription funds the independent development behind it.",
+      desc: "Finds similar tracks in your library and builds matching queues. Runs offline after a one-time download.",
     },
   ],
   /**
@@ -204,8 +205,11 @@ export const pro = {
    * caveat and the fact that no money changes hands on this site.
    */
   disclosures: [
-    "Prices in USD. Google Play sets the local currency equivalent upon checkout.",
+    "Prices in USD. Google Play sets the local currency equivalent at checkout.",
     "Purchased in the app through Google Play billing. This site takes no payment and collects no card details.",
+    "Five devices included; more devices are a paid in-app add-on.",
+    "Cancel during the trial and you pay nothing.",
+    "Cancel anytime in Google Play Subscriptions.",
   ],
 };
 
@@ -251,24 +255,24 @@ export const compatibility = [
     /* Four middots on one line read as a spec strip rather than as a sentence.
        The neighbouring rows are written as prose; this one now is too. */
     scope: "Playback, bit-perfect USB, EQ, casting and the DSP rack",
-    devices: "Every phone on Android 8.0 or newer",
+    devices: "Android 8.0 or newer",
     note: "One download covers every supported phone.",
     level: "universal",
   },
   {
     id: "ai-library",
     what: "Sonic Scan and Similar Tracks",
-    scope: "Local library analysis and acoustic similarity",
-    devices: "Every phone on Android 8.0 or newer",
-    note: "Needs no special chip. Works offline after a one-time model download.",
+    scope: "Local library analysis",
+    devices: "Android 8.0 or newer",
+    note: "Works offline after a one-time model download.",
     level: "universal",
   },
   {
     id: "ai-enhancer",
     what: "AI Enhancer",
-    scope: "Real-time 14 to 22 kHz restoration on 44.1 and 48 kHz audio",
+    scope: "Rebuilds 14 to 22 kHz band live on 44.1 and 48 kHz files. Off by default.",
     devices: "Android 8.0 or newer, best on a supported neural chip",
-    note: "Phones with a supported neural chip run the full model. Other phones run a lighter model on the processor, if it can keep up in real time.",
+    note: "Full model on a supported neural chip; Lite mode on other phones.",
     level: "npu",
   },
 ];

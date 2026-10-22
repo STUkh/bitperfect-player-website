@@ -55,7 +55,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 ## Previews
 
 - Written against the real props. The no-prop landing bands have one `Default` cell.
-- States that come from behaviour are produced by the behaviour: `TechnicalCatalog`'s `FilteredToDsp` clicks a filter tab after mount.
+- States that come from behaviour are produced by the behaviour (mount it, then drive it in a `useEffect`), never faked with classes.
 - `Header` is `position: fixed`; the card frame (`transform: translateZ(0)`) is its containing block. `cfg.overrides.Header` is `single` because the validator flags fixed content in a grid. The burger state cannot be shown: the card viewport is 1280 and `lg:` follows the viewport.
 - `LegalDocument` cells wrap the document in LegalLayout's `.prose-legal` article.
 - The dark area under short cells is the site's `html` background, not the component. Footer and HoldingPage print the capture browser's year.
@@ -87,3 +87,10 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 - esbuild does not type-check previews: a missing required prop (e.g. `ClosingBanner`'s `eyebrow`) renders silently wrong instead of failing.
 - Measures, extra tracking steps and extra radii are arbitrary values, not tokens (DESIGN.md says so since 2026-10-22). Name a token in `conventions.md` only once it exists in `global.css`.
 - `HoldingPage`, `Icon`, `PhoneNowPlaying` and `Surface` live outside the group folders; they are mapped to `landing` (HoldingPage) and `common` (the rest).
+
+## Templates (Claude Design `templates/`)
+
+- The project's templates are owned by the repo: `.design-sync/templates/<folder>/` (`tech-index`, `capability-page`, `design-system-guide`), each with `<Name>.dc.html` + copies of `_shared/ds-base.js` and `_shared/support.js`. They compose the real components (`x-import component-from-global-scope="BitperfectPlayer.<Name>"`), so they follow the code; never hand-write a lookalike. Code wins over any template.
+- The converter does not know them: after the driver run, `cp -R .design-sync/templates/<folder> ds-bundle/templates/` for each folder, then upload `templates/**` with the rest. Delete a template in the project when its folder leaves the repo.
+- Header/Footer take `pathname` (not `current-path`). The `Cannot set properties of undefined (setting 'jsx')` console error comes from ds-base.js loading the bundle before React once; the second load renders.
+- `.design-sync/validate-conventions.py` (run from the repo root after a build) must print `[]`: every name in conventions.md exists in the bundle.

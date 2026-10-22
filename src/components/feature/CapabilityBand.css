@@ -1,0 +1,41 @@
+/* ── The capability band's grounds ──
+   Graphite: the page header's dither grain, faint, so a large flat field does not
+   read as a screen. The opening band adds the header's overhead wash on the
+   raised surface, so the page opens on the same plate as every other inner page.
+   Ivory: the statement band's fine grid, hung from the corner the phone sits in
+   and dying out before it reaches the copy. */
+.ground-capability-graphite {
+  --ground-image: url('/grounds/dither.svg');
+  --ground-size: 600px 300px;
+  --ground-repeat: repeat;
+  --ground-opacity: 0.32;
+}
+.capability-band-opening {
+  --ground-opacity: 0.5;
+  background-color: var(--color-surface-raised);
+  background-image: radial-gradient(
+    ellipse 110% 90% at 50% -20%,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.015) 48%,
+    transparent 75%
+  );
+}
+.ground-capability-ivory {
+  --ground-image:
+    linear-gradient(rgba(23, 23, 23, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.05) 1px, transparent 1px);
+  --ground-size: 44px 44px;
+  --ground-position: left top;
+  --ground-repeat: repeat;
+  --ground-mask: radial-gradient(44% 80% at 8% 0%, #000 0%, transparent 100%);
+}
+.ground-capability-ivory[data-media='right'] {
+  --ground-position: right top;
+  --ground-mask: radial-gradient(44% 80% at 92% 0%, #000 0%, transparent 100%);
+}
+@media (max-width: 1023px) {
+  .ground-capability-ivory,
+  .ground-capability-ivory[data-media='right'] {
+    --ground-mask: radial-gradient(90% 36% at 100% 100%, #000 0%, transparent 100%);
+  }
+}

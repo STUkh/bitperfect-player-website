@@ -34,7 +34,7 @@ const plans = [
     points: [
       t('pricing.founder_renewal'),
       t('pricing.founder_expiry'),
-      t('pricing.founder_trial'),
+      t('pricing.founder_trial', { days: trialDays ?? 14 }),
       t('pricing.standard_devices'),
     ],
     cta: t('pricing.founder_cta'),
