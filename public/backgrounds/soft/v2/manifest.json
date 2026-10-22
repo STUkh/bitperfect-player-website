@@ -1,0 +1,329 @@
+{
+  "version": 2,
+  "width": 128,
+  "height": 128,
+  "format": "WebP RGBA, RGB q80, alpha q100",
+  "totalBytes": 79202,
+  "concepts": [
+    {
+      "id": "01",
+      "family": "edge",
+      "title": "Тёплый край",
+      "description": "Мягкое тепло справа, спокойный центр.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/01-dark.webp",
+          "bytes": 1730
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/01-light.webp",
+          "bytes": 1572
+        }
+      }
+    },
+    {
+      "id": "02",
+      "family": "edge",
+      "title": "Фарфоровый свет",
+      "description": "Светлая полоса вдоль края без видимого источника.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/02-dark.webp",
+          "bytes": 1734
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/02-light.webp",
+          "bytes": 1542
+        }
+      }
+    },
+    {
+      "id": "03",
+      "family": "edge",
+      "title": "Верхний рассеянный свет",
+      "description": "Воздух у верхнего правого края.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/03-dark.webp",
+          "bytes": 1662
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/03-light.webp",
+          "bytes": 1478
+        }
+      }
+    },
+    {
+      "id": "04",
+      "family": "edge",
+      "title": "Нижний отсвет",
+      "description": "Приглушённый тёплый отсвет снизу.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/04-dark.webp",
+          "bytes": 1776
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/04-light.webp",
+          "bytes": 1564
+        }
+      }
+    },
+    {
+      "id": "05",
+      "family": "edge",
+      "title": "Свет с двух сторон",
+      "description": "Разные по силе мягкие поля у краёв.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/05-dark.webp",
+          "bytes": 2272
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/05-light.webp",
+          "bytes": 2080
+        }
+      }
+    },
+    {
+      "id": "06",
+      "family": "depth",
+      "title": "Дымчатая глубина",
+      "description": "Мягкая тень справа вместо предметного фона.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/06-dark.webp",
+          "bytes": 2154
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/06-light.webp",
+          "bytes": 1856
+        }
+      }
+    },
+    {
+      "id": "07",
+      "family": "depth",
+      "title": "Тихий центр",
+      "description": "Едва заметная глубина вокруг чистого поля.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/07-dark.webp",
+          "bytes": 2600
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/07-light.webp",
+          "bytes": 2228
+        }
+      }
+    },
+    {
+      "id": "08",
+      "family": "depth",
+      "title": "Матовый воздух",
+      "description": "Большое нейтральное поле с небольшой глубиной.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/08-dark.webp",
+          "bytes": 2166
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/08-light.webp",
+          "bytes": 1854
+        }
+      }
+    },
+    {
+      "id": "09",
+      "family": "depth",
+      "title": "Дальний свет",
+      "description": "Два широких поля с разной температурой.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/09-dark.webp",
+          "bytes": 2486
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/09-light.webp",
+          "bytes": 2196
+        }
+      }
+    },
+    {
+      "id": "10",
+      "family": "depth",
+      "title": "Мягкий горизонт",
+      "description": "Широкий спокойный отсвет, без линии горизонта.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/10-dark.webp",
+          "bytes": 1576
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/10-light.webp",
+          "bytes": 1442
+        }
+      }
+    },
+    {
+      "id": "11",
+      "family": "diagonal",
+      "title": "Косой дневной свет",
+      "description": "Диагональный свет у правого края.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/11-dark.webp",
+          "bytes": 1900
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/11-light.webp",
+          "bytes": 1672
+        }
+      }
+    },
+    {
+      "id": "12",
+      "family": "diagonal",
+      "title": "Тёплая диагональ",
+      "description": "Рассеянное тепло снизу справа.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/12-dark.webp",
+          "bytes": 1862
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/12-light.webp",
+          "bytes": 1692
+        }
+      }
+    },
+    {
+      "id": "13",
+      "family": "diagonal",
+      "title": "Боковая тень",
+      "description": "Длинная мягкая тень слева.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/13-dark.webp",
+          "bytes": 1780
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/13-light.webp",
+          "bytes": 1644
+        }
+      }
+    },
+    {
+      "id": "14",
+      "family": "diagonal",
+      "title": "Перекрёстный свет",
+      "description": "Два сдержанных световых направления.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/14-dark.webp",
+          "bytes": 2324
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/14-light.webp",
+          "bytes": 2146
+        }
+      }
+    },
+    {
+      "id": "15",
+      "family": "diagonal",
+      "title": "Открытое поле",
+      "description": "Небольшой отсвет обрамляет свободный центр.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/15-dark.webp",
+          "bytes": 2524
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/15-light.webp",
+          "bytes": 2214
+        }
+      }
+    },
+    {
+      "id": "16",
+      "family": "warmth",
+      "title": "Ореховый полутон",
+      "description": "Тёплый древесный оттенок без текстуры дерева.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/16-dark.webp",
+          "bytes": 1990
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/16-light.webp",
+          "bytes": 1742
+        }
+      }
+    },
+    {
+      "id": "17",
+      "family": "warmth",
+      "title": "Льняной полутон",
+      "description": "Мягкий нейтральный оттенок натуральной ткани.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/17-dark.webp",
+          "bytes": 2332
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/17-light.webp",
+          "bytes": 2060
+        }
+      }
+    },
+    {
+      "id": "18",
+      "family": "warmth",
+      "title": "Тёплая бумага",
+      "description": "Едва заметное тепло у противоположных краёв.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/18-dark.webp",
+          "bytes": 2416
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/18-light.webp",
+          "bytes": 2124
+        }
+      }
+    },
+    {
+      "id": "19",
+      "family": "warmth",
+      "title": "Графит и медь",
+      "description": "Медный полутон остаётся только на периферии.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/19-dark.webp",
+          "bytes": 2212
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/19-light.webp",
+          "bytes": 2024
+        }
+      }
+    },
+    {
+      "id": "20",
+      "family": "warmth",
+      "title": "Вечерний воздух",
+      "description": "Спокойное тёплое поле с глубокой мягкой тенью.",
+      "variants": {
+        "dark": {
+          "src": "backgrounds/soft/v2/20-dark.webp",
+          "bytes": 2416
+        },
+        "light": {
+          "src": "backgrounds/soft/v2/20-light.webp",
+          "bytes": 2160
+        }
+      }
+    }
+  ]
+}

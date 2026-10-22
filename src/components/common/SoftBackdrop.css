@@ -1,0 +1,44 @@
+/* Static, already-soft 128px alpha fields. No filter, forced layer or animation. */
+.soft-surface {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--soft-base, #1c1b21);
+  color: var(--soft-ink, #f5f4f1);
+}
+.soft-surface[data-soft-theme='dark'] {
+  --soft-base: #1c1b21;
+  --soft-ink: #f5f4f1;
+  --soft-muted: #c0bdc2;
+}
+.soft-surface[data-soft-theme='light'] {
+  --soft-base: #fff;
+  --soft-ink: #242320;
+  --soft-muted: #625d57;
+}
+.soft-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.soft-backdrop img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* These are normalized fields, not photographs. Stretch retains transparent edges. */
+  object-fit: fill;
+  opacity: var(--soft-strength, 1);
+}
+/* A transition must be placed BETWEEN sections, not as an overlap over their copy. */
+.soft-bridge {
+  --soft-from: #1c1b21;
+  --soft-to: #fff;
+  height: clamp(112px, 12vw, 200px);
+  background: linear-gradient(to bottom, var(--soft-from), var(--soft-to));
+}
+@supports (background: linear-gradient(in oklab, black, white)) {
+  .soft-bridge {
+    background: linear-gradient(to bottom in oklab, var(--soft-from), var(--soft-to));
+  }
+}

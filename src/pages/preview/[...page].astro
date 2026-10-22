@@ -11,12 +11,13 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/common/Container';
-import Home from '../_index.astro';
+import Home from '../index.astro';
+import BackgroundConcepts from '../../components/preview/BackgroundConcepts.astro';
 import { featureRoutes } from '../../data/navigation';
 
 export function getStaticPaths() {
   if (!import.meta.env.DEV) return [];
-  return [{ params: { page: undefined } }, { params: { page: 'home' } }];
+  return [{ params: { page: undefined } }, { params: { page: 'home' } }, { params: { page: 'backgrounds' } }];
 }
 
 const { page } = Astro.params;
@@ -26,6 +27,7 @@ const groups = [
     title: 'Parked home page',
     links: [
       { href: '/preview/home', label: 'Full landing page' },
+      { href: '/preview/backgrounds', label: '20 CTA background concepts' },
       { href: '/preview/home#pricing', label: 'Pricing (Founder and Standard)' },
       { href: '/preview/home#features', label: 'Features teaser' },
       { href: '/', label: 'Live / (the holding page)' },
@@ -51,7 +53,9 @@ const groups = [
 ];
 ---
 
-{page === 'home' ? (
+{page === 'backgrounds' ? (
+  <BackgroundConcepts />
+) : page === 'home' ? (
   <Home />
 ) : (
   <BaseLayout title="Preview" description="Dev-only page index.">

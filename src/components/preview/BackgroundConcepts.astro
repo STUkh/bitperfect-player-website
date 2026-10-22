@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SoftBackdrop from '../common/SoftBackdrop.astro';
+import Button from '../common/Button';
+import { backgroundConcepts, backgroundFamilies } from '../../data/backgroundConcepts';
+import { withBase } from '../../utils/nav';
+import { site } from '../../data/site';
+
+const initial = backgroundConcepts[0];
+const themes = ['dark', 'light'] as const;
+const totalBytes = backgroundConcepts.reduce((sum, item) => sum + item.variants.dark.bytes + item.variants.light.bytes, 0);
+---
+
+<BaseLayout title="Soft background concepts" description="Twenty paired light and dark background studies using small transparent WebP fields." noindex={true}>
+  <main id="main-content" class="studies" data-studies data-view="pair">
+    <header class="intro wrap">
+      <a href={withBase('preview')}>Все страницы предпросмотра</a>
+      <h1>Свет и глубина.<br />Без лишней картинки.</h1>
+      <p>20 новых композиций для белых и тёмных блоков. Только мягкие цветовые поля: без комнат, предметов и фотографической текстуры.</p>
+      <p class="technical">40 WebP RGBA · 128×128 · {(totalBytes / 1024).toFixed(1)} КБ за весь набор · без blur во время показа</p>
+    </header>
+
+    <div class="toolbar wrap">
+      <p class="current" aria-live="polite" aria-atomic="true"><span data-current-id>{initial.id}</span> <strong data-current-title>{initial.title}</strong></p>
+      <div class="controls">
+        <label>Просмотр <select data-view-select><option value="pair">Светлый и тёмный</option><option value="dark">Только тёмный</option><option value="light">Только светлый</option></select></label>
+        <label>Композиция <select data-layout><option value="center">По центру</option><option value="left">Слева</option></select></label>
+        <label class="intensity">Интенсивность <output data-strength-value>100%</output><input data-strength type="range" min="0" max="100" step="5" value="100" aria-label="Интенсивность цветовых полей" /></label>
+      </div>
+    </div>
+
+    <div class="pair-grid" data-demo>
+      {themes.map((theme) => (
+        <section class="demo-panel soft-surface" data-soft-theme={theme} aria-label={theme === 'dark' ? 'Тёмный CTA' : 'Светлый CTA'}>
+          <SoftBackdrop variant={initial.id} theme={theme} />
+          <div class="demo-content">
+            <h2>Ready to hear your music bit for bit?</h2>
+            <p>Install the app from Google Play and connect your DAC.</p>
+            <div class="demo-actions">
+              <Button href={site.playUrl} variant="primary" size="lg" rel="noopener noreferrer">Get it on Google Play</Button>
+              <a href={withBase('faq')}>Read the FAQ</a>
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <section class="seams wrap" aria-labelledby="seams-heading">
+      <div class="section-heading"><h2 id="seams-heading">Как фон встречается с соседней секцией</h2><label>Стык <select data-seam><option value="same">На одной основе</option><option value="mixed">Тёмный → белый</option></select></label></div>
+      <p class="note">Прозрачные края исчезают в цвете секции. Между разными темами нужен переход самого цвета основы.</p>
+      <div class="seam-example" data-seam-example data-mode="same">
+        <div class="seam-plain seam-dark"><span>Предыдущая секция</span></div>
+        <section class="seam-field soft-surface" data-soft-theme="dark"><SoftBackdrop variant={initial.id} theme="dark" /><p>Your music, bit for bit.</p></section>
+        <div class="soft-bridge" data-bridge aria-hidden="true" hidden></div>
+        <section class="seam-field soft-surface seam-next" data-soft-theme="dark"><SoftBackdrop variant={initial.id} theme="dark" /><p>A little more room to listen.</p></section>
+        <div class="seam-plain seam-tail"><span>Следующая секция</span></div>
+      </div>
+    </section>
+
+    <section class="catalog wrap" aria-labelledby="catalog-title">
+      <div class="section-heading"><h2 id="catalog-title">20 новых вариантов, две темы</h2><label>Показать <select data-family><option value="all">Все направления</option>{Object.entries(backgroundFamilies).map(([key, label]) => <option value={key}>{label}</option>)}</select></label></div>
+      <p class="note">В каждой миниатюре — один рисунок в тёмной и светлой версии. Старые фотографические фоны больше не используются в этой галерее.</p>
+      <div class="study-grid">
+        {backgroundConcepts.map((concept) => (
+          <button type="button" class="study-option" data-concept={concept.id} data-title={concept.title} data-family-name={concept.family} data-dark={withBase(concept.variants.dark.src)} data-light={withBase(concept.variants.light.src)} aria-pressed={concept.id === initial.id ? 'true' : 'false'} aria-label={`${concept.id}. ${concept.title}. ${concept.description}`}>
+            <span class="paired-thumbnail" aria-hidden="true">
+              {themes.map((theme) => <span class="mini soft-surface" data-soft-theme={theme}><SoftBackdrop variant={concept.id} theme={theme} /><span>Your music,<br />bit for bit.</span><span class="mini-key">Get the app</span></span>)}
+            </span>
+            <span class="option-name"><span>{concept.id}</span> {concept.title}</span>
+            <span class="option-note">{backgroundFamilies[concept.family]} · {concept.variants.dark.bytes + concept.variants.light.bytes} Б за пару</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-studies]');
+  if (root) {
+    const options = [...root.querySelectorAll<HTMLButtonElement>('[data-concept]')];
+    const demo = root.querySelector<HTMLElement>('[data-demo]')!;
+    const seam = root.querySelector<HTMLElement>('[data-seam-example]')!;
+    const idLabel = root.querySelector<HTMLElement>('[data-current-id]')!;
+    let selected = options[0];
+    let version = 0;
+
+    function setSeam() {
+      const mixed = root!.querySelector<HTMLSelectElement>('[data-seam]')!.value === 'mixed';
+      seam.dataset.mode = mixed ? 'mixed' : 'same';
+      root!.querySelector<HTMLElement>('[data-bridge]')!.hidden = !mixed;
+      const next = seam.querySelector<HTMLElement>('.seam-next')!;
+      next.dataset.softTheme = mixed ? 'light' : 'dark';
+      next.querySelector<HTMLImageElement>('img')!.src = mixed ? selected.dataset.light! : selected.dataset.dark!;
+    }
+
+    async function selectConcept(option: HTMLButtonElement, updateHash = true) {
+      const request = ++version;
+      demo.setAttribute('aria-busy', 'true');
+      try {
+        await Promise.all(['dark', 'light'].map(async (theme) => { const image = new Image(); image.src = option.dataset[theme]!; await image.decode(); }));
+      } catch {
+        if (request === version) { demo.setAttribute('aria-busy', 'false'); root!.querySelector<HTMLElement>('[data-current-title]')!.textContent = 'Не удалось загрузить вариант. Попробуйте ещё раз.'; }
+        return;
+      }
+      if (request !== version) return;
+      selected = option;
+      for (const surface of [...demo.querySelectorAll<HTMLElement>('[data-soft-theme]'), ...seam.querySelectorAll<HTMLElement>('[data-soft-theme]')]) {
+        surface.querySelector<HTMLImageElement>('img')!.src = option.dataset[surface.dataset.softTheme!]!;
+      }
+      idLabel.textContent = option.dataset.concept!;
+      root!.querySelector<HTMLElement>('[data-current-title]')!.textContent = option.dataset.title!;
+      options.forEach((item) => item.setAttribute('aria-pressed', String(item === option)));
+      setSeam();
+      demo.setAttribute('aria-busy', 'false');
+      if (updateHash) history.replaceState(null, '', `#soft-${option.dataset.concept}`);
+    }
+    options.forEach((option) => option.addEventListener('click', () => selectConcept(option)));
+    root.querySelector<HTMLSelectElement>('[data-view-select]')!.addEventListener('change', (event) => { root.dataset.view = (event.target as HTMLSelectElement).value; });
+    root.querySelector<HTMLSelectElement>('[data-layout]')!.addEventListener('change', (event) => { demo.classList.toggle('layout-left', (event.target as HTMLSelectElement).value === 'left'); });
+    const strength = root.querySelector<HTMLInputElement>('[data-strength]')!;
+    strength.addEventListener('input', () => {
+      root.style.setProperty('--soft-strength', String(Number(strength.value) / 100));
+      root.querySelector<HTMLOutputElement>('[data-strength-value]')!.value = `${strength.value}%`;
+    });
+    root.querySelector<HTMLSelectElement>('[data-family]')!.addEventListener('change', (event) => {
+      const value = (event.target as HTMLSelectElement).value;
+      options.forEach((option) => { option.hidden = value !== 'all' && option.dataset.familyName !== value; });
+    });
+    root.querySelector<HTMLSelectElement>('[data-seam]')!.addEventListener('change', setSeam);
+    const restoreHash = () => { const id = location.hash.match(/^#(?:soft|bg)-(\d{2})$/)?.[1]; const option = options.find((item) => item.dataset.concept === id); if (option) selectConcept(option, false); };
+    restoreHash();
+    window.addEventListener('hashchange', restoreHash);
+  }
+</script>
+
+<style>
+  .studies { --soft-strength: 1; background: #f5f4f1; color: #242320; padding-block: 48px 80px; }
+  .wrap { width: min(1280px, calc(100% - 48px)); margin-inline: auto; }
+  .intro { padding-block: 24px 32px; }
+  .intro > a { color: #625d57; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+  h1 { max-width: 22ch; margin-top: 28px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; font-weight: 650; letter-spacing: -0.035em; text-wrap: balance; }
+  .intro p { max-width: 70ch; margin-top: 18px; color: #625d57; line-height: 1.7; }
+  .intro .technical { font-size: 13px; }
+  .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid #d6d2ca; padding-block: 18px; }
+  .current { display: flex; gap: 12px; align-items: baseline; }
+  [data-current-id], .option-name > span { font-variant-numeric: tabular-nums; color: #625d57; }
+  .controls { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  label { display: flex; gap: 10px; align-items: center; color: #625d57; font-size: 13px; }
+  select { color: #242320; background: transparent; border: 0; border-bottom: 1px solid #a39d92; padding: 9px 18px 9px 4px; min-height: 44px; cursor: pointer; }
+  .intensity { display: grid; grid-template-columns: auto auto; gap: 3px 8px; }
+  .intensity input { grid-column: 1 / -1; width: 140px; accent-color: #74562b; cursor: pointer; }
+  output { font-variant-numeric: tabular-nums; text-align: right; min-width: 4ch; }
+  .pair-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .demo-panel { display: grid; place-items: center; padding: 80px 40px; min-height: 440px; }
+  .demo-content { width: 100%; max-width: 680px; text-align: center; }
+  .demo-content h2 { font-size: clamp(1.75rem, 3vw, 3rem); font-weight: 650; line-height: 1.14; letter-spacing: -0.03em; max-width: 20ch; margin-inline: auto; text-wrap: balance; }
+  .demo-content > p { margin: 20px auto 0; max-width: 44ch; line-height: 1.65; color: var(--soft-muted); }
+  .demo-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 30px; }
+  .demo-actions > a:not(:global(.btn-primary-gradient)) { color: var(--soft-ink); text-decoration: underline; text-underline-offset: 4px; padding-block: 12px; }
+  .layout-left .demo-content { text-align: left; }
+  .layout-left .demo-content :is(h2, p) { margin-left: 0; }
+  .layout-left .demo-actions { justify-content: flex-start; }
+  .studies[data-view='dark'] .demo-panel[data-soft-theme='light'], .studies[data-view='light'] .demo-panel[data-soft-theme='dark'] { display: none; }
+  .studies:not([data-view='pair']) .pair-grid { grid-template-columns: 1fr; }
+  .seams, .catalog { padding-top: 48px; }
+  .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .section-heading h2 { font-size: 24px; line-height: 1.2; font-weight: 650; letter-spacing: -0.025em; }
+  .note { max-width: 80ch; color: #625d57; font-size: 14px; line-height: 1.65; margin-block: 12px 24px; }
+  .seam-example { --seam-tail: #1c1b21; --seam-tail-ink: #c0bdc2; }
+  .seam-example[data-mode='mixed'] { --seam-tail: #fff; --seam-tail-ink: #625d57; }
+  .seam-plain { text-align: center; padding: 26px 20px; font-size: 13px; }
+  .seam-dark { background: #1c1b21; color: #c0bdc2; }
+  .seam-tail { background: var(--seam-tail); color: var(--seam-tail-ink); }
+  .seam-field { text-align: center; padding: 48px 24px; }
+  .seam-field p { font-size: clamp(24px, 3vw, 36px); font-weight: 600; letter-spacing: -0.02em; }
+  .study-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 24px; }
+  .study-option { padding: 0; background: transparent; border: 0; color: inherit; text-align: left; cursor: pointer; min-width: 0; }
+  .study-option[hidden] { display: none; }
+  .paired-thumbnail { display: grid; grid-template-columns: 1fr 1fr; aspect-ratio: 2 / 1; }
+  .mini { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px; }
+  .mini > span:not(:global(.soft-backdrop)) { position: relative; }
+  .mini > span:first-of-type + span { font-size: clamp(12px, 1.25vw, 18px); font-weight: 650; line-height: 1.2; letter-spacing: -0.02em; }
+  .mini-key { margin-top: 15px; padding: 5px 10px; background: #e5bc66; color: #242320; border-radius: 99px; font-size: 9px; font-weight: 600; }
+  .option-name { display: block; padding-top: 13px; font-weight: 600; font-size: 14px; }
+  .option-name > span { margin-right: 5px; font-weight: 400; }
+  .option-note { display: block; color: #625d57; font-size: 12px; margin-top: 4px; }
+  .study-option[aria-pressed='true'] .paired-thumbnail { outline: 2px solid #896632; outline-offset: 4px; }
+  :is(a, button, select, input):focus-visible { outline: 2px solid #896632; outline-offset: 5px; }
+  @media (max-width: 1050px) { .toolbar { flex-direction: column; align-items: flex-start; gap: 12px; } .demo-panel { padding: 60px 24px; } }
+  @media (max-width: 760px) { .pair-grid { grid-template-columns: 1fr; } .study-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .section-heading { flex-direction: column; align-items: flex-start; gap: 12px; } }
+  @media (max-width: 540px) { .studies { padding-top: 20px; } .wrap { width: calc(100% - 40px); } .controls { gap: 12px 20px; } .controls label { flex-wrap: wrap; } .study-grid { grid-template-columns: 1fr; } .demo-panel { min-height: 410px; } .mini > span:first-of-type + span { font-size: 20px; } }
+</style>

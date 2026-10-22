@@ -1,0 +1,16 @@
+---
+import { backgroundConcepts, type BackgroundTheme } from '../../data/backgroundConcepts';
+import { withBase } from '../../utils/nav';
+import './SoftBackdrop.css';
+
+interface Props {
+  variant?: string;
+  theme?: BackgroundTheme;
+}
+const { variant = '01', theme = 'dark' } = Astro.props;
+const concept = backgroundConcepts.find((item) => item.id === variant) ?? backgroundConcepts[0];
+---
+
+<span class="soft-backdrop" aria-hidden="true">
+  <img src={withBase(concept.variants[theme].src)} width="128" height="128" alt="" loading="lazy" decoding="async" draggable="false" />
+</span>

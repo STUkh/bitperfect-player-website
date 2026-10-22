@@ -283,6 +283,1166 @@
    }
   }
  },
+ "img/concepts/cta/01.webp": {
+  "key": "65299eb3d422",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABQAwCdASogABIAPu1gqU2pqiQiMBgMAUAdiWkAznQWc0SHAAD+7hGqWQwFZqiwh24og6aNEuCYmjIAAAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/01-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/01-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/01-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/01-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/01-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/01-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/01-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/01-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/01-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/01-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/02.webp": {
+  "key": "e746bba0554d",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAABQAwCdASogABIAPu1kq0+zpSOiMBgIAnAdiWkAznQVXfTtsAD+7odezcwXbR990muAacyqIGc6lR4vbnzCdZtimM0uGhhjAAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/02-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/02-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/02-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/02-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/02-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/02-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/02-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/02-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/02-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/02-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/03.webp": {
+  "key": "36bcd3e09d8f",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAwCdASogABIAPu1sq1EppaOiqAqpMB2JaQDO7BWeBTgA/uyHzxpnxlbA2Up/9nYfRgAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/03-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/03-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/03-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/03-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/03-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/03-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/03-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/03-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/03-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/03-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/04.webp": {
+  "key": "0c024d9424d0",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAAAQAwCdASogABIAPu1sq08/tiOiMBgIA/AdiWkAADtnEiAA/uw/bLcfqOuTDfiB1sRwsiDAAAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/04-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/04-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/04-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/04-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/04-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/04-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/04-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/04-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/04-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/04-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/05.webp": {
+  "key": "26d408459c55",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAAAQAwCdASogABIAPu1usFIppiSiqAgBMB2JaQC4MBeJvWAA/u1jZ9ftuLvZOKUMDd2Ua/wAAAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/05-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/05-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/05-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/05-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/05-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/05-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/05-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/05-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/05-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/05-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/06.webp": {
+  "key": "166c4425ce10",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAAAwAwCdASogABIAPuFeqE2opSiiMAwBEBwJaQAAcZxbERwAAP7uhvepF1Bm4JVpDv5dQv4oCAAAAA=="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/06-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/06-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/06-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/06-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/06-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/06-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/06-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/06-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/06-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/06-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/07.webp": {
+  "key": "efdb2ed3f2dc",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAABQAwCdASogABIAPu1iqU2ppaQiMAgBMB2JaQDKACm79w6YMAD+7aLiqxij5dkeXn0KSeulifIQAA=="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/07-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/07-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/07-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/07-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/07-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/07-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/07-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/07-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/07-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/07-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/08.webp": {
+  "key": "e46a6d566aae",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAABQAwCdASogABIAPu1oqk+ppiOiKA1RMB2JaQDGQBXzKXDTgAD+7uGTpgR6sLCY8rMZyjcf5l2EAA=="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/08-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/08-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/08-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/08-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/08-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/08-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/08-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/08-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/08-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/08-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/09.webp": {
+  "key": "57c48636b33c",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABwAwCdASogABIAPu1ur1KppiQiqAgBMB2JaQAAKdQKz9DlvAAA/i3iKBFpOow9YiRSEnI7ZiQef4cAAAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/09-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/09-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/09-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/09-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/09-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/09-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/09-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/09-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/09-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/09-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/10.webp": {
+  "key": "3d36b29335bb",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADwAgCdASogABIAPu1mq02zpaQiMAgCcB2JaQAAdYeKAAD+7uNcfhzH9X/+aQ2lP4wAAA=="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/10-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/10-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/10-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/10-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/10-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/10-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/10-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/10-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/10-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/10-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/11.webp": {
+  "key": "9a59c0c58fdf",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAAAQAwCdASogABIAPu1wsVKppiSiqAgBMB2JaQDL4BaoJQAA/uy1WxRLuwPCAAAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/11-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/11-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/11-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/11-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/11-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/11-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/11-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/11-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/11-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/11-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/12.webp": {
+  "key": "cf48c546a2a6",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAAAQAwCdASogABIAPu1wsVKppiSiqAgBMB2JaQDPoBeA4wAA/u3g/S0z/GCBoVuWKAAAAA=="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/12-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/12-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/12-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/12-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/12-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/12-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/12-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/12-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/12-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/12-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/13.webp": {
+  "key": "2837e4dcf257",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAwAwCdASogABIAPu1qqFAppiOiqA1RMB2JZwDD6BahaNIAAP7vpSbrHCmLtvoANFNNJ/2zOps7pP9+xSptNK1bqT16AAAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/13-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/13-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/13-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/13-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/13-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/13-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/13-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/13-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/13-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/13-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/14.webp": {
+  "key": "20df6b8efcf5",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAwCdASogABIAPu1gp04ppTCvMBgMAhAdiWcAyRAPS5osKT3+AkAA/WVzQymNGKBl0TW/WBhVJ9Y8Cnzzl9LvmPPBITDLoAAAAA=="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/14-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/14-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/14-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/14-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/14-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/14-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/14-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/14-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/14-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/14-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/15.webp": {
+  "key": "df52d42a3b66",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAwCdASogABIAPu1srVEzpiQiqAqqcB2JaQDI1BWcR+AA/u5+VOvetqTJ6ThdYcLMEJ70FV/GYdtxZh29egAAAAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/15-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/15-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/15-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/15-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/15-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/15-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/15-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/15-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/15-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/15-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/16.webp": {
+  "key": "59755de80df1",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAwCdASogABIAPu1qrlCzpaQiqAqqcB2JZwDJEBXe7qAA/ur6SyT57dC83rWGQrLllVIzIreuwluMT0lCKPVEwAA="
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/16-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/16-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/16-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/16-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/16-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/16-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/16-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/16-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/16-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/16-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/17.webp": {
+  "key": "71fa98f561b1",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAwCdASogABIAPtlao02oJSMiN/qoAQAbCWkA0BgszdDb56RYAAD+7ts012BgAwTmdJ/55hosB0tLt5c5mfAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/17-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/17-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/17-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/17-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/17-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/17-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/17-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/17-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/17-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/17-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/18.webp": {
+  "key": "ca511a38d9c0",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAwCdASogABIAPu1sqlGppaQiqAqpMB2JaQDBkBXenWgA/u4Q3ZkVD6L1OLNuLaZSMIAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/18-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/18-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/18-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/18-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/18-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/18-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/18-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/18-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/18-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/18-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/19.webp": {
+  "key": "48aef63bbda8",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAAAwAwCdASogABIAPu1qqk8ppiOiMBgIATAdiWkAzFgVnknwAP7uU3r9FvDCciw2/fyGB/pCkWZ+mlfw9mfmoAAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/19-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/19-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/19-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/19-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/19-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/19-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/19-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/19-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/19-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/19-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
+ "img/concepts/cta/20.webp": {
+  "key": "76bea614f8de",
+  "w": 1920,
+  "h": 1080,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAAAQAwCdASogABIAPu1oqU+tJjEiKA1SIB2JZwDE2BYmIUAA/u0ex3h+nJ1DJsllkX+dbNbcEhC1KW+WamdPJAAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/concepts/cta/20-480.avif"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/20-768.avif"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/20-1080.avif"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/20-1440.avif"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/20-1920.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/concepts/cta/20-480.webp"
+     ],
+     [
+      768,
+      "_img/img/concepts/cta/20-768.webp"
+     ],
+     [
+      1080,
+      "_img/img/concepts/cta/20-1080.webp"
+     ],
+     [
+      1440,
+      "_img/img/concepts/cta/20-1440.webp"
+     ],
+     [
+      1920,
+      "_img/img/concepts/cta/20-1920.webp"
+     ]
+    ]
+   }
+  }
+ },
  "img/feature-ai-enhancer-interstitial.webp": {
   "key": "bd69db0e1c10",
   "w": 2560,

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "01",
+    "family": "room",
+    "title": "Графит и тумба",
+    "subject": "An almost uniform warm neutral charcoal surface, extremely fine matte tooth visible only at close inspection. The quietest baseline. No distinct light shape, edge, seam or pattern.",
+    "raw": "design/generated-backgrounds/01-raw.png",
+    "prompt": "Generate one standalone photographic background plate for a quiet premium audio-app website CTA, wide 16:9 composition, 1920x1080. Background only, NO typography, NO buttons, NO UI, no logo, no border, no collage. The reference direction is understated natural home listening: matte graphite, soft real light, very restrained warmth. Keep the central 65 percent width and central 70 percent height a nearly empty deep neutral warm graphite field suitable for white headline and pale body text. Dark values mainly around #202020 to #30302E, never pure black, no purple or blue cast. Very low visual contrast, no eye-catching detail. Any material or scene suggestion must live near the outer right or bottom margin, softly focused and subordinate. No gold, brass, decorative lines, grids, waves, circles, guilloche, geometric patterns, neon, glow, bloom, lens flare, glitter, vignette, hotspot, sharp texture, high contrast, orange fog, people, hands, audio hardware, phones, recognizable objects or product shots. Quiet editorial photograph, not a glossy 3D rendering. An almost uniform warm neutral charcoal surface, extremely fine matte tooth visible only at close inspection. The quietest baseline. No distinct light shape, edge, seam or pattern.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-6f161127-2b7e-4e5c-b626-082b8cab1634.png",
+    "webp": "public/img/concepts/cta/01.webp",
+    "concept": "design/background-concepts/01-cta.png"
+  },
+  {
+    "id": "02",
+    "family": "room",
+    "title": "Стена у стола",
+    "subject": "A flat deep charcoal mineral surface with a very soft velvety finish, slightly warmer than black, no visible fibers or recognizable texture. Subtle natural tonal life, almost uniform.",
+    "raw": "design/generated-backgrounds/02-raw.png",
+    "prompt": "Generate one standalone photographic background plate for a quiet premium audio-app website CTA, wide 16:9 composition, 1920x1080. Background only, NO typography, NO buttons, NO UI, no logo, no border, no collage. The reference direction is understated natural home listening: matte graphite, soft real light, very restrained warmth. Keep the central 65 percent width and central 70 percent height a nearly empty deep neutral warm graphite field suitable for white headline and pale body text. Dark values mainly around #202020 to #30302E, never pure black, no purple or blue cast. Very low visual contrast, no eye-catching detail. Any material or scene suggestion must live near the outer right or bottom margin, softly focused and subordinate. No gold, brass, decorative lines, grids, waves, circles, guilloche, geometric patterns, neon, glow, bloom, lens flare, glitter, vignette, hotspot, sharp texture, high contrast, orange fog, people, hands, audio hardware, phones, recognizable objects or product shots. Quiet editorial photograph, not a glossy 3D rendering. A flat deep charcoal mineral surface with a very soft velvety finish, slightly warmer than black, no visible fibers or recognizable texture. Subtle natural tonal life, almost uniform.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-f84957aa-25f0-41ff-8c85-96907e67ade6.png",
+    "webp": "public/img/concepts/cta/02.webp",
+    "concept": "design/background-concepts/02-cta.png"
+  },
+  {
+    "id": "03",
+    "family": "graphite",
+    "title": "Матовая штукатурка",
+    "subject": "A vast matte dark graphite plaster wall, extremely smooth and evenly lit. Barely perceptible fine plaster character, no mottling, stains or repeated texture. No visible room boundaries.",
+    "raw": "design/generated-backgrounds/03-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A vast matte dark graphite plaster wall, extremely smooth and evenly lit. Barely perceptible fine plaster character, no mottling, stains or repeated texture. No visible room boundaries.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-f8ab75ec-994e-477b-ba54-41aba7c6ac2f.png",
+    "webp": "public/img/concepts/cta/03.webp",
+    "concept": "design/background-concepts/03-cta.png"
+  },
+  {
+    "id": "04",
+    "family": "graphite",
+    "title": "Графитовый алюминий",
+    "subject": "A seamless sheet of satin bead-blasted dark graphite aluminium, no seams or machining lines, microscopic tooth only, one extremely diffuse reflection so faint it is nearly uniform.",
+    "raw": "design/generated-backgrounds/04-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A seamless sheet of satin bead-blasted dark graphite aluminium, no seams or machining lines, microscopic tooth only, one extremely diffuse reflection so faint it is nearly uniform.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-08d47147-85bf-4a8b-a37d-39744090d5d2.png",
+    "webp": "public/img/concepts/cta/04.webp",
+    "concept": "design/background-concepts/04-cta.png"
+  },
+  {
+    "id": "05",
+    "family": "graphite",
+    "title": "Тёмный умбра",
+    "subject": "A nearly uniform dark warm brown-charcoal matte surface, brown warmth extremely subdued, elegant natural umber undertone without visible wood grain, no shapes or borders.",
+    "raw": "design/generated-backgrounds/05-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A nearly uniform dark warm brown-charcoal matte surface, brown warmth extremely subdued, elegant natural umber undertone without visible wood grain, no shapes or borders.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-d7df7155-9ee9-49ff-a1f0-934c92a3ec0a.png",
+    "webp": "public/img/concepts/cta/05.webp",
+    "concept": "design/background-concepts/05-cta.png"
+  },
+  {
+    "id": "06",
+    "family": "light",
+    "title": "Свет справа",
+    "subject": "A matte charcoal wall with a single exceptionally broad very faint soft daylight lift entering from the far right, feathered naturally over the rightmost third; the left and center remain calm dark graphite. No visible circular pool.",
+    "raw": "design/generated-backgrounds/06-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A matte charcoal wall with a single exceptionally broad very faint soft daylight lift entering from the far right, feathered naturally over the rightmost third; the left and center remain calm dark graphite. No visible circular pool.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-69fb78dc-3898-41eb-84a0-6c8d75df02fc.png",
+    "webp": "public/img/concepts/cta/06.webp",
+    "concept": "design/background-concepts/06-cta.png"
+  },
+  {
+    "id": "07",
+    "family": "light",
+    "title": "Верхний дневной свет",
+    "subject": "A matte warm graphite wall, the faintest broad diffused daylight grazes the upper right edge and dies away before the center; no beam or sharp border, no visible source, no vignette.",
+    "raw": "design/generated-backgrounds/07-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A matte warm graphite wall, the faintest broad diffused daylight grazes the upper right edge and dies away before the center; no beam or sharp border, no visible source, no vignette.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-317765f1-632d-4b47-b3f3-57d701bbe441.png",
+    "webp": "public/img/concepts/cta/07.webp",
+    "concept": "design/background-concepts/07-cta.png"
+  },
+  {
+    "id": "08",
+    "family": "light",
+    "title": "Тёплый нижний свет",
+    "subject": "Deep neutral charcoal with a barely perceptible broad low warm illumination along the bottom right edge, as distant soft room light reflecting from walnut. No orange wash or halo, main field remains graphite.",
+    "raw": "design/generated-backgrounds/08-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: Deep neutral charcoal with a barely perceptible broad low warm illumination along the bottom right edge, as distant soft room light reflecting from walnut. No orange wash or halo, main field remains graphite.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-7fa98745-f93f-4d43-9c62-572e5aca2d79.png",
+    "webp": "public/img/concepts/cta/08.webp",
+    "concept": "design/background-concepts/08-cta.png"
+  },
+  {
+    "id": "09",
+    "family": "light",
+    "title": "Боковой рассеянный свет",
+    "subject": "A smooth dark graphite wall with extremely soft broad natural side-light from the left outer edge, a subtle flat reflection with no hotspot; center holds dark neutral charcoal, far right quiet.",
+    "raw": "design/generated-backgrounds/09-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A smooth dark graphite wall with extremely soft broad natural side-light from the left outer edge, a subtle flat reflection with no hotspot; center holds dark neutral charcoal, far right quiet.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-6343d687-bab0-4f9f-8dd4-b9fd23cdb53f.png",
+    "webp": "public/img/concepts/cta/09.webp",
+    "concept": "design/background-concepts/09-cta.png"
+  },
+  {
+    "id": "10",
+    "family": "light",
+    "title": "Диагональный свет",
+    "subject": "A dark matte charcoal surface receiving the faintest broad diagonal ambient daylight from upper right to lower left, no visible ray or edge, restrained tonal difference, realistic light on material.",
+    "raw": "design/generated-backgrounds/10-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A dark matte charcoal surface receiving the faintest broad diagonal ambient daylight from upper right to lower left, no visible ray or edge, restrained tonal difference, realistic light on material.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-0dd4d662-524d-4e11-9dcd-6337fd13335d.png",
+    "webp": "public/img/concepts/cta/10.webp",
+    "concept": "design/background-concepts/10-cta.png"
+  },
+  {
+    "id": "11",
+    "family": "graphite",
+    "title": "Чистый графит",
+    "subject": "A completely empty flat uniform matte warm neutral graphite surface, a single uninterrupted near-solid background. No room, no wall/floor junction, no furniture, no props, no plants, no recognizable scene, no gradients or shadow shapes. Microscopic matte tooth only. Pure material study, absolutely nothing else.",
+    "raw": "design/generated-backgrounds/11-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A completely empty flat uniform matte warm neutral graphite surface, a single uninterrupted near-solid background. No room, no wall/floor junction, no furniture, no props, no plants, no recognizable scene, no gradients or shadow shapes. Microscopic matte tooth only. Pure material study, absolutely nothing else.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-198f8d0c-b57c-4234-95c4-e36f001c3640.png",
+    "webp": "public/img/concepts/cta/11.webp",
+    "concept": "design/background-concepts/11-cta.png"
+  },
+  {
+    "id": "12",
+    "family": "graphite",
+    "title": "Угольный бархат",
+    "subject": "A completely empty seamless satin dark charcoal material, barely perceptible velvety finish. No room, furniture, props, plants, corner, horizon, seam, edge or recognizable subject, no scenic content. Extremely close abstract surface fills entire frame.",
+    "raw": "design/generated-backgrounds/12-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A completely empty seamless satin dark charcoal material, barely perceptible velvety finish. No room, furniture, props, plants, corner, horizon, seam, edge or recognizable subject, no scenic content. Extremely close abstract surface fills entire frame.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-11fb8453-28a7-433e-b849-bafad5dd53e1.png",
+    "webp": "public/img/concepts/cta/12.webp",
+    "concept": "design/background-concepts/12-cta.png"
+  },
+  {
+    "id": "13",
+    "family": "room",
+    "title": "Тихий вечер",
+    "subject": "A wide-angle impression of a quiet evening listening room, shot wildly out of focus, charcoal wall and very dim warm brown room tones at the far right edge. No lamp, no bokeh circles or point lights; entire scene very dark and calm.",
+    "raw": "design/generated-backgrounds/13-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A wide-angle impression of a quiet evening listening room, shot wildly out of focus, charcoal wall and very dim warm brown room tones at the far right edge. No lamp, no bokeh circles or point lights; entire scene very dark and calm.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-fa6b2754-3fb8-41c6-9cb7-c1724df5e349.png",
+    "webp": "public/img/concepts/cta/13.webp",
+    "concept": "design/background-concepts/13-cta.png"
+  },
+  {
+    "id": "14",
+    "family": "room",
+    "title": "Стол на краю кадра",
+    "subject": "A deeply defocused charcoal listening-room wall filling almost all the frame, a soft hint of a walnut tabletop only in the bottom right corner, no distinct horizon, no objects, gentle daylight. Central field absolutely calm.",
+    "raw": "design/generated-backgrounds/14-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A deeply defocused charcoal listening-room wall filling almost all the frame, a soft hint of a walnut tabletop only in the bottom right corner, no distinct horizon, no objects, gentle daylight. Central field absolutely calm.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-5eba6fc7-0f3d-4de9-82a1-a473b17bfcc6.png",
+    "webp": "public/img/concepts/cta/14.webp",
+    "concept": "design/background-concepts/14-cta.png"
+  },
+  {
+    "id": "15",
+    "family": "room",
+    "title": "Дальний текстиль",
+    "subject": "An extremely defocused dark room with an out-of-focus charcoal fabric chair barely suggested at the far right margin, muted walnut brown beneath it, empty matte graphite elsewhere. No identifiable furniture outlines, no cushion pattern.",
+    "raw": "design/generated-backgrounds/15-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: An extremely defocused dark room with an out-of-focus charcoal fabric chair barely suggested at the far right margin, muted walnut brown beneath it, empty matte graphite elsewhere. No identifiable furniture outlines, no cushion pattern.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-a2ebaaa1-8ed2-4480-aaa3-94b6807c62f1.png",
+    "webp": "public/img/concepts/cta/15.webp",
+    "concept": "design/background-concepts/15-cta.png"
+  },
+  {
+    "id": "16",
+    "family": "material",
+    "title": "Орех у правого края",
+    "subject": "A smooth matte graphite wall across the left 85 percent, a narrow softly focused vertical edge of natural dark oiled walnut at the extreme right, only subtle real grain. No slats, no repeated pattern, no gold seam. Soft ambient daylight.",
+    "raw": "design/generated-backgrounds/16-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A smooth matte graphite wall across the left 85 percent, a narrow softly focused vertical edge of natural dark oiled walnut at the extreme right, only subtle real grain. No slats, no repeated pattern, no gold seam. Soft ambient daylight.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-257a4b97-8339-47cb-9d5e-62c726ff18a1.png",
+    "webp": "public/img/concepts/cta/16.webp",
+    "concept": "design/background-concepts/16-cta.png"
+  },
+  {
+    "id": "17",
+    "family": "material",
+    "title": "Мягкая ткань",
+    "subject": "A calm matte charcoal field, with a small section of soft dark charcoal wool entering the bottom right corner, large gentle fold and no fine visible knit pattern. Material is subdued and dark, no high contrast edge.",
+    "raw": "design/generated-backgrounds/17-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A calm matte charcoal field, with a small section of soft dark charcoal wool entering the bottom right corner, large gentle fold and no fine visible knit pattern. Material is subdued and dark, no high contrast edge.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-f39de57e-b199-496c-9153-43bbadf6a2e6.png",
+    "webp": "public/img/concepts/cta/17.webp",
+    "concept": "design/background-concepts/17-cta.png"
+  },
+  {
+    "id": "18",
+    "family": "material",
+    "title": "Акустический войлок",
+    "subject": "A full frame of very dark warm graphite acoustic felt, shot with very shallow detail so fibers are not individually sharp. A single large soft change of plane far right, not a geometric repeated pattern, no ridges or grooves.",
+    "raw": "design/generated-backgrounds/18-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A full frame of very dark warm graphite acoustic felt, shot with very shallow detail so fibers are not individually sharp. A single large soft change of plane far right, not a geometric repeated pattern, no ridges or grooves.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-6d54816a-cefe-4e55-9c8b-7978b4599983.png",
+    "webp": "public/img/concepts/cta/18.webp",
+    "concept": "design/background-concepts/18-cta.png"
+  },
+  {
+    "id": "19",
+    "family": "material",
+    "title": "Матовая бумага",
+    "subject": "A vast sheet of dark warm charcoal uncoated paper, extremely fine natural tooth. One very broad faint bend only at the far right edge catches soft light, no crease across center, no visible line or dramatic shadow.",
+    "raw": "design/generated-backgrounds/19-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A vast sheet of dark warm charcoal uncoated paper, extremely fine natural tooth. One very broad faint bend only at the far right edge catches soft light, no crease across center, no visible line or dramatic shadow.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-11774ebc-bdf6-4593-b7b9-9e81262d781e.png",
+    "webp": "public/img/concepts/cta/19.webp",
+    "concept": "design/background-concepts/19-cta.png"
+  },
+  {
+    "id": "20",
+    "family": "material",
+    "title": "Дерево в полутени",
+    "subject": "A mostly empty matte graphite wall with a broad indistinct dark walnut surface entering along the lower right edge, grazing natural daylight showing just a trace of grain. No repeated boards, no seams, no bright brown patch.",
+    "raw": "design/generated-backgrounds/20-raw.png",
+    "prompt": "One standalone wide 16:9 photographic background plate for a website CTA, 1920x1080. Background ONLY, no typography, buttons, UI, logos, borders or collage. Very subdued neutral warm charcoal tones, extremely low contrast. Central 70 percent of frame nearly uniform deep graphite suitable for white headline and pale body text. No pure black, no purple or blue cast. No gold, brass, decorative lines, grids, waves, circles, guilloche, neon, glow, bloom, lens flare, glitter, vignette, hotspot or sharply resolved texture. No phones, audio hardware, people, hands or product shots. Follow the specific surface description exactly, do not add unrequested props or interior decor. Scene: A mostly empty matte graphite wall with a broad indistinct dark walnut surface entering along the lower right edge, grazing natural daylight showing just a trace of grain. No repeated boards, no seams, no bright brown patch.",
+    "originalGeneratorFile": "/Users/macbookpro/.codex/generated_images/01a160cd-ddc1-7371-9a9e-c12cad59493f/exec-5f109344-a4ca-490e-8bcc-7468e40cc577.png",
+    "webp": "public/img/concepts/cta/20.webp",
+    "concept": "design/background-concepts/20-cta.png"
+  }
+]
