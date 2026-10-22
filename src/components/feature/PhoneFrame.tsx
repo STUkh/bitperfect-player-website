@@ -1,6 +1,7 @@
 import { useId, type ReactNode } from "react";
 import { clsx as cx } from "clsx";
 import PhoneScreen from "./PhoneScreen";
+import { screenAspect } from "../../data/screens";
 import type { ClassProps } from "../class-props";
 import "./PhoneFrame.css";
 
@@ -13,9 +14,36 @@ export interface PhoneFrameProps extends ClassProps {
   phoneColor?: string;
   /** A screen key from `src/data/screens.ts` to show in the cutout, used when no children are passed. */
   screen?: string;
+  /**
+   * Width / height of the screen the cutout must hold. Default the captures' own
+   * 9:20 (`screenAspect`), so a capture fills the screen exactly, edge to edge,
+   * with nothing cropped. The chassis is drawn for this aspect: corners, rails,
+   * camera and buttons keep their size and only the straight runs grow, so any
+   * aspect gives one seamless device.
+   */
+  screenAspect?: number;
   /** What sits in the screen cutout, usually a PhoneScreen. */
   children?: ReactNode;
 }
+
+/* The chassis geometry, in SVG units. The width is fixed; the height follows the
+   screen. Everything below the middle of the original 395.5 x 776 drawing is
+   anchored to the bottom edge and moves down by `dy`; everything above stays. */
+const W = 395.5;
+const BEZEL = 12;
+const SCREEN_W = 368;
+const BASE_H = 776;
+const geometry = (aspect: number) => {
+  const H = Math.round((BEZEL * 2 + SCREEN_W / aspect) * 1000) / 1000;
+  const dy = H - BASE_H;
+  return {
+    H,
+    /** A y coordinate anchored to the bottom edge. */
+    b: (y: number) => Math.round((y + dy) * 1000) / 1000,
+    /** A height that runs from the top half into the bottom half. */
+    h: (v: number) => Math.round((v + dy) * 1000) / 1000,
+  };
+};
 
 /**
  * The site's one device: an SVG Galaxy S25 Ultra chassis (titanium rails, black
@@ -30,8 +58,10 @@ export default function PhoneFrame({
   idPrefix,
   phoneColor = "#C8BEB5",
   screen,
+  screenAspect: aspect = screenAspect,
   children,
 }: PhoneFrameProps) {
+  const { H, b, h } = geometry(aspect);
   const uid = useId().replace(/:/g, "");
   const prefix = idPrefix ?? `s25u-${uid}`;
   return (
@@ -41,16 +71,16 @@ export default function PhoneFrame({
         fill ? "w-full" : "w-[296px] lg:w-[344px]",
         className,
       )}
-      style={{ aspectRatio: "395.5 / 776" }}
+      style={{ aspectRatio: `${W} / ${H}` }}
     >
-      {/* Screen Cutout Container (coordinates exactly matching S24/S25 Ultra: x=12, y=12, w=368, h=752 on 395.5x776) */}
+      {/* The screen cutout: x 12, y 12, 368 wide, as tall as the aspect needs. */}
       <div
         className="phone-screen-cutout absolute overflow-hidden rounded-[2px] bg-phone-screen"
         style={{
-          left: "3.0341%",
-          top: "1.5464%",
-          width: "93.0468%",
-          height: "96.9072%",
+          left: `${(BEZEL / W) * 100}%`,
+          top: `${(BEZEL / H) * 100}%`,
+          width: `${(SCREEN_W / W) * 100}%`,
+          height: `${((H - 2 * BEZEL) / H) * 100}%`,
         }}
       >
         {children ?? (screen ? <PhoneScreen name={screen} /> : null)}
@@ -59,7 +89,7 @@ export default function PhoneFrame({
       {/* S24/S25 Ultra Hardware Chassis SVG Overlay */}
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 395.5 776"
+        viewBox={`0 0 395.5 ${H}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
@@ -67,17 +97,17 @@ export default function PhoneFrame({
         <defs>
           {/* Programmatic screen clip path for screenshots */}
           <clipPath id={`${prefix}-screen-clip`} clipPathUnits="userSpaceOnUse">
-            <rect x="12" y="12" width="368" height="752" rx="1.5" />
+            <rect x="12" y="12" width="368" height={h(752)} rx="1.5" />
           </clipPath>
 
           {/* Programmatic screen mask with Infinity-O camera hole cutout */}
           <mask id={`${prefix}-screen-mask`} maskUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="395.5" height="776" fill="#000000" />
+            <rect x="0" y="0" width="395.5" height={h(776)} fill="#000000" />
             <rect
               x="12"
               y="12"
               width="368"
-              height="752"
+              height={h(752)}
               rx="1.5"
               fill="#ffffff"
             />
@@ -120,9 +150,9 @@ export default function PhoneFrame({
           <linearGradient
             id={`${prefix}-rail-bottom`}
             x1="0"
-            y1="770"
+            y1={b(770)}
             x2="0"
-            y2="776"
+            y2={b(776)}
             gradientUnits="userSpaceOnUse"
           >
             <stop offset="0.00" stopColor="#000000" stopOpacity="0.30" />
@@ -282,8 +312,7 @@ export default function PhoneFrame({
         <g id="chassis">
           {/* Base Color Layer (Hollow Rectangular Loop) */}
           <path
-            d="M 3.5,0 L 388.5,0 A 3.5,3.5 0 0 1 392,3.5 L 392,772.5 A 3.5,3.5 0 0 1 388.5,776 L 3.5,776 A 3.5,3.5 0 0 1 0,772.5 L 0,3.5 A 3.5,3.5 0 0 1 3.5,0 Z
-               M 8,6 L 384,6 A 2,2 0 0 1 386,8 L 386,768 A 2,2 0 0 1 384,770 L 8,770 A 2,2 0 0 1 6,768 L 6,8 A 2,2 0 0 1 8,6 Z"
+            d={`M 3.5,0 L 388.5,0 A 3.5,3.5 0 0 1 392,3.5 L 392,${b(772.5)} A 3.5,3.5 0 0 1 388.5,${b(776)} L 3.5,${b(776)} A 3.5,3.5 0 0 1 0,${b(772.5)} L 0,3.5 A 3.5,3.5 0 0 1 3.5,0 Z M 8,6 L 384,6 A 2,2 0 0 1 386,8 L 386,${b(768)} A 2,2 0 0 1 384,${b(770)} L 8,${b(770)} A 2,2 0 0 1 6,${b(768)} L 6,8 A 2,2 0 0 1 8,6 Z`}
             fill={phoneColor}
             fillRule="evenodd"
           />
@@ -295,15 +324,15 @@ export default function PhoneFrame({
           />
           <path
             fill={`url(#${prefix}-rail-bottom)`}
-            d="M 1.025,774.975 A 3.5,3.5 0 0 0 3.5,776 L 388.5,776 A 3.5,3.5 0 0 0 390.975,774.975 L 385,769 A 2,2 0 0 1 384,770 L 8,770 A 2,2 0 0 1 7,769 Z"
+            d={`M 1.025,${b(774.975)} A 3.5,3.5 0 0 0 3.5,${b(776)} L 388.5,${b(776)} A 3.5,3.5 0 0 0 390.975,${b(774.975)} L 385,${b(769)} A 2,2 0 0 1 384,${b(770)} L 8,${b(770)} A 2,2 0 0 1 7,${b(769)} Z`}
           />
           <path
             fill={`url(#${prefix}-rail-left)`}
-            d="M 1.025,1.025 A 3.5,3.5 0 0 0 0,3.5 L 0,772.5 A 3.5,3.5 0 0 0 1.025,774.975 L 7,769 A 2,2 0 0 1 6,768 L 6,8 A 2,2 0 0 1 7,7 Z"
+            d={`M 1.025,1.025 A 3.5,3.5 0 0 0 0,3.5 L 0,${b(772.5)} A 3.5,3.5 0 0 0 1.025,${b(774.975)} L 7,${b(769)} A 2,2 0 0 1 6,${b(768)} L 6,8 A 2,2 0 0 1 7,7 Z`}
           />
           <path
             fill={`url(#${prefix}-rail-right)`}
-            d="M 390.975,1.025 A 3.5,3.5 0 0 1 392,3.5 L 392,772.5 A 3.5,3.5 0 0 1 390.975,774.975 L 385,769 A 2,2 0 0 0 386,768 L 386,8 A 2,2 0 0 0 385,7 Z"
+            d={`M 390.975,1.025 A 3.5,3.5 0 0 1 392,3.5 L 392,${b(772.5)} A 3.5,3.5 0 0 1 390.975,${b(774.975)} L 385,${b(769)} A 2,2 0 0 0 386,${b(768)} L 386,8 A 2,2 0 0 0 385,7 Z`}
           />
 
           {/* Authentic Flush Antenna Band Breaks */}
@@ -325,7 +354,7 @@ export default function PhoneFrame({
           />
           <rect
             x="0"
-            y="708.3"
+            y={b(708.3)}
             width="6"
             height="0.9"
             fill="#000000"
@@ -333,9 +362,9 @@ export default function PhoneFrame({
           />
           <line
             x1="0"
-            y1="709.2"
+            y1={b(709.2)}
             x2="6"
-            y2="709.2"
+            y2={b(709.2)}
             stroke="rgba(255, 255, 255, 0.10)"
             strokeWidth="0.3"
           />
@@ -357,7 +386,7 @@ export default function PhoneFrame({
           />
           <rect
             x="386"
-            y="709.3"
+            y={b(709.3)}
             width="6"
             height="0.9"
             fill="#000000"
@@ -365,9 +394,9 @@ export default function PhoneFrame({
           />
           <line
             x1="386"
-            y1="710.2"
+            y1={b(710.2)}
             x2="392"
-            y2="710.2"
+            y2={b(710.2)}
             stroke="rgba(255, 255, 255, 0.10)"
             strokeWidth="0.3"
           />
@@ -389,7 +418,7 @@ export default function PhoneFrame({
           />
           <rect
             x="54.5"
-            y="770"
+            y={b(770)}
             width="0.9"
             height="6"
             fill="#000000"
@@ -397,15 +426,15 @@ export default function PhoneFrame({
           />
           <line
             x1="55.4"
-            y1="770"
+            y1={b(770)}
             x2="55.4"
-            y2="776"
+            y2={b(776)}
             stroke="rgba(255, 255, 255, 0.10)"
             strokeWidth="0.3"
           />
           <rect
             x="337.5"
-            y="770"
+            y={b(770)}
             width="0.9"
             height="6"
             fill="#000000"
@@ -413,9 +442,9 @@ export default function PhoneFrame({
           />
           <line
             x1="338.4"
-            y1="770"
+            y1={b(770)}
             x2="338.4"
-            y2="776"
+            y2={b(776)}
             stroke="rgba(255, 255, 255, 0.10)"
             strokeWidth="0.3"
           />
@@ -425,7 +454,7 @@ export default function PhoneFrame({
             x="0.4"
             y="0.4"
             width="391.2"
-            height="775.2"
+            height={h(775.2)}
             rx="3.1"
             fill="none"
             stroke={`url(#${prefix}-outer-specular)`}
@@ -437,7 +466,7 @@ export default function PhoneFrame({
             x="5.6"
             y="5.6"
             width="380.8"
-            height="764.8"
+            height={h(764.8)}
             rx="2.2"
             fill="none"
             stroke={`url(#${prefix}-inner-specular)`}
@@ -449,7 +478,7 @@ export default function PhoneFrame({
             x="6.0"
             y="6.0"
             width="380.0"
-            height="764.0"
+            height={h(764)}
             rx="2.0"
             fill="none"
             stroke="rgba(0, 0, 0, 0.55)"
@@ -460,8 +489,7 @@ export default function PhoneFrame({
         {/* 3. AMOLED DISPLAY BEZEL (DEEP BLACK GLASS BORDER) */}
         <g id="bezel">
           <path
-            d="M 8,6 L 384,6 A 2,2 0 0 1 386,8 L 386,768 A 2,2 0 0 1 384,770 L 8,770 A 2,2 0 0 1 6,768 L 6,8 A 2,2 0 0 1 8,6 Z
-               M 13.5,12 L 378.5,12 A 1.5,1.5 0 0 1 380,13.5 L 380,762.5 A 1.5,1.5 0 0 1 378.5,764 L 13.5,764 A 1.5,1.5 0 0 1 12,762.5 L 12,13.5 A 1.5,1.5 0 0 1 13.5,12 Z"
+            d={`M 8,6 L 384,6 A 2,2 0 0 1 386,8 L 386,${b(768)} A 2,2 0 0 1 384,${b(770)} L 8,${b(770)} A 2,2 0 0 1 6,${b(768)} L 6,8 A 2,2 0 0 1 8,6 Z M 13.5,12 L 378.5,12 A 1.5,1.5 0 0 1 380,13.5 L 380,${b(762.5)} A 1.5,1.5 0 0 1 378.5,${b(764)} L 13.5,${b(764)} A 1.5,1.5 0 0 1 12,${b(762.5)} L 12,13.5 A 1.5,1.5 0 0 1 13.5,12 Z`}
             fill="#050507"
             fillRule="evenodd"
           />
@@ -469,7 +497,7 @@ export default function PhoneFrame({
             x="12.0"
             y="12.0"
             width="368.0"
-            height="752.0"
+            height={h(752)}
             rx="1.5"
             fill="none"
             stroke="rgba(255, 255, 255, 0.06)"
