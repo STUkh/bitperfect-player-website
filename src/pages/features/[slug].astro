@@ -31,7 +31,7 @@ import Band from '../../components/common/Band';
 import MediaSplit from '../../components/common/MediaSplit';
 import SectionHeading from '../../components/common/SectionHeading';
 import SpecList from '../../components/common/SpecList';
-import PagerLink from '../../components/feature/PagerLink';
+import PagerPair from '../../components/feature/PagerPair';
 import FeatureMark from '../../components/feature/FeatureMark';
 import FeatureScreens from '../../components/feature/FeatureScreens';
 import { indexOrder, getLocalizedFeaturePage } from '../../components/feature/content';
@@ -474,24 +474,19 @@ const showSignalPath = slug === 'usb-dac';
   {/* ── Prev and next ──
       Walks indexOrder and wraps at both ends, so the six routes form one ring
       rather than six pairs that happen to resolve. */}
-  <nav class="bg-surface-base pt-8 pb-10 lg:pt-14 lg:pb-18" aria-label={t('feature_detail.more_features')}>
-    <Container >
-      <div class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
-        <PagerLink
-          direction="prev"
-          href={withBase(`features/${prevSlug}`)}
-          label={t('feature_detail.prev')}
-          title={getLocalizedFeatureName(prevSlug, lang)}
-        />
-        <PagerLink
-          direction="next"
-          href={withBase(`features/${nextSlug}`)}
-          label={t('feature_detail.next')}
-          title={getLocalizedFeatureName(nextSlug, lang)}
-        />
-      </div>
-    </Container>
-  </nav>
+  <PagerPair
+    ariaLabel={t('feature_detail.more_features')}
+    prev={{
+      href: withBase(`features/${prevSlug}`),
+      label: t('feature_detail.prev'),
+      title: getLocalizedFeatureName(prevSlug, lang),
+    }}
+    next={{
+      href: withBase(`features/${nextSlug}`),
+      label: t('feature_detail.next'),
+      title: getLocalizedFeatureName(nextSlug, lang),
+    }}
+  />
 
   {/* ── Closing action: white contrast band after the dark pager strip,
       alternating cleanly into the dark footer ── */}

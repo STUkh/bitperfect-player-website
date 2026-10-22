@@ -11,10 +11,9 @@
  * the site already uses.
  */
 import ContentLayout from '../../../layouts/ContentLayout.astro';
-import Container from '../../../components/common/Container';
 import ClosingBanner from '../../../components/common/ClosingBanner';
 import CapabilityBand from '../../../components/feature/CapabilityBand';
-import PagerLink from '../../../components/feature/PagerLink';
+import PagerPair from '../../../components/feature/PagerPair';
 import { technicalFeatures, type TechnicalFeature } from '../../../data/technical-features';
 import { site } from '../../../data/site';
 import { withBase } from '../../../utils/nav';
@@ -71,24 +70,12 @@ const number = String(feature.number).padStart(2, '0');
     link={feature.sdkUrl ? { href: feature.sdkUrl, label: 'View public SDK on GitHub', external: true } : undefined}
   />
 
-  <nav class="border-t border-border-subtle bg-surface-base pt-8 pb-10 lg:pt-14 lg:pb-18" aria-label={t('feature_detail.more_features')}>
-    <Container>
-      <div class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
-        <PagerLink
-          direction="prev"
-          href={withBase(`features/catalog/${prev.id}`)}
-          label={t('feature_detail.prev')}
-          title={prev.title}
-        />
-        <PagerLink
-          direction="next"
-          href={withBase(`features/catalog/${next.id}`)}
-          label={t('feature_detail.next')}
-          title={next.title}
-        />
-      </div>
-    </Container>
-  </nav>
+  <PagerPair
+    className="border-t border-border-subtle"
+    ariaLabel={t('feature_detail.more_features')}
+    prev={{ href: withBase(`features/catalog/${prev.id}`), label: t('feature_detail.prev'), title: prev.title }}
+    next={{ href: withBase(`features/catalog/${next.id}`), label: t('feature_detail.next'), title: next.title }}
+  />
 
   <ClosingBanner
     eyebrow="Get the app"
