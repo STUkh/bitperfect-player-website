@@ -19,14 +19,16 @@ import { FAN } from '../feature/phone-fan';
  *   0.80-1.00  a hold, so a fast flick lands on the finished lineup before the
  *              stage unpins
  *
- * One gesture plays the whole opening. When a scroll comes to rest inside the
- * track, the page finishes it: on to the end if it moved down, back to the start
- * if it moved up, and back to where it began if it moved less than `INTENT` (a
- * stray nudge). The follow-through scrolls the page itself, so the choreography
- * above stays scroll-linked and the spring carries it; any wheel, touch, pointer
- * or key input hands control straight back. Anchor links, the keyboard and the
- * scrollbar still scroll natively, and a scroll that ends outside the track is
- * left alone.
+ * One gesture plays the whole opening, without losing speed. The first scroll
+ * into the track starts a glide in that direction: the page scrolls itself on to
+ * the finished lineup (down) or the page top (up), never slower than the cruise
+ * (`GLIDE_TIME` for the whole track), faster while the reader keeps scrolling
+ * faster, and it brakes only over the last `BRAKE` of the way. Scrolling the other
+ * way turns it round. The glide scrolls the page itself, so the choreography above
+ * stays scroll-linked and the spring carries it. A touch on the screen hands the
+ * scroll back until the finger lifts; a click or a key press hands it back until
+ * the page is still, so anchor links, the keyboard and the scrollbar scroll
+ * natively. Outside the track nothing glides.
  *
  * `--p` is also written to the two backdrops, which cross-fade on it. Only to
  * them: on the section, an inherited custom property restyled the whole subtree
@@ -61,13 +63,16 @@ export function setupHomeOpening(section: HTMLElement) {
   /* The lineup's visual width in phone widths: the centre phone plus each side
      phone's offset and its turned, set-back half, with a little air. */
   const LINEUP_WIDTH = 2.85;
-  /* Milliseconds without a scroll event before a gesture counts as at rest. */
-  const REST_DELAY = 140;
-  /* The least travel, as a fraction of the track, that counts as meaning to move. */
-  const INTENT = 0.03;
-  /* Seconds the follow-through takes over the whole track; shorter runs scale down. */
-  const FOLLOW_TIME = 1.2;
-  const FOLLOW_MIN = 0.35;
+  /* Seconds the glide takes over the whole track at its cruise. */
+  const GLIDE_TIME = 0.9;
+  /* Seconds to come up to the cruise from a slow start, and to ease back to it
+     after the reader has pushed faster. */
+  const GLIDE_RISE = 0.12;
+  const GLIDE_RELAX = 0.25;
+  /* The share of the track the glide brakes over at its end. */
+  const BRAKE = 0.2;
+  /* Milliseconds of stillness after a click or key press before gliding resumes. */
+  const HOLD_QUIET = 200;
 
   let enabled = false;
   let running = false;
@@ -83,11 +88,21 @@ export function setupHomeOpening(section: HTMLElement) {
   /* Resize only flags; the next frame measures, so a burst of events lays out once. */
   let stale = false;
 
-  /* The gesture: where the scroll last came to rest, and the rest timer. */
-  let restY = 0;
-  let restTimer = 0;
-  /* The follow-through's frame, while one is playing. */
-  let follow = 0;
+  /* The glide: its frame while one plays, direction, speed (px/s), the position it
+     last wrote and that frame's time. */
+  let glide = 0;
+  let glideDir = 1;
+  let glideV = 0;
+  let glideY = 0;
+  let glideLast = 0;
+  /* The last scroll event, for its direction and speed. */
+  let lastY = 0;
+  let lastT = 0;
+  /* Native scrolling the glide must not take over: a finger on the screen, or a
+     click or key press until the page is still. */
+  let touching = false;
+  let held = false;
+  let holdTimer = 0;
 
   /* Layout, measured on enable, resize and font load rather than every frame. */
   let w = 0;
@@ -246,65 +261,127 @@ export function setupHomeOpening(section: HTMLElement) {
   const openingStart = () => (top > vh ? top : 0);
   const openingEnd = () => top + track;
 
-  const stopFollow = () => {
-    if (!follow) return;
-    cancelAnimationFrame(follow);
-    follow = 0;
-    restY = window.scrollY;
+  const stopGlide = () => {
+    if (!glide) return;
+    cancelAnimationFrame(glide);
+    glide = 0;
   };
 
-  /* Scroll the page to `to` on an ease-out, so the motion already under way
-     carries on rather than restarting. */
-  const playTo = (to: number) => {
-    const from = window.scrollY;
-    const distance = to - from;
-    if (Math.abs(distance) < 1) return;
-    const duration = Math.max(FOLLOW_MIN, FOLLOW_TIME * (Math.abs(distance) / track)) * 1000;
-    const begin = performance.now();
-    const step = (now: number) => {
-      const t = clamp01((now - begin) / duration);
-      window.scrollTo({ top: from + distance * outCubic(t), behavior: 'instant' });
-      if (t < 1) {
-        follow = requestAnimationFrame(step);
-      } else {
-        follow = 0;
-        restY = window.scrollY;
-      }
-    };
-    follow = requestAnimationFrame(step);
-  };
-
-  /* The gesture is at rest: finish it if it stopped part-way through the track. */
-  const onRest = () => {
-    restTimer = 0;
-    if (!enabled || follow) return;
+  /* One glide frame. Whatever moved the page since the last write was the reader:
+     the same way speeds the glide up, the other way turns it round. */
+  const glideFrame = (now: number) => {
+    const dt = Math.min(0.05, Math.max(0.001, (now - glideLast) / 1000));
+    glideLast = now;
     if (stale) {
       stale = false;
       measure();
     }
-    const from = restY;
-    const at = window.scrollY;
-    restY = at;
-    const start = openingStart();
-    const end = openingEnd();
-    if (at <= start || at >= end) return;
-    const moved = at - from;
-    const back = from - start < end - from ? start : end;
-    playTo(Math.abs(moved) < INTENT * track ? back : moved > 0 ? end : start);
+    const cruise = track / GLIDE_TIME;
+    const y = window.scrollY;
+    const pushed = (y - glideY) * glideDir;
+    if (pushed < -1) {
+      glideDir = -glideDir;
+      glideV = -pushed / dt;
+    } else if (pushed > 0) {
+      glideV = Math.max(glideV, pushed / dt);
+    }
+    glideV =
+      glideV < cruise
+        ? Math.min(cruise, glideV + (cruise / GLIDE_RISE) * dt)
+        : cruise + (glideV - cruise) * Math.exp(-dt / GLIDE_RELAX);
+
+    const target = glideDir > 0 ? openingEnd() : openingStart();
+    const remaining = (target - y) * glideDir;
+    if (remaining <= 0.5) {
+      if (remaining > -0.5) window.scrollTo({ top: target, behavior: 'instant' });
+      glide = 0;
+      return;
+    }
+    /* The fastest speed that can still stop at the target: braking from the
+       cruise over the last `BRAKE` of the track. */
+    const brake = (cruise * cruise) / (2 * BRAKE * track);
+    const v = Math.min(glideV, Math.max(40, Math.sqrt(2 * brake * remaining)));
+    glideY = y + glideDir * Math.min(remaining, v * dt);
+    window.scrollTo({ top: glideY, behavior: 'instant' });
+    glide = requestAnimationFrame(glideFrame);
+  };
+
+  const startGlide = (dir: number, speed: number) => {
+    glideDir = dir;
+    glideV = speed;
+    glideY = window.scrollY;
+    glideLast = performance.now();
+    glide = requestAnimationFrame(glideFrame);
   };
 
   const onScroll = () => {
     pending = true;
     start();
-    /* The follow-through's own scrolling is not a gesture. */
-    if (follow) return;
-    clearTimeout(restTimer);
-    restTimer = window.setTimeout(onRest, REST_DELAY);
+    const y = window.scrollY;
+    const now = performance.now();
+    const moved = y - lastY;
+    const dt = Math.max(8, now - lastT) / 1000;
+    lastY = y;
+    lastT = now;
+    if (held) {
+      clearTimeout(holdTimer);
+      holdTimer = window.setTimeout(release, HOLD_QUIET);
+      return;
+    }
+    /* A playing glide reads the reader's input itself. */
+    if (glide || touching || Math.abs(moved) < 1) return;
+    if (y <= openingStart() || y >= openingEnd()) return;
+    startGlide(moved > 0 ? 1 : -1, Math.min(Math.abs(moved) / dt, (3 * track) / GLIDE_TIME));
   };
 
-  /* Any input of the reader's own takes the page back from the follow-through. */
-  const onInput = () => stopFollow();
-  const inputEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
+  const release = () => {
+    held = false;
+    holdTimer = 0;
+  };
+  const hold = () => {
+    stopGlide();
+    held = true;
+    clearTimeout(holdTimer);
+    holdTimer = window.setTimeout(release, HOLD_QUIET);
+  };
+  /* A wheel against a playing glide turns it round. Read from the event itself:
+     WebKit applies the wheel's scroll off the main thread, and the glide's next
+     write can land over it before the movement shows. */
+  const onWheel = (event: WheelEvent) => {
+    const dir = Math.sign(event.deltaY);
+    if (!glide || !dir || dir === glideDir) return;
+    glideDir = dir;
+    glideV = 0;
+    glideY = window.scrollY;
+  };
+  const onTouchStart = () => {
+    stopGlide();
+    touching = true;
+  };
+  const onTouchEnd = () => {
+    touching = false;
+  };
+  const inputs = [
+    ['pointerdown', hold],
+    ['keydown', hold],
+    ['wheel', onWheel],
+    ['touchstart', onTouchStart],
+    ['touchend', onTouchEnd],
+    ['touchcancel', onTouchEnd],
+  ] as const;
+  const listen = (on: boolean) => {
+    for (const [type, fn] of inputs) {
+      if (on) window.addEventListener(type, fn, { passive: true });
+      else window.removeEventListener(type, fn);
+    }
+  };
+  const quiet = () => {
+    listen(false);
+    stopGlide();
+    clearTimeout(holdTimer);
+    release();
+    touching = false;
+  };
 
   const onResize = () => {
     stale = true;
@@ -329,15 +406,15 @@ export function setupHomeOpening(section: HTMLElement) {
     (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
+          lastY = window.scrollY;
+          lastT = performance.now();
           window.addEventListener('scroll', onScroll, { passive: true });
-          for (const type of inputEvents) window.addEventListener(type, onInput, { passive: true });
+          listen(true);
           pending = true;
           start();
         } else {
           window.removeEventListener('scroll', onScroll);
-          for (const type of inputEvents) window.removeEventListener(type, onInput);
-          clearTimeout(restTimer);
-          stopFollow();
+          quiet();
           jump();
         }
       }
@@ -352,7 +429,6 @@ export function setupHomeOpening(section: HTMLElement) {
     enabled = true;
     measure();
     jump();
-    restY = window.scrollY;
     window.addEventListener('resize', onResize);
     observer.observe(section);
     /* The heading's height, and so the band under it, changes once the font lands. */
@@ -370,9 +446,7 @@ export function setupHomeOpening(section: HTMLElement) {
     observer.unobserve(section);
     window.removeEventListener('resize', onResize);
     window.removeEventListener('scroll', onScroll);
-    for (const type of inputEvents) window.removeEventListener(type, onInput);
-    clearTimeout(restTimer);
-    stopFollow();
+    quiet();
     /* Hand the composition back to the CSS resting state. */
     for (const el of layers) {
       el.style.transform = '';
