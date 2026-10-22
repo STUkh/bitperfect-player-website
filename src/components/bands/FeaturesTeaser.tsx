@@ -5,7 +5,7 @@ import FeatureLinkCard from '../sections/FeatureLinkCard';
 import FeatureMark from '../primitives/FeatureMark';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';
-import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';
+import FlowBackdrop, { type FlowProps } from './FlowBackdrop';
 import './FeaturesTeaser.css';
 
 /*

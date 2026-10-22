@@ -86,9 +86,9 @@ When ads do ship, these move TOGETHER, in one pass, and the policy moves first:
    requires, to seek consent for. Google Play's Data safety declaration changes
    with it.
 3. Then the copy, all of it, in the same release:
-   - `src/components/landing/StatementBand.astro`, the third fact: "No account,
+   - `src/components/bands/StatementBand.tsx`, the third fact: "No account,
      no analytics, no ads."
-   - `src/components/landing/PrivacyBand.astro`, commitment two: "there is no
+   - `src/components/bands/PrivacyBand.tsx`, commitment two: "there is no
      advertising ID", and the "four network calls and no more" well note, which
      would no longer be four.
    - `src/data/faq.ts`, "What does the app send over the internet?": "No
@@ -135,7 +135,7 @@ are not:
   components; the `landing.*` keys in `src/i18n/locales/en/landing.ts` were never
   read and were deleted on 2026-10-22.
 - `/features` index: its own `ROWS` map, plus `compatibility` and `faqItems`.
-- The six feature routes: `src/components/feature/content.ts` owns nearly all of it
+- The six feature routes: `src/data/feature-pages.ts` owns nearly all of it
   (the `feature.<slug>.beat.*` i18n keys duplicated it and were never read; deleted
   2026-10-22).
 - `src/data/features.ts` is mostly DEAD: only `specs` reaches a visitor. Its

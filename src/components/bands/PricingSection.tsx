@@ -1,4 +1,4 @@
-import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';
+import FlowBackdrop, { type FlowProps } from './FlowBackdrop';
 import { clsx as cx } from 'clsx';
 import Button from '../primitives/Button';
 import Container from '../primitives/Container';

@@ -1,4 +1,4 @@
-import type { FlowProps } from '../common/FlowBackdrop';
+import type { FlowProps } from './FlowBackdrop';
 import Band from '../sections/Band';
 import ImageSlot from '../primitives/ImageSlot';
 import RuleList from '../sections/RuleList';

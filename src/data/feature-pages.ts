@@ -17,7 +17,7 @@
  * subscription.
  */
 
-import { featureRoutes } from "../../data/navigation";
+import { featureRoutes } from "./navigation";
 
 export interface SummaryRow {
   label: string;

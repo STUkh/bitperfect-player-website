@@ -1,4 +1,4 @@
-import type { FlowProps } from '../common/FlowBackdrop';
+import type { FlowProps } from './FlowBackdrop';
 import CloseBand from '../sections/CloseBand';
 import PlayCta from '../primitives/PlayCta';
 import { reveal } from '../sections/bands';

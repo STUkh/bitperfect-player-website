@@ -308,7 +308,7 @@ export function getLocalizedCompatibility(lang?: string) {
   longer has: the screens are DRAWN now, in src/components/feature/screens/, and
   each carries its own caption. `formats` listed the twelve decoded formats,
   which the library route states in prose and again as twelve chips
-  (src/components/feature/content.ts). Both were a second copy of something
+  (src/data/feature-pages.ts). Both were a second copy of something
   already rendered somewhere else, which is the only kind of copy that can drift.
 */
 

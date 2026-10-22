@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import Container from '../primitives/Container';
-import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';
+import FlowBackdrop, { type FlowProps } from '../bands/FlowBackdrop';
 import { ToneContext, toneGround, type Tone } from './bands';
 import type { ClassProps } from '../_lib/class-props';
 
