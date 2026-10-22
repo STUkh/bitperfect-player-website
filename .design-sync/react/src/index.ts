@@ -14,12 +14,12 @@ export { default as CloseBand, type CloseBandProps } from '@site/components/sect
 export { default as ClosingBanner, type ClosingBannerProps } from '@site/components/sections/ClosingBanner';
 export { default as Container, type ContainerProps } from '@site/components/primitives/Container';
 export { default as CrossLinkRow, type CrossLinkRowProps } from '@site/components/sections/CrossLinkRow';
-export { default as Footer, type FooterProps } from '@site/components/common/Footer';
-export { default as Header, type HeaderProps } from '@site/components/common/Header';
+export { default as Footer, type FooterProps } from '@site/components/chrome/Footer';
+export { default as Header, type HeaderProps } from '@site/components/chrome/Header';
 export { default as ImageSlot, type ImageSlotProps } from '@site/components/primitives/ImageSlot';
 export { default as Logo, type LogoProps } from '@site/components/primitives/Logo';
 export { default as MediaSplit, type MediaSplitProps } from '@site/components/sections/MediaSplit';
-export { default as PageHeader, type PageHeaderProps } from '@site/components/common/PageHeader';
+export { default as PageHeader, type PageHeaderProps } from '@site/components/chrome/PageHeader';
 export { default as PlayCta, type PlayCtaProps } from '@site/components/primitives/PlayCta';
 export { default as PlayStoreMark, type PlayStoreMarkProps } from '@site/components/primitives/PlayStoreMark';
 export { default as RuleList, type RuleListProps } from '@site/components/sections/RuleList';
@@ -44,6 +44,6 @@ export { default as PricingSection } from '@site/components/landing/PricingSecti
 export { default as PrivacyBand } from '@site/components/landing/PrivacyBand';
 export { default as StatementBand } from '@site/components/landing/StatementBand';
 export { default as LegalDocument, type LegalDocumentProps } from '@site/components/legal/LegalDocument';
-export { default as HoldingPage, type HoldingPageProps } from '@site/components/HoldingPage';
+export { default as HoldingPage, type HoldingPageProps } from '@site/components/chrome/HoldingPage';
 export { default as Icon, type IconProps } from '@site/components/primitives/Icon';
 export { Surface, type SurfaceProps } from './Surface';

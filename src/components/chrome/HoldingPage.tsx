@@ -1,11 +1,11 @@
-import PlayCta from './primitives/PlayCta';
-import Container from './primitives/Container';
-import Logo from './primitives/Logo';
-import Icon from './primitives/Icon';
-import Picture from './primitives/Picture';
-import { site } from '../data/site';
-import { withBase } from '../utils/nav';
-import './primitives/Button.css';
+import PlayCta from '../primitives/PlayCta';
+import Container from '../primitives/Container';
+import Logo from '../primitives/Logo';
+import Icon from '../primitives/Icon';
+import Picture from '../primitives/Picture';
+import { site } from '../../data/site';
+import { withBase } from '../../utils/nav';
+import '../primitives/Button.css';
 import './HoldingPage.css';
 
 export interface HoldingPageProps {
