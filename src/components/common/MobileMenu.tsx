@@ -1,7 +1,7 @@
 import { clsx as cx } from 'clsx';
 import { getLocalizedNavLinks } from '../../data/navigation';
 import { useTranslations } from '../../i18n/utils';
-import PlayCta from './PlayCta';
+import PlayCta from '../primitives/PlayCta';
 import { isActive, resolveHref } from '../../utils/nav';
 import './MobileMenu.css';
 

@@ -1,5 +1,5 @@
 import { screens, type ScreenName } from '../../data/screens';
-import Picture from '../common/Picture';
+import Picture from '../primitives/Picture';
 import PhoneFrame, { FRAME_WIDTH } from './PhoneFrame';
 import { phoneGeometry, type PhoneGeometry } from './phone-geometry';
 import type { ClassProps } from '../_lib/class-props';

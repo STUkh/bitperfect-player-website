@@ -1,8 +1,8 @@
-import Button from './Button';
-import Container from './Container';
-import Logo from './Logo';
-import StoreBadges from './StoreBadges';
-import Icon from '../Icon';
+import Button from '../primitives/Button';
+import Container from '../primitives/Container';
+import Logo from '../primitives/Logo';
+import StoreBadges from '../primitives/StoreBadges';
+import Icon from '../primitives/Icon';
 import { footerLinks } from '../../data/navigation';
 import { site } from '../../data/site';
 import { resolveHref, withBase } from '../../utils/nav';

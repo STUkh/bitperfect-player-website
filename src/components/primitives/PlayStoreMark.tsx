@@ -1,5 +1,5 @@
 import type { ClassProps } from '../_lib/class-props';
-import { PLAY_STORE_PATH } from '../glyphs';
+import { PLAY_STORE_PATH } from './glyphs';
 
 export interface PlayStoreMarkProps extends ClassProps {
   /** Pixel size of the square box. Default 20. Colour comes from the surrounding text colour. */

@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react';
-import Container from '../common/Container';
-import FeatureArt from '../feature/FeatureArt';
+import Container from '../primitives/Container';
+import FeatureArt from '../primitives/FeatureArt';
 import FeatureLinkCard from '../feature/FeatureLinkCard';
-import FeatureMark from '../feature/FeatureMark';
+import FeatureMark from '../primitives/FeatureMark';
 import { withBase } from '../../utils/nav';
 import { featureName } from '../../data/navigation';
 import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';

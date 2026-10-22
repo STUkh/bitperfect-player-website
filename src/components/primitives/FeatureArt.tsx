@@ -1,6 +1,6 @@
 import { clsx as cx } from 'clsx';
 import type { ClassProps } from '../_lib/class-props';
-import Picture from '../common/Picture';
+import Picture from './Picture';
 
 export interface FeatureArtProps extends ClassProps {
   /** Which feature's photograph: `usb-dac`, `eq`, `library`, `casting`, `dsp` or `ai-enhancer` (public/img/features/<slug>.webp). */

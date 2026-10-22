@@ -1,6 +1,6 @@
 import { createElement } from "react";
-import { iconStroke } from "../utils/icon";
-import type { ClassProps } from "./_lib/class-props";
+import { iconStroke } from "../../utils/icon";
+import type { ClassProps } from "../_lib/class-props";
 import { GLYPH_SETS, PHOSPHOR, type Glyph } from "./glyphs";
 import "./Icon.css";
 

@@ -1,6 +1,6 @@
-import Button from '../common/Button';
-import PlayCta from '../common/PlayCta';
-import Picture from '../common/Picture';
+import Button from '../primitives/Button';
+import PlayCta from '../primitives/PlayCta';
+import Picture from '../primitives/Picture';
 import Phone from '../feature/Phone';
 import { useBehaviour } from '../_lib/behaviour';
 import { pro } from '../../data/site';

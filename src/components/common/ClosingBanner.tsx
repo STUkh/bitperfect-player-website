@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import Band from './Band';
-import Button from './Button';
+import Button from '../primitives/Button';
 import SectionHeading from './SectionHeading';
 import './ClosingBanner.css';
 

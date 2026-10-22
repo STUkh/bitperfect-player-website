@@ -5,7 +5,7 @@
    takes it from HERE, never from a per-component copy.
 
    Controls (buttons, store badges, social circles) live in
-   components/common/Button.css as `.btn-primary-gradient` and
+   components/primitives/Button.css as `.btn-primary-gradient` and
    `.btn-secondary-glow`; this file is for SURFACES.
 
    Hooks (all optional, set them on the element or a parent):

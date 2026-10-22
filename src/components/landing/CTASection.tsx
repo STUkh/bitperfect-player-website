@@ -1,6 +1,6 @@
 import type { FlowProps } from '../common/FlowBackdrop';
 import CloseBand from '../common/CloseBand';
-import PlayCta from '../common/PlayCta';
+import PlayCta from '../primitives/PlayCta';
 import { reveal } from '../common/bands';
 import { pro } from '../../data/site';
 import './CTASection.css';

@@ -1,12 +1,12 @@
 import FlowBackdrop, { type FlowProps } from '../common/FlowBackdrop';
 import { clsx as cx } from 'clsx';
-import Button from '../common/Button';
-import Container from '../common/Container';
-import PlayCta from '../common/PlayCta';
+import Button from '../primitives/Button';
+import Container from '../primitives/Container';
+import PlayCta from '../primitives/PlayCta';
 import SectionHeading from '../common/SectionHeading';
 import { reveal as stagger } from '../common/bands';
-import Picture from '../common/Picture';
-import { CHECK_SOLID_PATH, LINK_ARROW_PATH } from '../glyphs';
+import Picture from '../primitives/Picture';
+import { CHECK_SOLID_PATH, LINK_ARROW_PATH } from '../primitives/glyphs';
 import { pro, site } from '../../data/site';
 import { useTranslations } from '../../i18n/utils';
 import { withBase } from '../../utils/nav';

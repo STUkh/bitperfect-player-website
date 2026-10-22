@@ -1,6 +1,6 @@
 import { clsx as cx } from 'clsx';
-import Container from '../common/Container';
-import FeatureMark from './FeatureMark';
+import Container from '../primitives/Container';
+import FeatureMark from '../primitives/FeatureMark';
 import { technicalFeatures, technicalCategories } from '../../data/technical-features';
 import type { ClassProps } from '../_lib/class-props';
 import './TechIndex.css';

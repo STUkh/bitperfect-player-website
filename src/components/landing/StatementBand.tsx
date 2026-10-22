@@ -1,6 +1,6 @@
 import type { FlowProps } from '../common/FlowBackdrop';
 import Band from '../common/Band';
-import ImageSlot from '../common/ImageSlot';
+import ImageSlot from '../primitives/ImageSlot';
 import RuleList from '../common/RuleList';
 import SectionHeading from '../common/SectionHeading';
 import './StatementBand.css';

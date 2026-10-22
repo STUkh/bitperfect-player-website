@@ -144,7 +144,7 @@ are not:
 - The drawn phone screens in `src/components/feature/screens/` carry user-visible
   strings too, and are easy to miss in a copy pass. They were the last place
   jargon survived.
-- `src/components/feature/FeatureArt.tsx` is now a raster image per feature
+- `src/components/primitives/FeatureArt.tsx` is now a raster image per feature
   (`public/img/features/<slug>.webp`) with no text in it. The six SVG numerals it
   used to draw (768 kHz, 32 bands...) are gone, so a number change no longer has a
   hidden second copy there.

@@ -1,5 +1,5 @@
 import { clsx as cx } from 'clsx';
-import Button from './Button';
+import Button from '../primitives/Button';
 import type { ClassProps } from '../_lib/class-props';
 
 export interface CrossLinkRowProps extends ClassProps {

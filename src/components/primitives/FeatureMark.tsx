@@ -1,5 +1,5 @@
-import Icon from '../Icon';
-import type { FeatureGlyphName } from '../glyphs';
+import Icon from './Icon';
+import type { FeatureGlyphName } from './glyphs';
 import type { ClassProps } from '../_lib/class-props';
 
 /**

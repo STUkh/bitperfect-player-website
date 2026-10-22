@@ -1,8 +1,8 @@
 import { clsx as cx } from 'clsx';
-import Container from './Container';
-import StoreBadges from './StoreBadges';
+import Container from '../primitives/Container';
+import StoreBadges from '../primitives/StoreBadges';
 import MobileMenu from './MobileMenu';
-import Logo from './Logo';
+import Logo from '../primitives/Logo';
 import { getLocalizedNavLinks } from '../../data/navigation';
 import { useTranslations } from '../../i18n/utils';
 import { isActive, resolveHref, withBase } from '../../utils/nav';

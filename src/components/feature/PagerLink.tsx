@@ -1,6 +1,6 @@
 import { clsx as cx } from 'clsx';
-import Card from '../common/Card';
-import FeatureMark from './FeatureMark';
+import Card from '../primitives/Card';
+import FeatureMark from '../primitives/FeatureMark';
 import './PagerLink.css';
 
 export interface PagerLinkProps {

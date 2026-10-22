@@ -1,7 +1,7 @@
 // Migration converter: turns an `.astro` component into a React `.tsx` (plus a
 // co-located `.css` for its `<style>`) that renders the same HTML.
 //
-//   node scripts/astro-to-tsx.mjs src/components/common/StoreBadges.astro [...]
+//   node scripts/astro-to-tsx.mjs src/components/primitives/StoreBadges.astro [...]
 //
 // It parses with Astro's own compiler, so markup, expressions and nested JSX are
 // read exactly as Astro reads them, then prints JSX:

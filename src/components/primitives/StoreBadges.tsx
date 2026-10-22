@@ -1,7 +1,7 @@
 import { site } from "../../data/site";
 import Button from "./Button";
 import PlayStoreMark from "./PlayStoreMark";
-import { APPLE_PATH } from "../glyphs";
+import { APPLE_PATH } from "./glyphs";
 
 export interface StoreBadgesProps {
   /**

@@ -1,11 +1,11 @@
-import PlayCta from './common/PlayCta';
-import Container from './common/Container';
-import Logo from './common/Logo';
-import Icon from './Icon';
-import Picture from './common/Picture';
+import PlayCta from './primitives/PlayCta';
+import Container from './primitives/Container';
+import Logo from './primitives/Logo';
+import Icon from './primitives/Icon';
+import Picture from './primitives/Picture';
 import { site } from '../data/site';
 import { withBase } from '../utils/nav';
-import './common/Button.css';
+import './primitives/Button.css';
 import './HoldingPage.css';
 
 export interface HoldingPageProps {

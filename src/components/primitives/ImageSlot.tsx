@@ -3,7 +3,7 @@ import { imagePrompts } from '../../data/imagePrompts';
 import { plates } from '../../data/plates';
 import { withBase } from '../../utils/nav';
 import Picture from './Picture';
-import { PROMPT_CHEVRON_PATH } from '../glyphs';
+import { PROMPT_CHEVRON_PATH } from './glyphs';
 import type { ClassProps } from '../_lib/class-props';
 
 /**
