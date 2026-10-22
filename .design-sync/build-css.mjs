@@ -50,7 +50,7 @@ const layout = [
   ...Array.from({ length: 12 }, (_, i) => `grid-cols-${i + 1}`),
   ...Array.from({ length: 12 }, (_, i) => `col-span-${i + 1}`),
   'w-full', 'w-auto', 'h-full', 'h-auto', 'min-h-screen', 'mx-auto',
-  'max-w-xs', 'max-w-sm', 'max-w-md', 'max-w-lg', 'max-w-xl', 'max-w-2xl', 'max-w-3xl', 'max-w-4xl', 'max-w-5xl', 'max-w-6xl', 'max-w-7xl', 'max-w-[760px]', 'max-w-[840px]',
+  'max-w-xs', 'max-w-sm', 'max-w-md', 'max-w-lg', 'max-w-xl', 'max-w-2xl', 'max-w-3xl', 'max-w-4xl', 'max-w-5xl', 'max-w-6xl', 'max-w-7xl', ...tokens('container').map((c) => `max-w-${c}`),
   'text-left', 'text-center', 'text-right', 'relative', 'absolute', 'inset-0', 'overflow-hidden', 'isolate',
   'order-first', 'order-last',
 ];
@@ -59,12 +59,13 @@ const safelist = [
   ...tokens('radius').map((r) => `rounded-${r}`), 'rounded-full', 'rounded-none',
   ...responsive(tokens('text').map((t) => `text-${t}`)),
   ...tokens('shadow').map((s) => `shadow-${s}`),
+  ...tokens('tracking').map((t) => `tracking-${t}`),
   ...responsive(spacing), ...responsive(layout),
   'border', 'border-t', 'border-b', 'border-l', 'border-r', 'border-y', 'border-x', 'border-0',
   'font-normal', 'font-medium', 'font-semibold', 'font-bold', 'font-extrabold', 'font-mono', 'font-sans',
   'uppercase', 'tabular-nums', 'text-balance', 'text-pretty', 'leading-none', 'leading-tight', 'leading-snug', 'leading-normal', 'leading-relaxed',
   'focus-ring', 'focus-ring-inset', 'focus-visible:focus-ring', 'focus-visible:focus-ring-inset',
-  'heading-section', 'text-eyebrow', 'mono-spec', 'overhead-wash',
+  'heading-section', 'text-eyebrow', 'mono-spec',
 ];
 const css = compiler.build([...scanner.scan(), ...safelist]);
 const animations = readFileSync(resolve(root, 'src/styles/animations.css'), 'utf8');
@@ -93,8 +94,8 @@ const probes = ASSET_DIRS.flatMap((d) => walkFiles(resolve(root, 'public', d)).m
   .filter((f) => /\.(webp|png|jpe?g|svg|avif)$/.test(f))
   .map((f) => {
     // A small SVG (the logo) is inlined: an <img> refuses an SVG served without
-    // an image/svg+xml type, and not every host sets one. Large SVGs (the
-    // grounds) stay files; CSS references them directly, not through a probe.
+    // an image/svg+xml type, and not every host sets one. Larger files are
+    // copied beside the stylesheet and probed by URL.
     const file = resolve(root, 'public', f);
     const url = f.endsWith('.svg') && statSync(file).size < 8192
       ? `data:image/svg+xml;base64,${readFileSync(file).toString('base64')}`
@@ -115,8 +116,43 @@ const merged = assetUrl(fontsFixed([
   ...probes,
 ].join('\n'))) + '\n';
 
+// space-*/divide-* утилиты: *-reverse на сайте не используется, переменная всегда 0.
+// Подставляем значение, чтобы утилита не объявляла custom property.
+const inlineReverse = (text) => text.replace(
+  /(:where\((?:[^(){}]|\([^()]*\))*\)\s*\{)([^}]*)\}/g,
+  (rule, head, body) => {
+    const m = body.match(/\s*--tw-(space|divide)-([xy])-reverse:\s*0;/);
+    if (!m) return rule;
+    const v = `--tw-${m[1]}-${m[2]}-reverse`;
+    return head + body.replace(m[0], '')
+      .replaceAll(`calc(1 - var(${v}))`, '1')
+      .replaceAll(`var(${v})`, '0') + '}';
+  });
+
+// Hover-утилиты translate объявляют --tw-translate-x/y внутри селектора.
+// Подставляем значение прямо в translate, чтобы утилита не объявляла custom property.
+const inlineTranslate = (text) => text.replace(
+  /\{([^{}]*?)--tw-translate-([xy]):\s*([^;{}]+);([^{}]*?)translate:\s*var\(--tw-translate-x\)\s+var\(--tw-translate-y\);([^{}]*)\}/g,
+  (rule, pre, axis, val, mid, post) => {
+    const t = axis === 'x' ? `${val.trim()} var(--tw-translate-y)` : `var(--tw-translate-x) ${val.trim()}`;
+    return `{${pre}${mid}translate: ${t};${post}}`;
+  });
+
+// @kind для токенов, которые конвертер не классифицирует по имени/значению.
+const KIND = [
+  [/^--rise-/, 'spacing'],
+  [/^--(tw-|ease-|default-|d-|stagger|animate-|blur-|perspective-|tracking-|leading-)/, 'other'],
+  [/^--(art-ratio|i|peak|fit-w)$/, 'other'],
+];
+const annotateKinds = (text) => text.replace(
+  /^(\s*)(--[\w-]+):([^;{}]+);[ \t]*$/gm,
+  (line, ind, name, val) => {
+    const k = KIND.find(([re]) => re.test(name));
+    return k ? `${ind}${name}:${val}; /* @kind ${k[1]} */` : line;
+  });
+
 mkdirSync(dirname(out), { recursive: true });
-writeFileSync(out, merged);
+writeFileSync(out, annotateKinds(inlineTranslate(inlineReverse(merged))));
 // The converter lifts @font-face files relative to this stylesheet and only
 // from inside the package, so the Manrope files sit beside it as real copies.
 cpSync(resolve(root, 'public/fonts'), join(dirname(out), 'fonts'), { recursive: true });

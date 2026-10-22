@@ -4,9 +4,8 @@ import { HoldingPage } from '@bitperfect/website-ds';
 export function UnderConstruction() {
   return (
     <HoldingPage
-      eyebrow="Under construction"
-      headline="The needle is still up."
-      lede="We are rebuilding this site. The player is unchanged and still on Google Play."
+      headline="New site on the way."
+      lede="The player is still on Google Play, ready for your USB DAC."
     />
   );
 }

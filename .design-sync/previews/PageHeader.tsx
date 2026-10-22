@@ -5,7 +5,6 @@ export function WithBackLink() {
     <PageHeader
       backHref="/features"
       backLabel="Back to Features Overview"
-      eyebrow="Full Specification Manual"
       title="27 Audiophile Capabilities"
       description="Android's default audio mixer resamples and compresses audio streams. Bitperfect Player bypasses the OS using custom user-space USB drivers, a Rust playback engine, and hardware isolation."
     />
@@ -16,9 +15,8 @@ export function Narrow() {
   return (
     <PageHeader
       maxWidth="760px"
-      eyebrow="Version History"
-      title="Changelog & Release Notes"
-      description="Release notes and version history for Bitperfect Player, documenting audio engine updates, driver additions, and stability improvements."
+      title="Terms of Use"
+      description="The subscription, the free trial for new customers, billing and cancellation, in plain words."
     />
   );
 }
@@ -27,7 +25,6 @@ export function WideWithSearch() {
   return (
     <PageHeader
       maxWidth="wide"
-      eyebrow="Knowledge Base & FAQ"
       title="Frequently Asked Questions"
       description="Clear, direct answers on Android OS mixer bypass, USB DAC connections, hardware NPU requirements for neural audio, and battery management."
     >
@@ -45,31 +42,5 @@ export function WideWithSearch() {
         />
       </div>
     </PageHeader>
-  );
-}
-
-export function ReleaseWithMeta() {
-  return (
-    <PageHeader
-      maxWidth="760px"
-      title="Major Audio Engine & 120 FPS UI Update"
-      description="Rebuilt the audio pipeline in Rust with Symphonia and ARM NEON vectorization. Added a 60/120 FPS decoupled UI, dyadic lossless volume, and a 4-mode equalizer."
-      meta={
-        <div>
-          <nav className="flex items-center gap-2 text-caption text-text-tertiary" aria-label="Breadcrumb">
-            <a href="/changelog" className="inline-flex items-center min-h-[44px] rounded hover:text-gold transition-colors focus-visible:focus-ring">
-              Changelog
-            </a>
-            <span>/</span>
-            <span className="text-text-secondary font-medium">Version 1.2.0</span>
-          </nav>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <span className="mono-spec text-headline-sm-m font-extrabold text-gold sm:text-section-sm">v1.2.0</span>
-            <span className="mono-spec text-caption text-text-tertiary">Released October 12, 2026</span>
-            <span className="mono-spec text-micro font-semibold uppercase tracking-wider text-gold">· Latest Release</span>
-          </div>
-        </div>
-      }
-    />
   );
 }

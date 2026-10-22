@@ -7,7 +7,7 @@ import { asset } from './asset';
 
 export * from '@site/utils/nav';
 
-const IMAGE = /^\/?(screens|img|brand|grounds)\//;
+const IMAGE = /^\/?(screens|img|brand)\//;
 
 export function withBase(path: string): string {
   return IMAGE.test(path) ? asset(path) : siteWithBase(path);

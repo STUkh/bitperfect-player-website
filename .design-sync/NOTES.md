@@ -29,7 +29,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 
 ## Images
 
-- The components build image URLs with `withBase('screens/x.webp')`. In Claude Design the images are not at the site root, so the design build's `nav.ts` hands any `screens|img|brand|grounds` path to `asset()`, which reads the computed `background-image` of the matching `.bpa-*` probe class: a URL the browser already resolved against wherever `styles.css` was served from. Links keep their site paths.
+- The components build image URLs with `withBase('screens/x.webp')`. In Claude Design the images are not at the site root, so the design build's `nav.ts` hands any `screens|img|brand` path to `asset()`, which reads the computed `background-image` of the matching `.bpa-*` probe class: a URL the browser already resolved against wherever `styles.css` was served from. Links keep their site paths.
 - Phone screens are real captures and are never redrawn.
 
 ## Previews (`.design-sync/previews/`)
@@ -59,3 +59,7 @@ node .design-sync/sync.mjs [--remote .design-sync/.cache/remote-sync.json]
 - A component that starts importing another module for its image URLs (not `utils/nav`'s `withBase`) bypasses `asset()`, and its images will 404 in Claude Design.
 - `conventions.md` names classes and components. After a design change, check every class it names still compiles into `react/dist/site.css`.
 - Grades carry forward by preview source, not by component source. A component whose look changed while its preview did not keeps its old grade: after a visual change on the site, re-capture with `--spot-check-components`.
+
+## Groups
+
+- The flat `dist/` has no folders, so the converter would put every component in `general`. `cfg.docsMap` points each one at a one-line stub in `.design-sync/groups/<group>.md` (`category:` only), which restores the site's `common/feature/landing/legal` split. A new component needs a docsMap line too, or it lands in `general`. `HoldingPage`, `Icon`, `PhoneNowPlaying` and `Surface` live outside those folders; `HoldingPage` was put in `landing`, the others in `common`.

@@ -31,7 +31,7 @@ await build({
   format: 'esm',
   jsx: 'automatic',
   target: 'es2020',
-  external: ['react', 'react-dom', 'react/jsx-runtime'],
+  external: ['react', 'react-dom', 'react/jsx-runtime', '/grounds/*', '/img/*', '/screens/*', '/brand/*'],
   tsconfig: resolve(here, 'tsconfig.json'),
   define: { 'import.meta.env.BASE_URL': '"/"', 'import.meta.env.DEV': 'false', 'import.meta.env.PROD': 'true' },
   plugins: [siteNav],

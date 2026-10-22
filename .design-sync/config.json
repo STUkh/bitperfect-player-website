@@ -54,14 +54,6 @@
       "cardMode": "column",
       "viewport": "1280x900"
     },
-    "HeroSection": {
-      "cardMode": "column",
-      "viewport": "1280x900"
-    },
-    "PhoneShowcase": {
-      "cardMode": "column",
-      "viewport": "1280x900"
-    },
     "TechnicalCatalog": {
       "cardMode": "column",
       "viewport": "1280x900"
@@ -91,9 +83,47 @@
     "HoldingPage": {
       "cardMode": "column",
       "viewport": "1280x900"
+    },
+    "HomeOpening": {
+      "cardMode": "column",
+      "viewport": "1280x900"
     }
   },
   "provider": {
     "component": "Surface"
+  },
+  "docsMap": {
+    "Button": "../groups/common.md",
+    "Card": "../groups/common.md",
+    "ClosingBanner": "../groups/common.md",
+    "Container": "../groups/common.md",
+    "Footer": "../groups/common.md",
+    "Header": "../groups/common.md",
+    "Icon": "../groups/common.md",
+    "ImageSlot": "../groups/common.md",
+    "Logo": "../groups/common.md",
+    "PageHeader": "../groups/common.md",
+    "PhoneNowPlaying": "../groups/common.md",
+    "StoreBadges": "../groups/common.md",
+    "Surface": "../groups/common.md",
+    "FeatureArt": "../groups/feature.md",
+    "FeatureMark": "../groups/feature.md",
+    "FeatureScreens": "../groups/feature.md",
+    "PagerLink": "../groups/feature.md",
+    "PhoneFrame": "../groups/feature.md",
+    "PhoneScreen": "../groups/feature.md",
+    "PhoneTrio": "../groups/feature.md",
+    "TechnicalCatalog": "../groups/feature.md",
+    "CTASection": "../groups/landing.md",
+    "FeaturesTeaser": "../groups/landing.md",
+    "HoldingPage": "../groups/landing.md",
+    "PricingSection": "../groups/landing.md",
+    "PrivacyBand": "../groups/landing.md",
+    "StatementBand": "../groups/landing.md",
+    "LegalDocument": "../groups/legal.md",
+    "PlayCta": "../groups/common.md",
+    "PlayStoreMark": "../groups/common.md",
+    "HomeOpening": "../groups/landing.md",
+    "TextureStrip": "../groups/common.md"
   }
 }
