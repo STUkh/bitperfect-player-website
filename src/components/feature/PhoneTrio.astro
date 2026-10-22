@@ -1,0 +1,16 @@
+---
+/*
+  The site's entry to the React `PhoneTrio`: it mounts the scroll-in, which the
+  static render cannot carry (nothing hydrates). Claude Design renders
+  `PhoneTrio.tsx` directly, where `useBehaviour` mounts it.
+*/
+import PhoneTrio from './PhoneTrio.tsx';
+---
+
+<PhoneTrio {...Astro.props} />
+
+<script>
+  import { setupPhoneTrio } from './PhoneTrio.client';
+
+  document.querySelectorAll<HTMLElement>('[data-phone-trio]').forEach((el) => setupPhoneTrio(el));
+</script>

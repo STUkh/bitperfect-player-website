@@ -1,0 +1,76 @@
+---
+/**
+ * Dev-only review routes. `npm run dev`, then open /preview.
+ *
+ * The live `/` is the holding page, so the parked home page is unreachable
+ * there. This route renders it, and /preview itself is a checklist of every
+ * page and the section anchors worth eyeballing.
+ *
+ * `getStaticPaths` is empty outside dev, so `astro build` emits NOTHING for this
+ * folder and the shipped site is unchanged.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/common/Container';
+import Home from '../_index.astro';
+import { featureRoutes } from '../../data/navigation';
+
+export function getStaticPaths() {
+  if (!import.meta.env.DEV) return [];
+  return [{ params: { page: undefined } }, { params: { page: 'home' } }];
+}
+
+const { page } = Astro.params;
+
+const groups = [
+  {
+    title: 'Parked home page',
+    links: [
+      { href: '/preview/home', label: 'Full landing page' },
+      { href: '/preview/home#pricing', label: 'Pricing (Founder and Standard)' },
+      { href: '/preview/home#features', label: 'Features teaser' },
+      { href: '/', label: 'Live / (the holding page)' },
+    ],
+  },
+  {
+    title: 'Features',
+    links: [
+      { href: '/features', label: 'Features index' },
+      ...featureRoutes.map((r) => ({ href: `/features/${r.slug}`, label: r.name })),
+      { href: '/features/catalog', label: 'Catalog' },
+    ],
+  },
+  {
+    title: 'Everything else',
+    links: [
+      { href: '/faq', label: 'FAQ' },
+      { href: '/changelog', label: 'Releases' },
+      { href: '/privacy', label: 'Privacy' },
+      { href: '/terms', label: 'Terms' },
+      { href: '/404', label: '404' },
+    ],
+  },
+];
+---
+
+{page === 'home' ? (
+  <Home />
+) : (
+  <BaseLayout title="Preview" description="Dev-only page index.">
+    <main class="py-20">
+      <Container>
+        <h1 class="text-section-sm text-text-primary">Preview</h1>
+        <p class="mt-3 text-text-secondary">Dev server only. This folder is not part of the build.</p>
+        {groups.map((g) => (
+          <section class="mt-10">
+            <h2 class="text-body-sm font-semibold text-text-primary">{g.title}</h2>
+            <ul class="mt-3 grid gap-2">
+              {g.links.map((l) => (
+                <li><a class="text-gold hover:text-gold-light" href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </Container>
+    </main>
+  </BaseLayout>
+)}
