@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import { reveal as stagger, toneText, useTone, type Tone } from './bands';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface SectionHeadingProps extends ClassProps {
   /** Text tokens to use. Inherited from the enclosing `Band` in TSX; pass it from `.astro`. */

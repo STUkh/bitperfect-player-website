@@ -1,4 +1,4 @@
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 import { PLAY_STORE_PATH } from '../glyphs';
 
 export interface PlayStoreMarkProps extends ClassProps {

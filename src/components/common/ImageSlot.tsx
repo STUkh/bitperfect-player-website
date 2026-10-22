@@ -4,7 +4,7 @@ import { plates } from '../../data/plates';
 import { withBase } from '../../utils/nav';
 import Picture from './Picture';
 import { PROMPT_CHEVRON_PATH } from '../glyphs';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 /**
  * An image slot: a real plate once one exists, a registration frame until then.

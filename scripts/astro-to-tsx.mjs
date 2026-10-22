@@ -234,7 +234,7 @@ function convertFile(file) {
       typeImports.length && `import type { ${typeImports.join(', ')} } from 'react';`,
       uses.cx && `import { clsx as cx } from 'clsx';`,
       importText.trim(),
-      uses.styleOf && `import { styleOf } from '${relativeTo(file, 'src/components/class-props')}';`,
+      uses.styleOf && `import { styleOf } from '${relativeTo(file, 'src/components/_lib/class-props')}';`,
       uses.css && `import './${name}.css';`,
     ].filter(Boolean).join('\n');
     const usesProps = /\bprops\b/.test(code);

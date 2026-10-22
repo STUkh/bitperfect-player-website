@@ -3,7 +3,7 @@ import Band from './Band';
 import type { FlowProps } from './FlowBackdrop';
 import SectionHeading from './SectionHeading';
 import type { Tone } from './bands';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface CloseBandProps extends ClassProps, FlowProps {
   /** Ground colour. Pick the one that alternates with the band above. */

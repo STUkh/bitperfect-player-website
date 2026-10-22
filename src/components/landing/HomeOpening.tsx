@@ -2,7 +2,7 @@ import Button from '../common/Button';
 import PlayCta from '../common/PlayCta';
 import Picture from '../common/Picture';
 import Phone from '../feature/Phone';
-import { useBehaviour } from '../behaviour';
+import { useBehaviour } from '../_lib/behaviour';
 import { pro } from '../../data/site';
 import { fanStyle } from '../feature/phone-fan';
 import { setupHomeOpening } from './HomeOpening.client';

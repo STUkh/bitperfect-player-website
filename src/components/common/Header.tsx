@@ -6,7 +6,7 @@ import Logo from './Logo';
 import { getLocalizedNavLinks } from '../../data/navigation';
 import { useTranslations } from '../../i18n/utils';
 import { isActive, resolveHref, withBase } from '../../utils/nav';
-import { useBehaviour } from '../behaviour';
+import { useBehaviour } from '../_lib/behaviour';
 import { setupMobileMenu } from './MobileMenu.client';
 import './Header.css';
 

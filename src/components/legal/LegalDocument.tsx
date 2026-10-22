@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import Icon from '../Icon';
 import { TOC_CHEVRON_PATH } from '../glyphs';
-import { useBehaviour } from '../behaviour';
+import { useBehaviour } from '../_lib/behaviour';
 import { setupLegalDocument } from './LegalDocument.client';
 import './LegalDocument.css';
 

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import { reveal as stagger, toneText, useTone, type Tone } from './bands';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface RuleListProps extends ClassProps {
   /** Text and hairline tokens. Inherited from the enclosing `Band` in TSX. */

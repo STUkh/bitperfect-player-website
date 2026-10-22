@@ -1,6 +1,6 @@
 import { clsx as cx } from 'clsx';
 import Button from './Button';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface CrossLinkRowProps extends ClassProps {
   /** Small gold mono line above the title, e.g. "Technical catalog". */

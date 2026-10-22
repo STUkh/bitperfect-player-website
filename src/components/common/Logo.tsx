@@ -1,6 +1,6 @@
 import { cn } from '../../utils/cn';
 import { withBase } from '../../utils/nav';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface LogoProps extends ClassProps {
   /** `sm` 24px, `md` 32px (header), `lg` 40px. */

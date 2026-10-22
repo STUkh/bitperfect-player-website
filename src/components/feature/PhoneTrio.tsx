@@ -2,8 +2,8 @@ import { clsx as cx } from 'clsx';
 import Phone from './Phone';
 import { fanStyle } from './phone-fan';
 import type { ScreenName } from '../../data/screens';
-import type { ClassProps } from '../class-props';
-import { useBehaviour } from '../behaviour';
+import type { ClassProps } from '../_lib/class-props';
+import { useBehaviour } from '../_lib/behaviour';
 import { setupPhoneTrio } from './PhoneTrio.client';
 import './PhoneTrio.css';
 

@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import { clsx as cx } from 'clsx';
 import { withBase } from '../../utils/nav';
 import { imageSet } from './Picture';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 import './TextureStrip.css';
 
 /** The ribbons we have: a photographed material, cropped to a narrow height. */

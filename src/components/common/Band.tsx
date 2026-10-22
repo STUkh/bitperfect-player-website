@@ -3,7 +3,7 @@ import { cn } from '../../utils/cn';
 import Container from './Container';
 import FlowBackdrop, { type FlowProps } from './FlowBackdrop';
 import { ToneContext, toneGround, type Tone } from './bands';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface BandProps extends Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'>, ClassProps, FlowProps {
   /** Ground colour, `graphite` (default) or `ivory`. The shells inside inherit it in TSX. */

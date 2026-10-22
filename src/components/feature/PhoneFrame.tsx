@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import PhoneChassis from './PhoneChassis';
 import type { PhoneGeometry } from './phone-geometry';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 import './PhoneFrame.css';
 
 export interface PhoneFrameProps extends ClassProps {

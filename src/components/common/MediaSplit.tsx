@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface MediaSplitProps extends ClassProps {
   /** The art: a `Phone`, `FeatureScreens`, a picture, centred in its column. From `.astro`, a child with `slot="media"`. */

@@ -1,5 +1,5 @@
 import { clsx as cx } from 'clsx';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 import Picture from '../common/Picture';
 
 export interface FeatureArtProps extends ClassProps {

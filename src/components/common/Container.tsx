@@ -1,6 +1,6 @@
 import type { ElementType, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface ContainerProps extends ClassProps {
   /** Element to render. Defaults to `div`. */

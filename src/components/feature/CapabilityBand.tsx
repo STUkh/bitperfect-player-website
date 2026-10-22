@@ -11,7 +11,7 @@ import Phone from './Phone';
 import { GlyphShapes } from '../Icon';
 import { EXTERNAL_LINK } from '../glyphs';
 import type { ScreenName } from '../../data/screens';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 import './CapabilityBand.css';
 
 /**

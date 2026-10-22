@@ -1,6 +1,6 @@
 import Icon from '../Icon';
 import type { FeatureGlyphName } from '../glyphs';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 /**
  * The six feature marks (`usb-dac`, `eq`, `library`, `casting`, `dsp`,

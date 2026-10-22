@@ -7,7 +7,7 @@ import { footerLinks } from '../../data/navigation';
 import { site } from '../../data/site';
 import { resolveHref, withBase } from '../../utils/nav';
 import { useTranslations } from '../../i18n/utils';
-import { styleOf } from '../class-props';
+import { styleOf } from '../_lib/class-props';
 import './Footer.css';
 
 export interface FooterProps {

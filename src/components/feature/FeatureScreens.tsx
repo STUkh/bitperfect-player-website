@@ -1,6 +1,6 @@
 import Phone from './Phone';
 import { featureScreens } from '../../data/feature-screens';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 /**
  * A phone showing the app screen one beat of a feature route argues: a

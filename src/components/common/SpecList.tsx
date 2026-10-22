@@ -1,5 +1,5 @@
 import { clsx as cx } from 'clsx';
-import { styleOf, type ClassProps, type StyleInput } from '../class-props';
+import { styleOf, type ClassProps, type StyleInput } from '../_lib/class-props';
 import { toneText, useTone, type Tone } from './bands';
 
 export interface SpecListProps extends ClassProps {

@@ -1,6 +1,6 @@
 import { clsx as cx } from 'clsx';
 import { useTone, type Tone } from './bands';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 import { BACK_CHEVRON_POINTS } from '../glyphs';
 
 export interface BackLinkProps extends ClassProps {

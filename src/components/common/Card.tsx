@@ -1,6 +1,6 @@
 import type { ElementType, HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
-import { styleOf, type ClassProps, type StyleInput } from '../class-props';
+import { styleOf, type ClassProps, type StyleInput } from '../_lib/class-props';
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'className' | 'style'>, ClassProps {
   /** Element to render. Defaults to `div`; pass `a` with an `href` for a linked card. */

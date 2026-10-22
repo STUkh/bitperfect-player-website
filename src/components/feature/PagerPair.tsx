@@ -1,7 +1,7 @@
 import { cn } from '../../utils/cn';
 import Band from '../common/Band';
 import PagerLink from './PagerLink';
-import type { ClassProps } from '../class-props';
+import type { ClassProps } from '../_lib/class-props';
 
 export interface PagerPairProps extends ClassProps {
   /** The previous entry: its route, the small caps line ("Previous") and its name. */
