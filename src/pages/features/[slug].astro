@@ -191,9 +191,8 @@ const showSignalPath = slug === 'usb-dac';
         <SectionHeading
           tone="ivory"
           className="max-w-[58ch]"
-          eyebrow={t('feature_detail.signal_path_eyebrow')}
           title={t('feature_detail.signal_path_title')}
-          titleClassName="mt-3 text-section-m lg:mt-5 lg:text-headline"
+          titleClassName="text-section-m lg:text-headline"
           lede={t('feature_detail.signal_path_subtitle')}
           ledeClassName="mt-3 text-body tabular-nums text-pretty lg:mt-4 lg:text-lede"
           reveal={1}
@@ -355,8 +354,6 @@ const showSignalPath = slug === 'usb-dac';
             <SectionHeading
               className="contents"
               tone={tone}
-              eyebrow={beat.eyebrow}
-              eyebrowTone={onWhite ? 'accent' : 'quiet'}
               title={beat.title}
               lede={beat.body}
               ledeClassName="max-w-[52ch] text-body text-pretty lg:text-body-lg"
@@ -448,10 +445,8 @@ const showSignalPath = slug === 'usb-dac';
       <SectionHeading
         tone="ivory"
         className="lg:col-span-4"
-        eyebrow={t('feature_detail.specifications_eyebrow')}
-        eyebrowClassName="text-eyebrow block"
         title={t('feature_detail.specifications_title')}
-        titleClassName="mt-4 text-section-sm font-bold lg:mt-5 lg:text-section-lg"
+        titleClassName="text-section-sm font-bold lg:text-section-lg"
         lede={t('feature_detail.specifications_subtitle')}
         ledeClassName="mt-4 max-w-[34ch] text-body lg:mt-5"
       />
