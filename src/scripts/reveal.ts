@@ -12,6 +12,8 @@
  * through, so there is one call site instead of one per page and a new page
  * cannot forget it.
  */
+import { onArrive } from "./in-view";
+
 export function initFeatureMotion(): void {
   if (typeof window === "undefined") return;
 
@@ -29,17 +31,12 @@ export function initFeatureMotion(): void {
     // transition leaves a reduced-motion visitor on a permanently blank page.
     reveals.forEach((element) => element.classList.add("is-visible"));
   } else {
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
-    );
-    reveals.forEach((element) => revealObserver.observe(element));
+    /* A third of the element (or of the screen, for a tall one) has to be in view
+       above the bottom tenth: at 15% a card was rising before the reader reached it. */
+    onArrive(reveals, (element) => element.classList.add("is-visible"), {
+      share: 0.35,
+      margin: 0.1,
+    });
   }
 
   /*
