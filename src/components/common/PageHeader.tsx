@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
+import BackLink from './BackLink';
 import Container from './Container';
 import './PageHeader.css';
 
@@ -39,17 +40,7 @@ export default function PageHeader(props: PageHeaderProps) {
     <section className="ground ground-brushed border-b border-border-subtle/50 overhead-wash pt-10 pb-12 lg:pt-16 lg:pb-16">
       <Container>
         <div className={cx(['mx-auto', maxWidthClass])}>
-          {backHref && backLabel && (
-            <a
-              href={backHref}
-              className="mb-4 inline-flex items-center gap-1.5 min-h-[44px] rounded text-caption font-medium text-text-tertiary transition-colors duration-[var(--d-ui)] hover:text-gold focus-visible:focus-ring"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>{' '}
-              <span>{backLabel}</span>
-            </a>
-          )}
+          {backHref && backLabel && <BackLink href={backHref} label={backLabel} tone="graphite" className="mb-4" />}
           {meta}
           {eyebrow && (
             <span className="mono-spec block text-eyebrow text-gold uppercase tracking-widest">{eyebrow}</span>

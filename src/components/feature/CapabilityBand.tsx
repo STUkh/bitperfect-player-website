@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { clsx as cx } from 'clsx';
 import { cn } from '../../utils/cn';
+import BackLink from '../common/BackLink';
 import Band from '../common/Band';
 import MediaSplit from '../common/MediaSplit';
 import SectionHeading from '../common/SectionHeading';
@@ -105,28 +106,7 @@ export default function CapabilityBand(props: CapabilityBandProps) {
         className,
       )}
     >
-      {backHref && backLabel && (
-        <a
-          href={backHref}
-          className={cx(
-            'mb-6 inline-flex min-h-[44px] items-center gap-1.5 rounded text-caption font-medium transition-colors duration-[var(--d-ui)] focus-visible:focus-ring lg:mb-10',
-            ivory ? 'text-band-ink-muted hover:text-band-gold-ink' : 'text-text-tertiary hover:text-gold',
-          )}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden="true"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>{' '}
-          <span>{backLabel}</span>
-        </a>
-      )}
+      {backHref && backLabel && <BackLink href={backHref} label={backLabel} tone={tone} className="mb-6 lg:mb-10" />}
 
       <MediaSplit
         mediaSide={media}
