@@ -9,6 +9,7 @@ export interface StoreBadgesProps {
    * renders whichever stores have a URL.
    */
   size?: "icon" | "sm" | "md" | "lg";
+  /** Extra classes for the wrapper row (e.g. `flex-row flex-wrap`, or `sm:hidden` to hide it). */
   className?: string;
 }
 
@@ -75,6 +76,13 @@ function Badge({ href, size, top, bottom, children }: BadgeProps) {
   );
 }
 
+/**
+ * The store badges: the Google Play badge, plus the App Store and direct-APK
+ * ones when the site data has a URL for them. Each badge is a secondary `Button`
+ * (graphite lacquer, never gold) with the store mark and two lines of text. Use
+ * it in the header and footer; for a prominent install button use `PlayCta`.
+ * Sizes: `sm` (header), `md` (default), `lg` (220px minimum), `icon` (Play only, 44x44).
+ */
 export default function StoreBadges({
   size = "md",
   className,

@@ -11,3 +11,11 @@ export function Medium() {
 export function Secondary() {
   return <PlayCta label="View on Google Play" variant="secondary" size="md" />;
 }
+
+export function Small() {
+  return <PlayCta label="Get it on Google Play" size="sm" />;
+}
+
+export function Outline() {
+  return <PlayCta label="View on Google Play" variant="outline" size="md" />;
+}

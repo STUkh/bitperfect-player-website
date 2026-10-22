@@ -1,3 +1,4 @@
+import Button from './Button';
 import Container from './Container';
 import Logo from './Logo';
 import StoreBadges from './StoreBadges';
@@ -17,9 +18,10 @@ export interface FooterProps {
 }
 
 /**
- * The site footer: the brand block with the store badges, one link column per
- * `footerLinks` section, and the bottom bar with the copyright, the trademark
- * notice and the official channels.
+ * The site footer, on a raised graphite ground: the brand block (logo, tagline,
+ * store badges), one link column per section of `footerLinks`, and a bottom bar
+ * with the copyright, the trademark notice and the official social channels.
+ * Takes no content props; links and copy come from the site data and translations.
  */
 export default function Footer({ pathname = '/', locale }: FooterProps) {
   const t = useTranslations(locale);
@@ -105,7 +107,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
           seven and the whole row finishes within one line of itself.
         */}
             {sections.map((section: any) => (
-              <div className="col-span-1">
+              <div key={String(section.title)} className="col-span-1">
                 <h2 className="mb-4 text-sm font-semibold tracking-label text-text-primary uppercase">
                   {section.href ? (
                     <a
@@ -120,7 +122,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
                 </h2>
                 <ul className="space-y-1">
                   {section.links.map((link: FooterLink) => (
-                    <li>
+                    <li key={link.href}>
                       <a
                         href={resolveHref(link.href, pathname)}
                         rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
@@ -146,16 +148,19 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
           </div>
           <div className="flex items-center gap-3 shrink-0" aria-label="Official channels">
             {site.socials.map((social) => (
-              <a
+              <Button
+                key={social.id}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                variant="secondary"
+                size="sm"
                 aria-label={`${site.name} on ${social.label} (${social.handle})`}
-                className="footer-social-link btn-secondary-glow inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-subtle bg-white/[0.04] text-text-secondary hover:border-gold hover:text-gold hover:bg-gold/[0.06] focus-visible:focus-ring"
                 title={`${social.label}: ${social.handle}`}
+                className="h-11 w-11 shrink-0 p-0"
               >
                 <Icon name={social.id} size={18} />
-              </a>
+              </Button>
             ))}
           </div>
         </div>

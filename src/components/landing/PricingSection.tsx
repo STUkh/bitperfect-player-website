@@ -9,10 +9,6 @@ import { withBase } from '../../utils/nav';
 import './PricingSection.css';
 
 /*
-  TWO prices, side by side, and they are lacquered: the Founder rate that is on sale
-  now (gold) and the Standard rate it becomes on 1 June 2027 (graphite). Same chassis,
-  same rows on a subgrid, so the eye reads one product at two moments in time.
-
   Every string is a key in src/i18n/locales/en/landing.ts and every figure comes from
   `pro.plans`, never typed here. The trial is conditional copy: with `pro.trialDays`
   null the chip and the trial sentence disappear instead of leaving a dangling claim,
@@ -89,9 +85,22 @@ const CHECK =
 const stagger = (i: number) => ({ '--i': String(i) }) as CSSProperties;
 
 /**
- * The pricing band on graphite: heading and lede, then two lacquered plan cards
- * side by side (gold Founder beside a neutral Standard, rows aligned on a subgrid),
- * a hairline row of what the subscription covers, and the small-print disclosures.
+ * Pricing band. No props; prices and copy are the site's own.
+ *
+ * Fifth band of the landing page, after PrivacyBand and before CTASection. Graphite
+ * surface (`bg-surface-base`, anchor `#pricing`) over the `pricing-backdrop`
+ * photograph with an overhead wash and a stage glow.
+ *
+ * Content: heading and lede, then TWO lacquered plan cards side by side on a subgrid
+ * so their rows align: the Founder plan on sale now (gold, the only gold card; install
+ * key-cap `PlayCta`) beside the Standard plan it becomes on 1 June 2027 (graphite;
+ * secondary `Button` to Google Play). Below: a hairline row of three things the
+ * subscription covers (the AI entry links to the compatibility check), then small-print
+ * disclosures with Terms and Privacy links.
+ *
+ * Data: every figure comes from `pro.plans`, `pro.trialDays` in `src/data/site.ts`;
+ * every string is a `pricing.*` key in `src/i18n/locales/en/landing.ts` via
+ * `useTranslations()`. With `pro.trialDays` null the trial chip and sentence vanish.
  */
 export default function PricingSection() {
   return (

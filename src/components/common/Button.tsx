@@ -7,11 +7,17 @@ type NativeProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement> & ButtonHTMLAttr
 export interface ButtonProps extends NativeProps, ClassProps {
   /** An object from React; CSS text (`"--i: 2"`) from an `.astro` caller. */
   style?: StyleInput;
-  /** `primary` is the machined gold key-cap, `secondary` the lacquered graphite key-cap, `outline` the gold hairline. */
+  /**
+   * `primary` (default) is the machined gold key-cap: the install, one per band.
+   * `secondary` is the lacquered graphite key-cap, for every other action and for
+   * store badges. `outline` is a gold hairline on a transparent ground, colour-only hover.
+   */
   variant?: 'primary' | 'secondary' | 'outline';
   /** With an `href` it renders an `<a>`, otherwise a `<button>`. */
   href?: string;
+  /** `sm` (px-5 py-2, 14px), `md` (default, px-7 py-3, 16px), `lg` (px-9 py-4, large type). */
   size?: 'sm' | 'md' | 'lg';
+  /** The label, optionally with a leading icon (children sit on a `gap-2.5` row). Never an arrow or chevron. */
   children?: ReactNode;
 }
 
@@ -35,9 +41,11 @@ const variantStyles = {
 };
 
 /**
- * THE button: one full-radius chassis in three variants. Use `primary` for the
- * one main action in a band (the install), `secondary` beside it, `outline` on
- * its own on graphite.
+ * THE button: one full-radius chassis in three variants and three sizes. Use
+ * `primary` for the one main action in a band (the install), `secondary` beside
+ * it, `outline` on its own on graphite. It is stationary on hover and press (light
+ * only), carries no arrow or chevron, and for the Google Play install use `PlayCta`.
+ * Extra `className` is merged with tailwind-merge, so `w-full` and the like win.
  */
 export default function Button({ variant = 'primary', href, size = 'md', className, style, children, ...rest }: ButtonProps) {
   const classes = cn(baseStyles, sizeStyles[size], variantStyles[variant], className);

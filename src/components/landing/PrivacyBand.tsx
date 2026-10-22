@@ -27,15 +27,18 @@ const commitments = [
 ];
 
 /**
- * Privacy band, ivory. The page's second and last light band.
+ * Privacy band. No props; the copy is the site's own.
  *
- * Centred claim, three commitments on a hairline row, and the honest note
- * about the three optional network calls. One band-well note, no cards.
+ * Landing page order: HomeOpening, StatementBand, FeaturesTeaser, TextureStrip,
+ * PrivacyBand, PricingSection, CTASection. Ivory surface (`bg-band-ivory`) on the
+ * `ground-halftone` backdrop, and the second of the page's light bands. Hairlines and
+ * space only: no cards, glass or shadows.
  *
- * This band runs TIGHTER than its neighbours on purpose. It is the shortest
- * argument on the page, one headline and three facts, and letting it run compact
- * is what makes it land as a statement rather than as another full-height slab.
- * Every section at the same height reads as a template even when each is good.
+ * Content: a centred headline ("Your listening never leaves the phone."), three
+ * commitments on a hairline row (ink titles, never gold), an ivory `ImageSlot`
+ * (`home-privacy`, the library beside earphones), and one `band-well` note listing the
+ * app's optional network calls with a link to the privacy policy. It runs tighter than
+ * its neighbours on purpose. Static text; no data or i18n reads.
  */
 export default function PrivacyBand() {
   return (

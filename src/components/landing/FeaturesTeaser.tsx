@@ -47,21 +47,19 @@ const artY: Record<string, string> = {
 const allFeaturesHref = withBase('features');
 
 /**
- * Features teaser, graphite.
+ * Features teaser. No props; the copy is the site's own.
  *
- * Six hairline-separated rows in two columns, not cards and not one hue per
- * item. The items are told apart by their mark and their content, never by
- * colour. The eyebrow here is monospace neutral: on graphite, gold belongs to
- * the primary action and almost nothing else.
+ * Follows StatementBand and precedes the TextureStrip and PrivacyBand. Graphite
+ * surface (`bg-surface-base`) on the `features-ground` backdrop; the `#features`
+ * anchor that the hero's "See what it does" button targets.
  *
- * This section runs taller than its neighbours on purpose. It is the densest band
- * on the page, twelve items in two columns against three facts either side of it,
- * and four consecutive sections at an identical vertical rhythm read as a template
- * even when each one is good on its own.
- *
- * The marks come from FeatureMark rather than being inlined here. They used to
- * be six Lucide defaults, and the one for the AI Enhancer was the four-pointed
- * sparkle every generated product page has used since 2023.
+ * Content: the heading "Six things it does", then six lacquered cards (`lacquer
+ * lacquer-lift`) in a 1/2/3-column grid. Each card is a link to its feature page
+ * with a `FeatureArt` photograph, a title and one line. Titles come from
+ * `featureName()` in `src/data/navigation.ts`, so they match the nav; the one-line
+ * descriptions are local to the file. An "All features" link sits beside the heading
+ * on desktop and after the grid on mobile. Cards are told apart by photograph and
+ * content, never by hue. No eyebrow.
  */
 export default function FeaturesTeaser() {
   return (

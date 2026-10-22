@@ -5,7 +5,7 @@ import type { ClassProps } from '../class-props';
 export interface LogoProps extends ClassProps {
   /** `sm` 24px, `md` 32px (header), `lg` 40px. */
   size?: 'sm' | 'md' | 'lg';
-  /** Empty by default: beside the wordmark the mark is decorative. */
+  /** Alt text. Empty by default: beside the wordmark the mark is decorative; set it when the mark stands alone. */
   alt?: string;
 }
 
@@ -16,13 +16,8 @@ const sizeMap = {
 };
 
 /**
- * The Bitperfect mark (`brand/logo.svg`). Pair it with the "Bitperfect Player"
- * wordmark in `text-body-lg font-bold`.
- *
- * The Astro version carried an inline `onerror` that swapped in `logo.png`.
- * A server-rendered React component cannot emit an inline handler, and a
- * same-origin SVG the site ships itself has no failure mode worth the hack, so
- * the PNG fallback is gone.
+ * The Bitperfect mark (`brand/logo.svg`), a square image. Pair it with the
+ * "Bitperfect Player" wordmark in `text-body-lg font-bold`.
  */
 export default function Logo({ size = 'md', alt = '', className }: LogoProps) {
   return (

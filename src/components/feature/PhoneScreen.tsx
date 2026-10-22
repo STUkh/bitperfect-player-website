@@ -4,7 +4,9 @@ import { withBase } from '../../utils/nav';
 import type { ClassProps } from '../class-props';
 
 /**
- * One app screen inside a device frame.
+ * One app screen inside a device frame. Fills its parent (`h-full w-full`,
+ * cropped from the top); reserve a 556 / 1236 box, or put it inside `PhoneFrame`,
+ * which does.
  *
  * A capture of the shipping Android app, named by the manifest that
  * `design/screens.mjs` generates. Naming a screen that has not been captured
@@ -24,9 +26,17 @@ import type { ClassProps } from '../class-props';
  */
 
 export interface PhoneScreenProps extends ClassProps {
-  /** A key from `src/data/screens.ts`. */
+  /**
+   * Which capture. One of: now-playing, now-playing-hero, eq, eq-filters, eq-presets,
+   * eq-sculptor, library, sources, tracks, album, output, track-info, playback,
+   * fidelity, signal-path, signal-clean, cast, cast-sheet, receiver, dsp, dsp-sheet,
+   * ai, ai-enhancer, ai-karaoke, ai-neural (keys of `src/data/screens.ts`).
+   * An unknown key renders nothing.
+   */
   name: string;
+  /** Default empty (decorative): the copy beside the phone already says what it shows. */
   alt?: string;
+  /** Load eagerly with high fetch priority. Only for the one screen above the fold. Default lazy. */
   priority?: boolean;
 }
 

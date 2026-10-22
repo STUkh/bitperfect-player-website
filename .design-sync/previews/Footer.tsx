@@ -9,6 +9,7 @@ export function PageEnding() {
   return (
     <div>
       <ClosingBanner
+        eyebrow="Get the app"
         title="Start listening bit for bit."
         description="Connect your DAC for bit-perfect output."
         primaryHref="https://play.google.com/store/apps/details?id=com.bitperfect.player"

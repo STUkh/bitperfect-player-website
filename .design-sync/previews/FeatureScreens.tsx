@@ -19,3 +19,11 @@ export function LibraryFormats() {
 export function CastingReceiver() {
   return <FeatureScreens slug="casting" state={1} />;
 }
+
+export function DspGuard() {
+  return <FeatureScreens slug="dsp" state={3} />;
+}
+
+export function AiEnhancerStandsDown() {
+  return <FeatureScreens slug="ai-enhancer" state={2} />;
+}

@@ -3,29 +3,26 @@ import PhoneScreen from './PhoneScreen';
 import type { ClassProps } from '../class-props';
 
 /**
- * The device, showing the screen this beat is about.
+ * A phone showing the app screen one beat of a feature route argues: a
+ * `PhoneFrame` (Galaxy S25 Ultra chassis) around a `PhoneScreen` capture of the
+ * shipping Android app. Each beat is its own band, phone on one side and copy on
+ * the other, so each instance shows exactly the state its beat argues.
  *
- * Each beat is its own band with the phone on one side and the copy on the
- * other, so the device appears four or five times down a route and each instance
- * shows exactly the state its beat argues. One state per frame also means every
- * frame fits its own content, which the retired stacked version could not do.
- *
- * WHAT CHANGED: these used to be hand-drawn reproductions with a `state` prop,
- * four states per feature, clamped because there were only ever four drawings.
- * They are captures now, so the count is whatever the route needs — `usb-dac`
- * argues five beats and gets five screens instead of showing the fourth twice.
- *
- * The mapping is deliberate rather than positional. Every entry answers the beat
- * standing next to it: "Four ways to play into it" gets the Receiver screen,
- * which lists exactly four; "Fifteen formats" gets the flat track list, where
- * the per-track format chips are the evidence; "It tells you when it had to
- * convert" gets the Signal Path sheet, whose badge on this capture honestly
- * reads Resampled. A screen picked because it was next in an array is a
- * screenshot; a screen picked because it proves the sentence is an argument.
+ * The screen is picked per beat, not by position: every entry in the route's
+ * list answers the sentence standing next to it. For example the casting route
+ * pairs "Four ways to play into it" with the Receiver screen, which lists
+ * exactly four. Routes and their screens, by `state`:
+ * - `usb-dac` (5): output, track-info, now-playing, signal-clean, playback
+ * - `eq` (4): eq, eq-filters, eq-sculptor, eq-presets
+ * - `library` (4): library, sources, tracks, album
+ * - `casting` (4): cast, receiver, cast-sheet, signal-path
+ * - `dsp` (4): dsp, playback, dsp-sheet, fidelity
+ * - `ai-enhancer` (4): ai, ai-neural, ai-enhancer, ai-karaoke
  */
 export interface FeatureScreensProps extends ClassProps {
+  /** The feature route: `usb-dac`, `eq`, `library`, `casting`, `dsp` or `ai-enhancer`. An unknown slug falls back to `usb-dac`. */
   slug: string;
-  /** Which beat this is. Clamped to the route's own list, never wrapped. */
+  /** Zero-based beat index into the route's screen list (see above). Default 0. Clamped to the list, never wrapped. */
   state?: number;
 }
 

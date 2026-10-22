@@ -29,6 +29,7 @@ export function UtilityGlyphs() {
   );
 }
 
+/* The mark takes the parent text colour: secondary at rest, primary on hover or when current. */
 export function RestAndHover() {
   return (
     <div className="flex gap-8 p-6">
@@ -36,7 +37,7 @@ export function RestAndHover() {
         <FeatureMark name="eq" size={32} />
         <span className="text-caption text-text-tertiary">Rest</span>
       </div>
-      <div className="flex flex-col items-center gap-2 text-gold">
+      <div className="flex flex-col items-center gap-2 text-text-primary">
         <FeatureMark name="eq" size={32} />
         <span className="text-caption text-text-tertiary">Hover / current</span>
       </div>

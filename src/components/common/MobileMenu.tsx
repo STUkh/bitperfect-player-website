@@ -8,6 +8,7 @@ export interface MobileMenuProps {
   pathname?: string;
 }
 
+/** The full-screen nav panel Header renders; its burger opens it. Not exported to the design system. */
 export default function MobileMenu(props: MobileMenuProps) {
   const { pathname = '/' } = props;
 

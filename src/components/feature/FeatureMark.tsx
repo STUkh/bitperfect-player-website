@@ -2,12 +2,15 @@ import { iconStroke } from '../../utils/icon';
 import type { ClassProps } from '../class-props';
 
 /**
- * The six feature marks, plus the handful of utility glyphs the feature routes
- * need. Lifted from the approved artboards in `design/`.
+ * The six feature marks (`usb-dac`, `eq`, `library`, `casting`, `dsp`,
+ * `ai-enhancer`), plus the handful of utility glyphs the feature routes need
+ * (`check`, `play`, `file`, `chip`, `dac`, and the `arrow-*` / `chevron-right`
+ * directional ones, which never go inside a button). Strokes in `currentColor`,
+ * so the colour is whatever text colour the parent sets.
  *
  * "The Mark Carries the Identity" (DESIGN.md): one weight, one colour, drawn on
- * a 24px grid. Colour never tells the six features apart; the mark and the
- * mark does. Nothing in here is ever tinted per route.
+ * a 24px grid. Colour never tells the six features apart; the drawing
+ * does. Nothing in here is ever tinted per route.
  *
  * The six identity marks run larger than the utility glyphs — against a 34px
  * row heading a 24px mark reads as a bullet rather than a drawing. Stroke is
@@ -31,6 +34,7 @@ export interface FeatureMarkProps extends ClassProps {
     | 'file'
     | 'chip'
     | 'dac';
+  /** Width and height in px. Default 20; the identity marks read best at 28 or more. */
   size?: number;
   /** Escape hatch. Leave unset so the size-derived weight applies. */
   stroke?: number;

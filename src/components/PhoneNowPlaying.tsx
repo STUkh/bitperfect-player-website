@@ -7,11 +7,9 @@ import './PhoneNowPlaying.css';
 /**
  * The hero device: the app's Now Playing screen, as a capture.
  *
- * This was 377 lines of hand-built DOM reproducing the Compose UI in HTML, down
- * to a pulsing bit-perfect dot and a fabricated track — "Nocturne in Amber" by
- * "Hale & the Quiet Room", a record that does not exist, sitting above a headline
- * about honesty. It is now a screenshot of the shipping app playing a real CC0
- * recording, which is both truer and a tenth of the code.
+ * A screenshot of the shipping app playing a real CC0 recording, inside the
+ * site's phone frame. Takes only `className`; it fills the width of its parent, so
+ * size it with a wrapper (about 220-300px wide in a column).
  *
  * The chassis is the same S25 Ultra `PhoneFrame` every other device on the site
  * wears, so the hero phone is one object with the lineup it travels into.
@@ -19,6 +17,7 @@ import './PhoneNowPlaying.css';
  * `priority` because this is the one screen above the fold. Every other capture on
  * the site is lazy.
  */
+/** Only `className`: the device sizes itself to its container. */
 export type PhoneNowPlayingProps = ClassProps;
 
 export default function PhoneNowPlaying({ className }: PhoneNowPlayingProps) {

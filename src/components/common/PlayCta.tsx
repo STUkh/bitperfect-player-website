@@ -3,15 +3,17 @@ import Button, { type ButtonProps } from './Button';
 import PlayStoreMark from './PlayStoreMark';
 
 export interface PlayCtaProps extends Omit<ButtonProps, 'href' | 'children'> {
-  /** The visible label, e.g. "Get it on Google Play". */
+  /** The visible label, e.g. "Get it on Google Play". Shown beside the Play mark. */
   label: string;
 }
 
 /**
  * The install action: a `Button` that goes to the Play listing and carries the
  * Google Play mark. Every "Get it on Google Play" button on the site is this one,
- * so the link, the `rel` and the mark live in one place. `variant`, `size` and
- * `className` pass through to `Button` (the gold key-cap by default).
+ * so the link, the `rel` and the mark live in one place. `variant` (`primary` gold
+ * key-cap by default, or `secondary`/`outline`), `size` and `className` pass through
+ * to `Button`. `href` and `children` are fixed. Never swap the mark for a play
+ * triangle or add an arrow.
  */
 export default function PlayCta({ label, variant = 'primary', ...rest }: PlayCtaProps) {
   return (

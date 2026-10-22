@@ -44,3 +44,14 @@ export function WideWithSearch() {
     </PageHeader>
   );
 }
+
+export function WithEyebrowAndMeta() {
+  return (
+    <PageHeader
+      eyebrow="Legal"
+      meta={<p className="mb-3 text-caption text-text-tertiary">Last updated 1 October 2026</p>}
+      title="Privacy Policy"
+      description="What the app collects, which is almost nothing, and what never leaves your phone."
+    />
+  );
+}

@@ -10,13 +10,15 @@ import { setupMobileMenu } from './MobileMenu.client';
 import './Header.css';
 
 export interface HeaderProps {
-  /** The current page's path, which marks its nav link active. */
+  /** The current page's path (e.g. `/features/eq/`); marks its nav link active and resolves in-page hrefs. Default `/`. */
   pathname?: string;
 }
 
 /**
  * The fixed site header: mark and wordmark, the nav (inline from `lg`, behind the
- * burger below it), and the Play badge. Renders the mobile menu panel after
+ * burger below it), and the Google Play store badge (a labelled secondary Button
+ * from 640px, icon-only below). Fixed to the top over a blurred graphite ground,
+ * so reserve its height (64px, 80px from `lg`) above the page. Renders the mobile menu panel after
  * itself. The burger's behaviour is `setupMobileMenu`; on the site
  * `Header.astro` mounts it, in React `useBehaviour` does.
  */

@@ -15,6 +15,7 @@ const MATERIALS = {
 } as const;
 
 export interface TextureStripProps extends ClassProps {
+  /** The photographed material: `wood` (walnut), `copper` (braided cable) or `glass` (vacuum-tube filaments). */
   material: keyof typeof MATERIALS;
 }
 

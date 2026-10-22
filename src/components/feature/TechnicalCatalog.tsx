@@ -7,13 +7,16 @@ import { setupCatalogFilter } from './TechnicalCatalog.client';
 import './TechnicalCatalog.css';
 
 export interface TechnicalCatalogProps extends ClassProps {
-  /** The section's anchor. */
+  /** The section's anchor id. Default `technical-catalogue`. */
   id?: string;
 }
 
 /**
  * The full technical catalogue: editorial filter tabs over a grid of capability
- * cards, one per entry in `technicalFeatures`. The tabs' behaviour is
+ * lacquer cards, one per entry in `technicalFeatures` (content comes from
+ * `src/data/technical-features.ts`; it takes no content props). Tabs are "All
+ * Capabilities" plus one per category (engine, dsp, ...), each with a count; a
+ * tab hides the cards of other categories. The tabs' behaviour is
  * `setupCatalogFilter`; on the site `TechnicalCatalog.astro` mounts it, in React
  * `useBehaviour` does.
  *

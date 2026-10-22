@@ -9,7 +9,7 @@ export interface PhoneFrameProps extends ClassProps {
   fill?: boolean;
   /** Prefix for the SVG gradient/mask ids. Defaults to a unique one per frame, so frames on one page never share ids. */
   idPrefix?: string;
-  /** Titanium chassis and button colour. Default the site's warm grey #C8BEB5. */
+  /** Titanium chassis and button colour. Default the site's warm grey `#C8BEB5`; leave it unless a band needs another titanium. */
   phoneColor?: string;
   /** A screen key from `src/data/screens.ts` to show in the cutout, used when no children are passed. */
   screen?: string;
@@ -18,9 +18,11 @@ export interface PhoneFrameProps extends ClassProps {
 }
 
 /**
- * A Galaxy S25 Ultra-style device frame (titanium rails, black bezel, punch-hole
- * camera, side buttons, deep drop shadow) with a screen cutout for a PhoneScreen.
- * The site's device on dark bands, beside feature copy or in phone lineups.
+ * The site's one device: an SVG Galaxy S25 Ultra chassis (titanium rails, black
+ * bezel, punch-hole camera, side buttons, cast shadow) over a screen cutout. Use
+ * it for every phone on the site, beside feature copy or in a lineup. Put a
+ * `PhoneScreen` inside (or pass `screen`); with neither it renders an empty
+ * dark screen. Width is 296px, 344px from `lg`, unless `fill` is set.
  */
 export default function PhoneFrame({
   fill = false,

@@ -1,54 +1,57 @@
-# Bitperfect Player — website design system
+# Bitperfect Player: website design system
 
-These are the bit-perfect.com site's own React components: the same files the site renders, not copies. **Build pages from these components first**, and use the utility classes below only for your own layout glue between them. The landing bands (`HomeOpening`, `StatementBand`, `FeaturesTeaser`, `PrivacyBand`, `PricingSection`, `CTASection`) take no props: their copy is the site's real copy. For a band with different words, compose it yourself from the primitives and tokens below.
+The bit-perfect.com site's own React components. **Build from these first**; utilities are only glue between them. The home bands (`HomeOpening`, `StatementBand`, `FeaturesTeaser`, `PrivacyBand`, `PricingSection`, `CTASection`) take no props and carry the real copy: for other words, compose a band from the primitives.
 
 ## Setup
 
-No provider is required. Load `styles.css` (fonts, tokens, component styles and image probes). The page ground is graphite `#191919`, set on `body`. For a loose component in a mockup, wrap it in `<Surface>` (`tone="graphite"` default, or `"ivory"`). Set an explicit font weight on your own text (`font-medium`/`font-semibold`/`font-bold`): Manrope's variable default is 200.
+No provider. `styles.css` loads Manrope, the tokens, component styles and image probes. The page ground is graphite `#191919` on `body`; wrap a loose component in `<Surface>` (`tone="graphite"` default, or `"ivory"`). Give your own text a weight (`font-medium`/`font-semibold`/`font-bold`): Manrope's variable default is 200. Never write an image URL: every picture comes from a component (they resolve their own paths).
 
 ## Components by role
 
 | Role | Components |
 |---|---|
-| Page chrome | `Header` (fixed to the top; `pathname` marks the active link; below `lg` the nav folds behind a burger), `Footer` (`pathname`) |
-| Home bands, in site order | `HomeOpening` (hero copy + the three-phone showcase as ONE pinned block: one phone travels from the right column to the centre on scroll), `ImageSlot variant="band"`, `StatementBand` (ivory), `FeaturesTeaser`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
-| Inner-page bands | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner` (install CTA), `TechnicalCatalog` (filterable list of all capabilities), `LegalDocument` (rendered markdown as children, `headings` for its index) |
-| Phones (real app screenshots) | `PhoneFrame` with a `PhoneScreen` child, `PhoneNowPlaying`, `PhoneTrio`, `FeatureScreens slug="usb-dac" state={0}` |
-| Primitives | `Button` (`primary` gold key-cap / `secondary` lacquered graphite key-cap / `outline`; `size` `sm`/`md`/`lg`), `PlayCta` (the install button: gold `Button` + the Google Play logo + `label`), `PlayStoreMark` (the Google Play logo), `Card` (the lacquer card chassis; your padding as classes, `as="a"` + `href` for a link), `PagerLink` (prev/next feature card, `direction` `prev`/`next`), `StoreBadges`, `Logo`, `Container` (the 1280px column), `FeatureMark` (six feature marks + glyphs), `Icon`, `FeatureArt` (feature card art) |
-| Whole page | `HoldingPage` (what `/` shows while the site is parked) |
+| Chrome | `Header` (fixed; `pathname`), `Footer` (`pathname`) |
+| Home, in order | `HomeOpening` (hero + three-phone showcase, ONE block), `StatementBand` (ivory), `FeaturesTeaser`, `TextureStrip`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
+| Inner pages | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner`, `TechnicalCatalog`, `LegalDocument` (markdown children, `headings`) |
+| Phones (real captures) | `PhoneFrame` + `PhoneScreen`, `PhoneNowPlaying`, `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
+| Primitives | `Button` (`variant` primary/secondary/outline, `size`, `href`), `PlayCta` (install: gold key-cap + `PlayStoreMark` + `label`), `PlayStoreMark`, `Card` (lacquer chassis; padding is yours; `as="a"` + `href`), `PagerLink` (`direction`, `href`, `label`, `title`), `StoreBadges`, `TextureStrip` (`material` wood/copper/glass), `ImageSlot`, `Logo`, `Container` (1280px column), `FeatureMark`, `FeatureArt`, `Icon` |
+| Whole page | `HoldingPage` |
 
-- Screen names (`PhoneScreen name=`, `PhoneTrio *Screen=`): now-playing, now-playing-hero, eq, eq-filters, eq-presets, eq-sculptor, library, tracks, album, sources, output, track-info, fidelity, signal-path, signal-clean, cast, cast-sheet, receiver, dsp, dsp-sheet, playback, ai, ai-enhancer, ai-karaoke, ai-neural.
-- `ImageSlot name=` plates: home-interstitial-1/2/3, home-statement, home-privacy, band-walnut-diffuser, band-braided-cable, band-vacuum-filament, feature-<slug>-interstitial. A name with no plate renders nothing.
-- `FeatureArt slug=` and `FeatureScreens slug=`: usb-dac, eq, library, casting, dsp, ai-enhancer.
-- **Never draw an app screen yourself:** use a phone component with a screen name.
+- Screen names (`PhoneScreen name=`, `PhoneTrio leftScreen/centerScreen/rightScreen`): now-playing, now-playing-hero, eq, eq-filters, eq-presets, eq-sculptor, library, tracks, album, sources, output, track-info, fidelity, signal-path, signal-clean, cast, cast-sheet, receiver, dsp, dsp-sheet, playback, ai, ai-enhancer, ai-karaoke, ai-neural.
+- `FeatureArt slug=` / `FeatureScreens slug=`: usb-dac, eq, library, casting, dsp, ai-enhancer.
+- Each component's `.prompt.md` and `.d.ts` hold its full API; read them before using a prop.
 
-Each component's `.prompt.md` and `.d.ts` hold its full API.
+## Styling vocabulary (Tailwind 4 on the site's tokens)
 
-## Styling idiom for your own glue: Tailwind 4 utilities on the site's tokens
-
-| Family | Real names |
+| Family | Names |
 |---|---|
-| Surfaces (dark) | `bg-surface-base` `bg-surface-raised` `bg-glass-surface` `bg-glass-elevated-surface` · lacquer (lit, glossy graphite): `lacquer` `lacquer-gold` `lacquer-lift`; textured band plate: `ground` + `--ground-*` |
-| Light band | `bg-band-ivory` with `text-band-ink` `text-band-ink-muted` `text-band-gold-ink` `border-band-rule` |
-| Accent (gold only) | `text-gold` `bg-gold` `text-on-gold` `border-gold` `border-border-gold` |
-| Text on dark | `text-text-primary` `text-text-secondary` `text-text-tertiary` |
-| Type ramp | `text-display` `text-headline` `text-headline-sm` `text-section-m` `text-title` `text-body` `text-body-sm` `text-label` `text-caption` |
-| Composed type | `heading-section` · `mono-spec` (rates, prices: tabular) |
-| Chassis | `lacquer` (card) · radii `rounded-card` `rounded-card-sm` `rounded-tile` `rounded-chip` · shadows `shadow-card` `shadow-elevated` `shadow-key` |
-| Tracking | `tracking-eyebrow` `tracking-label` `tracking-micro` |
-| Measures | no measure tokens: write the value, e.g. `max-w-[68ch]` for a lede, `max-w-[760px]` / `max-w-[840px]` for a column |
+| Surfaces | `lacquer` (lit graphite: cards, plates), `lacquer-gold` (Founder plan only), `lacquer-lift` (linked card hover); band plate `ground ground-brushed` (graphite header; other variants belong to their bands); fills `bg-surface-base` `bg-surface-raised` |
+| Ivory band | `bg-band-ivory` + `text-band-ink` `text-band-ink-muted` `text-band-gold-ink` `border-band-rule` |
+| Gold | `text-gold` `bg-gold` `text-on-gold` `border-border-gold`; alpha as `bg-gold/8` |
+| Text on graphite | `text-text-primary` `text-text-secondary` `text-text-tertiary`; rule `border-border-subtle` |
+| Type (desktop) | `text-display` `text-headline` `text-headline-sm` `text-section-lg` `text-section-sm` `text-title` `text-lede` `text-body-lg` `text-body` `text-body-sm` `text-caption` `text-label` |
+| Type (phone; desktop step at lg:) | `text-headline-m` `text-headline-sm-m` `text-section-m` `text-lede-m` |
+| Composed | `heading-section`, `mono-spec` (rates, prices: tabular) |
+| Radii | `rounded-card` `rounded-card-sm` `rounded-card-inner` `rounded-tile` `rounded-chip` |
+| Shadows | `shadow-card` `shadow-elevated` `shadow-device` (no coloured shadows) |
+| Tracking | `tracking-label` `tracking-micro`; `tracking-eyebrow` is the hero eyebrow's only |
+| Measures | no tokens, write the value: `max-w-[56ch]` lede, `max-w-[760px]`/`max-w-[840px]` column |
 
-`_ds_bundle.css` holds the component styles and `styles.css` the tokens; read them before styling. `guidelines/DESIGN.md` holds the full rules.
+Full rules: `guidelines/DESIGN.md`. Every compiled class: `_ds_bundle.css`.
 
 ## Rules
 
-- **One accent:** gold only. No blue, purple or neon, and no glowing or coloured shadows. Darks are graphite, never `#000`.
-- **Strict alternation:** major bands alternate graphite and ivory down the page. `text-band-*` is used only inside ivory, and `text-text-*` only on graphite.
-- **Tokens first:** use a token above when one exists; where none does (a tracking step, a measure) an arbitrary value is fine. No raw `rgba(232,184,75,…)`; gold at an alpha is `bg-gold/8`.
-- **No nested boxes:** never put a bordered card inside a card, and no card at all on an ivory band. Separate content with `border-t border-border-subtle` (`border-band-rule` on ivory).
-- **Kickers:** keep them rare. A plan card's label row and the hero's mono eyebrow are part of the design; elsewhere the heading opens the block.
-- **Still buttons:** buttons never lift on hover; only light (the sheen and rim) answers. No arrow or chevron inside a button. An install button is `PlayCta`, never a hand-drawn play triangle. `Button` already carries the gap between an icon and its label.
-- **Lacquer, not flat:** cards and plates are `lacquer` (never a flat `bg-glass-surface` box); only the install key-cap and the Founder plan are gold, every other control is graphite lacquer.
+1. One accent, gold. No blue, violet or neon; graphite is neutral, never `#000`.
+2. Bands alternate graphite and ivory. `text-band-*` only on ivory, `text-text-*` only on graphite. An ivory band holds no card, glass box or dark shadow.
+3. Cards and plates are `Card` (or `lacquer`), never a flat `bg-glass-surface` box. No box inside a card; split with `border-t border-border-subtle`.
+4. Gold text (links, label rows, active tab) is fine on graphite. Gold fills are only the install key-cap and the Founder plan; every other button, badge and chip is graphite lacquer (a store badge is a secondary `Button`).
+5. Every install button is `PlayCta`. Never a play triangle, never a hand-made gold button.
+6. Buttons never move on hover; only the sheen and rim light up. No arrow or chevron inside a button or store badge; text links and `PagerLink` may carry one.
+7. Hero and showcase are one `HomeOpening`; never split or rebuild it.
+8. `TextureStrip` only on a dark-to-light seam, never under a block with its own photograph.
+9. Kickers (short gold mono uppercase label above a heading) only on `PageHeader` and `ClosingBanner` (their `eyebrow`), the hero and a plan card's label row; elsewhere the heading opens the block. `ClosingBanner`'s primary is a plain `Button`; an install close uses `PlayCta`.
+10. Never draw an app screen; use a phone component.
+11. Manrope only; mono for numbers. No em or en dashes in copy.
 
 ## Example: a feature page
 
@@ -56,18 +59,30 @@ Each component's `.prompt.md` and `.d.ts` hold its full API.
 <>
   <Header pathname="/features/eq/" />
   <main className="pt-16">
-    <PageHeader title="32-band parametric EQ" description="Precise tone control, off again in one tap." backHref="/features" backLabel="All features" />
-    <section className="bg-band-ivory py-14 lg:py-24">
+    <PageHeader title="32-band parametric EQ" description="Shape the sound, then switch it off in one tap." backHref="/features" backLabel="All features" />
+    <section className="bg-band-ivory py-14 lg:py-28">
       <Container className="grid items-center gap-10 lg:grid-cols-2">
-        <div>
-          <h2 className="text-section-m font-bold text-band-ink lg:text-headline-sm">Thirty-two bands, each one fully independent</h2>
-        </div>
-        <PhoneFrame>
-          <PhoneScreen name="eq-sculptor" />
-        </PhoneFrame>
+        <h2 className="text-section-m font-bold text-band-ink lg:text-headline-sm">Thirty-two bands, each one independent</h2>
+        <PhoneFrame><PhoneScreen name="eq-sculptor" /></PhoneFrame>
       </Container>
     </section>
-    <ClosingBanner title="Start listening bit for bit." description="Connect your DAC for bit-perfect output." primaryHref="https://play.google.com/store/apps/details?id=com.bitperfect.player" primaryLabel="Get it on Google Play" primaryExternal />
+    <section className="bg-surface-base py-14 lg:py-28">
+      <Container className="grid gap-4 lg:grid-cols-3 lg:gap-6">
+        <Card className="p-[22px] lg:p-[34px]">
+          <h3 className="text-title font-semibold text-text-primary">Presets</h3>
+          <p className="mt-2 text-body-sm text-text-secondary">Save a curve per pair of headphones.</p>
+        </Card>
+      </Container>
+      <Container className="mt-14 grid gap-3 lg:grid-cols-2 lg:gap-6">
+        <PagerLink direction="prev" href="/features/usb-dac" label="Previous" title="USB DAC output" />
+        <PagerLink direction="next" href="/features/library" label="Next" title="Library" />
+      </Container>
+    </section>
+    <TextureStrip material="wood" />
+    <section className="bg-band-ivory py-14 text-center lg:py-24">
+      <h2 className="text-headline-sm-m font-bold text-band-ink lg:text-headline-sm">Hear it as it was mastered.</h2>
+      <PlayCta label="Get it on Google Play" size="lg" className="mt-8" />
+    </section>
   </main>
   <Footer pathname="/features/eq/" />
 </>

@@ -4,7 +4,9 @@ import FeatureMark from './FeatureMark';
 import './PagerLink.css';
 
 export interface PagerLinkProps {
+  /** `prev` puts the arrow before the label; `next` puts it after and right-aligns the card's text from `lg`. */
   direction: 'prev' | 'next';
+  /** Where the card links to: the neighbouring feature's route. */
   href: string;
   /** The small caps line beside the arrow ("Previous", "Next"). */
   label: string;
@@ -13,8 +15,10 @@ export interface PagerLinkProps {
 }
 
 /**
- * One half of the prev/next strip under a feature route: a linked lacquer card.
- * `next` mirrors `prev`, arrow and title aligned to the right edge from `lg`.
+ * One half of the prev/next strip under a feature route: a whole-card link on
+ * the lacquer surface (an `<a>`, not a button). Render two in a two-column grid,
+ * `prev` then `next`; `next` mirrors `prev`, arrow and title aligned to the right
+ * edge from `lg`.
  */
 export default function PagerLink({ direction, href, label, title }: PagerLinkProps) {
   const next = direction === 'next';

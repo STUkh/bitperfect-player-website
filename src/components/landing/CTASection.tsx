@@ -15,20 +15,20 @@ const closingPrice = pro.trialDays
   : `$${headline.price} a year, the Founder price, if you subscribe by ${pro.founderEndDate}. That price stays yours while you stay subscribed. Cancel anytime in Google Play.`;
 
 /**
- * The closing action, on white.
+ * Closing call to action. No props; the copy is the site's own.
  *
- * It used to be a graphite section holding a glass card, which made three graphite
- * blocks in a row at the foot of the page and left the composition ending on the
- * same note it opened with. The page now closes on light, so the white bands
- * alternate properly across the page: statement, privacy, close.
+ * Last band of the landing page, after PricingSection. Ivory surface (`bg-band-ivory`)
+ * on the `ground-cta` backdrop. No card, glass or shadow: an ivory band separates with
+ * hairlines and space (DESIGN.md, "The Ivory Band Has No Shadows"), so the action
+ * stands on the paper.
  *
- * There is no card in here. An white band separates with hairlines and space and
- * carries no glass and no shadow (DESIGN.md, "The Ivory Band Has No Shadows"), so
- * the action stands directly on the paper.
- *
- * The gold ingot survives the move because it is a FILLED button with dark text.
- * Gold as ink on white measures 1.06:1 and disappears entirely, which is why the
- * eyebrow and the accent word run `band-gold-ink` instead.
+ * Content: headline "Start listening bit for bit." (accent phrase in `band-gold-ink`,
+ * since gold ink on white is 1.06:1), one line of subtext, the gold `PlayCta` install
+ * key-cap (large; filled with dark text, so it stays legible on white), and the price
+ * line. The price line is built from `pro` in `src/data/site.ts` (trial days, Founder
+ * price and end date, same wording as PricingSection) and is dropped to the no-trial
+ * sentence when `pro.trialDays` is null. The Android floor comes from `site.minAndroid`.
+ * No eyebrow, and no build stamp under the button.
  */
 export default function CTASection() {
   return (

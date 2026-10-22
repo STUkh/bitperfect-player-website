@@ -11,13 +11,19 @@ import './PhoneTrio.css';
  * toward it and set back in depth. They reveal once, sliding out from behind
  * the centre phone when the stage scrolls into view. Side phones are dimmed
  * with brightness, never opacity, so no bezel shows through another.
- * Stacking comes from translateZ alone: hover never changes z-index.
+ * Stacking comes from translateZ alone: hover never changes z-index. Each phone
+ * is a `PhoneFrame` with a `PhoneScreen`. Fills its parent's width.
  */
 export interface PhoneTrioProps extends ClassProps {
+  /** Screen key for the left phone (see `PhoneScreen` `name`). Default `library`. */
   leftScreen?: string;
+  /** Screen key for the centre phone. Default `now-playing`. */
   centerScreen?: string;
+  /** Screen key for the right phone. Default `eq`. */
   rightScreen?: string;
+  /** Load the centre screen eagerly. Only when the trio is above the fold. Default false. */
   priority?: boolean;
+  /** Prefix for the three frames' SVG ids; make it unique when two trios share a page. Default `trio`. */
   idPrefix?: string;
 }
 

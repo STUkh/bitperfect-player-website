@@ -20,17 +20,18 @@ const facts = [
 ];
 
 /**
- * Statement band, ivory. The first of the page's two full-bleed light bands.
+ * Statement band. No props; the copy is the site's own.
  *
- * A 7/5 split: the claim on the left, three supporting facts on a hairline
- * stack to the right. No cards, no glass and no shadows in here: separation
- * is hairlines and space (DESIGN.md, "The Ivory Band Has No Shadows").
+ * Directly follows HomeOpening and precedes FeaturesTeaser. Ivory surface
+ * (`bg-band-ivory`) on the `ground-statement` backdrop, and the first of the page's
+ * light bands. Hairlines and space only: no cards, glass, icons or shadows (DESIGN.md,
+ * "The Ivory Band Has No Shadows").
  *
- * No icons either. Each fact used to carry a Lucide default (a file, a
- * microphone, a shield-check) inside a tinted rounded square. An icon in a
- * soft-cornered tinted tile is the single most recognisable component of a
- * generated product page, and a shield does not mean "it stays on the phone",
- * it means a stock illustrator once drew a shield for "security".
+ * Content: an 8/4 split on desktop with the claim on the left ("Many phones change
+ * your music on the way out. This app sends it to your USB DAC unchanged.", accent in
+ * `band-gold-ink`) and three facts on a hairline stack to the right, then an ivory
+ * `ImageSlot` (`home-statement`, phone to DAC to headphones). Static text; no data or
+ * i18n reads.
  */
 export default function StatementBand() {
   return (

@@ -3,11 +3,11 @@ import type { ClassProps } from "./class-props";
 import "./Icon.css";
 
 export interface IconProps extends ClassProps {
-  /** Glyph name: `sig-*` signal-path status marks (app status only, never decoration), `node-*` chain nodes, feature marks, utilities (bullet, chevron, arrow, play, external) and the social marks (telegram, tiktok, instagram, x). */
+  /** Glyph name: `sig-bitperfect|enhanced|resampled|lossy` signal-path status marks (app status only, never decoration), `node-file|decode|engine|usb|dac` chain nodes, feature marks (eq, cast, sparkle, shield, plug, cable, library, download, phone, waveform, android), utilities (bullet, chevron, arrow, play, external) and the social marks (telegram, tiktok, instagram, x). Not for use inside buttons (no arrow or chevron there); `play` is never an install icon. */
   name: string;
-  /** Pixel size (or a CSS length); the stroke weight is derived from it. Default 20. */
+  /** Pixel size (or a CSS length); the stroke weight is derived from it. Default 20. Colour is `currentColor`. */
   size?: number | string;
-  /** Escape hatch. Leave unset so the size-derived weight applies. */
+  /** Escape hatch for the stroke width. Leave unset so the size-derived weight applies. */
   stroke?: number;
 }
 

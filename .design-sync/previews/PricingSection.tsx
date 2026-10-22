@@ -1,6 +1,7 @@
 import { PricingSection } from '@bitperfect/website-ds';
 
-/* The landing page's plans. Prices and copy are the site's own. */
+/* The graphite pricing band: the gold Founder plan beside the Standard plan, what the
+   subscription covers, and the disclosures. Prices come from the site's own data. */
 export function Default() {
   return <PricingSection />;
 }

@@ -19,10 +19,11 @@ import './LegalDocument.css';
  * collapse inline, before first paint), in React `useBehaviour` does.
  */
 export interface LegalDocumentProps {
+  /** The rendered markdown body: `h2` sections with `id`s matching `headings`. */
   children?: ReactNode;
-  /** `getHeadings()` from the imported markdown module. */
+  /** `getHeadings()` from the imported markdown module. Only `depth: 2` entries become index links; a leading "1. " is stripped from the label. */
   headings: { depth: number; slug: string; text: string }[];
-  /** Placeholder tokens still present in the source, detected by the caller. */
+  /** Placeholder tokens still present in the source (e.g. `["[LEGAL ENTITY NAME]"]`), detected by the caller. Any entry shows the "Not yet publishable" banner. Default none. */
   unresolved?: string[];
   /** Repo path of the markdown, named in the banner so the gap is fixable. */
   source: string;

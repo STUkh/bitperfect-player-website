@@ -5,6 +5,7 @@ import type { ClassProps } from '../class-props';
 export interface ContainerProps extends ClassProps {
   /** Element to render. Defaults to `div`. */
   as?: ElementType;
+  /** The band's content. */
   children?: ReactNode;
 }
 

@@ -9,25 +9,6 @@ import { pro } from '../../data/site';
 import { setupHomeOpening } from './HomeOpening.client';
 import './HomeOpening.css';
 
-/**
- * The opening: hero and phone lineup as ONE pinned stage.
- *
- * It used to be two components (a hero with its own phone, a showcase with three
- * of its own), and the hand-off between them jumped because the hero phone and the
- * showcase's centre phone were different objects. Now there is one Now Playing
- * phone. It starts in the hero's right column and travels to the centre while the
- * Equaliser and Library phones slide out from behind it.
- *
- * One scalar, `p` (0 to 1 over the track), drives everything; the script smooths
- * it and paints transform and opacity only (`HomeOpening.client.ts`). Below 1024px,
- * with reduced motion, or with scripting off, nothing pins and the CSS resting
- * state is a finished composition: the copy, the phone, the heading, then the other two screens.
- *
- * The four spec chips the hero once carried are gone for good (DESIGN.md, "The
- * Hero Holds Four Things"): an eyebrow, a headline, one line of subtext and two
- * actions. Each chip is stated again where the page argues for it.
- */
-
 /*
   The trial, under the actions, in the smallest type on the fold.
 
@@ -44,6 +25,31 @@ const trialLine = pro.trialDays
   ? `Eligible new customers get ${pro.trialDays} days free. Then $${pro.founderPrice} a year, the Founder price, if you subscribe by ${pro.founderEndDate}. That price stays yours while you stay subscribed.`
   : null;
 
+/**
+ * The opening of the landing page: hero and phone lineup as ONE pinned block with
+ * one travelling Now Playing phone. No props; the copy is the site's own.
+ *
+ * Graphite surface. The `ho-backdrop-hero` photograph (listening room) sits behind
+ * the copy and the `ho-backdrop-show` photograph (acoustic hall) behind the lineup;
+ * their opacities cross-fade on `--p`. First band of the page, followed by
+ * StatementBand.
+ *
+ * Content: eyebrow, headline "Pure sound. Nothing in between.", one line of subtext,
+ * a gold `PlayCta` and a secondary "See what it does" button, the conditional trial
+ * line (from `pro` in `src/data/site.ts`, omitted when `pro.trialDays` is null), the
+ * heading "Every screen runs on the same engine.", and a lineup of the real Equaliser
+ * and Library captures flanking `PhoneNowPlaying`.
+ *
+ * Behaviour (desktop >= 1024px, motion allowed): the section is a tall track with a
+ * sticky stage. `useBehaviour(setupHomeOpening)` smooths scroll progress `p` (0 to 1)
+ * and writes only transform and opacity: 0-0.26 copy fades and lifts; 0.04-0.58 the
+ * Now Playing phone travels from the right column to the centre and grows; 0.30-0.80
+ * the side phones slide out from behind it; 0.46-0.68 the heading fades in; 0.80-1
+ * hold. Below 1024px, with `prefers-reduced-motion`, or without script, nothing pins
+ * and the CSS resting state is a finished static composition: copy, phone, heading,
+ * then the other two screens. The four spec chips the hero once carried are gone
+ * (DESIGN.md, "The Hero Holds Four Things").
+ */
 export default function HomeOpening() {
   const ref = useBehaviour<HTMLElement>(setupHomeOpening);
 

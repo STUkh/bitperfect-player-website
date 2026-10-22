@@ -14,39 +14,24 @@ export interface HoldingPageProps {
 }
 
 /**
- * The holding page. One screen, one picture, one action.
+ * The holding page: one screen, one picture, one action. A full page, not a band.
  *
- * The whole site is parked behind this while it is rebuilt: `/` and everything a
- * dead link can reach render this component, and only `/privacy`, `/terms` and
- * their `/policy` alias still serve their own content. The full pages are parked,
- * not deleted, under `src/pages/_index.astro` and `src/pages/_features/` — Astro
- * does not route a path with a leading underscore, so bringing the site back is a
- * rename rather than a restore.
+ * The site shows this at `/` (and at any dead link) while the full pages are parked
+ * under `src/pages/_index.astro` and `src/pages/_features/`; only `/privacy`, `/terms`
+ * and `/policy` still serve their own content. It is deliberately not wrapped in
+ * `ContentLayout`: it carries its own bar (logo and wordmark only) and its own footer
+ * (copyright, social links, contact email), because the full header and footer name
+ * routes that do not build.
  *
- * WHY IT IS NOT `ContentLayout`. That layout brings the fixed header, the mobile
- * menu and the seven-column footer, all of which name routes that no longer
- * build. A holding page whose navigation is a list of 404s is worse than one with
- * no navigation, so this carries its own bar and its own footer, and the only
- * links on it are the three destinations that still exist.
+ * Surface: graphite. The ground is the `holding-plate` photograph (a cartridge hung
+ * above the groove, `img/holding/needle.webp`, 3:4 portrait crop below 1024px) under a
+ * scrim. The copy column holds a gold mono eyebrow (plain text, never a pill), the
+ * headline, the lede, a hairline `holding-signal` sweep, the gold `PlayCta`, and quiet
+ * Privacy / Terms links. No percentage or progress bar anywhere: a number would be
+ * invented.
  *
- * THE PICTURE. `public/img/holding/needle.webp`: a cartridge suspended above the
- * groove, not touching it. It is the argument the page is making, which is why
- * there is no second graphic and no progress bar. The site's house style is
- * cinematic macro photography of hardware in graphite with one warm gold rake
- * (DESIGN.md, "Imagery"), and this was generated to it and floored to
- * `surface-base` by `design/holding.mjs` so its darks and the page's ground are
- * the same value.
- *
- * There is no percentage anywhere on this page. A number would have to be
- * invented, and CONTENT.md does not allow an invented number on a marketing
- * surface however small it is. The hairline under the copy carries the same
- * "something is still running" idea honestly: a signal sweeping a line, not a
- * bar filling toward a date nobody has committed to.
- *
- * MOTION. DESIGN.md's Still Fold Rule: copy on the first screen paints on load
- * rather than waiting for an observer, so nothing here carries a reveal class and
- * this component ships no script. The sweep is the page's only movement and it
- * has a real resting state under `prefers-reduced-motion`.
+ * Motion: copy paints on load (no reveal classes, no script). The signal sweep is the
+ * only movement and rests under `prefers-reduced-motion`.
  */
 export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProps) {
   return (

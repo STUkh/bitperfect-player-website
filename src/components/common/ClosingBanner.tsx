@@ -4,21 +4,37 @@ import Container from './Container';
 import Button from './Button';
 import './ClosingBanner.css';
 
+/**
+ * The closing call to action of a page: a centred band on a rosette ground with an
+ * eyebrow, a title, one line of copy, a primary (gold) button and an optional
+ * secondary (graphite) one, large. Put it just above the Footer.
+ */
 export interface ClosingBannerProps {
+  /** Small gold uppercase label above the title. */
   eyebrow: string;
+  /** The band's heading (an `h2`). */
   title: string;
+  /** One or two sentences under the title. */
   description: string;
+  /** Destination of the primary gold button. */
   primaryHref: string;
+  /** Label of the primary button. */
   primaryLabel: string;
+  /** Opens the primary link in a new tab with `rel="noopener noreferrer"`. Default false. */
   primaryExternal?: boolean;
+  /** Destination of the secondary button; it shows only when both `secondaryHref` and `secondaryLabel` are set. */
   secondaryHref?: string;
+  /** Label of the secondary button. */
   secondaryLabel?: string;
+  /** Opens the secondary link in a new tab. Default false. */
   secondaryExternal?: boolean;
+  /** Width of the centred column. Default `840px`. */
   maxWidth?: '760px' | '840px';
-  /** Above the eyebrow, centred (Astro's `slot="top"`). */
+  /** Optional content above the eyebrow, centred (Astro's `slot="top"`). */
   top?: ReactNode;
 }
 
+/** The page-closing install/contact band; see `ClosingBannerProps`. */
 export default function ClosingBanner(props: ClosingBannerProps) {
   const {
     eyebrow,

@@ -30,10 +30,3 @@
 }
 
 /* The circles light, they do not move: border, colour and ground ease on the UI curve. */
-.footer-social-link {
-  transition:
-    color var(--d-ui) var(--ease-ui),
-    border-color var(--d-ui) var(--ease-ui),
-    background-color var(--d-ui) var(--ease-ui),
-    box-shadow var(--d-ui) var(--ease-ui);
-}
