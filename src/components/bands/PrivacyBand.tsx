@@ -48,7 +48,7 @@ export default function PrivacyBand({ backgroundVariant }: FlowProps) {
       id="privacy"
       tone="ivory"
       ground="ground-halftone"
-      className="scroll-mt-20 pt-12 pb-13 lg:pt-24 lg:pb-26"
+      className="scroll-mt-20"
       containerClassName="lg:px-20"
     >
       {/*

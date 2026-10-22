@@ -53,7 +53,7 @@ export default function ClosingBanner(props: ClosingBannerProps) {
   const maxWidthClass = maxWidth === '760px' ? 'max-w-[760px]' : 'max-w-[840px]';
 
   return (
-    <Band ground="ground-rosette" className="border-t border-border-subtle bg-surface-raised py-16 lg:py-24">
+    <Band ground="ground-rosette" className="border-t border-border-subtle bg-surface-raised">
       <div className={cx(['mx-auto', maxWidthClass])}>
         {top != null && <div className="w-full flex flex-col items-center text-center">{top}</div>}
         <SectionHeading

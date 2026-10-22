@@ -16,11 +16,12 @@ export interface PagerPairProps extends ClassProps {
  * The prev/next strip under a route: a graphite `nav` band holding two
  * `PagerLink` cards, stacked on phones and side by side from `lg`. The caller
  * walks its own order and wraps at both ends, so the routes form a ring.
- * Extra classes (a top hairline) go on the band.
+ * Extra classes (a top hairline) go on the band. The strip keeps its own
+ * padding, tighter than the section rhythm.
  */
 export default function PagerPair({ prev, next, ariaLabel, className }: PagerPairProps) {
   return (
-    <Band as="nav" aria-label={ariaLabel} className={cn('pt-8 pb-10 lg:pt-14 lg:pb-18', className)}>
+    <Band as="nav" space="none" aria-label={ariaLabel} className={cn('pt-8 pb-10 lg:pt-14 lg:pb-18', className)}>
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
         <PagerLink direction="prev" {...prev} />
         <PagerLink direction="next" {...next} />

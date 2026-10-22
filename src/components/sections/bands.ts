@@ -21,6 +21,23 @@ export const useTone = (tone?: Tone): Tone => {
   return tone ?? inherited;
 };
 
+/**
+ * The vertical padding of a band, from the section rhythm in `global.css`:
+ * `compact` 48/80px (listings: the catalog groups, the FAQ), `default` 56/112px
+ * (most bands and the closing bands), `spacious` 64/128px (the landing feature
+ * grid, the ivory capability bands). `none` leaves padding to the caller, for
+ * the openings and the pager strip.
+ */
+export type BandSpace = 'compact' | 'default' | 'spacious' | 'none';
+
+/** Padding class of each step. */
+export const bandSpace: Record<BandSpace, string | undefined> = {
+  compact: 'section-compact',
+  default: 'section-default',
+  spacious: 'section-spacious',
+  none: undefined,
+};
+
 /** Ground colour of a band. */
 export const toneGround: Record<Tone, string> = {
   graphite: 'bg-surface-base',

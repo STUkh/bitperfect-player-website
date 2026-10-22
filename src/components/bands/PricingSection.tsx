@@ -105,7 +105,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
   return (
     <section
       id="pricing"
-      className={`${backgroundVariant ? "flow-surface " : ""}relative scroll-mt-20 overflow-hidden bg-surface-base pt-14 pb-15 lg:pt-29 lg:pb-30`}
+      className={`${backgroundVariant ? "flow-surface " : ""}relative scroll-mt-20 overflow-hidden bg-surface-base section-default`}
     >
       {backgroundVariant ? <FlowBackdrop variant={backgroundVariant} /> : (<>
       <div className="pricing-backdrop pointer-events-none absolute inset-0 z-0" aria-hidden="true">

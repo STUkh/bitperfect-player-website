@@ -50,7 +50,7 @@ export default function TechIndex({ base = '/', id = 'all-capabilities', classNa
             key={cat.id}
             id={cat.id}
             aria-labelledby={`tech-index-${cat.id}`}
-            className={cx(['tech-index-group scroll-mt-20 py-12 lg:scroll-mt-24 lg:py-20', ci > 0 && 'border-t border-border-subtle'])}
+            className={cx(['tech-index-group section-compact scroll-mt-20 lg:scroll-mt-24', ci > 0 && 'border-t border-border-subtle'])}
           >
             <Container className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-4">

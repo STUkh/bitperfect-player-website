@@ -37,7 +37,7 @@ export default function CTASection({ backgroundVariant }: FlowProps) {
       id="cta"
       tone="ivory"
       ground="ground-cta"
-      className="overflow-hidden pt-16 pb-18 lg:pt-30 lg:pb-32"
+      className="overflow-hidden"
       containerClassName="relative"
       /*
         No eyebrow. `Begin listening` sat directly above `Start listening bit for

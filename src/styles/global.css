@@ -774,6 +774,41 @@ body::after {
   }
 }
 
+/* ── Section rhythm ──────────────────────────────────────────────────────────
+   The vertical padding of a page band, in three steps. `Band` applies one
+   through its `space` prop; a band that is still a bare <section> uses the
+   utility. Phone, then from `lg`. Openings, the pager strip, the FAQ filter
+   strip, the legal layout and the 404 keep their own padding. */
+@theme {
+  --spacing-section-compact: 3rem;
+  --spacing-section-compact-lg: 5rem;
+  --spacing-section-default: 3.5rem;
+  --spacing-section-default-lg: 7rem;
+  --spacing-section-spacious: 4rem;
+  --spacing-section-spacious-lg: 8rem;
+}
+
+@utility section-compact {
+  padding-block: var(--spacing-section-compact);
+  @variant lg {
+    padding-block: var(--spacing-section-compact-lg);
+  }
+}
+
+@utility section-default {
+  padding-block: var(--spacing-section-default);
+  @variant lg {
+    padding-block: var(--spacing-section-default-lg);
+  }
+}
+
+@utility section-spacious {
+  padding-block: var(--spacing-section-spacious);
+  @variant lg {
+    padding-block: var(--spacing-section-spacious-lg);
+  }
+}
+
 /* ── Custom Utilities ── */
 @utility focus-ring {
   outline-style: solid;

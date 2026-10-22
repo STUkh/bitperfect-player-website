@@ -97,14 +97,11 @@ export default function CapabilityBand(props: CapabilityBandProps) {
       id={id}
       data-media={media}
       tone={tone}
+      space={opening ? 'none' : ivory ? 'spacious' : 'default'}
       ground={ivory ? 'ground-capability-ivory' : 'ground-capability-graphite'}
       className={cn(
         'capability-band',
-        opening
-          ? 'capability-band-opening border-b border-border-subtle pt-[26px] pb-16 lg:pt-11 lg:pb-24'
-          : ivory
-            ? 'py-16 lg:py-32'
-            : 'py-14 lg:py-28',
+        opening && 'capability-band-opening border-b border-border-subtle pt-[26px] pb-16 lg:pt-11 lg:pb-24',
         className,
       )}
     >

@@ -2,12 +2,14 @@ import type { ReactNode } from 'react';
 import Band from './Band';
 import type { FlowProps } from '../bands/FlowBackdrop';
 import SectionHeading from './SectionHeading';
-import type { Tone } from './bands';
+import type { BandSpace, Tone } from './bands';
 import type { ClassProps } from '../_lib/class-props';
 
 export interface CloseBandProps extends ClassProps, FlowProps {
   /** Ground colour. Pick the one that alternates with the band above. */
   tone: Tone;
+  /** Vertical padding; see `Band`. */
+  space?: BandSpace;
   /** A backdrop class (`ground-cta`); see `Band`. */
   ground?: string;
   /** The section's anchor id. */
@@ -35,15 +37,15 @@ export interface CloseBandProps extends ClassProps, FlowProps {
 /**
  * The last band of a page above the Footer: a centred heading, one line and the
  * install. The title reveals at `--i: 0`, the lede at `1`; the action, passed
- * in, takes `2`. Padding and borders are the caller's (`className`).
+ * in, takes `2`. Padding is a `space` step (`default`); borders are the caller's.
  *
  * `ClosingBanner` is the other closing band: the rosette plate with two
  * buttons, for the catalog and help pages.
  */
 export default function CloseBand(props: CloseBandProps) {
-  const { tone, ground, backgroundVariant, id, className, containerClassName, action, children, ...heading } = props;
+  const { tone, space, ground, backgroundVariant, id, className, containerClassName, action, children, ...heading } = props;
   return (
-    <Band tone={tone} ground={ground} backgroundVariant={backgroundVariant} id={id} className={className} containerClassName={containerClassName}>
+    <Band tone={tone} space={space} ground={ground} backgroundVariant={backgroundVariant} id={id} className={className} containerClassName={containerClassName}>
       <SectionHeading tone={tone} reveal={0} className="flex flex-col items-center text-center" {...heading}>
         {action}
         {children}

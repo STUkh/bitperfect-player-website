@@ -187,7 +187,7 @@ const showSignalPath = slug === 'usb-dac';
       Separated strictly by 1px hairlines (border-band-rule) and whitespace with zero cards or nested boxes. */}
   {
     showSignalPath && (
-      <Band tone="ivory" className="py-14 lg:py-28">
+      <Band tone="ivory">
         <SectionHeading
           tone="ivory"
           className="max-w-[58ch]"
@@ -340,7 +340,7 @@ const showSignalPath = slug === 'usb-dac';
         : ['ground-samples', 'ground-interference'][sameColourFromEnd % 2];
       const tone = onWhite ? 'ivory' : 'graphite';
       return (
-        <Band tone={tone} ground={ground} className={onWhite ? 'py-16 lg:py-32' : 'py-14 lg:py-28'}>
+        <Band tone={tone} ground={ground} space={onWhite ? 'spacious' : 'default'}>
           {/* The screen (art) is first in the DOM, so it leads cleanly on mobile
               before the copy. 6 of 12 columns each from `lg`, art centred in its own. */}
           <MediaSplit
@@ -440,7 +440,7 @@ const showSignalPath = slug === 'usb-dac';
   <div class="h-px w-full bg-gradient-to-r from-transparent via-border-subtle to-transparent" />
 
   {/* ── White specification band: the numbers, in full ── */}
-  <Band tone="ivory" className="pt-13 pb-14 lg:pt-24 lg:pb-26">
+  <Band tone="ivory">
     <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
       <SectionHeading
         tone="ivory"
@@ -484,7 +484,6 @@ const showSignalPath = slug === 'usb-dac';
       alternating cleanly into the dark footer ── */}
   <CloseBand
     tone="ivory"
-    className="pt-14 pb-16 lg:pt-24 lg:pb-26"
     title={page.cta.title}
     titleClassName="max-w-[22ch] text-headline-sm-m lg:text-headline-sm"
     lede={page.cta.body}

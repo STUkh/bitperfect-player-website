@@ -39,7 +39,6 @@ export default function StatementBand({ backgroundVariant }: FlowProps) {
       backgroundVariant={backgroundVariant}
       tone="ivory"
       ground="ground-statement"
-      className="pt-14 pb-15 lg:pt-29 lg:pb-30"
       containerClassName="lg:px-20"
     >
       <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-16">

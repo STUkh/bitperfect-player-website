@@ -65,7 +65,7 @@ const allFeaturesHref = withBase('features');
  */
 export default function FeaturesTeaser({ backgroundVariant }: FlowProps = {}) {
   return (
-    <section id="features" className={`${backgroundVariant ? 'flow-surface ' : ''}ground features-ground relative scroll-mt-20 overflow-hidden bg-surface-base pt-14 pb-15 lg:pt-36 lg:pb-38`}>
+    <section id="features" className={`${backgroundVariant ? 'flow-surface ' : ''}ground features-ground relative scroll-mt-20 overflow-hidden bg-surface-base section-spacious`}>
       {backgroundVariant && <FlowBackdrop variant={backgroundVariant} />}
       <Container className="lg:px-20">
         <div className="flex items-end justify-between gap-12 lg:mb-15">
