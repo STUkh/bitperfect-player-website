@@ -9,10 +9,10 @@
 // so the no-JS render is the finished static state and identical run to run.
 // A short list of JS scenarios (SCENARIOS below) then covers the client scripts.
 //
-// The home page is parked (it renders HoldingPage), so the real landing sections
-// live in the unrouted `src/pages/_index.astro`. For the length of the build this
-// script adds `src/pages/vr-home.astro`, which renders `_index`, and removes it
-// again in a `finally`. It builds into `.vr/dist`, never into `dist/`.
+// The JS scenarios capture the landing page under a stable extra route: for the
+// length of the build this script adds `src/pages/vr-home.astro`, which renders
+// `index.astro`, and removes it again in a `finally`. It builds into `.vr/dist`,
+// never into `dist/`.
 import { chromium } from 'playwright-core';
 import { execFileSync } from 'node:child_process';
 import { createServer } from 'node:http';
@@ -32,7 +32,7 @@ const TOLERANCE = 0.0005;
 
 if (!process.argv.includes('--no-build')) {
   const shim = resolve(root, 'src/pages/vr-home.astro');
-  writeFileSync(shim, `---\nimport Home from './_index.astro';\n---\n<Home />\n`);
+  writeFileSync(shim, `---\nimport Home from './index.astro';\n---\n<Home />\n`);
   try {
     execFileSync('npx', ['astro', 'build', '--outDir', outDir], { cwd: root, stdio: ['ignore', 'ignore', 'inherit'] });
   } finally {

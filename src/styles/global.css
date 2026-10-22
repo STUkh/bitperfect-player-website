@@ -77,18 +77,12 @@
   --color-phone-screen: #0d0d0d;
   --color-plot-surface: #121212;
 
-  /* Placeholder album art: a warm ember falling into the screen's near-black. */
-  --color-art-core: #3a2f1c;
-  --color-art-mid: #1c1814;
-  --color-art-edge: #121110;
-
   /* ── Brand accent — gold, and gold only ── */
   --color-gold: #e8b84b;
   --color-gold-light: #f2c65e;
   --color-gold-deep: #b3812f;
   --color-gold-warm: #c99248;
   --color-amber: #ffb347;
-  --color-champagne: #fbe9c4;
   --color-on-gold: #191919;
   --color-gold-shadow-ink: rgba(78, 46, 10, 0.55);
 
@@ -165,8 +159,6 @@
   --shadow-elevated:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-float:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 40px rgba(0, 0, 0, 0.5);
   /* A physical key-cap casts a shadow; it does not emit light. */
   --shadow-key: 0 6px 16px rgba(0, 0, 0, 0.45);
   --shadow-key-hover: 0 8px 22px rgba(0, 0, 0, 0.5);
@@ -199,7 +191,6 @@
   --radius-card: 24px;
   --radius-card-sm: 20px;
   --radius-card-inner: 16px;
-  --radius-icon-tile: 16px;
   /* ── The device radii, and why they came down ──
      The screen radius is now bounded by the CAPTURE, not by taste. The screens are
      screenshots of a real Android build whose status bar starts 24 of 1080 pixels
@@ -283,33 +274,6 @@
   --text-title-sm--letter-spacing: -0.006em;
   --text-title-sm--font-weight: 600;
 
-  /* The pricing numeral. Its own step because it is a number, not a heading:
-     600 rather than 700 so the digits stay open, and tabular figures are
-     mandatory (Manrope's default digits are proportional and a `1` is 0.390 em
-     against a `6` at 0.620, so a proportional price twitches on every change). */
-  /* The price is the largest thing on the pricing band and the second largest on
-     the site, behind only the hero. It was 72px in a 520px card, which is a
-     heading, not a price: it read as one more line of the card rather than as the
-     answer the whole band exists to give. 128 reuses the `display` size step, so
-     the ramp gains a role and not a step. Tracking goes past display's -0.035em
-     because tabular figures set solid at 128 need it. */
-  --text-price: 128px;
-  --text-price--line-height: 0.92;
-  --text-price--letter-spacing: -0.04em;
-  --text-price--font-weight: 600;
-
-  /* 64px, not the original 72. Measured at 360px, the width Android hands us more
-     often than any other: the lockup has to fit inside a 275px box, and at 72 a
-     five-glyph figure ran 280.6px and broke the term away from the numeral — the
-     one thing the inline rule in DESIGN.md exists to prevent. `$35 / year` fits at
-     either size, so this is headroom rather than a fix, kept because a type step
-     sized for one particular figure is a step that breaks the next time the price
-     changes. At 64 the price is still the largest thing on the band by four times. */
-  --text-price-sm: 64px;
-  --text-price-sm--line-height: 1;
-  --text-price-sm--letter-spacing: -0.035em;
-  --text-price-sm--font-weight: 600;
-
   /* ── The 390px band ──
      Not a scale factor on the desktop ramp: display compresses hard (0.47) while
      text barely moves (0.94), because a hero has to lose weight on a phone and a
@@ -353,10 +317,6 @@
   --text-lede-m--line-height: 1.55;
   --text-lede-m--letter-spacing: -0.005em;
 
-  --text-small-m: 14px;
-  --text-small-m--line-height: 1.55;
-  --text-small-m--letter-spacing: 0.005em;
-
   /* There is no `currency` step. The `$` sets at the figure's own size, on the
      baseline, and takes the `price` step with it; the reasoning and the glyph
      measurements are in DESIGN.md under the subscription card. This token said the
@@ -396,10 +356,6 @@
   --text-caption--letter-spacing: 0.01em;
   --text-caption--font-weight: 500;
 
-  --text-mono: 13px;
-  --text-mono--line-height: 1.5;
-  --text-mono--letter-spacing: 0.02em;
-
   --text-micro: 12px;
   --text-micro--line-height: 1.45;
   --text-micro--font-weight: 600;
@@ -409,22 +365,17 @@
   --text-label--letter-spacing: 3px;
   --text-label--font-weight: 700;
 
-  /* Legacy alias: ScreenshotCarousel still reads text-overline. */
-  --text-overline: 12px;
-
   /* ── Tracking and leading helpers ── */
   --tracking-eyebrow: 3px;
   --tracking-label: 2px;
   --tracking-micro: 1.5px;
   --leading-heading: 1.12;
-  --leading-hero: 1.08;
 
   /* ── Easing ──
      One reveal curve for everything. No springs, no overshoot: a curve whose
      control points cross 1 reads as playful, and this brand is not. */
   --ease-reveal: cubic-bezier(0.165, 0.84, 0.44, 1);
   --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Motion scale ──
@@ -623,32 +574,6 @@ body::after {
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-}
-
-.glass-hover:hover {
-  border-color: var(--color-glass-border-hover);
-  box-shadow: var(--shadow-card-hover);
-}
-
-/* ── Accent rim ──
-   The Accent Rim Rule: a card that owns a feature accent carries it as a
-   single 1px inset specular along the top bevel at 50% alpha, over a neutral
-   elevation shadow. Nothing blurred, nothing coloured in the outer shadow.
-   `.accent-glow` is the legacy name and is kept so existing call sites keep
-   working; prefer `.accent-rim`. */
-.accent-rim,
-.accent-glow {
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--card-accent) 50%, transparent),
-    0 4px 24px rgba(0, 0, 0, 0.4);
-}
-
-.accent-rim-hover:hover,
-.accent-glow-hover:hover {
-  border-color: var(--card-accent);
-  box-shadow:
-    inset 0 1px 0 var(--card-accent),
-    0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 /* ── Elevated chassis — pricing, signal-path ribbon ── */
@@ -879,13 +804,6 @@ body::after {
   }
 }
 
-/* ── Section Divider ── */
-.section-divider {
-  height: 1px;
-  background: var(--color-border-subtle);
-  border: none;
-}
-
 /* ── Prose for legal pages ── */
 .prose-legal {
   color: var(--color-text-secondary);
@@ -1051,9 +969,6 @@ body::after {
 
 /* ── Mobile viewport safe-area support ── */
 @supports (padding: env(safe-area-inset-bottom)) {
-  .cookie-banner-safe {
-    padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
-  }
   .footer-safe-bottom {
     padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
@@ -1064,43 +979,6 @@ body::after {
 }
 
 /* ── Custom Utilities ── */
-/* One shared hover lift, so the twelve places that want it cannot drift apart.
-   A neutral shadow and a 1px rise: nothing on this site glows on hover, and a
-   scale on a card resamples whatever it contains. The reduced-motion guard is
-   part of the utility rather than each call site's problem. */
-@utility lift-hover {
-  transition:
-    transform var(--d-ui) var(--ease-ui),
-    border-color var(--d-ui) var(--ease-ui),
-    box-shadow var(--d-ui) var(--ease-ui);
-
-  &:hover {
-    transform: translateY(-1px);
-    border-color: var(--color-glass-border-hover);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-card);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: border-color var(--d-ui) var(--ease-ui);
-
-    &:hover,
-    &:active {
-      transform: none;
-    }
-  }
-}
-
-@utility flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 @utility focus-ring {
   outline-style: solid;
   outline-width: 2px;
@@ -1191,24 +1069,6 @@ body::after {
   border-radius: 9999px;
   font-weight: 500;
   white-space: nowrap;
-}
-
-/* Band rhythm: 56px mobile, 116px desktop. */
-@utility section-py {
-  padding-top: 56px;
-  padding-bottom: 56px;
-  @media (min-width: 768px) {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-  @media (min-width: 1024px) {
-    padding-top: 116px;
-    padding-bottom: 116px;
-  }
-}
-
-@utility z-1 {
-  z-index: 1;
 }
 
 /* ── Reduced Motion ── */

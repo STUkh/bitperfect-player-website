@@ -1,7 +1,7 @@
 // The site's own React components, as the site renders them (src/components).
 // Nothing here is a port: a change on the site reaches Claude Design on the next
 // sync. Only Surface (the page ground, for previews) is design-only.
-// Not exported: DevOnlyBadge (renders nothing outside the dev server) and
+// Not exported:
 // MobileMenu (the panel Header renders and its burger opens).
 export { default as Button, type ButtonProps } from '@site/components/common/Button';
 export { default as Card, type CardProps } from '@site/components/common/Card';
