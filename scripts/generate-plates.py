@@ -40,21 +40,6 @@ Save the generated image exactly as generated to band-walnut-diffuser-raw.png in
 """
     },
     {
-        "name": "band-braided-cable-raw.png",
-        "title": "Braided OCC Copper Audio Cable Band",
-        "task": """# Task: Generate Braided Copper Cable Band
-Use your built-in `image_gen` tool (imagegen skill) to generate ONE image:
-Orientation: Landscape 16:9, widest supported resolution.
-
-DESCRIPTION:
-Panoramic macro photograph of an 8-core continuous round litz braid of ultra-pure Ohno Continuous Cast (OCC) copper audio conductors. The tightly interwoven copper strands gleam with authentic rose-gold and natural warm copper luster beneath a transparent medical-grade dielectric sheath. The cable runs horizontally across the frame over a dark brushed titanium floor (#201f26). Subtle warm gold edge reflection highlights the precision of the hand-woven geometry. Razor-sharp macro focus, depth of field gently dissolving at extremities, fine grain.
-
-Do not include: text, watermark, logo, connectors, plugs, messy tangle, frayed wires, solder, neon blue, green oxidation, plastic render, CGI, glossy, fake reflections, people, hands
-
-Save the generated image exactly as generated to band-braided-cable-raw.png in this directory.
-"""
-    },
-    {
         "name": "band-vacuum-filament-raw.png",
         "title": "Warm Vacuum Tube Filament Horizon",
         "task": """# Task: Generate Vacuum Tube Filament Horizon Band

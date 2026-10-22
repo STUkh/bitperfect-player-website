@@ -30,7 +30,7 @@ const commitments = [
 /**
  * Privacy band. No props; the copy is the site's own.
  *
- * Landing page order: HomeOpening, StatementBand, FeaturesTeaser, TextureStrip,
+ * Landing page order: HomeOpening, StatementBand, FeaturesTeaser,
  * PrivacyBand, PricingSection, CTASection. Ivory surface (`bg-band-ivory`) on the
  * `ground-halftone` backdrop, and the second of the page's light bands. Hairlines and
  * space only: no cards, glass or shadows.

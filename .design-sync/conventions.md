@@ -11,11 +11,11 @@ No provider. `styles.css` loads Manrope, the tokens, component styles and image 
 | Role | Components |
 |---|---|
 | Chrome | `Header` (fixed; `pathname`), `Footer` (`pathname`) |
-| Home, in order | `HomeOpening` (hero + three-phone showcase, ONE block), `StatementBand` (ivory), `FeaturesTeaser`, `TextureStrip`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
+| Home, in order | `HomeOpening` (hero + three-phone showcase, ONE block), `StatementBand` (ivory), `FeaturesTeaser`, `PrivacyBand` (ivory), `PricingSection`, `CTASection` (ivory) |
 | Inner pages | `PageHeader` (title, description, back link, `meta`, children), `ClosingBanner`, `TechIndex` (the grouped capability index, no content props), `CapabilityBand` (copy beside a phone, `tone` graphite/ivory, `media` right/left, `specs`), `LegalDocument` (markdown children, `headings`) |
 | Band shells | `Band` (section: `tone` ground, Container inside; padding is yours), `SectionHeading` (`eyebrow`, title, accent, lede; sizes per slot, colours from `tone`), `MediaSplit` (copy beside media, 7/5 or 6/6, mirrored), `SpecList` (label/value hairline rows), `RuleList` (title-and-line entries on hairlines), `CloseBand` (centred last band), `BackLink`, `CrossLinkRow` (pointer + secondary `Button`), `PagerPair` (two `PagerLink`: `direction`, `href`, `label`, `title`), `FeatureLinkCard` |
 | Phones (real captures) | `Phone` (`screen`, or src + width + height; wide is landscape), `PhoneTrio`, `FeatureScreens` (`slug`, `state`) |
-| Primitives | `Button` (`variant` primary/secondary/outline, `size`, `href`), `PlayCta` (install: gold key-cap + `PlayStoreMark` + optional `label`), `PlayStoreMark`, `Card` (lacquer chassis; padding is yours; `as="a"` + `href`), `StoreBadges`, `TextureStrip` (`material` wood/copper/glass), `ImageSlot`, `Logo`, `Container` (1280px column), `FeatureMark`, `FeatureArt`, `Icon` |
+| Primitives | `Button` (`variant` primary/secondary/outline, `size`, `href`), `PlayCta` (install: gold key-cap + `PlayStoreMark` + optional `label`), `PlayStoreMark`, `Card` (lacquer chassis; padding is yours; `as="a"` + `href`), `StoreBadges`, `ImageSlot`, `Logo`, `Container` (1280px column), `FeatureMark`, `FeatureArt`, `Icon` |
 | Whole page | `HoldingPage` |
 
 - Screen names (`Phone screen=`, `PhoneTrio leftScreen/centerScreen/rightScreen`): now-playing, now-playing-hero, eq, eq-filters, eq-presets, eq-sculptor, library, tracks, album, sources, output, track-info, fidelity, signal-path, signal-clean, cast, cast-sheet, receiver, dsp, dsp-sheet, playback, ai, ai-enhancer, ai-karaoke, ai-neural.
@@ -49,10 +49,9 @@ Full rules: `guidelines/DESIGN.md`. Every compiled class: `_ds_bundle.css`.
 5. Every install button is `PlayCta`. Never a play triangle, never a hand-made gold button.
 6. Buttons never move on hover; only the sheen and rim light up. No arrow or chevron inside a button or store badge; text links and `PagerLink` may carry one.
 7. Hero and showcase are one `HomeOpening`; never split or rebuild it.
-8. `TextureStrip` only on a dark-to-light seam, never under a block with its own photograph.
-9. Kickers (short gold mono uppercase label above a heading) only on `PageHeader` and `ClosingBanner` (their `eyebrow`), the hero and a plan card's label row; elsewhere the heading opens the block (leave `SectionHeading`'s `eyebrow` empty). `ClosingBanner`'s primary is a plain `Button`; an install close uses `PlayCta`.
-10. Never draw an app screen; use a phone component.
-11. Manrope only; mono for numbers. No em or en dashes in copy.
+8. Kickers (short gold mono uppercase label above a heading) only on `PageHeader` and `ClosingBanner` (their `eyebrow`), the hero and a plan card's label row; elsewhere the heading opens the block (leave `SectionHeading`'s `eyebrow` empty). `ClosingBanner`'s primary is a plain `Button`; an install close uses `PlayCta`.
+9. Never draw an app screen; use a phone component.
+10. Manrope only; mono for numbers. No em or en dashes in copy.
 
 ## Example: a feature page
 
