@@ -15,7 +15,7 @@ const facts = [
   },
   {
     title: 'Your music stays on the phone',
-    desc: 'No account needed. No analytics, no ads.',
+    desc: 'No account needed. No tracking, no ads.',
   },
 ];
 

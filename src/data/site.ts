@@ -256,7 +256,7 @@ export const compatibility = [
        The neighbouring rows are written as prose; this one now is too. */
     scope: "Playback, bit-perfect USB, EQ, casting and the DSP rack",
     devices: "Android 8.0 or newer",
-    note: "One download covers every supported phone.",
+    note: "Covers supported phones, tablets and DAPs with Google Play Store.",
     level: "universal",
   },
   {

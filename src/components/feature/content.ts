@@ -315,7 +315,8 @@ export const featurePages: Record<string, FeaturePage> = {
       {
         eyebrow: "Hardware",
         title: "Dongles and desktop DACs, same path",
-        body: "Works with UAC1 and UAC2 DACs, from a USB-C dongle to a desktop DAC. If your DAC has a hardware volume control, Bitperfect Player uses it. Software volume reduces bits below 100%.",
+        body: "Works with UAC1 and UAC2 DACs, from a USB-C dongle to a desktop DAC. If your DAC has hardware volume, Bitperfect Player uses it. With Bit-perfect lock on, DACs without volume stay fixed at 0 dBFS line level. Use an external amplifier, or unlock software volume for sensitive headphones.",
+        note: "0 dBFS is full line level. Use external volume controls when connecting sensitive headphones.",
       },
       {
         eyebrow: "Honesty",

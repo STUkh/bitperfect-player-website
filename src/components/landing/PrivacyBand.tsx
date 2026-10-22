@@ -17,7 +17,7 @@ const commitments = [
     desc: 'You only need a Google Play subscription. Your music, library, history and favourites stay on your phone.',
   },
   {
-    title: 'No analytics',
+    title: 'No tracking',
     desc: 'The app has no advertising ID and collects no play history.',
   },
   {

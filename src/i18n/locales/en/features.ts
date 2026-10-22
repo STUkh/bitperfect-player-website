@@ -32,7 +32,7 @@ export const features = {
     "Playback, bit-perfect USB, EQ, casting and the DSP rack",
   "features_index.compat_player_devices": "Every phone on Android 8.0 or newer",
   "features_index.compat_player_note":
-    "One download covers every supported phone.",
+    "Covers supported phones, tablets and DAPs with Google Play Store.",
   "features_index.compat_ai_library_what": "Sonic Scan and Similar Tracks",
   "features_index.compat_ai_library_scope":
     "Local library analysis and acoustic similarity",

@@ -202,7 +202,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "One switch disables sound processing and software volume.",
-    "description": "Disables EQ, crossfeed, upsampling and volume attenuation in one tap. Volume moves to your DAC hardware control, or stays at 0 dB.",
+    "description": "Disables EQ, crossfeed, upsampling and volume attenuation in one tap. Volume moves to your DAC hardware control. If your DAC lacks hardware volume, output stays fixed at 0 dBFS line level. Use an external amplifier with volume control. Turn off the lock or use alternative volume if connecting sensitive headphones directly.",
     "audiophileBenefit": "Guarantees unaltered sample delivery. If your DAC lacks the rate, the badge shows Resampled.",
     "specs": [
       {
@@ -211,7 +211,7 @@ export const technicalFeatures: TechnicalFeature[] = [
       },
       {
         "label": "Volume routing",
-        "value": "Hardware DAC control or 0 dB fixed"
+        "value": "Hardware DAC control or 0 dBFS fixed line level"
       },
       {
         "label": "Signal honesty",
@@ -228,7 +228,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "dsp",
     "categoryLabel": "Sound processing",
     "summary": "Converts PCM files to 1-bit DSD in real time as tracks play.",
-    "description": "Transforms PCM audio into 1-bit Direct Stream Digital using a noise-shaping modulator. Outputs DSD64 up to DSD512, as high as your DAC accepts. Streams directly to your converter over DoP.",
+    "description": "Transforms PCM audio into 1-bit Direct Stream Digital using noise-shaping modulators. Supports DoP up to DSD256 and Native DSD up to DSD512. Real-time conversion to high rates requires a flagship processor.",
     "audiophileBenefit": "Sends native 1-bit pulse streams to delta-sigma DACs that sound best on DSD.",
     "specs": [
       {
@@ -237,11 +237,11 @@ export const technicalFeatures: TechnicalFeature[] = [
       },
       {
         "label": "Transport",
-        "value": "DoP (DSD over PCM)"
+        "value": "DoP up to DSD256, Native DSD up to DSD512"
       },
       {
         "label": "Modulator",
-        "value": "5th-order and 7th-order delta-sigma"
+        "value": "3rd, 4th and 7th-order delta-sigma"
       }
     ]
   },
@@ -328,17 +328,21 @@ export const technicalFeatures: TechnicalFeature[] = [
     "title": "Full RAM playback",
     "category": "dsp",
     "categoryLabel": "Sound processing",
-    "summary": "Loads the entire file into memory before playback so storage stays idle.",
-    "description": "Selecting Whole file read-ahead loads the track into memory before play begins. Storage bus activity stops completely while the music plays. Files larger than available memory use continuous read-ahead streaming instead.",
-    "audiophileBenefit": "Keeps storage idle while a track plays. No disk reads until the next track loads.",
+    "summary": "Loads tracks into memory before playback so storage stays idle.",
+    "description": "Whole file read-ahead loads tracks into memory based on available system RAM. This prevents Android from stopping playback under memory pressure. Larger files like DSD disc images use continuous streaming prefetch without gaps.",
+    "audiophileBenefit": "Keeps storage idle during playback for cached tracks, with smooth streaming for larger files.",
     "specs": [
       {
         "label": "Storage activity",
-        "value": "Zero disk reads during playback"
+        "value": "Zero disk reads during playback for cached files"
       },
       {
         "label": "Memory allocation",
-        "value": "Whole track, if memory allows"
+        "value": "Dynamic allocation based on available RAM"
+      },
+      {
+        "label": "Large file playback",
+        "value": "Continuous streaming prefetch without gaps"
       },
       {
         "label": "Read-ahead modes",
@@ -480,8 +484,8 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "hardware",
     "categoryLabel": "Hardware & outputs",
     "summary": "Direct hardware audio path to internal DACs and headphone jacks on supported devices.",
-    "description": "Routes PCM and DSD directly to integrated audiophile DAC chips on supported phones. It is disabled by default and requires opt-in confirmation. It yields automatically when you connect a USB DAC.",
-    "audiophileBenefit": "Enables bit-perfect playback from internal headphone ports without needing an external dongle.",
+    "description": "Routes audio directly to integrated DAC chips on supported phones. Availability depends on your phone's internal DAC chip and OS firmware. An external USB DAC is recommended for guaranteed bit-perfect output across all devices. It is off by default and yields when you connect a USB DAC.",
+    "audiophileBenefit": "Enables direct playback from internal headphone ports on supported hardware.",
     "specs": [
       {
         "label": "Routing",
@@ -489,7 +493,11 @@ export const technicalFeatures: TechnicalFeature[] = [
       },
       {
         "label": "Compatibility",
-        "value": "Detected per device chipset"
+        "value": "Depends on DAC chip and OS firmware"
+      },
+      {
+        "label": "Recommended setup",
+        "value": "External USB DAC for guaranteed bit-perfect sound"
       },
       {
         "label": "Priority",
@@ -530,12 +538,12 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "hardware",
     "categoryLabel": "Hardware & outputs",
     "summary": "Direct bit-perfect output for supported digital audio players.",
-    "description": "Communicates directly with dedicated audio hardware on HiBy, FiiO, iBasso, Cayin, Shanling, Lotoo and Questyle players. Bypasses Android mixer layers completely. The portable player manages analogue volume and gain stages directly.",
+    "description": "Integrates with audio architectures on HiBy, iBasso, Astell&Kern and other Android DAPs. Bypasses standard system resampling. The portable player manages analogue volume and gain stages directly.",
     "audiophileBenefit": "Drives balanced 4.4 mm and 2.5 mm outputs with bit-perfect sound and zero external adapters.",
     "specs": [
       {
         "label": "Supported brands",
-        "value": "HiBy, FiiO, iBasso, Cayin, Shanling, Lotoo"
+        "value": "HiBy, iBasso, Astell&Kern and other Android DAPs"
       },
       {
         "label": "Output routing",

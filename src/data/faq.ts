@@ -24,7 +24,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "bitperfect-lock",
     "category": "engine",
     "q": "What does Bit-perfect lock do?",
-    "a": "Bit-perfect lock is one switch. It turns off all EQ, sound processing and software volume. If your DAC cannot play the file rate, the app converts it. The badge then shows Resampled. Volume moves to the DAC control. If the DAC has no volume control, it stays at 0 dB."
+    "a": "Bit-perfect lock is one switch. It turns off all EQ, sound processing and software volume. If your DAC cannot play the file rate, the app converts it. The badge then shows Resampled. Volume moves to the DAC control. If the DAC has no hardware volume control, output stays fixed at 0 dBFS line level. That means full volume. Use an external amplifier with analog volume. Turn off the lock or use alternative volume if connecting sensitive headphones directly."
   },
   {
     "id": "dyadic-lossless-volume",
@@ -36,13 +36,13 @@ export const allFaqItems: FAQItem[] = [
     "id": "native-dsd-and-dop",
     "category": "engine",
     "q": "Does Bitperfect Player support native DSD and DoP?",
-    "a": "Yes. The app plays DSF, DFF and DSD disc images up to DSD512. It supports both native DSD and DoP. Rates depend on your DAC. If your DAC supports neither, the app converts to PCM. The badge then shows Resampled. It can also convert PCM to DSD in real time."
+    "a": "Yes. The app plays DSF, DFF and DSD disc images. Native DSD plays up to DSD1024, and DoP plays up to DSD256. Rates depend on your DAC. If your DAC supports neither, the app converts to PCM. The badge then shows Resampled. It can also convert PCM to DSD in real time. Real-time conversion to high rates requires a flagship processor."
   },
   {
     "id": "need-external-dac",
     "category": "hardware",
     "q": "Do I need an external DAC?",
-    "a": "Not to play music. The headphone jack and built-in speaker work too. On most phones, Android's system mixer resamples that audio. The badge then shows Resampled. A USB DAC or supported DAP skips that mixer. On some phones, the app can drive the internal DAC directly. This requires a quick hardware test and your permission."
+    "a": "Not to play music. The headphone jack and built-in speaker work too. On most phones, Android's system mixer resamples that audio. The badge then shows Resampled. An external USB DAC is recommended for guaranteed bit-perfect output across all devices. On select phones, the app can drive the internal DAC directly. This depends on your phone's DAC chip and OS firmware. It requires a quick hardware test and your permission."
   },
   {
     "id": "usb-dac-setup-guide",
@@ -60,7 +60,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "dap-support",
     "category": "hardware",
     "q": "Does Bitperfect Player work on digital audio players (DAPs)?",
-    "a": "Yes. Bitperfect Player supports Android DAPs from FiiO, iBasso, HiBy, Cayin and Shanling. The app sends sound straight to the player's bit-perfect internal audio path. The player's hardware sets the volume."
+    "a": "Yes. The app supports HiBy, iBasso, Astell&Kern and other Android DAPs. It sends sound straight to the player's internal audio path. The player's hardware sets the volume. To activate your subscription, the DAP needs Google Play Services. On DAPs with the Google Play Store, activation works normally."
   },
   {
     "id": "why-npu-ai-enhancer-not-working",
@@ -121,7 +121,7 @@ export const allFaqItems: FAQItem[] = [
     "id": "full-ram-playback",
     "category": "battery",
     "q": "What is Full RAM Playback?",
-    "a": "Full RAM Playback loads the entire encoded file into memory before playing. Storage stays idle while you listen. Files too large for memory use read-ahead instead."
+    "a": "Full RAM Playback loads tracks into memory before playing, based on available system RAM. Storage stays idle while you listen. This dynamic allocation stops Android from closing the app under memory pressure. Larger files like DSD disc images use continuous streaming prefetch without gaps."
   },
   {
     "id": "background-killing-prevention",
@@ -133,19 +133,19 @@ export const allFaqItems: FAQItem[] = [
     "id": "cost-and-plans",
     "category": "license",
     "q": "What does Bitperfect Player cost?",
-    "a": "Bitperfect Player has one annual subscription with every feature and no ads. Limited Founder offer: $19.95 a year if you subscribe by May 31, 2027. That price stays yours on every renewal while you stay subscribed. From June 1, 2027, new subscribers pay the standard price of $29.95 a year. Cancel and come back after that date, and you pay the standard price. Eligible new customers get 14 days free. Cancel during the trial and you pay nothing. The plan covers five devices; more devices are a paid in-app add-on. You pay and cancel in Google Play."
+    "a": "Bitperfect Player has one annual subscription with every feature and no ads. Limited Founder offer: $19.95 a year if you subscribe by May 31, 2027. That price stays yours on every renewal while you stay subscribed. From June 1, 2027, new subscribers pay the standard price of $29.95 a year. Cancel and come back after that date, and you pay the standard price. Eligible new customers get 14 days free. Cancel during the trial and you pay nothing. The plan covers five devices with the Google Play Store. More devices are a paid in-app add-on. You pay and cancel in Google Play."
   },
   {
     "id": "device-allowance",
     "category": "license",
     "q": "How many devices does a subscription cover?",
-    "a": "One subscription covers five devices linked to your Google Play account. These include phones, tablets and DAPs. You can buy packs of five more in the app, up to twenty devices. You can also remove old devices at any time."
+    "a": "One subscription covers five devices linked to your Google Play account. These include phones, tablets and supported DAPs. DAPs need the Google Play Store to activate and verify the subscription. You can buy packs of five more in the app. The limit is twenty devices. You can also remove old devices at any time."
   },
   {
     "id": "privacy-and-network-transfers",
     "category": "license",
     "q": "What does the app send over the internet?",
-    "a": "Your audio files, library, history and favourites stay on your phone. There are no ads and no analytics. The app goes online for album art, lyrics, AutoEQ profiles, internet radio and subscription checks. Crash reports can be turned off in settings."
+    "a": "Your audio files, library, history and favourites stay on your phone. There are no ads and no tracking. The app goes online for album art, lyrics, AutoEQ profiles, internet radio and subscription checks. Crash reports can be turned off in settings."
   },
   {
     "id": "do-i-need-an-account",

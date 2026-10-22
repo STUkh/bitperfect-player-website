@@ -108,7 +108,7 @@ export const features: Feature[] = [
       },
       {
         title: "On-device privacy",
-        desc: "Your music, library, history and favourites stay on your phone. No account needed, and no analytics.",
+        desc: "Your music, library, history and favourites stay on your phone. No account needed, and no tracking.",
       },
     ],
     facts: [
@@ -117,7 +117,7 @@ export const features: Feature[] = [
       "Embedded artwork shows automatically. Missing covers download only when you ask",
       "Playlist import: M3U, M3U8, PLS, XSPF, ASX and CUE",
       "The library updates itself when files change on storage",
-      "No analytics and no remote lookups while you browse your library",
+      "No tracking and no remote lookups while you browse your library",
     ],
     specs: [
       {
