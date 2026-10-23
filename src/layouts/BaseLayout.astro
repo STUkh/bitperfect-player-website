@@ -65,6 +65,10 @@ const speculation = {
         applied before first paint so nothing flips once the page is up. */}
     <script is:inline>try{sessionStorage.getItem('perf-lite')&&document.documentElement.classList.add('perf-lite')}catch(e){}</script>
     <script type="speculationrules" is:inline set:html={JSON.stringify(speculation)} />
+    <script>
+      import { setupTouchPrefetch } from '../components/_lib/touch-prefetch.client';
+      setupTouchPrefetch();
+    </script>
     <slot name="head" />
   </head>
   <body>
