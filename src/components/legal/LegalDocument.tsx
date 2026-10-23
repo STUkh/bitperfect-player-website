@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import Icon from '../primitives/Icon';
 import { TOC_CHEVRON_PATH } from '../primitives/glyphs';
 import { useBehaviour } from '../_lib/behaviour';
@@ -70,7 +70,7 @@ export default function LegalDocument(props: LegalDocumentProps) {
           <nav className="legal-toc" aria-label="Sections">
             <ul>
               {sections.map((h) => (
-                <li>
+                <li key={h.slug}>
                   <a href={`#${h.slug}`} className="legal-toc-link focus-visible:focus-ring">
                     {h.text.replace(/^\d+\.\s*/, '')}
                   </a>
@@ -90,10 +90,10 @@ export default function LegalDocument(props: LegalDocumentProps) {
             <p>
               <strong>Not yet publishable.</strong> This document still contains{' '}
               {unresolved.map((p, i) => (
-                <>
+                <Fragment key={p}>
                   {i > 0 && ' and '}
                   <code>{p}</code>
-                </>
+                </Fragment>
               ))}{' '}
               . Fill {unresolved.length > 1 ? 'them' : 'it'} in at <code>{source}</code> before submitting this URL to a
               store console: a legal document with no effective date or contact address will not pass review.

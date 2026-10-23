@@ -1,0 +1,25 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import Container from '../components/primitives/Container';
+import PageHeader from '../components/chrome/PageHeader';
+import { AccountDeletionView } from '../components/legal';
+
+const title = 'Delete your account and data — Bitperfect Player';
+const description =
+  'How to request permanent deletion of your Bitperfect Player account, Google OAuth identity, and synced backups.';
+---
+
+<ContentLayout title={title} description={description}>
+  <PageHeader
+    maxWidth="760px"
+    eyebrow="Account management"
+    title="Delete account and associated data"
+    description={description}
+  />
+
+  <section class="section-compact">
+    <Container>
+      <AccountDeletionView />
+    </Container>
+  </section>
+</ContentLayout>

@@ -147,13 +147,13 @@ export const allFaqItems: FAQItem[] = [
     "id": "privacy-and-network-transfers",
     "category": "license",
     "q": "What does the app send over the internet?",
-    "a": "Your audio files, library, history and favourites stay on your phone. No account needed. There are no ads and no analytics. The app goes online for album art, lyrics, AutoEQ profiles, internet radio, model downloads and subscription checks. Crash reports can be turned off in settings."
+    "a": "Your audio files, library, history and favourites stay on your phone. No account needed. There are no ads and no analytics. The app goes online for album art, lyrics, AutoEQ profiles, internet radio, model downloads, subscription checks, and optional account sync if you sign in. Crash reports can be turned off in settings."
   },
   {
     "id": "do-i-need-an-account",
     "category": "license",
     "q": "Do I need an account?",
-    "a": "No account needed. There is no sign-in today. Your subscription lives in your Google Play account. An optional account is planned for backing up settings and EQ presets. It will never be required. If you create one, your music, library, history and favourites still stay on your phone."
+    "a": "No account needed. The app works completely without signing in. Your subscription lives in your Google Play account. You can optionally sign in with Google to back up your settings and EQ presets across devices. It will never be required. If you sign in, your music, library, history and favourites still stay entirely on your phone."
   }
 ];
 

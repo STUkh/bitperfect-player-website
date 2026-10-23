@@ -50,6 +50,7 @@ export default function MobileMenu(props: MobileMenuProps) {
             const active = isActive(pathname, link.href);
             return (
               <a
+                key={link.href}
                 href={resolveHref(link.href, pathname)}
                 className={cx([
                   'mobile-nav-link cursor-pointer rounded-chip text-2xl font-semibold focus-visible:focus-ring',

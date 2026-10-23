@@ -112,6 +112,7 @@ export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProp
             <div className="flex items-center gap-2.5" aria-label="Official channels">
               {site.socials.map((social) => (
                 <a
+                  key={social.id}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"

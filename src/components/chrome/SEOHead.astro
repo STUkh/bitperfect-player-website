@@ -20,7 +20,9 @@ const trimmedTitle = title.trim();
 const fullTitle =
   trimmedTitle === site.name ||
   trimmedTitle.endsWith(` | ${site.name}`) ||
-  trimmedTitle.endsWith(`| ${site.name}`)
+  trimmedTitle.endsWith(`| ${site.name}`) ||
+  trimmedTitle.endsWith(` — ${site.name}`) ||
+  trimmedTitle.endsWith(`— ${site.name}`)
     ? trimmedTitle
     : `${trimmedTitle} | ${site.name}`;
 ---

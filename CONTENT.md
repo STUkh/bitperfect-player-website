@@ -99,33 +99,22 @@ When ads do ship, these move TOGETHER, in one pass, and the policy moves first:
 Until then the site and the policy agree, and `app-ads.txt` is the only file in
 the repo that anticipates the change.
 
-## Pending: account sync (do not act on this yet)
+## Account sync (optional — live)
 
-The app has an optional account for backing up settings and EQ presets (sign-in with
-Google, Apple or a one-time email code; backend in `../bitperfect-player/cloud-workers/account`),
-but it is gated behind `BuildConfig.DEV_ACCOUNT_SYNC_ENABLED` (`-PdevAccountSync=true`),
-which no release build sets: checked 2026-10-22. The shipping app shows no sign-in and
-makes no account calls, so every "no account" claim stays true.
+Optional account sync with Google OAuth and email sign-in is now live and fully reflected
+in `src/PRIVACY_POLICY.md` (§1, §2.9, §2.10, §2.11, §6), `src/TERMS_OF_USE.md` (§10),
+and `src/data/faq.ts` (`privacy-and-network-transfers`, `do-i-need-an-account`).
 
-How the site talks about it now (2026-10-22, owner's decision): accounts are PLANNED,
-OPTIONAL and NOT AVAILABLE YET, and every account sentence is conditional ("once it is
-offered", "if you create one"). Never write it as if it ships.
-
-- `src/PRIVACY_POLICY.md` §1 (summary bullet) and §2.11 "Optional account (planned, not yet
-  available)": what an account would store (sign-in identity, subscription link, backups
-  of settings and EQ presets with the device name; never music, library, history,
-  favourites), deletion on request. §2.9, §2.10 and §6 refer to it conditionally.
-- `src/TERMS_OF_USE.md` §10 "Your account, once offered".
-- `src/data/faq.ts` "Do I need an account?".
-
-When the flag ships on, in the same release: the policy §1 and §2.11 drop "planned, not
-yet available" (and §8's notice goes out first), the FAQ answer drops "There is no
-sign-in today" and "A future version will add", and the absolute "no account" lines
-become "no account required": `src/i18n/locales/en/landing.ts` (`privacy.title`,
-`privacy.fact1_desc`, `statement.fact3_desc`, the meta description) and the landing
-components that hard-code "No account" (`StatementBand`, `PrivacyBand`). "No account is
-required" claims stay true as they are.
-
+- **Strictly optional:** The app works completely without signing in. An account is
+  never required for playback, full functionality, or purchasing/restoring subscriptions.
+- **Marketing claims remain accurate:** "No account needed" marketing claims across
+  the site remain accurate because the account is strictly optional and never required.
+- **Data stored:** Only the sign-in identity (Google account ID or email address), a link
+  to the subscription record, and user-initiated backups of settings and EQ presets.
+- **Never stored in the account:** Audio files, music library, playback history, and
+  favourites stay entirely on the user's device.
+- **Account deletion:** Users can delete their account directly in-app (Settings → Account
+  → Delete Account) or by emailing support@bit-perfect.com.
 ## Where the copy actually lives
 
 Check the BUILT html before assuming a string ships. Several fields look live and

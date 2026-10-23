@@ -59,6 +59,7 @@ export default function Header({ pathname = '/', locale }: HeaderProps) {
                 const active = isActive(pathname, link.href);
                 return (
                   <a
+                    key={link.href}
                     href={resolveHref(link.href, pathname)}
                     className={cx([
                       'nav-link cursor-pointer rounded px-1.5 py-0.5 text-sm font-medium transition-colors duration-[var(--d-ui)] ease-ui focus-visible:focus-ring',
