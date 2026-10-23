@@ -305,8 +305,8 @@ export function getLocalizedCompatibility(lang?: string) {
   `screens` and `formats` used to sit here and were imported by nothing.
 
   `screens` listed six captioned screenshot slots for a carousel this site no
-  longer has: the screens are DRAWN now, in src/components/feature/screens/, and
-  each carries its own caption. `formats` listed the twelve decoded formats,
+  longer has: the screens are real app captures now (src/data/screens.ts), shown
+  by src/components/devices/Phone, and each page writes its own caption. `formats` listed the twelve decoded formats,
   which the library route states in prose and again as twelve chips
   (src/data/feature-pages.ts). Both were a second copy of something
   already rendered somewhere else, which is the only kind of copy that can drift.
