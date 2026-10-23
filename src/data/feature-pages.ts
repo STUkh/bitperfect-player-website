@@ -288,7 +288,7 @@ export const featurePages: Record<string, FeaturePage> = {
   },
 
   "usb-dac": {
-    lede: "Standard system mixers often convert audio to 48 kHz and 16-bit. Bitperfect Player sends music straight to your DAC at the file's native rate, if your DAC supports it.",
+    lede: "System mixers often convert audio to 48 kHz and 16-bit. Bitperfect Player sends music straight to your DAC at the file's native rate, if your DAC supports it.",
     summary: [
       { label: "Max PCM", value: "32-bit / 768 kHz, DAC permitting" },
       { label: "DSD", value: "DSD64 to DSD512, DAC permitting" },

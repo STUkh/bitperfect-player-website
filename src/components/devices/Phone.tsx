@@ -83,7 +83,7 @@ export default function Phone({ className, alt = '', priority = false, fill = fa
   const src = source.src ?? (capture ? `screens/${source.screen}.webp` : undefined);
 
   return (
-    <PhoneFrame geometry={geometry} fill={fill} className={className}>
+    <PhoneFrame geometry={geometry} fill={fill} className={className} decorative={!alt}>
       {src && (
         <Picture
           src={src}

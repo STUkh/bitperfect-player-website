@@ -5,7 +5,7 @@
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
 App (including the subscription, the free trial, billing, cancellation and refunds) are a
-separate document: see the [Terms of Use](/terms).
+separate document: see the [Terms of Use](/terms/).
 
 Contact: support@bit-perfect.com
 
@@ -208,7 +208,7 @@ terms describe.
 
 The App is a subscription app, and the subscription is purchased **in-app** through the
 store. The commercial terms (price, free trial, renewal, cancellation, refunds, and
-device limits) are in the [Terms of Use](/terms). What follows is what happens
+device limits) are in the [Terms of Use](/terms/). What follows is what happens
 to your data when the App verifies that access.
 
 - **Payment is processed entirely by the store.** We never receive or store your card
@@ -359,4 +359,4 @@ additional notice or seek explicit consent before material changes take effect.
 Questions about this policy or your data: support@bit-perfect.com
 
 For the terms governing your use of the App and your subscription, see the
-[Terms of Use](/terms).
+[Terms of Use](/terms/).

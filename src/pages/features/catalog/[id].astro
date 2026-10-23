@@ -44,7 +44,10 @@ const [openingScreen, howScreen, hearScreen] = feature.screens ?? (['now-playing
 const number = String(feature.number).padStart(2, '0');
 ---
 
-<ContentLayout title={`${feature.title} | Bitperfect Player`} description={feature.summary}>
+<ContentLayout
+  title={`${feature.metaTitle ?? feature.title} | Bitperfect Player`}
+  description={feature.metaDescription ?? feature.summary}
+>
   <CapabilityBand
     tone="graphite"
     media="right"

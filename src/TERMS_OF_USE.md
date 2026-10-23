@@ -5,7 +5,7 @@
 These Terms of Use ("Terms") govern your use of the Bitperfect Player app ("the App").
 They cover the subscription, the free trial, billing, cancellation and refunds, and the
 limits of what is promised. How the App handles your data is a separate document: see the
-[Privacy Policy](/privacy).
+[Privacy Policy](/privacy/).
 
 Contact: support@bit-perfect.com
 
@@ -148,7 +148,7 @@ advance as its rules require, and you can cancel before the change takes effect.
 Payment is handled entirely by the app store, which is the seller of record for your
 purchase in most countries. **This website and the App never take a payment, and we never
 see or store your card details or billing address.** What is received in order to know that
-an install is entitled is described in the [Privacy Policy](/privacy).
+an install is entitled is described in the [Privacy Policy](/privacy/).
 
 Because the store takes the payment, the store's billing terms, tax handling, payment
 methods, and dispute process apply to the transaction.

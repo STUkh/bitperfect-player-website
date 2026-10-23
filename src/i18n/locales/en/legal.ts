@@ -14,7 +14,7 @@ export const legal = {
   // 404 not-found page (src/pages/_404.astro)
   "notfound.title": "Page not found",
   "notfound.description":
-    "This page does not exist.",
+    "This page does not exist. Go back to the Bitperfect Player home page, or browse every feature of the player.",
   "notfound.code": "404",
   "notfound.heading": "Nothing here.",
   "notfound.body":

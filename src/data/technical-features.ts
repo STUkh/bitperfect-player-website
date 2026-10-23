@@ -54,6 +54,10 @@ export interface TechnicalFeature {
   category: FeatureCategory;
   categoryLabel: string;
   summary: string;
+  /** The meta description, when `summary` (the visible lede) is too short for one. */
+  metaDescription?: string;
+  /** The <title>, before " | Bitperfect Player", when `title` makes it too long. */
+  metaTitle?: string;
   description: string;
   audiophileBenefit: string;
   specs: { label: string; value: string }[];
@@ -76,6 +80,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "Bit-perfect audio to your USB DAC. Bypasses the system mixer.",
+    "metaDescription": "Plays your files straight to your USB DAC, past the system mixer. PCM and DSD keep their original rate and depth, if your DAC supports them.",
     "description": "Standard system mixers resample audio to 48 kHz on many devices. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them.",
     "audiophileBenefit": "You hear your files untouched, with no unwanted resampling or dither.",
     "specs": [
@@ -102,6 +107,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "Switch internal processing between 32-bit and 64-bit floating point.",
+    "metaDescription": "Choose 32-bit or 64-bit float for sound processing and volume. 32-bit saves battery. 64-bit gives the lowest rounding noise.",
     "description": "32-bit float is the efficient default and uses less battery. 64-bit float delivers the lowest quantisation error across sound processing and volume. Native DSD passes directly to the DAC without float processing.",
     "audiophileBenefit": "Preserves maximum dynamic range and avoids quantisation error during sound processing.",
     "specs": [
@@ -127,6 +133,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "Dedicated USB Audio Class 1 and 2 communication for your DAC.",
+    "metaDescription": "Talks to UAC1 and UAC2 USB DACs directly. Each track plays at its native rate, up to 768 kHz, if your DAC supports it.",
     "description": "Replaces standard Android USB audio once permitted. The app reads your DAC capabilities and matches each track rate. Compatible with UAC1 and UAC2 hardware.",
     "audiophileBenefit": "Each track plays at its native rate, up to 768 kHz, when supported by your DAC.",
     "specs": [
@@ -153,6 +160,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "Decodes 15 formats in one engine. No conversion needed.",
+    "metaDescription": "Plays 15 formats with no conversion first: FLAC, ALAC, WAV and DSD, plus Monkey's Audio, WavPack, TAK and True Audio.",
     "description": "Plays FLAC, ALAC, WAV, DSD and archival formats directly. Every file plays without prior conversion.",
     "audiophileBenefit": "Smooth, stutter-free playback across all lossless and DSD formats.",
     "specs": [
@@ -204,6 +212,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "engine",
     "categoryLabel": "Core engine",
     "summary": "One switch disables sound processing and software volume.",
+    "metaDescription": "One switch turns off EQ, sound processing and software volume. Volume moves to your DAC. If your DAC lacks the file rate, the badge shows Resampled.",
     "description": "Disables EQ, crossfeed, upsampling and volume attenuation in one tap. Volume moves to your DAC hardware control. If your DAC lacks hardware volume, output stays fixed at 0 dBFS line level. Use an external amplifier with volume control. Turn off the lock or use alternative volume if connecting sensitive headphones directly.",
     "audiophileBenefit": "Guarantees unaltered sample delivery. If your DAC lacks the rate, the badge shows Resampled.",
     "specs": [
@@ -230,6 +239,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "dsp",
     "categoryLabel": "Sound processing",
     "summary": "Converts PCM files to 1-bit DSD in real time as tracks play.",
+    "metaDescription": "Converts PCM files to 1-bit DSD as they play, up to DSD256 over DoP or DSD512 native. Made for delta-sigma DACs that sound best on DSD.",
     "description": "Transforms PCM audio into 1-bit Direct Stream Digital using noise-shaping modulators. Supports DoP up to DSD256 and Native DSD up to DSD512. Real-time conversion to high rates requires a flagship processor.",
     "audiophileBenefit": "Sends native 1-bit pulse streams to delta-sigma DACs that sound best on DSD.",
     "specs": [
@@ -306,6 +316,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "dsp",
     "categoryLabel": "Sound processing",
     "summary": "Continuous playback with zero silence or pauses between tracks.",
+    "metaDescription": "No silence between tracks. Classical movements, live recordings and concept albums play straight through, with sample-accurate transitions.",
     "description": "Pre-loads and decodes upcoming audio before the active track finishes. Trims encoder delay and padding samples from lossy and lossless files automatically. Track transitions happen with sample-accurate timing.",
     "audiophileBenefit": "Classical movements, live recordings and concept albums play without unwanted gaps.",
     "specs": [
@@ -331,6 +342,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "dsp",
     "categoryLabel": "Sound processing",
     "summary": "Loads tracks into memory before playback so storage stays idle.",
+    "metaDescription": "Loads tracks into memory before they play, so storage stays idle. Larger files, such as DSD disc images, stream ahead without gaps.",
     "description": "Whole file read-ahead loads tracks into memory based on available system RAM. This prevents Android from stopping playback under memory pressure. Larger files like DSD disc images use continuous streaming prefetch without gaps.",
     "audiophileBenefit": "Keeps storage idle during playback for cached tracks, with smooth streaming for larger files.",
     "specs": [
@@ -411,6 +423,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "dsp",
     "categoryLabel": "Sound processing",
     "summary": "Upsamples audio by 2x, 4x or 8x with a selectable ceiling.",
+    "metaDescription": "Upsamples by 2x, 4x or 8x with linear or minimum phase filters. Pick a 96, 192 or 384 kHz ceiling. Output never goes past your DAC's top rate.",
     "description": "Multiplies incoming sample rates by 2x, 4x or 8x using linear or minimum phase filters. 44.1 kHz and 48 kHz tracks reach 352.8 kHz or 384 kHz. Choose a ceiling of 96, 192 or 384 kHz. Output never exceeds your DAC's maximum rate.",
     "audiophileBenefit": "Pushes digital reconstruction filter imaging artefacts far beyond the audible frequency spectrum.",
     "specs": [
@@ -540,6 +553,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "hardware",
     "categoryLabel": "Hardware & outputs",
     "summary": "Direct bit-perfect output for supported digital audio players.",
+    "metaDescription": "Bit-perfect output on HiBy, iBasso, Astell&Kern and other portable players. Skips system resampling. The player's own volume and gain stay in charge.",
     "description": "Integrates with audio architectures on HiBy, iBasso, Astell&Kern and other Android DAPs. Bypasses standard system resampling. The portable player manages analogue volume and gain stages directly.",
     "audiophileBenefit": "Drives balanced 4.4 mm and 2.5 mm outputs with bit-perfect sound and zero external adapters.",
     "specs": [
@@ -588,6 +602,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "id": "on-device-ai",
     "screens": ["ai", "ai-enhancer", "ai-karaoke"],
     "title": "On-device AI: Enhancer, Karaoke, Similar Tracks",
+    "metaTitle": "AI Enhancer, AI Karaoke, Similar Tracks",
     "category": "ai",
     "categoryLabel": "On-device AI",
     "summary": "Rebuilds high frequencies, isolates vocals and finds similar tracks on your phone.",
@@ -617,6 +632,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "streaming",
     "categoryLabel": "Streaming & network",
     "summary": "Expand your player with optional add-on apps using a public SDK.",
+    "metaDescription": "Add audio sources, metadata and sound processing with optional add-on apps. Each plugin is signed and checked before it connects. The SDK is public.",
     "description": "Plugins run as separate standalone apps. The player verifies cryptographic signatures before allowing connection. Developers can build new audio sources, catalogue views, metadata providers and custom sound processing modules.",
     "audiophileBenefit": "Keep your player core lean while expanding sources and sound processing when needed.",
     "specs": [
@@ -644,6 +660,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "streaming",
     "categoryLabel": "Streaming & network",
     "summary": "Stream music to DLNA/UPnP and cast-enabled speakers and TVs.",
+    "metaDescription": "Stream your local music over Wi-Fi to DLNA/UPnP and cast-enabled speakers and TVs. Files play unchanged up to 24-bit and 96 kHz, if the device supports it.",
     "description": "Streams local music over your Wi-Fi network. Files play unchanged when supported by your receiving device, up to 24-bit and 96 kHz.",
     "audiophileBenefit": "Enjoy your lossless library on living room speakers without quality loss.",
     "specs": [
@@ -669,6 +686,7 @@ export const technicalFeatures: TechnicalFeature[] = [
     "category": "hardware",
     "categoryLabel": "Hardware & outputs",
     "summary": "Turns your phone or portable player into a network receiver.",
+    "metaDescription": "Turns your phone or portable player into a network streamer for your hi-fi. Up to 768 kHz as a player for music servers, if your DAC supports it.",
     "description": "Acts as a DLNA/UPnP renderer up to 384 kHz, or a network player for music servers up to 768 kHz. Supported sample rates depend on your DAC.",
     "audiophileBenefit": "Turns your device into a dedicated network streamer for your hi-fi system.",
     "specs": [

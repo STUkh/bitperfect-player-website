@@ -12,6 +12,8 @@ export interface PhoneFrameProps extends ClassProps {
   fill?: boolean;
   /** What sits in the screen cutout. */
   children?: ReactNode;
+  /** Hide the whole device from assistive tech: the screen says nothing the copy beside it does not. */
+  decorative?: boolean;
 }
 
 /** The frame's width when it does not `fill`: portrait 296px, 344px from lg; landscape the column, up to 620px. */
@@ -24,10 +26,11 @@ export const FRAME_WIDTH = {
  * The sized box for one device: the screen cutout, the chassis over it and the cast
  * shadow under it. Internal to `Phone`, which works the geometry out from the image.
  */
-export default function PhoneFrame({ geometry, fill = false, className, children }: PhoneFrameProps) {
+export default function PhoneFrame({ geometry, fill = false, className, children, decorative = false }: PhoneFrameProps) {
   const { viewBox, cutout, radius, orientation } = geometry;
   return (
     <div
+      aria-hidden={decorative || undefined}
       className={cn(
         'phone-frame-s25u relative shrink-0',
         fill ? 'w-full' : orientation === 'portrait' ? 'w-[296px] lg:w-[344px]' : 'w-full max-w-[620px]',
