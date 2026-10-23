@@ -32,10 +32,15 @@ const OUT = join(PUBLIC, '_img');
 const MANIFEST = join(ROOT, 'src/data/images.json');
 
 /** Bump to force every variant to re-encode. */
-const RECIPE = 3;
+const RECIPE = 4;
 
-/** Photographs and plates. Capped at the source width; the master is always the top rung. */
-const PHOTO_WIDTHS = [480, 768, 1080, 1440, 1920, 2560];
+/**
+ * Photographs and plates. Capped at the source width; the master is always the top
+ * rung. Steps of at most ~1.35x, so the browser's pick (the first rung at or above
+ * the needed width) never ships much more than the frame draws: a 1118px plate takes
+ * 1280, not 1440; a 776px card at 2x takes 960, not 1080.
+ */
+const PHOTO_WIDTHS = [480, 640, 768, 960, 1080, 1280, 1440, 1920, 2560];
 /** App captures: 1x, 1.5x, 2x of the 278 CSS px the device frame is at its widest. */
 const SCREEN_WIDTHS = [278, 417];
 
@@ -44,16 +49,32 @@ const SCREEN_WIDTHS = [278, 417];
  * object-position of the frame that shows it, as fractions. Keep `pos` in step with
  * the stylesheet, or the crop and the cover disagree about where the subject is.
  */
+/* Where each feature photo's subject sits (y, 0..1), shared with FeaturesTeaser's `--art-y`. */
+const FEATURE_ART_Y = JSON.parse(readFileSync(join(ROOT, 'src/data/feature-art.json'), 'utf8'));
+
 const CROPS = {
-  /* Phone frames are portrait, at most square. HomeOpening.css / PricingSection.css. */
-  'img/hero-backdrop.webp': [{ name: 'square', ratio: 1, pos: [0.74, 0.4] }],
-  'img/showcase-backdrop.webp': [{ name: 'square', ratio: 1, pos: [0.5, 1] }],
+  /* The opening's backdrops sit in tall portrait frames on a phone: about 0.45 wide on
+     a 390px phone, near square on a 767px tablet. `portrait` (0.6) covers every phone
+     up to 479px, `square` the rest up to 767px. HomeOpening.css. */
+  'img/hero-backdrop.webp': [
+    { name: 'portrait', ratio: 0.6, pos: [0.74, 0.4] },
+    { name: 'square', ratio: 1, pos: [0.74, 0.4] },
+  ],
+  'img/showcase-backdrop.webp': [
+    { name: 'portrait', ratio: 0.6, pos: [0.5, 1] },
+    { name: 'square', ratio: 1, pos: [0.5, 1] },
+  ],
+  /* The privacy plate goes 4:3 below 640px, centred on the phone and the earphones
+     (the table's empty ends are what a phone loses). PrivacyBand.tsx. */
+  'img/home-privacy.webp': [{ name: '4x3', ratio: 4 / 3, pos: [0.6, 0.5] }],
+  /* PricingSection's fallback plate, only drawn without a flow background. */
   'img/pricing-backdrop.webp': [{ name: 'square', ratio: 1, pos: [0.5, 0.8] }],
-  /* The features index drops its cards to 4:3 below 640px; x is centred there. */
+  /* The landing feature cards are 16:7 at every width, the features index's below
+     640px; centred on each subject. */
   ...Object.fromEntries(
-    ['usb-dac', 'eq', 'library', 'casting', 'dsp', 'ai-enhancer'].map((s) => [
-      `img/features/${s}.webp`,
-      [{ name: '4x3', ratio: 4 / 3, pos: [0.5, 0.5] }],
+    Object.entries(FEATURE_ART_Y).map(([slug, y]) => [
+      `img/features/${slug}.webp`,
+      [{ name: '16x7', ratio: 16 / 7, pos: [0.5, y] }],
     ]),
   ),
 };

@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import Container from '../primitives/Container';
 import FeatureArt from '../primitives/FeatureArt';
+import featureArtY from '../../data/feature-art.json';
 import FeatureLinkCard from '../sections/FeatureLinkCard';
 import FeatureMark from '../primitives/FeatureMark';
 import { withBase } from '../../utils/nav';
@@ -36,15 +37,14 @@ const items = [
   },
 ];
 
-/* Where each photo's subject sits, so the wide crop keeps it. */
-const artY: Record<string, string> = {
-  'usb-dac': '48%',
-  'ai-enhancer': '45%',
-  eq: '55%',
-  library: '50%',
-  casting: '66%',
-  dsp: '62%',
-};
+/* Where each photo's subject sits, so the wide crop keeps it. Shared with
+   scripts/images.mjs, which cuts the matching 16:7 crop from it. */
+const artY = featureArtY as Record<string, number>;
+
+/* The card's width: one column on a phone (the 20px gutters), two from `sm` (32px
+   gutters, a 24px gap), three from `lg` inside the band, 355px at the 1280 column. */
+const cardSizes =
+  '(min-width: 1280px) 355px, (min-width: 1024px) calc((100vw - 214px) / 3), (min-width: 640px) calc((100vw - 88px) / 2), calc(100vw - 42px)';
 
 const allFeaturesHref = withBase('features');
 
@@ -98,12 +98,12 @@ export default function FeaturesTeaser({ backgroundVariant }: FlowProps = {}) {
               title={featureName(item.slug)}
               body={item.desc}
               className="lacquer lacquer-lift features-card"
-              style={{ '--i': i % 3, '--art-y': artY[item.slug] ?? '50%' } as CSSProperties}
+              style={{ '--i': i % 3, '--art-y': `${Math.round((artY[item.slug] ?? 0.5) * 100)}%` } as CSSProperties}
               art={
                 /* The plate clips itself, 1px inside the card's radius: the card cannot
                    clip, because its hover layer sits on the border (lacquer.css). */
                 <div className="features-card-art relative overflow-hidden rounded-t-[15px] lg:rounded-t-[23px]">
-                  <FeatureArt slug={item.slug} ratio="16 / 7" />
+                  <FeatureArt slug={item.slug} ratio="16 / 7" crop="16x7" sizes={cardSizes} />
                 </div>
               }
             />

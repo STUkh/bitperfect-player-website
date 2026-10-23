@@ -94,7 +94,8 @@ export default function PrivacyBand({ backgroundVariant }: FlowProps) {
         ratio="var(--listening-art-ratio, 16 / 9)"
         ships="2560x1440"
         alt="The app's album library on a phone beside earphones on a walnut table."
-        className="r-rise mt-9 sm:[--listening-art-ratio:2/1] lg:mt-14"
+        art={[{ media: '(max-width: 639px)', crop: '4x3' }]}
+        className="r-rise mt-9 [--listening-art-ratio:4/3] sm:[--listening-art-ratio:2/1] lg:mt-14"
       />
       <div className="r-fade mt-[26px] rounded-card-sm border border-band-ink/10 bg-band-well px-5 py-[18px] lg:mt-11 lg:rounded-card lg:px-[26px] lg:py-[22px]">
         <p className="text-[13px] leading-[1.6] text-pretty text-band-ink-muted lg:text-sm lg:leading-[1.65]">

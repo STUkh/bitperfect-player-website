@@ -2,7 +2,7 @@ import { clsx as cx } from 'clsx';
 import { imagePrompts } from '../../data/imagePrompts';
 import { plates } from '../../data/plates';
 import { withBase } from '../../utils/nav';
-import Picture from './Picture';
+import Picture, { type PictureArt } from './Picture';
 import { PROMPT_CHEVRON_PATH } from './glyphs';
 import type { ClassProps } from '../_lib/class-props';
 
@@ -60,6 +60,8 @@ export interface ImageSlotProps extends ClassProps {
   src?: string;
   /** Required whenever `src` is set and the plate carries meaning. */
   alt?: string;
+  /** Art direction for the plate (a phone crop; `Picture`'s `art`). Give the frame the same shape with `ratio`. */
+  art?: PictureArt[];
 }
 
 /*
@@ -78,6 +80,15 @@ export interface ImageSlotProps extends ClassProps {
   server, and the build replaces `import.meta.env.DEV` with `false`. `String.raw`
   keeps `\n` and the regex escapes intact. DESIGN.md, "The Prompt Never Ships".
 */
+/*
+  The width of a plate across the band's column, measured on the landing: the
+  Container's gutters (20px, 32px from `sm`), the band's own inset from `lg`, and
+  1118px at the 1280 column. A plain `100vw` here made a 3x phone take the 1440px
+  file for a 348px plate.
+*/
+const PLATE_SIZES =
+  '(min-width: 1280px) 1118px, (min-width: 1024px) calc(100vw - 162px), (min-width: 640px) calc(100vw - 66px), calc(100vw - 42px)';
+
 const PROMPT_COPY_CSS = String.raw`
   /* Safari still paints the default triangle without this. */
   .slot-prompt summary::-webkit-details-marker { display: none; }
@@ -127,7 +138,7 @@ const PROMPT_COPY_JS = String.raw`
 `;
 
 export default function ImageSlot(props: ImageSlotProps) {
-  const { name, ratio, variant = 'plate', ships, note, src, alt = '', className } = props;
+  const { name, ratio, variant = 'plate', ships, note, src, alt = '', art, className } = props;
 
   /*
     A slot resolves its OWN plate.
@@ -208,7 +219,8 @@ export default function ImageSlot(props: ImageSlotProps) {
                 <Picture
                   src={platePath}
                   alt={alt}
-                  sizes={isBand ? '100vw' : '(max-width: 1279px) 100vw, 1280px'}
+                  sizes={isBand ? '100vw' : PLATE_SIZES}
+                  art={art}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
               ) : (

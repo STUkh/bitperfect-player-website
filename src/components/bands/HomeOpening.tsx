@@ -80,7 +80,10 @@ export default function HomeOpening() {
             <Picture
               src="img/hero-backdrop.webp"
               sizes="100vw"
-              art={[{ media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '860px' }]}
+              art={[
+                { media: '(max-width: 479px) and (orientation: portrait)', crop: 'portrait', sizes: '516px' },
+                { media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '860px' },
+              ]}
               position="74% 40%"
               eager
             />
@@ -90,7 +93,10 @@ export default function HomeOpening() {
           <Picture
             src="img/showcase-backdrop.webp"
             sizes="100vw"
-            art={[{ media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '100vh' }]}
+            art={[
+              { media: '(max-width: 479px) and (orientation: portrait)', crop: 'portrait', sizes: '60vh' },
+              { media: '(max-width: 767px) and (orientation: portrait)', crop: 'square', sizes: '100vh' },
+            ]}
             position="50% 100%"
           />
         </div>

@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react';
 import manifest from '../../data/images.json';
 import { withBase } from '../../utils/nav';
 
-type Ladder = { avif: [number, string][]; webp: [number, string][] };
+/** A crop's ladder also carries the crop's own size (`w`, `h`); the default's is the entry's. */
+type Ladder = { avif: [number, string][]; webp: [number, string][]; w?: number; h?: number };
 type Entry = {
   w: number;
   h: number;
@@ -35,6 +36,12 @@ export interface PictureProps {
   sizes: string;
   /** Art direction, first match wins. */
   art?: PictureArt[];
+  /**
+   * A generated crop to use as the base image at every width, for a frame whose
+   * shape never changes (the landing cards' 16:7). The file then matches the frame,
+   * so no bytes go to pixels the cover would cut away.
+   */
+  crop?: string;
   /** The LCP image: eager, high fetch priority. */
   priority?: boolean;
   /** Eager but behind everything else (an above-the-fold backdrop that is not the LCP). */
@@ -76,6 +83,7 @@ export default function Picture({
   alt = '',
   sizes,
   art = [],
+  crop,
   priority = false,
   eager = false,
   position,
@@ -108,7 +116,8 @@ export default function Picture({
     );
   }
 
-  const base = entry.sources.default;
+  const cropped = crop ? entry.sources[crop] : undefined;
+  const base = cropped ?? entry.sources.default;
   const sources = art.flatMap((a) => {
     const ladder = a.src ? images[a.src]?.sources.default : a.crop ? entry.sources[a.crop] : undefined;
     if (!ladder) return [];
@@ -126,8 +135,8 @@ export default function Picture({
         src={withBase(base.webp.at(-1)![1])}
         srcSet={set(base.webp)}
         sizes={sizes}
-        width={entry.w}
-        height={entry.h}
+        width={cropped?.w ?? entry.w}
+        height={cropped?.h ?? entry.h}
         alt={alt}
         loading={loading}
         decoding="async"
@@ -143,12 +152,4 @@ export default function Picture({
       />
     </picture>
   );
-}
-
-/** The CSS `image-set()` for a pipeline image, for a `background-image`. Undefined when it has no variants. */
-export function imageSet(src: string): string | undefined {
-  const ladder = images[src]?.sources.default;
-  if (!ladder) return undefined;
-  const top = (l: [number, string][]) => withBase(l.at(-1)![1]);
-  return `image-set(url("${top(ladder.avif)}") type("image/avif"), url("${top(ladder.webp)}") type("image/webp"))`;
 }

@@ -1,16 +1,18 @@
 import { clsx as cx } from 'clsx';
 import type { ClassProps } from '../_lib/class-props';
-import Picture from './Picture';
+import Picture, { type PictureArt } from './Picture';
 
 export interface FeatureArtProps extends ClassProps {
   /** Which feature's photograph: `usb-dac`, `eq`, `library`, `casting`, `dsp` or `ai-enhancer` (public/img/features/<slug>.webp). */
   slug: string;
-  /** The frame's aspect, as a CSS aspect-ratio value (default `var(--art-ratio, 16 / 9)`, e.g. pass `"4 / 3"` for the compact crop). A card may crop wider than 16:9. */
+  /** The frame's aspect, as a CSS aspect-ratio value (default `var(--art-ratio, 16 / 9)`). A card may crop wider than 16:9. */
   ratio?: string;
-  /** Rendered width of the frame, per breakpoint (default: full width on a phone, half the 1280 column on desktop). */
+  /** Rendered width of the frame, per breakpoint, for the pick from the ladder. Pass the real one: the default (full width, then half the column) over-asks in a grid. */
   sizes?: string;
-  /** The frame drops to 4:3 below 640px (the features index): ships the matching centred crop there. */
-  compactBelowSm?: boolean;
+  /** A generated crop that matches `ratio` exactly (`16x7` for the landing cards; CROPS in scripts/images.mjs), so the file carries no pixels the frame cuts away. */
+  crop?: string;
+  /** Art direction for a frame that changes shape by breakpoint (the features index's 16:7 below 640px); `Picture`'s `art`. */
+  art?: PictureArt[];
 }
 
 /**
@@ -24,14 +26,16 @@ export default function FeatureArt({
   className,
   ratio = 'var(--art-ratio, 16 / 9)',
   sizes = '(max-width: 1023px) 100vw, 640px',
-  compactBelowSm = false,
+  crop,
+  art,
 }: FeatureArtProps) {
   return (
     <div className={cx(['feature-art relative overflow-hidden', className])} style={{ aspectRatio: ratio }} aria-hidden="true">
       <Picture
         src={`img/features/${slug}.webp`}
         sizes={sizes}
-        art={compactBelowSm ? [{ media: '(max-width: 639px)', crop: '4x3' }] : []}
+        crop={crop}
+        art={art}
         position="50% var(--art-y, 50%)"
         style={{ objectPosition: '50% var(--art-y, 50%)' }}
         className="feature-art-img absolute inset-0 h-full w-full object-cover"

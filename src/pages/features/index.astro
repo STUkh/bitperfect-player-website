@@ -107,7 +107,7 @@ const order = [...indexOrder];
             >
               <Fragment slot="art">
                 <div class="feature-card-clip relative overflow-hidden">
-                  <FeatureArt slug={slug} className="feature-card-art w-full" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 410px" />
+                  <FeatureArt slug={slug} className="feature-card-art w-full [--art-ratio:16/7] sm:[--art-ratio:16/9]" art={[{ media: '(max-width: 639px)', crop: '16x7' }]} sizes="(min-width: 1280px) 387px, (min-width: 1024px) calc((100vw - 118px) / 3), (min-width: 640px) calc((100vw - 88px) / 2), calc(100vw - 42px)" />
                 </div>
               </Fragment>
             </FeatureLinkCard>
