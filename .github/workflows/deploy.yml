@@ -1,13 +1,14 @@
 name: Deploy to GitHub Pages
 
+# Every push and pull request builds, so a broken branch shows before it reaches
+# main; only main deploys (the `deploy` job's condition).
 on:
   push:
-    branches: [main, master]
     paths-ignore:
       - "README.md"
       - "PRODUCT.md"
-      - "DESIGN.md"
       - ".gitignore"
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -15,9 +16,11 @@ permissions:
   pages: write
   id-token: write
 
+# One deploy at a time, never cancelled midway; a branch build is superseded by
+# the next push to the same ref.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.ref == 'refs/heads/main' && 'pages' || format('build-{0}', github.ref) }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   build:
@@ -27,23 +30,25 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
 
-      # AVIF/WebP variants from scripts/images.mjs. Keyed on the masters and the
-      # recipe, so an unchanged image set skips the encode (~80s cold).
+      # AVIF/WebP variants from scripts/images.mjs. Keyed on everything the encode
+      # reads (masters, recipe, the feature crops' y), so an unchanged image set
+      # skips the encode (~80s cold) and a changed one saves a fresh cache.
       - uses: actions/cache@v4
         with:
           path: public/_img
-          key: img-${{ hashFiles('public/img/**', 'public/screens/**', 'scripts/images.mjs') }}
+          key: img-${{ hashFiles('public/img/**', 'public/screens/**', 'scripts/images.mjs', 'src/data/feature-art.json') }}
           restore-keys: img-
 
-      # The build ends with scripts/seo-check.mjs (the seo-check integration in
-      # astro.config.mjs): a missing title, canonical, OG card, alt or a broken
+      # `astro check` (types in .ts and .astro), then the build, which ends with
+      # scripts/seo-check.mjs (the seo-check integration in astro.config.mjs): a
+      # type error, or a missing title, canonical, OG card, alt or a broken
       # internal link fails this step, so nothing below it deploys.
-      - run: npx astro build
+      - run: npm run build
 
       - name: Check legal document completeness
         run: |
@@ -54,11 +59,13 @@ jobs:
             echo "::warning title=Terms of Use incomplete::src/TERMS_OF_USE.md still contains placeholders."
           fi
 
-      - uses: actions/upload-pages-artifact@v3
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
