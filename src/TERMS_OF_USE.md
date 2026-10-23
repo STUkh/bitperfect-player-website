@@ -1,6 +1,6 @@
 **Effective date:** August 31, 2026
 
-**Last updated:** October 23, 2026
+**Last updated:** October 22, 2026
 
 These Terms of Use ("Terms") govern your use of the Bitperfect Player app ("the App").
 They cover the subscription, the free trial, billing, cancellation and refunds, and the
@@ -240,7 +240,10 @@ subscription. Support may be provided in English only.
   their security configuration.
 - **Your backups.** You are solely responsible for backing up your audio files and for how
   your network storage (FTP/WebDAV/SMB) is set up. Keep your own backups.
-- **Your account (optional).** Accounts are optional and not required to use the App or subscribe. If you choose to sign in (for example, via Google OAuth), keep your credentials and device secure. You are responsible for all activities that occur under your account. You can delete your account at any time in the App settings or by contacting support@bit-perfect.com.
+- **Your account, once offered.** Accounts are not available yet; a future version will add
+  an optional one for backing up settings and EQ presets (see the Privacy Policy, Section
+  2.11). It will never be required. If you create one, keep your sign-in method secure: you
+  are responsible for what is done with your account.
 - **Your hearing and your equipment.** You are responsible for the volume levels you set
   and for the equipment you connect, particularly external amplifiers, DACs, and
   headphones.
