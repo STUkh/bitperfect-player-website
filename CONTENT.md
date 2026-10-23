@@ -124,9 +124,11 @@ sign-in today" and "A future version will add", and the absolute "no account" li
 become "no account required": `src/i18n/locales/en/landing.ts` (`privacy.title`,
 `privacy.fact1_desc`, `statement.fact3_desc`, the meta description) and the landing
 components that hard-code "No account" (`StatementBand`, `PrivacyBand`). "No account is
-required" claims stay true as they are. The account deletion page a store listing needs
-(`/delete-account/`: in-app steps on a dark card, email request on a white one, what is
-deleted and what stays) is built and waiting in git: restore it from commit `dfd0087`.
+required" claims stay true as they are. The account deletion page a store listing needs,
+`/delete-account/` (`AccountDeletionView`: in-app steps on a dark card, email request on
+a white one, what is deleted and what stays), is live ahead of the feature, on purpose
+(owner, 2026-10-23): the site is ready the day accounts ship. Check its in-app path
+(Settings → Account → Delete Account) against the app when the flag goes on.
 
 ## Where the copy actually lives
 
