@@ -1,25 +1,24 @@
 ---
+/**
+ * The account deletion page a store listing links to: two ways to delete (in the
+ * app, by email without it), then what goes and what is not touched. The page
+ * header names the app and its package, which is what a store reviewer checks.
+ */
 import ContentLayout from '../layouts/ContentLayout.astro';
-import Container from '../components/primitives/Container';
 import PageHeader from '../components/chrome/PageHeader';
 import { AccountDeletionView } from '../components/legal';
 
-const title = 'Delete your account and data — Bitperfect Player';
+const title = 'Delete your account — Bitperfect Player';
 const description =
-  'How to request permanent deletion of your Bitperfect Player account, Google OAuth identity, and synced backups.';
+  'Signing in to Bitperfect Player is optional. If you did, delete your account and its backups in the app or by email, with no app needed.';
 ---
 
 <ContentLayout title={title} description={description}>
   <PageHeader
-    maxWidth="760px"
-    eyebrow="Account management"
-    title="Delete account and associated data"
-    description={description}
+    maxWidth="wide"
+    eyebrow="Bitperfect Player · com.bitperfect.player"
+    title="Delete your account"
+    description="Signing in is optional. If you did, you can delete your account and its backups at any time, in one of two ways."
   />
-
-  <section class="section-compact">
-    <Container>
-      <AccountDeletionView />
-    </Container>
-  </section>
+  <AccountDeletionView />
 </ContentLayout>

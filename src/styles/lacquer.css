@@ -54,6 +54,19 @@
   --lq-sheen: color-mix(in srgb, var(--color-gold-sheen) 9%, transparent);
   --lq-top-glow: color-mix(in srgb, var(--color-gold-glint) 10%, transparent);
 }
+/* White lacquer: the ivory band's paper as a card on the dark ground. The wash is
+   a warm shade at the foot instead of light at the top, the rim stays white, and
+   the lower lip is a hairline of ink. Text on it takes the `ivory` tone. */
+.lacquer-ivory {
+  --lq-edge: rgba(255, 255, 255, 0.5);
+  --lq-rim: #ffffff;
+  --lq-lit: rgba(255, 255, 255, 0.9);
+  --lq-top: #ffffff;
+  --lq-bottom: #efebe4;
+  --lq-sheen: rgba(255, 255, 255, 0.55);
+  --lq-top-glow: rgba(255, 255, 255, 0.4);
+  --lq-drop: 0 26px 56px -26px rgba(0, 0, 0, 0.85);
+}
 /* A lacquered card that is a link or a button: it rises a hair and the sheen brightens.
 
    Only transform and opacity move. Changing the edge, rim and sheen on the card
