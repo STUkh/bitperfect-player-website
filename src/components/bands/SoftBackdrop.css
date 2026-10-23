@@ -25,13 +25,9 @@
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-}
-.soft-backdrop img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  /* These are normalized fields, not photographs. Stretch retains transparent edges. */
-  object-fit: fill;
+  /* These are normalized fields, not photographs: stretched to the band, which
+     keeps their transparent edges. */
+  background: var(--soft-image) center / 100% 100% no-repeat;
   opacity: var(--soft-strength, 1);
 }
 /* A transition must be placed BETWEEN sections, not as an overlap over their copy. */

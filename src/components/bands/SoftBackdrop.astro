@@ -15,6 +15,4 @@ const concept = family === 'flow'
   : backgroundConcepts.find((item) => item.id === variant) ?? backgroundConcepts[0];
 ---
 
-<span class="soft-backdrop" aria-hidden="true">
-  <img src={withBase(concept.variants[theme].src)} width="128" height="128" alt="" loading="lazy" decoding="async" draggable="false" />
-</span>
+<span class="soft-backdrop" aria-hidden="true" style={`--soft-image: url("${withBase(concept.variants[theme].src)}")`}></span>
