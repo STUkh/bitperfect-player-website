@@ -48,6 +48,8 @@ export const features = {
   "features_index.compat_ai_enhancer_note":
     "Phones with a supported neural chip run the full model. Other phones run Lite mode on the processor.",
   "features_index.compat_min_android": "Android {minAndroid} or newer.",
+  "features_index.compat_chips_toggle": "See the supported neural chips",
+  "features_index.compat_chips_guide": "Read the AI Enhancer guide",
 
   // Features Index: Technical FAQ
 

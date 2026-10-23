@@ -21,6 +21,8 @@ import SectionHeading from '../../components/sections/SectionHeading';
 import FeatureArt from '../../components/primitives/FeatureArt';
 import FeatureLinkCard from '../../components/sections/FeatureLinkCard';
 import PhoneTrio from '../../components/devices/PhoneTrio.astro';
+import NeuralChipList from '../../components/bands/NeuralChipList';
+import Icon from '../../components/primitives/Icon';
 import { indexOrder } from '../../data/feature-pages';
 import { site, getLocalizedCompatibility } from '../../data/site';
 import { withBase } from '../../utils/nav';
@@ -170,6 +172,22 @@ const order = [...indexOrder];
                   {row.note}
                 </p>
               </div>
+              {row.id === 'ai-enhancer' && (
+                <details class="group col-span-full mt-2">
+                  <summary class="inline-flex cursor-pointer list-none items-center gap-2 text-small font-semibold text-band-gold-ink select-none focus-visible:focus-ring [&::-webkit-details-marker]:hidden">
+                    {t('features_index.compat_chips_toggle')}
+                    <Icon name="chevron" size={16} className="transition-transform duration-200 group-open:rotate-180" />
+                  </summary>
+                  <NeuralChipList tone="ivory" className="mt-5" />
+                  <a
+                    href={withBase('/faq/why-npu-ai-enhancer-not-working/#supported-neural-chips')}
+                    class="mt-4 inline-flex items-center gap-1.5 text-small font-semibold text-band-gold-ink hover:underline focus-visible:focus-ring"
+                  >
+                    {t('features_index.compat_chips_guide')}
+                    <Icon name="arrow" size={14} />
+                  </a>
+                </details>
+              )}
             </div>
           ))
         }

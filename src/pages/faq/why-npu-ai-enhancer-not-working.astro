@@ -5,6 +5,7 @@ import PageHeader from '../../components/chrome/PageHeader';
 import ClosingBanner from '../../components/sections/ClosingBanner';
 import { withBase } from '../../utils/nav';
 import { EXTERNAL_LINK } from '../../components/primitives/glyphs';
+import NeuralChipList from '../../components/bands/NeuralChipList';
 
 const title = 'Why AI Enhancer may be unavailable';
 const description =
@@ -49,14 +50,11 @@ const description =
             1. Processor and neural chip requirements
           </h2>
           <p class="mt-3 text-body text-pretty text-text-secondary leading-relaxed">
-            AI Enhancer is designed for a dedicated neural chip. Supported hardware runs the full model. Other phones run Lite mode on the main processor.
+            AI Enhancer is designed for a dedicated neural chip (NPU). Phones with a supported Snapdragon or Dimensity neural chip run the full model. Other phones run Lite mode on the main processor.
           </p>
           <ul class="mt-6 space-y-3 pl-5 list-disc text-body-sm text-pretty text-text-secondary leading-relaxed">
             <li>
-              <strong class="text-text-primary">Supported neural chips:</strong> Snapdragon 8 Gen 1 through 8 Elite, and Dimensity 8300 through 9400.
-            </li>
-            <li>
-              <strong class="text-text-primary">Google Tensor and Samsung Exynos:</strong> Supported on recent chips with dedicated models in app updates.
+              <strong class="text-text-primary">Supported neural chips:</strong> Snapdragon 7 Gen 1 through 8 Elite Gen 5, and Dimensity 7300 through 9400. The full list is below.
             </li>
             <li>
               <strong class="text-text-primary">Lite mode on main processor:</strong> Runs on the main processor when your phone lacks a supported neural chip.
@@ -68,6 +66,8 @@ const description =
               <strong class="text-text-primary">One-time model download:</strong> Each chip requires a one-time model download of 10 to 60 MB.
             </li>
           </ul>
+
+          <NeuralChipList id="supported-neural-chips" tone="graphite" className="mt-8" />
         </div>
 
         {/* Section 2: Sample rate restrictions */}
