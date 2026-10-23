@@ -19,7 +19,7 @@ beside it.
 | `sections/` | the band shells: `Band` and `bands.ts` (tone), `SectionHeading`, `MediaSplit`, `SpecList`, `RuleList`, `CloseBand`, `ClosingBanner`, `BackLink`, `CrossLinkRow`, `PagerPair` and `PagerLink`, `FeatureLinkCard` |
 | `devices/` | the phones: `Phone`, `PhoneFrame`, `PhoneChassis`, `phone-geometry.ts`, `phone-fan.ts`, `PhoneTrio`, `FeatureScreens` |
 | `chrome/` | `Header` (and its `MobileMenu`), `Footer`, `PageHeader`, `SEOHead.astro`, `HoldingPage` |
-| `bands/` | the concrete bands: the landing bands (`HomeOpening` through `CTASection`), `CapabilityBand`, `TechIndex`, the `FlowBackdrop`/`SoftBackdrop` grounds |
+| `bands/` | the concrete bands: the landing bands (`HomeOpening` through `CTASection`), `CapabilityBand`, `TechIndex`, `NeuralChipList`, the `FlowBackdrop`/`SoftBackdrop` grounds |
 | `legal/` | `LegalDocument` |
 | `_lib/` | `behaviour.ts` (`useBehaviour`), `class-props.ts` (`ClassProps`, `styleOf`) |
 | `preview/` | the `/preview/*` background studies; whole pages, not components |

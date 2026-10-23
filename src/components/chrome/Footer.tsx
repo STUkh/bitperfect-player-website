@@ -6,7 +6,7 @@ import Icon from '../primitives/Icon';
 import { footerLinks } from '../../data/navigation';
 import { site } from '../../data/site';
 import { resolveHref, withBase } from '../../utils/nav';
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, type UIKey } from '../../i18n/utils';
 import { styleOf } from '../_lib/class-props';
 import './Footer.css';
 
@@ -30,7 +30,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '_')
       .replace(/^_|_$/g, '');
-    const key = `footer.${slug}` as any;
+    const key = `footer.${slug}` as UIKey;
     const translated = t(key);
     return translated && translated !== key ? translated : title;
   };
@@ -56,7 +56,9 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
     return link.label;
   };
 
-  const sections = Object.values(footerLinks);
+  /* `href` is optional: a section without one renders its title as plain text. */
+  type FooterSection = { title: string; href?: string; links: readonly FooterLink[] };
+  const sections: FooterSection[] = Object.values(footerLinks);
   const isExternal = (href: string) => /^https?:\/\//.test(href);
 
   /*
@@ -111,7 +113,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
           lists ending in mid-air. Flowed, the tall list is four rows instead of
           seven and the whole row finishes within one line of itself.
         */}
-            {sections.map((section: any) => (
+            {sections.map((section) => (
               <div key={String(section.title)} className="col-span-1">
                 <h2 className="mb-4 text-sm font-semibold tracking-label text-text-primary uppercase">
                   {section.href ? (
