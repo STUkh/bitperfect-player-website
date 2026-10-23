@@ -100,8 +100,15 @@ config flags), spec pedantry (USB HID, Feature Unit, SlimProto, ITU-R numbers, D
 carrier frequencies), "IEEE 754", "user-space driver", "isochronous", "silicon",
 "neural accelerator", "runtime accelerator", "signal path telemetry".
 
-Say "Android's system mixer" for the OS mixer and "neural chip" for the NPU
+Say "the system mixer" for the OS mixer and "neural chip" for the NPU
 ("neural chip (NPU)" is fine once on the AI Enhancer guide and in the catalog).
+
+Keep the copy platform-neutral: an iOS version follows, and the site must carry
+over without a rewrite. Don't write "Android" in titles, descriptions, headings or
+prose; say "your phone", "the system mixer", "the main processor". A platform fact
+that can't be avoided (the minimum OS version, the store link, legal text) comes
+from data (`site.minAndroid`, `site.playUrl`) or sits in one isolated line, so an
+iOS variant is a data change.
 
 Hype and AI-tells: revolutionary, cutting-edge, seamless, unparalleled, ultimate,
 stunning, immersive, game-changing, "Unlock", "Elevate", "Discover", "Dive into",
