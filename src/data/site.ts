@@ -23,6 +23,14 @@ export const site = {
    */
   appStoreUrl: null as string | null,
 
+  /**
+   * Maintenance mode for the front door: while true, `/` shows the holding page
+   * ("The needle is still up.") instead of the landing. Every other route builds as
+   * usual, and the landing stays whole at /preview/home in dev. Set to false to
+   * bring the landing back.
+   */
+  holding: true,
+
   /** Official contact address for support and privacy inquiries. */
   contactEmail: "support@bit-perfect.com",
 

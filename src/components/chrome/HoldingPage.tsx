@@ -46,14 +46,16 @@ export default function HoldingPage({ eyebrow, headline, lede }: HoldingPageProp
     `aria-hidden` and an empty alt: it is the section's ground, not information.
     Everything it says, the headline says in words.
   */}
-      <Picture
-        src="img/holding/needle.webp"
-        sizes="100vw"
-        art={[{ media: '(max-width: 1023px)', src: 'img/holding/needle-portrait.webp', sizes: '100vw' }]}
-        position="50% 58%"
-        priority
-        pictureClassName="holding-plate"
-      />
+      <div className="contents" aria-hidden="true">
+        <Picture
+          src="img/holding/needle.webp"
+          sizes="100vw"
+          art={[{ media: '(max-width: 1023px)', src: 'img/holding/needle-portrait.webp', sizes: '100vw' }]}
+          position="50% 58%"
+          priority
+          pictureClassName="holding-plate"
+        />
+      </div>
       <div className="holding-scrim" aria-hidden="true" />
       <header className="holding-bar">
         <Container>

@@ -10,6 +10,9 @@
  * The opening and features sections meet the ivory bands directly. Their former
  * decorative image strips added height without explaining the product. The final
  * quiet graphite-to-paper hinge remains before the closing action.
+ *
+ * While `site.holding` is on, `/` shows the holding page instead (maintenance mode);
+ * /preview/home passes `landing` to render the landing regardless.
  */
 import LandingLayout from '../layouts/LandingLayout.astro';
 import HomeOpening from '../components/bands/HomeOpening.astro';
@@ -18,11 +21,35 @@ import FeaturesTeaser from '../components/bands/FeaturesTeaser';
 import PrivacyBand from '../components/bands/PrivacyBand';
 import PricingSection from '../components/bands/PricingSection';
 import CTASection from '../components/bands/CTASection';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HoldingPage from '../components/chrome/HoldingPage';
 import { chooseFlowSequence } from '../utils/flow-background';
+import { site } from '../data/site';
+
+interface Props {
+  /** Render the landing even in maintenance mode (the dev preview). */
+  landing?: boolean;
+}
+
+const parked = site.holding && !Astro.props.landing;
 
 const backgrounds = chooseFlowSequence('home', ['statement', 'features', 'privacy', 'pricing', 'cta']);
 ---
 
+{parked ? (
+  /* The title is bare: SEOHead appends the site name. No noindex: this is the front
+     door while it is up, it names the product and links to the store. */
+  <BaseLayout
+    title="Under construction"
+    description="The Bitperfect Player site is being rebuilt. The player is on Google Play, and the privacy policy and terms of use are still here."
+  >
+    <HoldingPage
+      eyebrow="Under construction"
+      headline="The needle is still up."
+      lede="We are rebuilding this site. The player is unchanged and still on Google Play."
+    />
+  </BaseLayout>
+) : (
 <LandingLayout
   title="Bit-perfect audio player"
   description="Bypass the system mixer. Send bit-perfect audio up to 768 kHz and DSD512 straight to your USB DAC. No account needed. No tracking, no ads."
@@ -34,3 +61,4 @@ const backgrounds = chooseFlowSequence('home', ['statement', 'features', 'privac
   <PricingSection backgroundVariant={backgrounds[3]} />
   <CTASection backgroundVariant={backgrounds[4]} />
 </LandingLayout>
+)}
