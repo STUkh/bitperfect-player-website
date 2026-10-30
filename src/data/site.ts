@@ -7,7 +7,7 @@ import { useTranslations, type UIKey } from "../i18n/utils";
 
 export const site = {
   name: "Bitperfect Player",
-  tagline: "Bit-for-bit audio for your USB DAC. Optional on-device\u00A0AI.",
+  tagline: "AI Enhanced and Bit-for-bit audio playback",
 
   /** Confirmed by the user as the primary CTA target. */
   playUrl:

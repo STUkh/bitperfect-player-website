@@ -22,7 +22,7 @@ export const common = {
   // Button labels & UI elements
 
   // Footer common copy
-  "footer.tagline": "Bit-for-bit audio for your USB DAC. Optional on-device\u00A0AI.",
+  "footer.tagline": "AI Enhanced and Bit-for-bit audio playback",
   "footer.rights": "All rights reserved.",
   "footer.trademark_notice":
     "Product names, logos and trademarks belong to their owners. We use them only to identify products. No endorsement or affiliation is implied.",

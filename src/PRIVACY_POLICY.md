@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** October 22, 2026
+**Last updated:** October 31, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -298,10 +298,12 @@ function at all).
 
 ## 4. Children's privacy
 
-The App is not directed at children under 13 (or the equivalent minimum age
-in your jurisdiction) and we do not knowingly collect personal data from
-children. If you believe a child has provided us data through the App (e.g.
-via a crash report), contact us at the address above and we will delete it.
+The App is a general-audience music player suitable for all age groups.
+However, the App is not specifically directed at children, and we do not
+knowingly collect personal information from children under 13 (or the
+applicable minimum age of digital consent in your jurisdiction). If you
+believe a child has provided us personal data through the App, please
+contact us at support@bit-perfect.com and we will promptly delete it.
 
 ## 5. Your rights and choices
 
