@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** October 31, 2026
+**Last updated:** November 7, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -42,6 +42,11 @@ Contact: support@bit-perfect.com
   records (including device label, registration and verification dates, and
   authorization status). An authorized installation can see sibling device labels
   and last-verification dates to manage old installations.
+- Promotional links and referral codes are stored locally on your device;
+  when you tap Apply, the App sends the code, a pseudonymous installation identifier,
+  and a signature to our verification server (verify.bit-perfect.com, operated on
+  Cloudflare) to validate the code and prevent abuse. No advertising identifiers are
+  used, and promotional data is never sold or used for advertising.
 
 ## 2. What we collect and why
 
@@ -199,8 +204,9 @@ data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
 parties for their own marketing or advertising purposes. The outbound data
 flows are the feature and service flows disclosed in this Section 2: crash reporting
-in 2.1, artwork lookups in 2.6, the lyrics and headphone-profile lookups in 2.7, and
-subscription verification and protected-component delivery in 2.10. They exist to operate features you use, not to monetize your data,
+in 2.1, artwork lookups in 2.6, the lyrics and headphone-profile lookups in 2.7,
+subscription verification and protected-component delivery in 2.10, and promotional
+code verification in 2.12. They exist to operate features you use, not to monetize your data,
 and no recipient receives the data for its own advertising as far as its published
 terms describe.
 
@@ -275,6 +281,16 @@ and stay on your device, with or without an account. We will not sell account da
 it for advertising. You will be able to delete your account and its backups at any time by
 contacting support@bit-perfect.com, and we will add a way to do it from the App.
 
+### 2.12 Promotional codes and referral links
+
+When you open a promotional link or install the App from a referral link, the App reads the campaign code from the link or from the Google Play Install Referrer. The App does not send anything when you open a link or install it: the campaign code is stored locally on your device as a pending promotional code until you decide to use it.
+
+When you tap Apply in the promotional offer sheet, the App sends the campaign code, a pseudonymous installation identifier (a randomly generated key pair unique to your installation, not tied to your hardware or advertising ID), and a cryptographic signature to our verification server (`verify.bit-perfect.com`, operated on Cloudflare) to check the validity of the code and prevent abuse.
+
+- **Data processed:** We keep campaign codes and, for single-use vouchers, a cryptographic hash of the voucher code together with your pseudonymous installation identifier and redemption timestamp to enforce one-time use and prevent abuse.
+- **No advertising use, not sold, not shared:** We do not use promotional data for advertising or tracking, we never sell it, and we do not share it with third parties except our service providers who operate the redemption flow: Cloudflare (hosting and edge verification), RevenueCat (for granting subscription access or entitlements where applicable), and Google Play (for applying promotional discounts to in-app purchases).
+- **Retention:** Promotional campaign records and voucher redemption records are retained for the active life of the campaign plus the period needed for fraud prevention, abuse detection, and accounting.
+
 ## 3. Permissions the App requests, and why
 
 Permissions requested by the App depend on the platform and the features you use:
@@ -288,7 +304,7 @@ Permissions requested by the App depend on the platform and the features you use
 | Foreground service (media playback / connected device / data sync)      | Required by Android to keep audio playing and a USB/network device connection alive while the App is in the background, with a visible ongoing notification as required by the OS; also used to download the optional AI-enhancement model with visible progress.                                                    |
 | Wake lock                                                               | Held only while music is actively playing, to prevent the device from sleeping mid-playback.                                                                                                                                                                                                                         |
 | Delete media files (Android 9 and older)                                | To delete a track from your device when you choose to remove it, on OS versions that require this permission for that action.                                                                                                                                                                                        |
-| Local network access (internet + Wi-Fi state)                           | To discover and connect to DLNA/UPnP and other cast-enabled devices, and network shares (FTP/WebDAV/SMB), on your own network, and to reach crash reporting, artwork, lyrics and headphone-profile lookups, and AI-model downloads described elsewhere in this policy.                                                                             |
+| Local network access (internet + Wi-Fi state)                           | To discover and connect to DLNA/UPnP and other cast-enabled devices, and network shares (FTP/WebDAV/SMB), on your own network, and to reach crash reporting, artwork, lyrics and headphone-profile lookups, AI-model downloads, and promotional code verification described elsewhere in this policy.                                                                             |
 | USB device access                                                       | To communicate directly with a connected USB DAC for bit-perfect audio output. Granted via a runtime USB-permission prompt, not a manifest permission.                                                                                                                                                               |
 
 We request each permission only for the feature it supports; declining a
@@ -334,11 +350,13 @@ European Union. If you are located outside the EU/EEA, using the App with
 crash reporting enabled means limited diagnostic data as described in
 Section 2.1 may be processed in the EU.
 
-If you purchase the subscription, RevenueCat, the subscription-management provider
-described in Section 2.10, is based in the United States; the purchase record, the
-installation identifier and, once accounts are offered and you sign in (Section 2.11),
-your account identifier may be processed there. The verification and device registry
-services described in Section 2.10 are hosted in the European Union.
+If you purchase the subscription or redeem a promotional offer, RevenueCat, the
+subscription-management provider described in Section 2.10, is based in the United
+States; the purchase or entitlement record, the installation identifier and, once accounts
+are offered and you sign in (Section 2.11), your account identifier may be processed
+there. The verification service, device registry, and promotional code verification
+described in Sections 2.10 and 2.12 are operated on Cloudflare and hosted in the
+European Union.
 
 ## 7. Security
 
