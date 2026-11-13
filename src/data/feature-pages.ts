@@ -187,7 +187,7 @@ export const featurePages: Record<string, FeaturePage> = {
     ],
     cta: {
       title: "Select your music folder. Indexing runs entirely on your phone.",
-      body: "No account needed. No audio leaves your phone.",
+      body: "No audio leaves your phone.",
     },
   },
 

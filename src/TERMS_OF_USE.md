@@ -1,6 +1,6 @@
 **Effective date:** August 31, 2026
 
-**Last updated:** October 22, 2026
+**Last updated:** November 13, 2026
 
 These Terms of Use ("Terms") govern your use of the Bitperfect Player app ("the App").
 They cover the subscription, the free trial, billing, cancellation and refunds, and the
@@ -165,8 +165,8 @@ us:
 
 Cancelling takes effect **at the end of the period you have already paid for**: you keep
 full access until then, and you are not charged again. Cancelling during the free trial
-ends access when the trial ends and means no charge is taken. There is no account on our
-side to close, and deleting the App does not cancel a subscription on its own. Keeping
+ends access when the trial ends and means no charge is taken. Neither deleting the App nor
+deleting your account with us cancels a subscription on its own. Keeping
 track of your renewal date is your responsibility; the store shows it in your subscriptions
 screen.
 
@@ -200,7 +200,8 @@ Your subscription belongs to your store account, not to a particular handset. If
 reinstall the App, change phones, or clear the App's data, open the App and use the restore
 option on the subscription screen (or sign in to the same store account) and your existing
 subscription is recognised again. The store does not charge you twice for the same
-subscription, and you never need an account with us to get your access back.
+subscription. Signing in with the same Google account also brings your access to the new
+installation.
 
 Restoring is only for the person who obtained the subscription to recover access on that
 person's own devices. It must not be used to activate the App for other people. An
@@ -240,10 +241,9 @@ subscription. Support may be provided in English only.
   their security configuration.
 - **Your backups.** You are solely responsible for backing up your audio files and for how
   your network storage (FTP/WebDAV/SMB) is set up. Keep your own backups.
-- **Your account, once offered.** Accounts are not available yet; a future version will add
-  an optional one for backing up settings and EQ presets (see the Privacy Policy, Section
-  2.11). It will never be required. If you create one, keep your sign-in method secure: you
-  are responsible for what is done with your account.
+- **Your account.** You sign in with a Google account to use the App (see the Privacy
+  Policy, Section 2.11). Keep that account secure: you are responsible for what is done
+  with it. You can delete your account at any time.
 - **Your hearing and your equipment.** You are responsible for the volume levels you set
   and for the equipment you connect, particularly external amplifiers, DACs, and
   headphones.

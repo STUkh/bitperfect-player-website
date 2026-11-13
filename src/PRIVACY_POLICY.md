@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** November 7, 2026
+**Last updated:** November 13, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -31,11 +31,11 @@ Contact: support@bit-perfect.com
 - Artwork, song lyrics and headphone correction profiles are fetched from
   public, third-party providers as you use those features. These are
   retrievals into your device, not uploads of your library.
-- The App has no accounts today: there is no sign-in, and it makes no account-related
-  network calls. We plan to add an **optional** account in a future version, to back up
-  your settings and EQ presets. It will never be required to use the App or to
-  subscribe. If you create one once it is offered, Section 2.11 describes what we store,
-  and we will update this policy before the feature is switched on.
+- You sign in with a Google account before you first use the App. We keep a
+  pseudonymous account record, not your name or email address, so that your
+  subscription, free trial and promotional access work on all your devices, and a
+  backup of your App settings and EQ presets. Section 2.11 describes what we store and
+  how to delete your account.
 - An active subscription registers your App installations: five with the base
   subscription, or 10, 15, or 20 with active device-capacity packs. A secure device
   registry hosted in the European Union holds pseudonymous device verification
@@ -198,7 +198,7 @@ plugins.
 ### 2.9 What we do NOT collect
 
 We do not collect, and the App does not request: your name, your email address
-(unless you create the optional account once it is offered, Section 2.11), phone number, precise or approximate location, contacts, calendar,
+(except at sign-in, as described in Section 2.11), phone number, precise or approximate location, contacts, calendar,
 photos/videos outside the music-library scan scope you grant, biometric
 data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
@@ -224,15 +224,13 @@ to your data when the App verifies that access.
   service based in the United States, reports whether your subscription is active, in a
   trial, or due to renew. It receives the store's purchase record and a random identifier
   generated for your installation, which is not derived from your device's hardware or
-  advertising identifiers. It receives no name, contact details or music library data,
-  except that once accounts are offered, if you create one and sign in (Section 2.11), your
-  account identifier is attached to your subscription record. See RevenueCat's
+  advertising identifiers, and the pseudonymous account identifier described in Section
+  2.11. It receives no name, contact details or music library data. See RevenueCat's
   [privacy policy](https://www.revenuecat.com/privacy).
 - **Installation verification.** The platform's integrity service checks that the
   installed App and device meet release security requirements. Our verification service
   receives the verification result and device details needed to confirm authorization.
-  We do not receive your store account name, email address, password, card details,
-  or advertising ID.
+  We do not receive your store account name, password, card details, or advertising ID.
 - **Device registry.** To enforce the personal device limit (five installations with the
   base subscription, or 10, 15, or 20 with active device-capacity packs) and let you
   remove old installations, a secure device registry hosted in the European Union
@@ -251,35 +249,49 @@ to your data when the App verifies that access.
   on that device can remain usable for no longer than 14 days as explained in the Terms.
 - **On the device.** A signed authorization record is stored locally so the App keeps
   working offline; it contains no payment details.
-- **No account needed to subscribe.** The subscription does not require an account with
-  us. Cancelling happens in your store account.
+- **Your subscription follows your account.** A subscription bought on one device is
+  available on your other devices after you sign in with the same Google account, within
+  the device limit above. Cancelling happens in your store account. Deleting your account
+  does not cancel a subscription.
 
-### 2.11 Optional account (planned, not yet available)
+### 2.11 Your account
 
-The App does not offer accounts today. There is no sign-in screen, and the App makes no
-account-related network calls. Everything in Sections 2.1 to 2.10 works without one.
+You sign in with a Google account before you first use the App. Installations that already
+had access before sign-in was introduced keep working without it. On a device without
+Google Play services, the App shows a short code, and you sign in with it on another
+device.
 
-We plan to add an optional account in a future version. It will never be required to use
-the App or to subscribe, and you will be able to keep using the App without ever creating
-one. This section describes how it is designed to work. Before the feature is switched on
-we will update this policy (Section 8) and say so in the App.
+At sign-in, the App sends the sign-in token from Google to our verification service. We
+check the token and keep:
 
-If you choose to create an account once it is offered, we will store:
+- **A pseudonymous account identifier.** This is a one-way keyed hash of the identifier
+  Google gives your account. We do not store your name or email address. Your email
+  address is sent back to the App only so that it can show which account is signed in, and
+  it stays on your device.
+- **The link between your account and your installations,** so that your subscription,
+  free trial or promotional access works on each installation where you sign in.
+- **A backup of your settings.** While you are signed in, the App backs up its settings and
+  your EQ presets, with the name of the device that made the backup, so that another
+  installation can restore them. Before a restore replaces your settings, the App keeps a
+  copy of them on the device. Your music files, library, playback history and favourites
+  are never part of a backup.
+- **Free-trial records.** If you start a free trial, we keep a one-way keyed hash of your
+  account identifier and of a device identifier that the system gives the App, with the
+  trial end date, so that a free trial is used once per account and once per device.
 
-- **A sign-in identity.** Either the account identifier your sign-in provider (for example
-  Google) gives us, or your email address if you sign in with a one-time code sent by
-  email. We use it only to sign you in and to protect against abuse of sign-in, never for
-  marketing.
-- **The link to your subscription,** so that a new or restored installation can find the
-  subscription you already have.
-- **Backups you choose to make:** your App settings and your EQ presets, together with the
-  name of the device that made each backup. A backup is made only when you ask for one,
-  and restoring one keeps a copy of your previous settings on the device first.
+**Retention.** Installation links and the settings backup are deleted automatically 400
+days after their last use. The device trial record is deleted after 400 days. The account
+trial record, and the pseudonymous account identifier on a promotional voucher you
+redeemed, are kept to prevent repeated trials and repeated voucher use.
 
-Your music files, library, playback history and favourites are never part of a backup
-and stay on your device, with or without an account. We will not sell account data or use
-it for advertising. You will be able to delete your account and its backups at any time by
-contacting support@bit-perfect.com, and we will add a way to do it from the App.
+**Deleting your account.** In the App: Settings → Account → Delete account, or on the
+subscription screen: Sign out → Delete account. Without the App: on our
+[account deletion page](/delete-account/). Deletion removes your installation links, your
+settings backup, and the free-trial and promotional access of your account. It does not
+cancel a store subscription. The trial records described above stay, so a free trial cannot
+be claimed twice.
+
+We do not sell account data or use it for advertising.
 
 ### 2.12 Promotional codes and referral links
 
@@ -287,7 +299,7 @@ When you open a promotional link or install the App from a referral link, the Ap
 
 When you tap Apply in the promotional offer sheet, the App sends the campaign code, a pseudonymous installation identifier (a randomly generated key pair unique to your installation, not tied to your hardware or advertising ID), and a cryptographic signature to our verification server (`verify.bit-perfect.com`, operated on Cloudflare) to check the validity of the code and prevent abuse.
 
-- **Data processed:** We keep campaign codes and, for single-use vouchers, a cryptographic hash of the voucher code together with your pseudonymous installation identifier and redemption timestamp to enforce one-time use and prevent abuse.
+- **Data processed:** We keep campaign codes and, for single-use vouchers, a cryptographic hash of the voucher code together with your pseudonymous installation identifier, your pseudonymous account identifier (Section 2.11) and the redemption timestamp to enforce one-time use and prevent abuse. A single-use voucher needs a signed-in account.
 - **No advertising use, not sold, not shared:** We do not use promotional data for advertising or tracking, we never sell it, and we do not share it with third parties except our service providers who operate the redemption flow: Cloudflare (hosting and edge verification), RevenueCat (for granting subscription access or entitlements where applicable), and Google Play (for applying promotional discounts to in-app purchases).
 - **Retention:** Promotional campaign records and voucher redemption records are retained for the active life of the campaign plus the period needed for fraud prevention, abuse detection, and accounting.
 
@@ -336,6 +348,8 @@ at the address above with enough detail to identify the relevant event(s)
 submit a deletion request to that provider on your behalf, or direct you to
 its own data-subject-request process.
 
+You can delete your account and its data at any time, as described in Section 2.11.
+
 Registered installations can be reviewed from the App's subscription screen. You can
 remove an old installation there. To request access to or deletion of registry data when
 you cannot use a registered device, contact support@bit-perfect.com. Because the registry
@@ -352,10 +366,9 @@ Section 2.1 may be processed in the EU.
 
 If you purchase the subscription or redeem a promotional offer, RevenueCat, the
 subscription-management provider described in Section 2.10, is based in the United
-States; the purchase or entitlement record, the installation identifier and, once accounts
-are offered and you sign in (Section 2.11), your account identifier may be processed
-there. The verification service, device registry, and promotional code verification
-described in Sections 2.10 and 2.12 are operated on Cloudflare and hosted in the
+States; the purchase or entitlement record, the installation identifier and your
+pseudonymous account identifier (Section 2.11) may be processed there. The verification service, device registry, account records, settings backups and
+promotional code verification described in Sections 2.10 to 2.12 are operated on Cloudflare and hosted in the
 European Union.
 
 ## 7. Security

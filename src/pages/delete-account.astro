@@ -1,7 +1,7 @@
 ---
 /**
  * The account deletion page a store listing links to: two ways to delete (in the
- * app, by email without it), then what goes and what is not touched. The page
+ * app, on the web without it), then what goes and what is not touched. The page
  * header names the app and its package, which is what a store reviewer checks.
  */
 import ContentLayout from '../layouts/ContentLayout.astro';
@@ -10,7 +10,7 @@ import { AccountDeletionView } from '../components/legal';
 
 const title = 'Delete your account — Bitperfect Player';
 const description =
-  'Signing in to Bitperfect Player is optional. If you did, delete your account and its backups in the app or by email, with no app needed.';
+  'Delete your Bitperfect Player account and its backups in the app or on the web, with no app needed. Your Google Play subscription is not cancelled.';
 ---
 
 <ContentLayout title={title} description={description}>
@@ -18,7 +18,7 @@ const description =
     maxWidth="wide"
     eyebrow="Bitperfect Player · com.bitperfect.player"
     title="Delete your account"
-    description="Signing in is optional. If you did, you can delete your account and its backups at any time, in one of two ways."
+    description="You can delete your account and its backups at any time, in one of two ways."
   />
   <AccountDeletionView />
 </ContentLayout>

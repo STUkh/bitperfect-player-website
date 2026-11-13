@@ -92,7 +92,7 @@ export const features: Feature[] = [
     description:
       "Organise your collection across eight views. Search finds music instantly, and audio stays on your phone.",
     overview:
-      "Your music library stays on your phone. Bitperfect Player indexes local storage and SD cards, reading tags and artwork straight from the files. No account needed. Search returns instant results without a network connection.",
+      "Your music library stays on your phone. Bitperfect Player indexes local storage and SD cards, reading tags and artwork straight from the files. Search returns instant results without a network connection.",
     benefits: [
       {
         title: "Eight browsing views",
@@ -108,7 +108,7 @@ export const features: Feature[] = [
       },
       {
         title: "On-device privacy",
-        desc: "Your music, library, history and favourites stay on your phone. No account needed, and no tracking.",
+        desc: "Your music, library, history and favourites stay on your phone, with no tracking.",
       },
     ],
     facts: [
@@ -188,7 +188,7 @@ export const features: Feature[] = [
       { label: "Receiver ceiling", value: "Up to 384 kHz over DLNA" },
       {
         label: "Network discovery",
-        value: "Automatic on your local network, no account needed",
+        value: "Automatic on your local network",
       },
       {
         label: "Volume control",

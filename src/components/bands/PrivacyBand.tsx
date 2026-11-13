@@ -14,8 +14,8 @@ import './PrivacyBand.css';
  */
 const commitments = [
   {
-    title: 'No account needed',
-    desc: 'You only need a Google Play subscription. Your music, library, history and favourites stay on your phone.',
+    title: 'No ads',
+    desc: 'No ads and no ad SDKs. Your music, library, history and favourites stay on your phone.',
   },
   {
     title: 'No tracking',

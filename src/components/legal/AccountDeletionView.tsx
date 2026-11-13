@@ -13,8 +13,7 @@ export interface AccountDeletionViewProps extends ClassProps {
   privacyHref?: string;
 }
 
-const MAIL_SUBJECT = 'Account and Data Deletion Request';
-const mailto = `mailto:${site.contactEmail}?subject=${encodeURIComponent(MAIL_SUBJECT)}`;
+const WEB_DELETE_URL = 'https://verify.bit-perfect.com/account/delete';
 
 /** One way to delete the account: a lacquered card in its own tone, the dark one or the white one. */
 function WayCard(props: { tone: Tone; kicker: string; title: string; lede: string; children: ReactNode }) {
@@ -49,7 +48,7 @@ function Step({ n, children }: { n: number; children: ReactNode }) {
 
 /**
  * The account deletion page under its PageHeader: the two ways to delete (in the app,
- * on a dark lacquer card; by email, on a white one, for anyone without the app),
+ * on a dark lacquer card; on the web, on a white one, for anyone without the app),
  * then on an ivory band what goes and what is not touched.
  */
 export function AccountDeletionView({ privacyHref = withBase('/privacy'), className }: AccountDeletionViewProps) {
@@ -66,25 +65,25 @@ export function AccountDeletionView({ privacyHref = withBase('/privacy'), classN
           >
             <ol className="flex flex-col">
               <Step n={1}>Open Bitperfect Player</Step>
-              <Step n={2}>Go to Settings → Account</Step>
-              <Step n={3}>Tap Delete Account and confirm</Step>
+              <Step n={2}>Go to Settings → Account, or on the subscription screen tap Sign out</Step>
+              <Step n={3}>Tap Delete account, sign in with Google and confirm</Step>
             </ol>
           </WayCard>
 
           <WayCard
             tone="ivory"
-            kicker="By email · No app needed"
-            title="Ask us by email"
-            lede="Uninstalled the app or lost the phone? Email us from the address you signed in with. We delete everything within 30 days."
+            kicker="On the web · No app needed"
+            title="Delete it on the web"
+            lede="Uninstalled the app or lost the phone? Sign in with the same Google account on the deletion page and confirm."
           >
             <dl className={cx('grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 border-t pt-5 text-body-sm', ivory.rule)}>
-              <dt className={ivory.body}>To</dt>
+              <dt className={ivory.body}>Page</dt>
+              <dd className={cx('font-semibold break-all', ivory.title)}>verify.bit-perfect.com/account/delete</dd>
+              <dt className={ivory.body}>Questions</dt>
               <dd className={cx('font-semibold break-all', ivory.title)}>{site.contactEmail}</dd>
-              <dt className={ivory.body}>Subject</dt>
-              <dd className={cx('font-semibold', ivory.title)}>{MAIL_SUBJECT}</dd>
             </dl>
-            <Button href={mailto} className="mt-8 self-start lg:mt-auto">
-              Write the email
+            <Button href={WEB_DELETE_URL} className="mt-8 self-start lg:mt-auto">
+              Open the deletion page
             </Button>
           </WayCard>
         </div>
@@ -103,13 +102,14 @@ export function AccountDeletionView({ privacyHref = withBase('/privacy'), classN
               titleClassName="text-body font-semibold tracking-title"
               bodyClassName="mt-1 text-small text-pretty"
               items={[
-                { title: 'Your sign-in', body: 'Your account ID, email address and login records.' },
+                { title: 'Your account', body: 'Your pseudonymous account ID. We never stored your name or email address.' },
                 { title: 'Your backups', body: 'Saved settings and EQ presets.' },
-                { title: 'Your devices', body: 'Linked devices and sign-in sessions.' },
+                { title: 'Your devices', body: 'The links between your account and your devices.' },
+                { title: 'Your free access', body: 'Free-trial and promotional access of the account.' },
               ]}
             />
             <p className={cx('mt-5 text-small text-pretty', ivory.body)}>
-              We keep one record that a free trial was used, so it cannot be claimed twice. It can't be used to
+              We keep a record that a free trial or a voucher was used, so neither can be claimed twice. It can't be used to
               contact you and is never used for marketing.
             </p>
           </section>
