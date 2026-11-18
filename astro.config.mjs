@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
 import keystatic from "@keystatic/astro";
+import cloudflare from "@astrojs/cloudflare";
 import { buildImages } from "./scripts/images.mjs";
 import Beasties from "beasties";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -79,8 +80,9 @@ const seoCheck = () => ({
 
 // Keystatic CMS Studio is enabled in development or when explicitly enabled (CMS admin deployment),
 // remaining 100% static SSG for production public site builds.
+const isCloudflareCms = process.env.ENABLE_KEYSTATIC === "true";
 const isDev =
-  process.env.ENABLE_KEYSTATIC === "true" ||
+  isCloudflareCms ||
   process.argv.includes("dev") ||
   (process.env.NODE_ENV !== "production" &&
     !process.argv.includes("build") &&
@@ -93,6 +95,7 @@ export default defineConfig({
   trailingSlash: "ignore",
   build: { format: "directory" },
   devToolbar: { enabled: false },
+  ...(isCloudflareCms ? { adapter: cloudflare() } : {}),
   /* Hover/focus prefetch for every internal link, for the browsers that ignore
      the speculation rules in BaseLayout (Safari, Firefox). Chromium prerenders. */
   prefetch: { prefetchAll: true, defaultStrategy: "hover" },
