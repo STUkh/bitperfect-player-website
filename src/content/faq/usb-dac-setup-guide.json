@@ -1,0 +1,7 @@
+{
+  "id": "usb-dac-setup-guide",
+  "category": "hardware",
+  "q": "How do I set up a USB DAC?",
+  "a": "Connect the USB DAC using a USB-C cable or an OTG adapter. Allow access when Android asks. The Bit-perfect badge appears when sound processing and software volume are off. The DAC must also match the file rate and bit depth.",
+  "order": 7
+}

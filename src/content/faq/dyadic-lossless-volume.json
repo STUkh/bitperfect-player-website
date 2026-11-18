@@ -1,0 +1,7 @@
+{
+  "id": "dyadic-lossless-volume",
+  "category": "engine",
+  "q": "How does dyadic (bit-exact) volume work?",
+  "a": "Normal digital volume rounds off the lowest bits. Optional dyadic volume uses exact n/256 steps instead. In the app, it is called Alternative volume control. It works when DAC output depth exceeds file bit depth. You get 85 steps for 16-bit files at 32-bit output. You get 20 steps for 24-bit files at 32-bit output. The same applies to 16-bit files at 24-bit output.",
+  "order": 4
+}

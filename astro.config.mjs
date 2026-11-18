@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
+import keystatic from "@keystatic/astro";
 import { buildImages } from "./scripts/images.mjs";
 import Beasties from "beasties";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -76,6 +77,15 @@ const seoCheck = () => ({
   },
 });
 
+// Keystatic CMS Studio is enabled in development or when explicitly enabled (CMS admin deployment),
+// remaining 100% static SSG for production public site builds.
+const isDev =
+  process.env.ENABLE_KEYSTATIC === "true" ||
+  process.argv.includes("dev") ||
+  (process.env.NODE_ENV !== "production" &&
+    !process.argv.includes("build") &&
+    !process.argv.includes("check"));
+
 // Custom domain on GitHub Pages: https://bit-perfect.com/
 export default defineConfig({
   site: "https://bit-perfect.com",
@@ -88,6 +98,7 @@ export default defineConfig({
   prefetch: { prefetchAll: true, defaultStrategy: "hover" },
   markdown: { shikiConfig: { theme: "css-variables" } },
   integrations: [
+    ...(isDev ? [keystatic()] : []),
     responsiveImages(),
     criticalCss(),
     /* Components are React and render to static HTML at build time. Nothing
@@ -107,6 +118,9 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      exclude: ["@keystatic/astro/api", "astro:env/server", "astro:env/client"],
+    },
     /* Astro inlines a stylesheet chunk below this size into the page and links
        the rest. The chrome every page carries (Header, MobileMenu, Footer, Icon,
        Button) is one chunk of about 5 KB, so at Vite's 4 KB default it became an

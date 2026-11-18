@@ -1,0 +1,7 @@
+{
+  "id": "device-allowance",
+  "category": "license",
+  "q": "How many devices does a subscription cover?",
+  "a": "One subscription covers five devices linked to your Google Play account. These include phones, tablets and supported DAPs. DAPs need the Google Play Store to activate and verify the subscription. You can buy packs of five more in the app. The limit is twenty devices. You can also remove old devices at any time.",
+  "order": 22
+}

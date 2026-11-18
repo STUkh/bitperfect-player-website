@@ -1,0 +1,7 @@
+{
+  "id": "ai-features-breakdown",
+  "category": "ai",
+  "q": "What do AI Enhancer, AI Karaoke and Sonic Scan do?",
+  "a": "AI Enhancer restores high frequencies on 44.1 and 48 kHz tracks. AI Karaoke isolates vocals or instruments on supported tracks before playback. Sonic Scan analyses your library locally. It powers Similar Tracks for smooth musical transitions.",
+  "order": 13
+}

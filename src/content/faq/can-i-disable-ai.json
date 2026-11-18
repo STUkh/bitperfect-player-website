@@ -1,0 +1,7 @@
+{
+  "id": "can-i-disable-ai",
+  "category": "ai",
+  "q": "Can I turn off the AI processing?",
+  "a": "Yes. AI Enhancer is off by default. It changes nothing until you switch it on. When on, the badge says Enhanced instead of Bit-perfect. This shows that high frequencies have been restored.",
+  "order": 11
+}

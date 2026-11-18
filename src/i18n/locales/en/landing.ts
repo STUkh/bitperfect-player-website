@@ -3,7 +3,7 @@ export const landing = {
 
   // Hero section
   "hero.trial":
-    "Eligible new customers get {days} days free. Then ${price} a year, the Founder price, if you subscribe by May 31, 2027.",
+    "{days}-day free trial for eligible new customers, then ${price} a year. Cancel anytime.",
 
   // Statement section
 
@@ -26,7 +26,7 @@ export const landing = {
   "pricing.founder_renewal":
     "Renews at $19.95 a year while you stay subscribed",
   "pricing.founder_trial":
-    "{days} days free for eligible new customers",
+    "{days}-day free trial for eligible new customers",
   "pricing.founder_cta": "Claim Founder Offer",
 
   // Standard card
@@ -43,11 +43,12 @@ export const landing = {
   "pricing.standard_cta": "View on Google Play",
 
   // Shared & backwards compatibility keys
-  "pricing.trial_badge": "{days} days free",
+  "pricing.trial_badge": "{days} days free trial",
   "pricing.renew_trial":
-    "Eligible new customers get {days} days free, then pay the Founder price of ${price} a year. Cancel anytime in Google Play.",
+    "{days}-day free trial for eligible new customers, then ${price} a year. Cancel anytime in Google Play.",
   "pricing.covers_title": "What the subscription covers",
   "pricing.check_phone": "Check your phone",
+  "pricing.check_compatibility": "Check compatibility",
   "pricing.unlock_dac_name": "Every feature, no tiers",
   "pricing.unlock_dac_desc":
     "Bit-perfect USB output, 32-band parametric EQ, DSP rack, local library, casting and receiver mode.",

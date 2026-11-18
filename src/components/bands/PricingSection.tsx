@@ -6,7 +6,7 @@ import PlayCta from '../primitives/PlayCta';
 import SectionHeading from '../sections/SectionHeading';
 import { reveal as stagger } from '../sections/bands';
 import Picture from '../primitives/Picture';
-import { CHECK_SOLID_PATH, LINK_ARROW_PATH } from '../primitives/glyphs';
+import { CHECK_SOLID_PATH } from '../primitives/glyphs';
 import { pro, site } from '../../data/site';
 import { useTranslations } from '../../i18n/utils';
 import { withBase } from '../../utils/nav';
@@ -77,11 +77,6 @@ const disclosures = [
   t('pricing.disclosure_trial'),
   t('pricing.disclosure_cancel'),
 ];
-
-const governed = t('pricing.disclosure_governed', {
-  termsLink: `<a href="${withBase('terms')}" class="pricing-legal-link focus-visible:focus-ring">${t('nav.terms')}</a>`,
-  privacyLink: `<a href="${withBase('privacy')}" class="pricing-legal-link focus-visible:focus-ring">${t('nav.privacy')}</a>`,
-});
 
 /**
  * Pricing band. No props; prices and copy are the site's own.
@@ -239,24 +234,10 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
                 {/* The one entry with a hardware condition gets a way to check it. */}
                 {unlock.isAi && (
                   <a
-                    href={withBase('features#compatibility')}
-                    className="focus-visible:focus-ring mt-2 inline-flex min-h-10 cursor-pointer items-center gap-1.5 py-1.5 text-caption text-gold transition-colors duration-[var(--d-ui)] ease-ui hover:text-gold-light active:text-gold-deep"
+                    href={withBase('compatibility')}
+                    className="focus-visible:focus-ring mt-2 inline-flex min-h-10 cursor-pointer items-center gap-1.5 py-1.5 text-caption font-semibold text-gold transition-colors duration-[var(--d-ui)] ease-ui hover:text-gold-light active:text-gold-deep"
                   >
-                    {t('pricing.check_phone')}{' '}
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <path d={LINK_ARROW_PATH} />
-                    </svg>
+                    {t('pricing.check_compatibility')}
                   </a>
                 )}
                 <p className="mt-2 text-caption leading-[1.6] text-pretty text-text-tertiary lg:mt-2.5 lg:text-small lg:leading-[1.62]">
@@ -275,7 +256,6 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
               {line}
             </span>
           ))}
-          <span className="text-xs text-text-tertiary" dangerouslySetInnerHTML={{ __html: governed }}></span>
         </div>
       </Container>
     </section>

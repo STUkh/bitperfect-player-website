@@ -13,4 +13,35 @@ import Header from './Header.tsx';
   import { setupMobileMenu } from './MobileMenu.client';
 
   document.querySelectorAll<HTMLElement>('[data-mobile-menu-toggle]').forEach((el) => setupMobileMenu(el));
+
+  function instantScrollTo(target: HTMLElement) {
+    const root = document.documentElement;
+    const prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    root.style.scrollBehavior = prev;
+  }
+
+  // Handle instant jump on link click without smooth scroll animation
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement)?.closest?.('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (href && (href === '#pricing' || href.endsWith('/#pricing') || href.endsWith('#pricing'))) {
+      const target = document.getElementById('pricing');
+      if (target) {
+        e.preventDefault();
+        window.history.pushState(null, '', href.includes('#') ? `#${href.split('#')[1]}` : '#pricing');
+        instantScrollTo(target);
+      }
+    }
+  });
+
+  // Handle instant jump on direct page load if hash is #pricing
+  if (window.location.hash === '#pricing') {
+    const target = document.getElementById('pricing');
+    if (target) {
+      instantScrollTo(target);
+    }
+  }
 </script>

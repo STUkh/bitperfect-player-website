@@ -1,0 +1,190 @@
+{
+  "title": "Bit-perfect audio player",
+  "description": "Bypass the system mixer. Send bit-perfect audio up to 768 kHz and DSD512 straight to your USB DAC. No tracking, no ads.",
+  "blocks": [
+    {
+      "discriminant": "homeOpening",
+      "value": {
+        "id": "hero",
+        "enabled": true,
+        "eyebrow": "Bit-perfect audio playback",
+        "title": "Pure sound.",
+        "titleAccent": "Nothing in between.",
+        "lede": "Bypass the system mixer. Send bit-perfect audio straight to your USB DAC.",
+        "primaryCtaLabel": "Get it on Google Play",
+        "secondaryCtaLabel": "See what it does",
+        "screensHeading": "Bit-perfect sound with studio-grade control."
+      }
+    },
+    {
+      "discriminant": "aiPlayer",
+      "value": {
+        "id": "ai-player",
+        "enabled": true,
+        "backgroundVariant": "",
+        "title": "AI Enhanced Audio Player. ",
+        "titleAccent": "Three on-device neural modules.",
+        "lede": "Running 100% offline on your phone's silicon. Real-time high-frequency harmonic restoration, stem isolation, and acoustic timbral matching—engineered with mathematical honesty. No audio ever leaves your phone.",
+        "modules": [
+          {
+            "title": "AI Enhancer",
+            "description": "Restores 14–22 kHz high-frequency harmonics lost to lossy compression. Runs on-device via NPU with automatic CPU fallback.",
+            "note": "Signal badge confirms Enhanced status.",
+            "href": "/features/ai-enhancer/",
+            "linkText": "Read more"
+          },
+          {
+            "title": "AI Karaoke",
+            "description": "Real-time 2- and 4-stem vocal and instrument isolation. Mute vocals or extract solo parts offline with zero latency.",
+            "note": "100% offline. Zero audio leaves your phone."
+          },
+          {
+            "title": "AI Mix",
+            "description": "Sonic Scan maps timbre and energy across your library for seamless, harmonically matched transitions.",
+            "note": "On-device CPU analysis. No tracking or cloud metadata."
+          }
+        ],
+        "footnote": "Full neural model requires a supported hardware neural accelerator.",
+        "compatibilityLabel": "Check compatibility"
+      }
+    },
+    {
+      "discriminant": "audioEngine",
+      "value": {
+        "id": "audio-engine",
+        "enabled": true,
+        "backgroundVariant": "",
+        "title": "Beyond bit-perfect. ",
+        "titleAccent": "Studio sound processing.",
+        "lede": "When you want untouched sound, Bitperfect delivers pure bit-exact transmission. When you want to tailor your listening, our 64-bit audio engine offers precision studio algorithms for uncompromising fidelity.",
+        "capabilities": [
+          {
+            "title": "8× Studio Upsampling",
+            "specs": "Up to 768 kHz · Sinc & polyphase filters",
+            "desc": "Linear- and minimum-phase oversampling pushing anti-aliasing artifacts far beyond human hearing."
+          },
+          {
+            "title": "Clip Guard (True-Peak Limiter)",
+            "specs": "-0.6 dBTP ceiling · Inter-sample detection",
+            "desc": "Catches inter-sample digital peaks cleanly without audible compression, distortion, or pumping."
+          },
+          {
+            "title": "32-Band Parametric & AutoEQ",
+            "specs": "7 filter shapes · 5,000+ headphone profiles",
+            "desc": "Studio bell, shelf, and notch filters with one-tap calibration against measured AutoEQ targets."
+          },
+          {
+            "title": "Crossfeed & Harmonic Tuning",
+            "specs": "Bauer, Meier & BS2B · Vacuum tube voicings",
+            "desc": "Natural loudspeaker acoustic crossfeed for headphones, plus warm analogue even-order harmonics."
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "statement",
+      "value": {
+        "id": "statement",
+        "enabled": true,
+        "backgroundVariant": "",
+        "title": "The system mixer changes your music on the way out. ",
+        "titleAccent": "This app sends it to your USB DAC unchanged.",
+        "facts": [
+          {
+            "title": "Your own files",
+            "desc": "FLAC, ALAC, WAV and DSD, from your own storage."
+          },
+          {
+            "title": "Straight to your DAC",
+            "desc": "The app talks to your USB DAC directly. While it plays, other apps cannot use the DAC."
+          },
+          {
+            "title": "Your music stays on the phone",
+            "desc": "No tracking, no ads."
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "featuresTeaser",
+      "value": {
+        "id": "features-teaser",
+        "enabled": true,
+        "backgroundVariant": "",
+        "title": "Things it does",
+        "catalogLabel": "All features",
+        "items": [
+          {
+            "slug": "usb-dac",
+            "desc": "Direct USB DAC output, past the system mixer. Up to 768 kHz and DSD512."
+          },
+          {
+            "slug": "ai-enhancer",
+            "desc": "Rebuilds high frequencies that compression removes. Off by default."
+          },
+          {
+            "slug": "eq",
+            "desc": "Parametric EQ, graphic EQ, or AutoEQ calibration profiles. One-tap bypass."
+          },
+          {
+            "slug": "library",
+            "desc": "Browse your local files instantly by folder, album, artist or tag."
+          },
+          {
+            "slug": "casting",
+            "desc": "Stream to cast-enabled speakers and TVs, or receive from your network."
+          },
+          {
+            "slug": "dsp",
+            "desc": "Headphone crossfeed, tag-based ReplayGain, and true-peak protection."
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "privacy",
+      "value": {
+        "id": "privacy",
+        "enabled": true,
+        "backgroundVariant": "",
+        "title": "Your listening never leaves the phone.",
+        "commitments": [
+          {
+            "title": "No ads",
+            "desc": "No ads and no ad SDKs. Your music, library, history and favourites stay on your phone."
+          },
+          {
+            "title": "No tracking",
+            "desc": "The app has no advertising ID and collects no play history."
+          },
+          {
+            "title": "AI runs on your phone",
+            "desc": "After a one-time model download, AI features run on your phone. No audio is uploaded."
+          }
+        ],
+        "note": "The app goes online for album art, lyrics, AutoEQ profiles, internet radio and subscription checks. Crash reports can be turned off in settings.",
+        "policyLinkText": "Read the privacy policy"
+      }
+    },
+    {
+      "discriminant": "pricing",
+      "value": {
+        "id": "pricing",
+        "enabled": true,
+        "backgroundVariant": ""
+      }
+    },
+    {
+      "discriminant": "cta",
+      "value": {
+        "id": "cta",
+        "enabled": true,
+        "backgroundVariant": "",
+        "title": "Your music, ",
+        "titleAccent": "bit for bit.",
+        "lede": "Install the app from Google Play and plug in your USB DAC.",
+        "buttonLabel": "Get it on Google Play"
+      }
+    }
+  ]
+}

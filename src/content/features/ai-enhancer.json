@@ -1,0 +1,137 @@
+{
+  "id": "ai-enhancer",
+  "slug": "ai-enhancer",
+  "title": "AI Enhancer",
+  "tagline": "Real-time restoration, entirely on your phone",
+  "badge": "On-device restoration",
+  "accent": "gold",
+  "icon": "sparkle",
+  "description": "Real-time audio restoration for 44.1 and 48 kHz tracks, off by default. Full model runs on a supported neural chip. Other phones use Lite mode on the main processor. Audio stays on your phone.",
+  "overview": "The AI Enhancer restores high-frequency detail on 44.1 and 48 kHz audio. It is off by default and runs on your phone. Supported phones run the full model on a neural chip, while others use Lite mode. The DSP rack turns off automatically while it runs.",
+  "benefits": [
+    {
+      "title": "Restores upper band detail",
+      "desc": "Restores detail between 14 and 22 kHz inside the file's sample rate. It never invents ultrasonic content.",
+      "icon": "waveform"
+    },
+    {
+      "title": "Runs on your phone",
+      "desc": "Full model on a supported neural chip, or Lite mode on the processor. Works offline after download.",
+      "icon": "sparkle"
+    },
+    {
+      "title": "Checks hardware first",
+      "desc": "The app tests performance before enabling the model. It turns off if the phone cannot keep up.",
+      "icon": "shield"
+    },
+    {
+      "title": "Honest signal badge",
+      "desc": "The signal badge shows Enhanced while active. It stops saying Bit-perfect as soon as sound changes.",
+      "icon": "sig-bitperfect"
+    }
+  ],
+  "facts": [
+    "One-time model download on first enable; works fully offline",
+    "Off by default, enabled with a single toggle in Settings",
+    "Works on 44.1 and 48 kHz audio only; other files play untouched",
+    "Full model on a supported neural chip, Lite mode on the processor",
+    "Switches the DSP rack off automatically while it runs",
+    "Audio stays on your phone while it runs"
+  ],
+  "specs": [
+    {
+      "label": "Processing",
+      "value": "On your phone, works offline"
+    },
+    {
+      "label": "Status",
+      "value": "Off by default, enabled in Settings"
+    },
+    {
+      "label": "Your data",
+      "value": "Audio stays on your phone"
+    },
+    {
+      "label": "Supported inputs",
+      "value": "44.1 and 48 kHz files only"
+    },
+    {
+      "label": "Signal badge",
+      "value": "Shows Enhanced whenever active"
+    },
+    {
+      "label": "With DSP rack",
+      "value": "Switches off automatically"
+    }
+  ],
+  "lede": "The enhancer rebuilds the upper band, about 14 to 22 kHz, of 44.1 and 48 kHz files. It is off by default and runs on your phone.",
+  "summary": [
+    {
+      "label": "Reconstructs",
+      "value": "14 to 22 kHz"
+    },
+    {
+      "label": "Works on",
+      "value": "44.1 and 48 kHz"
+    },
+    {
+      "label": "Runs on",
+      "value": "Your phone only"
+    },
+    {
+      "label": "Works offline",
+      "value": "After one download"
+    }
+  ],
+  "screenTitle": "AI Enhancer",
+  "beats": [
+    {
+      "eyebrow": "What it does",
+      "title": "A plausible rebuild, not the original",
+      "body": "It rebuilds the upper band, about 14 to 22 kHz, at the file's own sample rate. It works on 44.1 and 48 kHz files only. It adds nothing above that.",
+      "stats": [
+        {
+          "label": "Band",
+          "value": "14 to 22 kHz"
+        },
+        {
+          "label": "Rates",
+          "value": "44.1 and 48 kHz"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Where it runs",
+      "title": "Only on your phone",
+      "body": "Audio stays on your phone. It needs no network while it plays. The model downloads once, when you first turn it on. Then it works offline."
+    },
+    {
+      "eyebrow": "Hardware",
+      "title": "It turns off before it stutters",
+      "body": "It is off by default. A supported neural chip runs the full model. Other phones use Lite mode on the main processor. If the phone cannot keep up in real time, the enhancer turns itself off.",
+      "chips": [
+        {
+          "label": "Off"
+        },
+        {
+          "label": "Neural chip",
+          "active": true
+        },
+        {
+          "label": "Lite mode"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Honesty",
+      "title": "The badge stops saying Bit-perfect",
+      "body": "As soon as the enhancer changes the sound, the badge shows Enhanced. It does not run on DSD, while casting, or with Karaoke on. While it runs, the sound processing rack is off.",
+      "note": "While the AI Enhancer is on, the sound processing rack is off."
+    }
+  ],
+  "cta": {
+    "title": "High-frequency harmonic restoration on your phone.",
+    "body": "Included in the same subscription as everything else. Off until you switch it on."
+  },
+  "order": 6
+}

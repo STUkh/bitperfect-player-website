@@ -11,3 +11,5 @@ export { default as PhoneFrame } from './PhoneFrame';
 export * from './PhoneFrame';
 export { default as PhoneTrio } from './PhoneTrio';
 export * from './PhoneTrio';
+export { default as SupportedDevices } from './SupportedDevices';
+export * from './SupportedDevices';

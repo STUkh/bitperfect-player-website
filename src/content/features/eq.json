@@ -1,0 +1,146 @@
+{
+  "id": "eq",
+  "slug": "eq",
+  "title": "32-band parametric EQ",
+  "tagline": "Shape your sound with 32 bands and 7 filter shapes",
+  "badge": "Equalizer",
+  "accent": "gold",
+  "icon": "eq",
+  "description": "Shape sound to your ears and your room with up to 32 bands, seven filter shapes, and continuous Q.",
+  "overview": "Bitperfect Player includes a 32-band parametric equalizer. Correct headphone response, room acoustics, or tonal balance. Every band is yours to place across 20 Hz to 20 kHz. One tap takes the whole curve out of the path to return to bit-perfect.",
+  "benefits": [
+    {
+      "title": "32 independent bands",
+      "desc": "Configure up to 32 filters across 20 Hz to 20 kHz, with a gain range of -12 dB to +12 dB."
+    },
+    {
+      "title": "Seven filter shapes",
+      "desc": "Bell, low shelf, high shelf, low pass, high pass, notch and all pass. Gain controls bell and shelves."
+    },
+    {
+      "title": "Continuous Q precision",
+      "desc": "Scale Q factor from 0.10 for broad tone shaping to 10.0 for a narrow notch."
+    },
+    {
+      "title": "Bit-perfect lock",
+      "desc": "Switch the EQ out of the path and the badge returns to Bit-perfect. While active, the badge indicates active signal processing."
+    }
+  ],
+  "facts": [
+    "Up to 32 parametric bands per profile",
+    "Seven filter shapes: bell, shelves, passes, notch, all pass",
+    "Q factor scales continuously from 0.10 to 10.0",
+    "Gain range from -12.0 dB to +12.0 dB",
+    "Every band placed anywhere across 20 Hz to 20 kHz",
+    "One-tap bit-perfect bypass"
+  ],
+  "specs": [
+    {
+      "label": "EQ bands",
+      "value": "Up to 32, fully independent"
+    },
+    {
+      "label": "Filter shapes",
+      "value": "7 shapes"
+    },
+    {
+      "label": "Q factor range",
+      "value": "0.10 to 10.0"
+    },
+    {
+      "label": "Gain range",
+      "value": "-12.0 dB to +12.0 dB"
+    },
+    {
+      "label": "Bypass",
+      "value": "One tap to untouched audio"
+    },
+    {
+      "label": "Frequency span",
+      "value": "20 Hz to 20 kHz"
+    }
+  ],
+  "lede": "Build an exact curve with up to 32 bands and seven filter shapes. One tap turns it off to hear the music without your curve.",
+  "summary": [
+    {
+      "label": "Bands",
+      "value": "1 to 32"
+    },
+    {
+      "label": "Filter shapes",
+      "value": "7"
+    },
+    {
+      "label": "Q range",
+      "value": "0.10 to 10.0"
+    },
+    {
+      "label": "Bypass",
+      "value": "One tap"
+    }
+  ],
+  "screenTitle": "Equalizer",
+  "beats": [
+    {
+      "eyebrow": "Bands",
+      "title": "Up to 32 independent bands",
+      "body": "Place each filter anywhere from 20 Hz to 20 kHz. Boost or cut it by up to 12 dB. You can enter a measured curve with its exact values.",
+      "stats": [
+        {
+          "label": "Span",
+          "value": "20 Hz to 20 kHz"
+        },
+        {
+          "label": "Gain",
+          "value": "-12.0 dB to +12.0 dB"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Filter shapes",
+      "title": "Seven filter shapes, not just a bell",
+      "body": "A bell handles most fixes. The others can shelve the top end, cut deep rumble, or remove one resonance.",
+      "chips": [
+        {
+          "label": "Bell",
+          "active": true
+        },
+        {
+          "label": "Low shelf"
+        },
+        {
+          "label": "High shelf"
+        },
+        {
+          "label": "Low pass"
+        },
+        {
+          "label": "High pass"
+        },
+        {
+          "label": "Notch"
+        },
+        {
+          "label": "All pass"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Q factor",
+      "title": "From broad to narrow",
+      "body": "Q runs from 0.10 to 10.0. A low Q gently changes a wide range. A high Q fixes one narrow peak and leaves the rest alone.",
+      "note": "Same gain, different Q. Q 0.7 covers about two octaves. Q 8.0 covers under a fifth of an octave."
+    },
+    {
+      "eyebrow": "Bypass",
+      "title": "One tap to hear the original file",
+      "body": "Bypass turns the EQ off completely. The badge shows Bit-perfect again when nothing else changes the sound. Compare your curve with the original.",
+      "note": "With EQ active, the badge cannot show Bit-perfect. Bypassed, the EQ alters nothing."
+    }
+  ],
+  "cta": {
+    "title": "Set a curve once, then listen.",
+    "body": "Seven filter shapes and a one-tap bypass, included with everything else."
+  },
+  "order": 2
+}

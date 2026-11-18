@@ -458,7 +458,7 @@ export function setupHomeOpening(section: HTMLElement) {
     enabled = true;
     measure();
     jump();
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', onResize, { passive: true });
     observer.observe(section);
     /* The heading's height, and so the band under it, changes once the font lands. */
     document.fonts?.ready.then(() => {

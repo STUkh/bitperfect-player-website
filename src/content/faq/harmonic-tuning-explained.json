@@ -1,0 +1,7 @@
+{
+  "id": "harmonic-tuning-explained",
+  "category": "dsp",
+  "q": "What is Harmonic Tuning?",
+  "a": "Harmonic Tuning adds harmonics, H2 to H8, across eight tube-style voicings. Examples include 300B and KT88. They run from warm even-order to biting odd-order. Drive at 0 leaves the sound unchanged. The Expert tab provides a fader for each harmonic.",
+  "order": 16
+}

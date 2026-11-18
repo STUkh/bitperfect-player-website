@@ -78,7 +78,11 @@ export default function SectionHeading(props: SectionHeadingProps) {
         style={reveals ? stagger(reveal) : undefined}
       >
         {title}
-        {titleAccent != null && <span className={text.accent}>{titleAccent}</span>}
+        {titleAccent != null && (
+          <span className={cx(text.accent, 'inline font-inherit leading-inherit')}>
+            {titleAccent}
+          </span>
+        )}
       </Heading>
       {lede != null && (
         <p className={cx(reveals && 'r-rise', ledeClassName, text.body)} style={reveals ? stagger(reveal + 1) : undefined}>

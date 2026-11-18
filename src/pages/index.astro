@@ -4,25 +4,16 @@
  * Depth belongs on the features routes; this page states what the app is, shows
  * it, and asks for the install.
  *
- * The three ivory bands need no divider: the colour change is the divider. A
- * hairline only sits between two adjacent graphite sections.
- *
- * The opening and features sections meet the ivory bands directly. Their former
- * decorative image strips added height without explaining the product. The final
- * quiet graphite-to-paper hinge remains before the closing action.
+ * Blocks and page metadata are driven by Keystatic CMS via `src/content/pages/home.json`.
  *
  * While `site.holding` is on, `/` shows the holding page instead (maintenance mode);
  * /preview/home passes `landing` to render the landing regardless.
  */
+import { getEntry } from 'astro:content';
 import LandingLayout from '../layouts/LandingLayout.astro';
-import HomeOpening from '../components/bands/HomeOpening.astro';
-import StatementBand from '../components/bands/StatementBand';
-import FeaturesTeaser from '../components/bands/FeaturesTeaser';
-import PrivacyBand from '../components/bands/PrivacyBand';
-import PricingSection from '../components/bands/PricingSection';
-import CTASection from '../components/bands/CTASection';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HoldingPage from '../components/chrome/HoldingPage';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { chooseFlowSequence } from '../utils/flow-background';
 import { site } from '../data/site';
 
@@ -33,32 +24,69 @@ interface Props {
 
 const parked = site.holding && !Astro.props.landing;
 
-const backgrounds = chooseFlowSequence('home', ['statement', 'features', 'privacy', 'pricing', 'cta']);
+const homeEntry = await getEntry('pages', 'home');
+const homeData = homeEntry?.data;
+
+const title = homeData?.title ?? 'Bit-perfect audio player';
+const description =
+  homeData?.description ??
+  'Bypass the system mixer. Send bit-perfect audio up to 768 kHz and DSD512 straight to your USB DAC. No tracking, no ads.';
+const blocks = homeData?.blocks ?? [];
+
+// Background flow sequence for landing bands
+const flowSequence = chooseFlowSequence('home', [
+  'ai-player',
+  'audio-engine',
+  'statement',
+  'features',
+  'privacy',
+  'pricing',
+  'cta',
+]);
+
+const bandBlockTypes = new Set([
+  'aiplayer',
+  'aiplayerband',
+  'audioengine',
+  'audioengineband',
+  'statement',
+  'statementband',
+  'featuresteaser',
+  'features',
+  'privacy',
+  'privacyband',
+  'pricing',
+  'pricingsection',
+  'cta',
+  'ctasection',
+]);
+
+let bandIndex = 0;
 ---
 
-{parked ? (
-  /* The title is bare: SEOHead appends the site name. No noindex: this is the front
+{
+  parked ? (
+    /* The title is bare: SEOHead appends the site name. No noindex: this is the front
      door while it is up, it names the product and links to the store. */
-  <BaseLayout
-    title="Under construction"
-    description="The Bitperfect Player site is being rebuilt. The player is on Google Play, and the privacy policy and terms of use are still here."
-  >
-    <HoldingPage
-      eyebrow="Under construction"
-      headline="The needle is still up."
-      lede="We are rebuilding this site. The player is unchanged and still on Google Play."
-    />
-  </BaseLayout>
-) : (
-<LandingLayout
-  title="Bit-perfect audio player"
-  description="Bypass the system mixer. Send bit-perfect audio up to 768 kHz and DSD512 straight to your USB DAC. No tracking, no ads."
->
-  <HomeOpening />
-  <StatementBand backgroundVariant={backgrounds[0]} />
-  <FeaturesTeaser backgroundVariant={backgrounds[1]} />
-  <PrivacyBand backgroundVariant={backgrounds[2]} />
-  <PricingSection backgroundVariant={backgrounds[3]} />
-  <CTASection backgroundVariant={backgrounds[4]} />
-</LandingLayout>
-)}
+    <BaseLayout
+      title="Under construction"
+      description="The Bitperfect Player site is being rebuilt. The player is on Google Play, and the privacy policy and terms of use are still here."
+    >
+      <HoldingPage
+        eyebrow="Under construction"
+        headline="The needle is still up."
+        lede="We are rebuilding this site. The player is unchanged and still on Google Play."
+      />
+    </BaseLayout>
+  ) : (
+    <LandingLayout title={title} description={description}>
+      {blocks.map((block) => {
+        const rawType = (block as any).discriminant || (block as any).type || '';
+        const normType = rawType.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const isBand = bandBlockTypes.has(normType);
+        const bgVariant = isBand ? flowSequence[bandIndex++ % flowSequence.length] : undefined;
+        return <BlockRenderer block={block} backgroundVariant={bgVariant} />;
+      })}
+    </LandingLayout>
+  )
+}

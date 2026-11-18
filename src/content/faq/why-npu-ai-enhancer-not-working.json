@@ -1,0 +1,8 @@
+{
+  "id": "why-npu-ai-enhancer-not-working",
+  "category": "ai",
+  "q": "Why is AI Enhancer off or not working?",
+  "a": "The full model runs on a supported neural chip. Supported chips include Snapdragon 8 Gen 1 and newer, and Dimensity 8300 or newer. Other phones use Lite mode on the main processor. AI Enhancer turns off if your phone cannot keep up in real time. It requires a one-time model download first. It stays off while Bit-perfect lock is on. It works on 44.1 and 48 kHz tracks only. It skips DSD tracks, network casting, and AI Karaoke.",
+  "guideUrl": "/faq/why-npu-ai-enhancer-not-working",
+  "order": 10
+}

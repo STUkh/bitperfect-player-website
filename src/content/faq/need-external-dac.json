@@ -1,0 +1,7 @@
+{
+  "id": "need-external-dac",
+  "category": "hardware",
+  "q": "Do I need an external DAC?",
+  "a": "Not to play music. The headphone jack and built-in speaker work too. On most phones, Android's system mixer resamples that audio. The badge then shows Resampled. Use an external USB DAC for guaranteed bit-perfect output across all devices. On select phones, the app can drive the internal DAC directly. This depends on your phone's DAC chip and OS firmware. It requires a quick hardware test and your permission.",
+  "order": 6
+}

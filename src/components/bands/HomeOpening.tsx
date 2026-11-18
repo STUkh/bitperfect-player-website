@@ -7,6 +7,7 @@ import { useBehaviour } from '../_lib/behaviour';
 import { pro } from '../../data/site';
 import { screens } from '../../data/screens';
 import { fanStyle } from '../devices/phone-fan';
+import { withBase } from '../../utils/nav';
 import { setupHomeOpening } from './HomeOpening.client';
 import './HomeOpening.css';
 
@@ -38,7 +39,7 @@ const SIDE_SIZES = `${PINNED_SIZES}, (min-width: 664px) 280px, calc((88vw - 24px
 const CENTRE_SIZES = `${PINNED_SIZES}, 280px`;
 
 const trialLine = pro.trialDays
-  ? `Eligible new customers get ${pro.trialDays} days free. Then $${pro.founderPrice} a year, the Founder price, if you subscribe by ${pro.founderEndDate}. That price stays yours while you stay subscribed.`
+  ? `${pro.trialDays}-day free trial for eligible new customers, then $${pro.founderPrice} a year. Cancel anytime.`
   : null;
 
 /**
@@ -67,7 +68,27 @@ const trialLine = pro.trialDays
  * then the other two screens. The four spec chips the hero once carried are gone
  * (DESIGN.md, "The Hero Holds Four Things").
  */
-export default function HomeOpening() {
+export interface HomeOpeningProps {
+  eyebrow?: string;
+  title?: string;
+  titleAccent?: string;
+  lede?: string;
+  primaryCtaLabel?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  screensHeading?: string;
+}
+
+export default function HomeOpening({
+  eyebrow = 'Bit-perfect audio playback',
+  title = 'Pure sound.',
+  titleAccent = 'Nothing in between.',
+  lede = 'Bypass the system mixer. Send bit-perfect audio straight to your USB DAC.',
+  primaryCtaLabel = 'Get it on Google Play',
+  secondaryCtaLabel = 'See what it does',
+  secondaryCtaHref = withBase('#features'),
+  screensHeading = 'Bit-perfect sound with studio-grade control.',
+}: HomeOpeningProps = {}) {
   const ref = useBehaviour<HTMLElement>(setupHomeOpening);
 
   return (
@@ -104,24 +125,24 @@ export default function HomeOpening() {
         <div className="ho-inner">
           <div className="ho-copy" data-copy="">
             <span className="hero-in mono-spec block text-micro tracking-kicker text-gold uppercase">
-              Bit-perfect audio playback
+              {eyebrow}
             </span>
             <h1 className="hero-in hero-in-2 ho-title text-headline-m text-balance text-text-primary lg:text-headline">
-              Pure sound.
-              <br /> <span className="text-gold">Nothing in between.</span>
+              {title}
+              <br /> <span className="text-gold inline font-inherit leading-inherit">{titleAccent}</span>
             </h1>
             <div className="hero-in hero-in-3 mt-9 flex flex-col items-start lg:mt-14">
               <p className="max-w-[44ch] text-body-sm text-pretty text-text-secondary lg:text-lede">
-                Bypass the system mixer. Send bit-perfect audio straight to your USB DAC.
+                {lede}
               </p>
               <div className="mt-[26px] flex w-full flex-col gap-3 min-[641px]:w-auto min-[641px]:flex-row min-[641px]:items-center lg:mt-9 lg:gap-4">
-                <PlayCta label="Get it on Google Play" className="h-[52px] text-body-sm lg:h-[54px] lg:px-[30px]" />
+                <PlayCta label={primaryCtaLabel} className="h-[52px] text-body-sm lg:h-[54px] lg:px-[30px]" />
                 <Button
-                  href="#features"
+                  href={secondaryCtaHref}
                   variant="secondary"
                   className="h-[52px] text-small font-medium lg:h-[54px] lg:px-[26px]"
                 >
-                  <span>See what it does</span>
+                  <span>{secondaryCtaLabel}</span>
                 </Button>
               </div>
               {trialLine && <p className="mt-4 text-caption text-text-tertiary lg:mt-5">{trialLine}</p>}
@@ -131,7 +152,7 @@ export default function HomeOpening() {
           {/* No eyebrow: `The app itself` captioned a picture that captions itself
               (DESIGN.md, "The Eyebrow Budget Rule"). */}
           <h2 className="ho-heading text-section-sm text-balance text-text-primary lg:text-headline-sm" data-heading="">
-            Bit-perfect sound with studio-grade control.
+            {screensHeading}
           </h2>
 
           <div className="ho-group" data-group="">
@@ -144,7 +165,7 @@ export default function HomeOpening() {
               aria-label="Three app screens: Now Playing, equaliser and library"
             >
               <div className="ho-side ho-left" data-phone="left">
-                <Phone screen="eq" fill frameSizes={SIDE_SIZES} />
+                <Phone screen="eq" fill frameSizes={SIDE_SIZES} eager />
               </div>
               <div className="ho-centre" data-phone="centre" style={{ borderRadius: HERO_RADIUS }}>
                 {/* 300px: the same module as the lineup the hero phone travels into. */}
@@ -159,7 +180,7 @@ export default function HomeOpening() {
                 </div>
               </div>
               <div className="ho-side ho-right" data-phone="right">
-                <Phone screen="library" fill frameSizes={SIDE_SIZES} />
+                <Phone screen="library" fill frameSizes={SIDE_SIZES} eager />
               </div>
             </div>
           </div>

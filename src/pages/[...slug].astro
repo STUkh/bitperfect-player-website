@@ -1,0 +1,80 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import LandingLayout from '../layouts/LandingLayout.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
+import { chooseFlowSequence } from '../utils/flow-background';
+
+export async function getStaticPaths() {
+  const RESERVED_SLUGS = new Set([
+    'home',
+    'index',
+    'faq',
+    'features',
+    'compatibility',
+    'terms',
+    'privacy',
+    'policy',
+    'delete-account',
+    '404',
+    'preview',
+  ]);
+
+  const pages = await getCollection('pages');
+  return pages
+    .filter((page) => {
+      const slug = page.id;
+      const topSegment = slug.split('/')[0];
+      return !RESERVED_SLUGS.has(slug) && !RESERVED_SLUGS.has(topSegment);
+    })
+    .map((page) => ({
+      params: { slug: page.id },
+      props: { page },
+    }));
+}
+
+interface Props {
+  page: CollectionEntry<'pages'>;
+}
+
+const { page } = Astro.props as Props;
+const { title, description, blocks = [] } = page.data;
+
+const bandBlockTypes = new Set([
+  'aiplayer',
+  'aiplayerband',
+  'audioengine',
+  'audioengineband',
+  'statement',
+  'statementband',
+  'featuresteaser',
+  'features',
+  'privacy',
+  'privacyband',
+  'pricing',
+  'pricingsection',
+  'cta',
+  'ctasection',
+]);
+
+const flowSequence = chooseFlowSequence(page.id, [
+  'ai-player',
+  'audio-engine',
+  'statement',
+  'features',
+  'privacy',
+  'pricing',
+  'cta',
+]);
+
+let bandIndex = 0;
+---
+
+<LandingLayout title={title} description={description}>
+  {blocks.map((block) => {
+    const rawType = (block as any).discriminant || (block as any).type || '';
+    const normType = rawType.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const isBand = bandBlockTypes.has(normType);
+    const bgVariant = isBand ? flowSequence[bandIndex++ % flowSequence.length] : undefined;
+    return <BlockRenderer block={block} backgroundVariant={bgVariant} />;
+  })}
+</LandingLayout>

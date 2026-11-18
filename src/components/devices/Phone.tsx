@@ -34,6 +34,8 @@ export type PhoneProps = ClassProps &
     alt?: string;
     /** Load eagerly with high fetch priority. Only for the one screen above the fold. Default lazy. */
     priority?: boolean;
+    /** Load eagerly with low fetch priority. Loads without blocking scroll. Default lazy. */
+    eager?: boolean;
     /** Take the parent's width instead of the device's own (portrait 296px, 344px from lg; landscape the column up to 620px). */
     fill?: boolean;
     /** With `fill`: the device's rendered width, in `sizes` syntax (`(min-width: 664px) 280px, 44vw`). The screen's `sizes` is worked out from it. */
@@ -75,7 +77,7 @@ function defaultSizes(geometry: PhoneGeometry, fill: boolean, frameSizes?: strin
  * Width: portrait 296px, 344px from `lg`; landscape the column's width up to
  * 620px; `fill` takes the parent's. Ivory bands null the cast shadow.
  */
-export default function Phone({ className, alt = '', priority = false, fill = false, frameSizes, sizes, ...source }: PhoneProps) {
+export default function Phone({ className, alt = '', priority = false, eager = false, fill = false, frameSizes, sizes, ...source }: PhoneProps) {
   const capture = source.screen !== undefined ? (screens as Record<string, { w: number; h: number }>)[source.screen] : undefined;
   const fallback = Object.values(screens)[0];
   const [w, h] = source.src !== undefined ? [source.width, source.height] : [capture?.w ?? fallback.w, capture?.h ?? fallback.h];
@@ -90,6 +92,7 @@ export default function Phone({ className, alt = '', priority = false, fill = fa
           alt={alt}
           sizes={sizes ?? defaultSizes(geometry, fill, frameSizes)}
           priority={priority}
+          eager={eager}
           position="50% 0%"
           className="h-full w-full object-cover object-top"
         />

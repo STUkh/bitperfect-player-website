@@ -1,0 +1,7 @@
+{
+  "id": "bitperfect-lock",
+  "category": "engine",
+  "q": "What does Bit-perfect lock do?",
+  "a": "Bit-perfect lock is one switch. It turns off all EQ, sound processing and software volume. If your DAC cannot play the file rate, the app converts it. The badge then shows Resampled. Volume moves to the DAC control. If the DAC has no hardware volume control, output stays fixed at 0 dBFS line level. That means full volume. Use an external amplifier with analogue volume. Turn off the lock or use Alternative volume control if connecting sensitive headphones directly.",
+  "order": 3
+}

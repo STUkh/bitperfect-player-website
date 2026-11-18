@@ -1,0 +1,49 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import Container from '../components/primitives/Container';
+import PageHeader from '../components/chrome/PageHeader';
+import ClosingBanner from '../components/sections/ClosingBanner';
+import SupportedDevices from '../components/devices/SupportedDevices';
+import { withBase } from '../utils/nav';
+
+const title = 'Processor & Neural Chip Requirements | Bitperfect Player';
+const description =
+  'Processor and neural chip requirements for Bitperfect Player on Android. Check NPU compatibility for Snapdragon, Dimensity, and Lite mode CPU execution.';
+---
+
+<ContentLayout title={title} description={description}>
+  <PageHeader
+    maxWidth="840px"
+    backHref={withBase('/')}
+    backLabel="Back to Home"
+    eyebrow="Hardware requirements"
+    title="Processor and neural chip requirements"
+    description="Hardware tiers for on-device AI Enhancer, supported Qualcomm Snapdragon and MediaTek Dimensity processors, and device compatibility for Bitperfect Player."
+  />
+
+  <section class="section-compact">
+    <Container>
+      <article class="mx-auto max-w-[840px]">
+        <SupportedDevices
+          client:idle
+          variant="full"
+          tone="graphite"
+          id="supported-neural-chips"
+          showTiers={true}
+          showTroubleshootingLink={true}
+        />
+      </article>
+    </Container>
+  </section>
+
+  <ClosingBanner
+    maxWidth="760px"
+    eyebrow="Device check"
+    title="Not sure about your phone's processor?"
+    description="Send us your phone model and DAC details. We will confirm your exact compatibility tier."
+    primaryHref="mailto:support@bit-perfect.com"
+    primaryLabel="Email phone and DAC details"
+    secondaryHref={withBase('/faq/why-npu-ai-enhancer-not-working')}
+    secondaryLabel="AI Enhancer troubleshooting"
+  />
+</ContentLayout>

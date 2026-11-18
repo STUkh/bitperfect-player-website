@@ -1733,6 +1733,88 @@
    }
   }
  },
+ "img/home-ai-player.webp": {
+  "key": "5ca6deb7d64d",
+  "w": 1672,
+  "h": 941,
+  "lqip": {
+   "w": 32,
+   "h": 18,
+   "src": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQBACdASogABIAPu1qrVCppaQiqAqpMB2JZQC4MDXweIHWL1tL4KBOy/FgAMs/+EwAXTiO6tE03fyC6bUYTIdMK6/rLN4lcVTuVfq4yEh6AKPMYQjLDJj0QYxIHBH/B15oBxEk1KylTxH8HgLaL2fF0+xwJAAA"
+  },
+  "sources": {
+   "default": {
+    "avif": [
+     [
+      480,
+      "_img/img/home-ai-player-480.avif"
+     ],
+     [
+      640,
+      "_img/img/home-ai-player-640.avif"
+     ],
+     [
+      768,
+      "_img/img/home-ai-player-768.avif"
+     ],
+     [
+      960,
+      "_img/img/home-ai-player-960.avif"
+     ],
+     [
+      1080,
+      "_img/img/home-ai-player-1080.avif"
+     ],
+     [
+      1280,
+      "_img/img/home-ai-player-1280.avif"
+     ],
+     [
+      1440,
+      "_img/img/home-ai-player-1440.avif"
+     ],
+     [
+      1672,
+      "_img/img/home-ai-player-1672.avif"
+     ]
+    ],
+    "webp": [
+     [
+      480,
+      "_img/img/home-ai-player-480.webp"
+     ],
+     [
+      640,
+      "_img/img/home-ai-player-640.webp"
+     ],
+     [
+      768,
+      "_img/img/home-ai-player-768.webp"
+     ],
+     [
+      960,
+      "_img/img/home-ai-player-960.webp"
+     ],
+     [
+      1080,
+      "_img/img/home-ai-player-1080.webp"
+     ],
+     [
+      1280,
+      "_img/img/home-ai-player-1280.webp"
+     ],
+     [
+      1440,
+      "_img/img/home-ai-player-1440.webp"
+     ],
+     [
+      1672,
+      "_img/img/home-ai-player-1672.webp"
+     ]
+    ]
+   }
+  }
+ },
  "img/home-interstitial-1.webp": {
   "key": "51e9c1c430b5",
   "w": 2560,

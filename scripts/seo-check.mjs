@@ -172,11 +172,25 @@ const note = (map, key, path) =>
   map.set(key, new Set([...(map.get(key) ?? []), path]));
 const files = walk(dist).sort();
 
+// Pre-parse all documents and collect element IDs to validate anchor links
+const pageDocs = new Map();
+const pageIds = new Map();
+
 for (const file of files) {
-  const path = urlPathOf(file);
-  const url = origin + path;
+  const p = urlPathOf(file);
   const html = readFileSync(file, "utf8");
   const doc = parseDocument(html, { decodeEntities: true });
+  pageDocs.set(file, { path: p, doc, html });
+  const ids = new Set();
+  for (const n of all(doc, (node) => !!attr(node, "id"))) {
+    ids.add(attr(n, "id"));
+  }
+  pageIds.set(p, ids);
+}
+
+for (const file of files) {
+  const { path, doc, html } = pageDocs.get(file);
+  const url = origin + path;
   const errors = [];
   const warnings = [];
   const page = { path, errors, warnings };
@@ -374,6 +388,31 @@ for (const file of files) {
       refs.push([part.trim().split(/\s+/)[0], false]);
   }
   for (const [raw, isLink] of refs) {
+    if (isLink && raw) {
+      const trimmed = raw.trim();
+      const hashIndex = trimmed.indexOf("#");
+      if (hashIndex !== -1) {
+        const hash = trimmed.slice(hashIndex + 1);
+        const pathPart = trimmed.slice(0, hashIndex);
+        const isExternal = /^[a-z]+:\/\//i.test(pathPart) && !pathPart.startsWith(origin);
+        if (hash && !isExternal) {
+          let targetPath = path;
+          if (pathPart) {
+            const ip = internalPath(pathPart, path);
+            if (ip) targetPath = ip;
+          }
+          const normTarget = pageIds.has(targetPath)
+            ? targetPath
+            : pageIds.has(targetPath + "/")
+              ? targetPath + "/"
+              : targetPath;
+          const ids = pageIds.get(normTarget);
+          if (ids && !ids.has(hash)) {
+            broken.add(`${raw} (anchor #${hash} missing in ${normTarget})`);
+          }
+        }
+      }
+    }
     const p = internalPath(raw, path);
     if (!p) continue;
     if (!resolves(p)) broken.add(raw);

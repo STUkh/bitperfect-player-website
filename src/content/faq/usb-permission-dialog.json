@@ -1,0 +1,7 @@
+{
+  "id": "usb-permission-dialog",
+  "category": "hardware",
+  "q": "Why does Android ask for USB permission every time?",
+  "a": "Android asks permission before any app can control a USB device. Tick the box to always open Bitperfect Player for this DAC. The app will then connect automatically in the future.",
+  "order": 8
+}

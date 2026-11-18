@@ -57,10 +57,28 @@ export default function Header({ pathname = '/', locale }: HeaderProps) {
             <div className="hidden items-center gap-8 lg:flex">
               {getLocalizedNavLinks(locale).map((link) => {
                 const active = isActive(pathname, link.href);
+                const resolved = resolveHref(link.href, pathname);
+                const isPricing = resolved.includes('#pricing');
                 return (
                   <a
                     key={link.href}
-                    href={resolveHref(link.href, pathname)}
+                    href={resolved}
+                    onClick={
+                      isPricing
+                        ? (e) => {
+                            const target = document.getElementById('pricing');
+                            if (target) {
+                              e.preventDefault();
+                              window.history.pushState(null, '', resolved);
+                              const root = document.documentElement;
+                              const prev = root.style.scrollBehavior;
+                              root.style.scrollBehavior = 'auto';
+                              target.scrollIntoView({ behavior: 'instant', block: 'start' });
+                              root.style.scrollBehavior = prev;
+                            }
+                          }
+                        : undefined
+                    }
                     className={cx([
                       'nav-link cursor-pointer rounded px-1.5 py-0.5 text-sm font-medium transition-colors duration-[var(--d-ui)] ease-ui focus-visible:focus-ring',
                       active

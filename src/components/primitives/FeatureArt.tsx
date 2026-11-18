@@ -13,6 +13,10 @@ export interface FeatureArtProps extends ClassProps {
   crop?: string;
   /** Art direction for a frame that changes shape by breakpoint (the features index's 16:7 below 640px); `Picture`'s `art`. */
   art?: PictureArt[];
+  /** Load eagerly with high fetch priority. Default false. */
+  priority?: boolean;
+  /** Load eagerly with low fetch priority so image is decoded before scroll. Default false. */
+  eager?: boolean;
 }
 
 /**
@@ -28,6 +32,8 @@ export default function FeatureArt({
   sizes = '(max-width: 1023px) 100vw, 640px',
   crop,
   art,
+  priority = false,
+  eager = false,
 }: FeatureArtProps) {
   return (
     <div className={cx(['feature-art relative overflow-hidden', className])} style={{ aspectRatio: ratio }} aria-hidden="true">
@@ -36,6 +42,8 @@ export default function FeatureArt({
         sizes={sizes}
         crop={crop}
         art={art}
+        priority={priority}
+        eager={eager}
         position="50% var(--art-y, 50%)"
         style={{ objectPosition: '50% var(--art-y, 50%)' }}
         className="feature-art-img absolute inset-0 h-full w-full object-cover"

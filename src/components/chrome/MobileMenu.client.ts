@@ -44,7 +44,25 @@ export function setupMobileMenu(toggle: HTMLElement) {
   }
 
   const onToggle = () => (isOpen ? closeMenu() : openMenu());
-  const onLink = () => closeMenu();
+  const onLink = (e: MouseEvent) => {
+    const link = (e.currentTarget as HTMLAnchorElement);
+    const href = link?.getAttribute('href');
+    if (href && (href === '#pricing' || href.endsWith('/#pricing') || href.endsWith('#pricing'))) {
+      const target = document.getElementById('pricing');
+      if (target) {
+        e.preventDefault();
+        closeMenu();
+        window.history.pushState(null, '', href.includes('#') ? `#${href.split('#')[1]}` : '#pricing');
+        const root = document.documentElement;
+        const prev = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        root.style.scrollBehavior = prev;
+        return;
+      }
+    }
+    closeMenu();
+  };
   const onKey = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && isOpen) closeMenu(true);
   };

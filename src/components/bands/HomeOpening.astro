@@ -6,9 +6,10 @@
   mounts it.
 */
 import HomeOpening from './HomeOpening.tsx';
+const props = Astro.props;
 ---
 
-<HomeOpening />
+<HomeOpening {...props} />
 
 <script>
   import { setupHomeOpening } from './HomeOpening.client';

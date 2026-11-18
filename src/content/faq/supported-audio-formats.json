@@ -1,0 +1,7 @@
+{
+  "id": "supported-audio-formats",
+  "category": "dsp",
+  "q": "What audio formats can I play?",
+  "a": "The app plays 15 audio formats. Lossless: FLAC, ALAC, WAV, AIFF, DSD (DSF and DFF) and DSD disc images. Archival: Monkey's Audio, WavPack, True Audio, TAK and Musepack. Compressed: Opus, Ogg Vorbis, MP3 and AAC.",
+  "order": 14
+}

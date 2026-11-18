@@ -1,0 +1,141 @@
+{
+  "id": "usb-dac",
+  "slug": "usb-dac",
+  "title": "Direct USB DAC output",
+  "tagline": "Direct hardware path, system mixer bypassed",
+  "badge": "USB DAC",
+  "accent": "gold",
+  "icon": "node-usb",
+  "description": "Bypasses the system mixer and forced 48 kHz resampling. Delivers audio bit-for-bit to your USB DAC at up to 32-bit / 768 kHz and DSD512, if your DAC supports it.",
+  "overview": "Operating systems normally route audio through a system mixer that forces 48 kHz resampling and 16-bit truncation. Bitperfect Player opens a direct connection to your USB DAC instead. Your DAC runs at the file's native sample rate, if supported.",
+  "benefits": [
+    {
+      "title": "Zero resampling or dithering",
+      "desc": "Every sample reaches the DAC bit-for-bit unchanged, if your DAC supports the file rate."
+    },
+    {
+      "title": "Native DSD and 32-bit PCM",
+      "desc": "Supports native DSD up to DSD512 (DoP and native) and PCM up to 768 kHz, if your DAC supports them."
+    },
+    {
+      "title": "Exclusive device access",
+      "desc": "Notification sounds and Android's system mixer are locked out while music plays."
+    },
+    {
+      "title": "Live signal status",
+      "desc": "Shows the exact bit depth, sample rate, and signal state on the Now Playing screen."
+    }
+  ],
+  "facts": [
+    "Works with UAC1 and UAC2 USB DACs, dongles and desktop units",
+    "Automatic sample rate switching between tracks",
+    "Uses hardware volume and balance controls when your DAC has them",
+    "Shows when software volume is used below 100%",
+    "Up to 32-bit / 768 kHz PCM and DSD512, if your DAC supports them",
+    "Bit-perfect passthrough for FLAC, ALAC, WAV and DSD"
+  ],
+  "specs": [
+    {
+      "label": "USB standard",
+      "value": "USB Audio Class 1 and 2, direct connection"
+    },
+    {
+      "label": "Max PCM",
+      "value": "Up to 32-bit / 768 kHz, DAC permitting"
+    },
+    {
+      "label": "DSD support",
+      "value": "DSD64 to DSD512, DoP and native"
+    },
+    {
+      "label": "Resampling",
+      "value": "None, if your DAC supports the file rate"
+    },
+    {
+      "label": "Access mode",
+      "value": "Exclusive: other apps cannot use the DAC"
+    },
+    {
+      "label": "Volume and balance",
+      "value": "Your DAC's hardware, when available"
+    }
+  ],
+  "lede": "System mixers often convert audio to 48 kHz and 16-bit. Bitperfect Player sends music straight to your DAC at the file's native rate, if your DAC supports it.",
+  "summary": [
+    {
+      "label": "Max PCM",
+      "value": "32-bit / 768 kHz, DAC permitting"
+    },
+    {
+      "label": "DSD",
+      "value": "DSD64 to DSD512, DAC permitting"
+    },
+    {
+      "label": "Protocol",
+      "value": "UAC1 and UAC2"
+    },
+    {
+      "label": "System mixer",
+      "value": "Bypassed"
+    }
+  ],
+  "screenTitle": "Now Playing",
+  "beats": [
+    {
+      "eyebrow": "Exclusive mode",
+      "title": "Only one app uses your DAC",
+      "body": "Bitperfect takes over your USB DAC while music plays, so other apps cannot use it. The operating system asks your permission once."
+    },
+    {
+      "eyebrow": "Rate switching",
+      "title": "Your DAC follows each file's rate",
+      "body": "Your DAC switches to each track's own rate, such as 44.1 kHz or 192 kHz. If your DAC cannot play a rate, the badge says Resampled.",
+      "stats": [
+        {
+          "label": "PCM",
+          "value": "up to 768 kHz"
+        },
+        {
+          "label": "Bit depth",
+          "value": "16, 24 and 32"
+        },
+        {
+          "label": "DSD",
+          "value": "DoP and native"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Hardware",
+      "title": "Dongles and desktop DACs, same path",
+      "body": "Works with UAC1 and UAC2 DACs, from a USB-C dongle to a desktop DAC. If your DAC has hardware volume, Bitperfect Player uses it. With Bit-perfect lock on, DACs without volume stay fixed at 0 dBFS line level. Use an external amplifier, or unlock software volume for sensitive headphones.",
+      "note": "0 dBFS is full line level. Use external volume controls when connecting sensitive headphones."
+    },
+    {
+      "eyebrow": "Honesty",
+      "title": "The badge tells you what reached the DAC",
+      "body": "Bit-perfect shows only when nothing changes the file. Enhanced shows when AI Enhancer is active. Resampled shows if rate or depth changed. Lossy marks lossy files or connections. Unknown shows when state cannot be confirmed.",
+      "signalStates": true
+    },
+    {
+      "eyebrow": "DSD",
+      "title": "Two ways to send DSD, picked for you",
+      "body": "Your DAC gets DSD64 to DSD512 as native DSD if it can take it, or as DoP if not. The app picks for you, and you can change it. If neither works, the file is converted to PCM and the badge says so.",
+      "stats": [
+        {
+          "label": "Range",
+          "value": "DSD64 to DSD512"
+        },
+        {
+          "label": "Transport",
+          "value": "Native or DoP"
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Plug in a DAC and hear your files bit for bit.",
+    "body": "Bit-perfect USB output, in the same subscription as every other feature."
+  },
+  "order": 1
+}

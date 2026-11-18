@@ -34,11 +34,11 @@ export function withBase(path: string): string {
 }
 
 /** True when `pathname` (Astro.url.pathname: already includes the base path
- *  once deployed) is the site's index route. */
+ *  once deployed) is the site's index route or dev preview home. */
 function isIndexPath(pathname: string): boolean {
   const normalized = pathname.replace(/\/+$/, "") || "/";
   const baseNormalized = BASE.replace(/\/+$/, "") || "/";
-  return normalized === baseNormalized;
+  return normalized === baseNormalized || normalized.endsWith("/preview/home");
 }
 
 /**

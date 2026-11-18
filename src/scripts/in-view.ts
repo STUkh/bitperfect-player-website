@@ -37,7 +37,7 @@ export function onArrive(
     },
     {
       rootMargin: `0px 0px -${Math.round(margin * 100)}% 0px`,
-      threshold: Array.from({ length: 21 }, (_, i) => i / 20),
+      threshold: [0, 0.1, 0.2, 0.3, 0.35, 0.45, 0.55, 0.7, 0.85, 1.0],
     },
   );
 
@@ -49,11 +49,20 @@ export function onArrive(
     if (window.scrollY + window.innerHeight < document.documentElement.scrollHeight - 2) return;
     for (const el of [...waiting]) arrive(el);
   }
+  let scrollTicking = false;
+  function onScroll() {
+    if (scrollTicking || !waiting.size) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      scrollTicking = false;
+      if (waiting.size) atEnd();
+    });
+  }
   function dispose() {
     io.disconnect();
-    window.removeEventListener('scroll', atEnd);
+    window.removeEventListener('scroll', onScroll);
   }
-  window.addEventListener('scroll', atEnd, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
   /* A page too short to scroll is already at its end. */
   atEnd();
   if (!waiting.size) dispose();

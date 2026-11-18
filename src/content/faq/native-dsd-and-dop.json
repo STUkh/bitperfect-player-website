@@ -1,0 +1,7 @@
+{
+  "id": "native-dsd-and-dop",
+  "category": "engine",
+  "q": "Does Bitperfect Player support native DSD and DoP?",
+  "a": "Yes. The app plays DSF, DFF and DSD disc images. Native DSD plays up to DSD1024, and DoP plays up to DSD256. Rates depend on your DAC. If your DAC supports neither, the app converts to PCM. The badge then shows Resampled. It can also convert PCM to DSD in real time. Real-time conversion to high rates requires a flagship processor.",
+  "order": 5
+}

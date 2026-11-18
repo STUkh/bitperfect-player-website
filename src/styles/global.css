@@ -2,6 +2,7 @@
    walked the whole repo, design/ artboards included, and compiled ~900 classes
    (66 KB) that no page uses into the render-blocking sheet. */
 @import "tailwindcss" source("..");
+@plugin "@tailwindcss/typography";
 @import "./lacquer.css";
 @import "./grounds.css";
 

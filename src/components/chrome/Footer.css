@@ -18,28 +18,42 @@
   }
 }
 
-/* Colour and a 3px nudge, on the UI curve. transition-all was animating
-   every property the link owns, including the ones it never changes. */
+/* Underline gesture on hover matching the header nav-link: a 1px gold hairline
+   drawing itself from left to right on the UI curve. */
 .footer-link {
-  display: inline-block;
-  transition:
-    color var(--d-ui) var(--ease-ui),
-    transform var(--d-ui) var(--ease-ui);
-}
-.footer-link:hover {
-  transform: translateX(3px);
-}
-.footer-link:active {
-  transform: translateX(1px);
+  position: relative;
+  transition: color var(--d-ui) var(--ease-ui);
 }
 
-/* The Reduced Motion Rule: the colour change carries the whole hover when a
-   visitor has asked for no movement. */
-@media (prefers-reduced-motion: reduce) {
-  .footer-link:hover,
-  .footer-link:active {
-    transform: none;
-  }
+.footer-link-text {
+  position: relative;
+}
+
+.footer-link::after,
+.footer-link-text::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  /* Interaction feedback runs on the UI curve, not the reveal curve. */
+  transition: transform var(--d-ui) var(--ease-ui);
+}
+
+/* If .footer-link contains .footer-link-text, suppress the outer ::after so it does not draw twice. */
+.footer-link:has(.footer-link-text)::after {
+  display: none;
+}
+
+.footer-link:hover::after,
+.footer-link:focus-visible::after,
+.footer-link:hover .footer-link-text::after,
+.footer-link:focus-visible .footer-link-text::after {
+  transform: scaleX(1);
 }
 
 /* The circles light, they do not move: border, colour and ground ease on the UI curve. */

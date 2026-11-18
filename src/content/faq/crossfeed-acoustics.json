@@ -1,0 +1,7 @@
+{
+  "id": "crossfeed-acoustics",
+  "category": "dsp",
+  "q": "What is Crossfeed?",
+  "a": "On headphones, hard-panned stereo can sound split between your ears. Crossfeed blends some channel content to sound more like speakers. Choose between Subtle, Natural and Strong. Presets are modelled on Meier, Chu Moy and BS2B.",
+  "order": 17
+}

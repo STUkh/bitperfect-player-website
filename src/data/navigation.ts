@@ -2,9 +2,8 @@ import { useTranslations, type UIKey } from "../i18n/utils";
 
 export const navLinks = [
   { label: "Features", href: "/features" },
+  { label: "Price", href: "/#pricing" },
   { label: "FAQ", href: "/faq" },
-  { label: "Privacy", href: "/privacy" },
-  { label: "Terms", href: "/terms" },
 ] as const;
 
 export const featureRoutes = [
@@ -63,6 +62,7 @@ export const footerLinks = {
       { label: "Local lossless library", href: "/features/library" },
       { label: "Casting and receiver mode", href: "/features/casting" },
       { label: "On-device AI Enhancer", href: "/features/ai-enhancer" },
+      { label: "Processor & chip compatibility", href: "/compatibility" },
       { label: "27 technical capabilities", href: "/features/catalog" },
     ],
   },
@@ -70,7 +70,8 @@ export const footerLinks = {
     title: "FAQ",
     href: "/faq",
     links: [
-      { label: "AI Enhancer and neural chips", href: "/faq/why-npu-ai-enhancer-not-working" },
+      { label: "Check compatibility", href: "/compatibility" },
+      { label: "AI Enhancer troubleshooting", href: "/faq/why-npu-ai-enhancer-not-working" },
       { label: "How direct USB output works", href: "/faq#direct-hardware-bypass" },
       { label: "External USB DAC setup", href: "/faq#need-external-dac" },
       { label: "Supported audio formats", href: "/faq#supported-audio-formats" },

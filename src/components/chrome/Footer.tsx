@@ -1,14 +1,14 @@
-import Button from '../primitives/Button';
-import Container from '../primitives/Container';
-import Logo from '../primitives/Logo';
-import StoreBadges from '../primitives/StoreBadges';
-import Icon from '../primitives/Icon';
-import { footerLinks } from '../../data/navigation';
-import { site } from '../../data/site';
-import { resolveHref, withBase } from '../../utils/nav';
-import { useTranslations, type UIKey } from '../../i18n/utils';
-import { styleOf } from '../_lib/class-props';
-import './Footer.css';
+import Button from "../primitives/Button";
+import Container from "../primitives/Container";
+import Logo from "../primitives/Logo";
+import StoreBadges from "../primitives/StoreBadges";
+import Icon from "../primitives/Icon";
+import { footerLinks } from "../../data/navigation";
+import { site } from "../../data/site";
+import { resolveHref, withBase } from "../../utils/nav";
+import { useTranslations, type UIKey } from "../../i18n/utils";
+import { styleOf } from "../_lib/class-props";
+import "./Footer.css";
 
 export interface FooterProps {
   /** The current page's path, which resolves the in-page link hrefs. */
@@ -23,41 +23,46 @@ export interface FooterProps {
  * with the copyright, the trademark notice and the official social channels.
  * Takes no content props; links and copy come from the site data and translations.
  */
-export default function Footer({ pathname = '/', locale }: FooterProps) {
+export default function Footer({ pathname = "/", locale }: FooterProps) {
   const t = useTranslations(locale);
   const sectionTitle = (title: string) => {
     const slug = title
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '_')
-      .replace(/^_|_$/g, '');
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_|_$/g, "");
     const key = `footer.${slug}` as UIKey;
     const translated = t(key);
     return translated && translated !== key ? translated : title;
   };
-  type FooterLink = (typeof footerLinks)[keyof typeof footerLinks]['links'][number];
+  type FooterLink =
+    (typeof footerLinks)[keyof typeof footerLinks]["links"][number];
   const getLocalizedFooterLinkLabel = (link: FooterLink) => {
-    if (link.href === '/faq') return t('footer.all_questions');
-    if (link.href === '/privacy') return t('footer.privacy_policy');
-    if (link.href === '/terms') return t('footer.terms_of_use');
+    if (link.href === "/faq") return t("footer.all_questions");
+    if (link.href === "/privacy") return t("footer.privacy_policy");
+    if (link.href === "/terms") return t("footer.terms_of_use");
     if (
-      link.href.startsWith('mailto:') ||
-      (link.label as string) === 'Email support' ||
-      (link.label as string) === 'Email Support' ||
-      (link.label as string) === 'Contact Support'
+      link.href.startsWith("mailto:") ||
+      (link.label as string) === "Email support" ||
+      (link.label as string) === "Email Support" ||
+      (link.label as string) === "Contact Support"
     ) {
-      return t('footer.email_support');
+      return t("footer.email_support");
     }
     if (
-      (link.label as string) === 'Google Play' ||
-      (link.label as string) === 'Get it on Google Play'
+      (link.label as string) === "Google Play" ||
+      (link.label as string) === "Get it on Google Play"
     ) {
-      return t('store.google_play') || 'Get it on Google Play';
+      return t("store.google_play") || "Get it on Google Play";
     }
     return link.label;
   };
 
   /* `href` is optional: a section without one renders its title as plain text. */
-  type FooterSection = { title: string; href?: string; links: readonly FooterLink[] };
+  type FooterSection = {
+    title: string;
+    href?: string;
+    links: readonly FooterLink[];
+  };
   const sections: FooterSection[] = Object.values(footerLinks);
   const isExternal = (href: string) => /^https?:\/\//.test(href);
 
@@ -75,7 +80,7 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
   because Tailwind cannot generate an arbitrary class it never sees in source, and
   an inline style cannot carry the `lg` breakpoint on its own.
 */
-  const footerCols = ['1.5fr', ...sections.map(() => '1fr')].join(' ');
+  const footerCols = ["1.5fr", ...sections.map(() => "1fr")].join(" ");
 
   return (
     <footer className="site-footer border-t border-border-subtle bg-surface-raised">
@@ -93,13 +98,16 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
             {/* Brand Column */}
             <div className="col-span-2 sm:col-span-3 lg:col-span-1">
               <a
-                href={withBase('/')}
+                href={withBase("/")}
                 className="mb-5 inline-flex min-h-11 w-fit cursor-pointer items-center gap-2.5 rounded-lg py-1.5 focus-visible:focus-ring"
               >
-                <Logo size="md" /> <span className="text-body-lg font-bold text-text-primary">{site.name}</span>
+                <Logo size="md" />{" "}
+                <span className="text-body-lg font-bold text-text-primary">
+                  {site.name}
+                </span>
               </a>
               <p className="mb-6 max-w-sm text-sm leading-relaxed text-pretty text-text-secondary">
-                {t('footer.tagline')}
+                {t("footer.tagline")}
               </p>
               <StoreBadges className="flex-row flex-wrap" />
             </div>
@@ -119,9 +127,11 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
                   {section.href ? (
                     <a
                       href={resolveHref(section.href, pathname)}
-                      className="inline-flex min-h-[44px] items-center rounded py-1.5 transition-colors hover:text-gold focus-visible:focus-ring"
+                      className="footer-link inline-flex min-h-[44px] items-center rounded py-1.5 transition-colors hover:text-gold focus-visible:focus-ring"
                     >
-                      {sectionTitle(section.title)}
+                      <span className="footer-link-text">
+                        {sectionTitle(section.title)}
+                      </span>
                     </a>
                   ) : (
                     sectionTitle(section.title)
@@ -132,10 +142,16 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
                     <li key={link.href}>
                       <a
                         href={resolveHref(link.href, pathname)}
-                        rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
+                        rel={
+                          isExternal(link.href)
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
                         className="footer-link inline-flex min-h-[44px] cursor-pointer items-center rounded py-2 text-sm text-text-secondary hover:text-text-primary active:text-gold focus-visible:focus-ring"
                       >
-                        {getLocalizedFooterLinkLabel(link)}
+                        <span className="footer-link-text">
+                          {getLocalizedFooterLinkLabel(link)}
+                        </span>
                       </a>
                     </li>
                   ))}
@@ -149,11 +165,16 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
         <div className="footer-safe-bottom flex flex-col items-center gap-6 border-t border-border-subtle py-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col items-center gap-2 text-center sm:items-start sm:text-left">
             <p className="text-sm text-text-tertiary">
-              {`© ${new Date().getFullYear()} ${site.name}. ${t('footer.rights')}`}
+              {`© ${new Date().getFullYear()} ${site.name}. ${t("footer.rights")}`}
             </p>
-            <p className="max-w-xl text-xs leading-relaxed text-text-tertiary">{t('footer.trademark_notice')}</p>
+            <p className="max-w-xl text-xs leading-relaxed text-text-tertiary">
+              {t("footer.trademark_notice")}
+            </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0" aria-label={t('footer.aria_channels')}>
+          <div
+            className="flex items-center gap-3 shrink-0"
+            aria-label={t("footer.aria_channels")}
+          >
             {site.socials.map((social) => (
               <Button
                 key={social.id}
@@ -162,8 +183,15 @@ export default function Footer({ pathname = '/', locale }: FooterProps) {
                 rel="noopener noreferrer"
                 variant="secondary"
                 size="sm"
-                aria-label={t('footer.social_aria', { name: site.name, label: social.label, handle: social.handle })}
-                title={t('footer.social_title', { label: social.label, handle: social.handle })}
+                aria-label={t("footer.social_aria", {
+                  name: site.name,
+                  label: social.label,
+                  handle: social.handle,
+                })}
+                title={t("footer.social_title", {
+                  label: social.label,
+                  handle: social.handle,
+                })}
                 className="h-11 w-11 shrink-0 p-0"
               >
                 <Icon name={social.id} size={18} />

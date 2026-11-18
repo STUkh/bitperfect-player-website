@@ -24,11 +24,15 @@ export interface FeatureScreensProps extends ClassProps {
   slug: string;
   /** Zero-based beat index into the route's screen list (see above). Default 0. Clamped to the list, never wrapped. */
   state?: number;
+  /** Load eagerly with high fetch priority. Default true for state=0. */
+  priority?: boolean;
+  /** Load eagerly with low fetch priority. */
+  eager?: boolean;
 }
 
-export default function FeatureScreens({ slug, state = 0, className }: FeatureScreensProps) {
+export default function FeatureScreens({ slug, state = 0, priority, eager, className }: FeatureScreensProps) {
   const list = featureScreens[slug] ?? featureScreens['usb-dac'];
   const name = list[state < 0 ? 0 : state >= list.length ? list.length - 1 : state];
 
-  return <Phone screen={name} className={className} />;
+  return <Phone screen={name} priority={priority ?? state === 0} eager={eager} className={className} />;
 }

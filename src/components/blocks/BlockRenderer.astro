@@ -1,0 +1,149 @@
+---
+import HomeOpening from '../bands/HomeOpening.astro';
+import AiPlayerBand from '../bands/AiPlayerBand';
+import AudioEngineBand from '../bands/AudioEngineBand';
+import StatementBand from '../bands/StatementBand';
+import FeaturesTeaser from '../bands/FeaturesTeaser';
+import PrivacyBand from '../bands/PrivacyBand';
+import PricingSection from '../bands/PricingSection';
+import CTASection from '../bands/CTASection';
+import MediaSplit from '../sections/MediaSplit';
+import SpecList from '../sections/SpecList';
+import RuleList from '../sections/RuleList';
+import Container from '../primitives/Container';
+
+export interface BlockData {
+  id?: string;
+  type?: string;
+  discriminant?: string;
+  enabled?: boolean;
+  props?: Record<string, any>;
+  value?: Record<string, any>;
+  [key: string]: any;
+}
+
+interface Props {
+  block: BlockData;
+  backgroundVariant?: string;
+}
+
+const { block, backgroundVariant: fallbackBackgroundVariant } = Astro.props;
+
+if (!block) {
+  return null;
+}
+
+// Support both { type, id, enabled, props } and Keystatic { discriminant, value }
+const rawType = block.discriminant || block.type || '';
+const type = rawType.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+const blockValue = (block.value || {}) as Record<string, any>;
+const blockProps = (block.props || {}) as Record<string, any>;
+const mergedProps = { ...blockProps, ...blockValue };
+
+const enabled = block.enabled ?? blockValue.enabled ?? true;
+if (enabled === false) {
+  return null;
+}
+
+const id = block.id || blockValue.id || blockProps.id;
+const backgroundVariant = (mergedProps.backgroundVariant && mergedProps.backgroundVariant !== '')
+  ? mergedProps.backgroundVariant
+  : (blockProps.backgroundVariant || fallbackBackgroundVariant);
+---
+
+{type === 'homeopening' && (
+  <HomeOpening {...mergedProps} />
+)}
+
+{(type === 'aiplayer' || type === 'aiplayerband') && (
+  <AiPlayerBand backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{(type === 'audioengine' || type === 'audioengineband') && (
+  <AudioEngineBand backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{(type === 'statement' || type === 'statementband') && (
+  <StatementBand backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{(type === 'featuresteaser' || type === 'features') && (
+  <FeaturesTeaser backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{(type === 'privacy' || type === 'privacyband') && (
+  <PrivacyBand backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{(type === 'pricing' || type === 'pricingsection') && (
+  <PricingSection backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{(type === 'cta' || type === 'ctasection') && (
+  <CTASection backgroundVariant={backgroundVariant} {...mergedProps} />
+)}
+
+{type === 'mediasplit' && (
+  <section id={id} class:list={['py-12 lg:py-20', mergedProps.className]}>
+    <Container className={mergedProps.containerClassName}>
+      <MediaSplit
+        mediaSide={mergedProps.mediaSide ?? 'right'}
+        split={mergedProps.split ?? '7/5'}
+        mediaFirst={mergedProps.mediaFirst ?? false}
+        copyClassName={mergedProps.copyClassName}
+        mediaClassName={mergedProps.mediaClassName}
+        {...mergedProps}
+      >
+        {mergedProps.content && <div class="prose-legal" set:html={mergedProps.content} />}
+      </MediaSplit>
+    </Container>
+  </section>
+)}
+
+{type === 'speclist' && (
+  <section id={id} class:list={['py-10 lg:py-16', mergedProps.className]}>
+    <Container className={mergedProps.containerClassName || 'max-w-4xl'}>
+      {mergedProps.title && (
+        <h3 class="text-caption uppercase tracking-wider text-text-muted mb-4">{mergedProps.title}</h3>
+      )}
+      <SpecList
+        items={mergedProps.items || []}
+        labelTone={mergedProps.labelTone}
+        close={mergedProps.close}
+        tone={mergedProps.tone}
+        {...mergedProps}
+      />
+    </Container>
+  </section>
+)}
+
+{type === 'rulelist' && (
+  <section id={id} class:list={['py-10 lg:py-16', mergedProps.className]}>
+    <Container className={mergedProps.containerClassName || 'max-w-4xl'}>
+      {mergedProps.title && (
+        <h3 class="text-caption uppercase tracking-wider text-text-muted mb-4">{mergedProps.title}</h3>
+      )}
+      <RuleList
+        items={mergedProps.items || []}
+        layout={mergedProps.layout}
+        tone={mergedProps.tone}
+        {...mergedProps}
+      />
+    </Container>
+  </section>
+)}
+
+{type === 'richtext' && (
+  <section id={id} class:list={['py-12 lg:py-20', mergedProps.className]}>
+    <Container className={mergedProps.containerClassName || 'max-w-4xl'}>
+      {mergedProps.title && (
+        <h2 class="text-headline-m lg:text-headline mb-6 text-text-primary">{mergedProps.title}</h2>
+      )}
+      <div
+        class:list={['prose prose-invert prose-gold max-w-none text-text-secondary', mergedProps.contentClassName]}
+        set:html={mergedProps.content || mergedProps.html || mergedProps.body || ''}
+      />
+    </Container>
+  </section>
+)}

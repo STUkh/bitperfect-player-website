@@ -1,0 +1,7 @@
+{
+  "id": "dap-support",
+  "category": "hardware",
+  "q": "Does Bitperfect Player work on digital audio players (DAPs)?",
+  "a": "Yes. The app supports HiBy, iBasso, Astell&Kern and other Android DAPs. It sends sound straight to the player's internal audio path. The player's hardware sets the volume. To activate your subscription, the DAP needs Google Play Services. On DAPs with the Google Play Store, activation works normally.",
+  "order": 9
+}

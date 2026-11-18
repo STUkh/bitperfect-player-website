@@ -179,13 +179,21 @@ const order = [...indexOrder];
                     <Icon name="chevron" size={16} className="transition-transform duration-200 group-open:rotate-180" />
                   </summary>
                   <NeuralChipList tone="ivory" className="mt-5" />
-                  <a
-                    href={withBase('/faq/why-npu-ai-enhancer-not-working/#supported-neural-chips')}
-                    class="mt-4 inline-flex items-center gap-1.5 text-small font-semibold text-band-gold-ink hover:underline focus-visible:focus-ring"
-                  >
-                    {t('features_index.compat_chips_guide')}
-                    <Icon name="arrow" size={14} />
-                  </a>
+                  <div class="mt-4 flex flex-wrap items-center gap-4">
+                    <a
+                      href={withBase('compatibility')}
+                      class="inline-flex items-center text-small font-semibold text-band-gold-ink hover:underline focus-visible:focus-ring"
+                    >
+                      {t('features_index.check_compatibility')}
+                    </a>
+                    <span class="text-band-ink-muted/40">·</span>
+                    <a
+                      href={withBase('/faq/why-npu-ai-enhancer-not-working')}
+                      class="inline-flex items-center text-small text-band-ink-muted hover:text-band-ink hover:underline focus-visible:focus-ring"
+                    >
+                      {t('features_index.compat_chips_guide')}
+                    </a>
+                  </div>
                 </details>
               )}
             </div>

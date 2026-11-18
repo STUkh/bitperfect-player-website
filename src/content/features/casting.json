@@ -1,0 +1,120 @@
+{
+  "id": "casting",
+  "slug": "casting",
+  "title": "Two-way streaming",
+  "tagline": "Cast to any network streamer, or turn your phone and DAC into a network receiver",
+  "badge": "Network audio",
+  "accent": "gold",
+  "icon": "cast",
+  "description": "Cast audio to cast-enabled speakers and TVs or DLNA players, or turn your phone into a receiver.",
+  "overview": "Stream music to cast-enabled speakers and TVs, or DLNA players on your network. Turn your phone into a receiver for DLNA apps or a network player for music servers.",
+  "benefits": [
+    {
+      "title": "Send to speakers and TVs on your network",
+      "desc": "Cast to cast-enabled speakers and TVs, or DLNA and UPnP players on your network."
+    },
+    {
+      "title": "Turn your phone into a receiver",
+      "desc": "Receive audio as a DLNA renderer or as a network player for music servers."
+    },
+    {
+      "title": "Volume commands are declined under lock",
+      "desc": "Under Bit-perfect lock, remote volume commands are declined. That refusal keeps the stream bit-exact."
+    },
+    {
+      "title": "Honest stream reporting",
+      "desc": "The app reports whether a stream went out unchanged or had to be converted."
+    }
+  ],
+  "facts": [
+    "Send to DLNA, UPnP and cast-enabled speakers and TVs",
+    "Receive as a DLNA renderer or a network player for music servers",
+    "The DLNA path sends the file unchanged when accepted",
+    "Every other path tells you exactly what conversion it made",
+    "Background streaming continues with the screen locked",
+    "As a DLNA renderer, the phone takes PCM up to 384 kHz"
+  ],
+  "specs": [
+    {
+      "label": "Send to",
+      "value": "DLNA, UPnP, cast-enabled speakers and TVs"
+    },
+    {
+      "label": "Receive as",
+      "value": "A DLNA renderer or a network player for music servers"
+    },
+    {
+      "label": "Receiver ceiling",
+      "value": "Up to 384 kHz over DLNA"
+    },
+    {
+      "label": "Network discovery",
+      "value": "Automatic on your local network"
+    },
+    {
+      "label": "Volume control",
+      "value": "Never software gain under Bit-perfect lock"
+    },
+    {
+      "label": "Stream format",
+      "value": "Unchanged if accepted, always reported"
+    }
+  ],
+  "lede": "Stream music to cast-enabled speakers and TVs, or turn your phone into a network player.",
+  "summary": [
+    {
+      "label": "Receiver protocols",
+      "value": "2"
+    },
+    {
+      "label": "Modes",
+      "value": "Sender and receiver"
+    },
+    {
+      "label": "Receiver ceiling",
+      "value": "Up to 384 kHz (DLNA)"
+    },
+    {
+      "label": "DLNA path",
+      "value": "Unchanged if accepted"
+    }
+  ],
+  "screenTitle": "Cast",
+  "beats": [
+    {
+      "eyebrow": "Sending",
+      "title": "Cast to speakers and TVs on your network",
+      "body": "Cast to cast-enabled speakers and TVs, or DLNA players on your network. If a device accepts the file as it is, nothing is re-encoded. If not, the app picks a format it can play. It tells you which happened."
+    },
+    {
+      "eyebrow": "Receiving",
+      "title": "Two ways to play to your phone",
+      "body": "Turn on one or both. The phone can be a DLNA renderer that UPnP apps can find. Or it can be a network player for a music server. Either way, the app you already use plays to your phone and your DAC.",
+      "chips": [
+        {
+          "label": "DLNA MediaRenderer",
+          "active": true
+        },
+        {
+          "label": "Network player for music servers"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Volume",
+      "title": "Bit-perfect lock blocks remote volume",
+      "body": "With Bit-perfect lock on, remote volume commands are declined and the receiver reports full volume. Software gain would remove bits. With the lock off, remote volume works as usual."
+    },
+    {
+      "eyebrow": "Honesty",
+      "title": "It tells you when it had to convert",
+      "body": "The signal path shows either \"Sent unchanged\" or the exact conversion made. The app also says when it could not keep the audio unchanged.",
+      "note": "Sent unchanged, or each conversion named."
+    }
+  ],
+  "cta": {
+    "title": "Your library, in every room.",
+    "body": "Send it to big speakers, or let other apps play to your phone."
+  },
+  "order": 4
+}

@@ -8,6 +8,7 @@ export const common = {
   "nav.features_catalog_desc": "Every format, rate and spec in one list",
   "nav.features_menu": "Features menu",
   "nav.pricing": "Pricing",
+  "nav.price": "Price",
   "nav.privacy": "Privacy",
   "nav.terms": "Terms",
   "nav.aria_main": "Main navigation",

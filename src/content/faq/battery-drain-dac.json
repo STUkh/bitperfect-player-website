@@ -1,0 +1,7 @@
+{
+  "id": "battery-drain-dac",
+  "category": "battery",
+  "q": "How much battery does a USB DAC use?",
+  "a": "A USB DAC draws power from your phone, which shortens battery life. Sensitive IEMs need less power. A powered OTG splitter lets planar headphones run without draining the phone.",
+  "order": 18
+}

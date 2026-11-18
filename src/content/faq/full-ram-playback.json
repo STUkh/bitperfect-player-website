@@ -1,0 +1,7 @@
+{
+  "id": "full-ram-playback",
+  "category": "battery",
+  "q": "What is Full RAM Playback?",
+  "a": "Full RAM Playback loads tracks into memory before playing, based on available system RAM. Storage stays idle while you listen. Smart memory management keeps playback uninterrupted. Larger files like DSD disc images buffer seamlessly without dropouts.",
+  "order": 19
+}

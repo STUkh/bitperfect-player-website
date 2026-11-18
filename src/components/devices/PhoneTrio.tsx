@@ -50,10 +50,10 @@ export default function PhoneTrio({
       <div className="phone-trio-floor" aria-hidden="true" />
       <div className="phone-trio-scene">
         <div className="phone-trio-phone phone-trio-left">
-          <Phone screen={leftScreen} fill frameSizes={frameSizes} />
+          <Phone screen={leftScreen} fill frameSizes={frameSizes} eager={priority} />
         </div>
         <div className="phone-trio-phone phone-trio-right">
-          <Phone screen={rightScreen} fill frameSizes={frameSizes} />
+          <Phone screen={rightScreen} fill frameSizes={frameSizes} eager={priority} />
         </div>
         <div className="phone-trio-phone phone-trio-center">
           <Phone screen={centerScreen} fill frameSizes={frameSizes} priority={priority} />

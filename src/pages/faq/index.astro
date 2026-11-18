@@ -67,9 +67,14 @@ const categories = [
             See which phones run AI Enhancer on the neural chip, and why it may switch off on yours.
           </p>
         </div>
-        <Button href={withBase('/faq/why-npu-ai-enhancer-not-working')} variant="secondary" size="md" className="shrink-0">
-          <span>Check your phone</span>
-        </Button>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <Button href={withBase('compatibility')} variant="secondary" size="md">
+            <span>Check compatibility</span>
+          </Button>
+          <Button href={withBase('/faq/why-npu-ai-enhancer-not-working')} variant="outline" size="md">
+            <span>Troubleshooting guide</span>
+          </Button>
+        </div>
       </div>
     </Container>
   </section>
@@ -112,7 +117,7 @@ const categories = [
                   id={item.id}
                   data-faq-category={item.category}
                   data-faq-keywords={`${item.q.toLowerCase()} ${item.a.toLowerCase()}`}
-                  class="faq-accordion-item group py-6 transition-colors duration-[var(--d-ui)]"
+                  class="faq-accordion-item group py-6 transition-colors duration-[var(--d-ui)] scroll-mt-24 lg:scroll-mt-28"
                 >
                   <summary class="flex cursor-pointer list-none items-center justify-between gap-4 rounded font-semibold text-text-primary focus:outline-none focus-visible:focus-ring">
                     <span class="text-body-lg font-bold text-text-primary transition-colors group-hover:text-gold-light group-open:text-gold-light">
@@ -230,15 +235,72 @@ const categories = [
       });
     });
 
+    function openTargetFaq(rawHash?: string) {
+      const hash = rawHash || window.location.hash;
+      if (!hash) return;
+      const targetId = hash.replace(/^#/, '');
+      if (!targetId) return;
+
+      const targetDetails = document.getElementById(targetId) as HTMLDetailsElement | null;
+      if (!targetDetails || !targetDetails.classList.contains('faq-accordion-item')) return;
+
+      // Ensure the category containing this question is visible
+      const itemCategory = targetDetails.getAttribute('data-faq-category');
+      if (currentCategory !== 'all' && itemCategory && currentCategory !== itemCategory) {
+        currentCategory = 'all';
+        catButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute('data-category-filter') === 'all')));
+      }
+
+      // If search query hides this item, reset search
+      if (currentQuery) {
+        if (searchInput) searchInput.value = '';
+        currentQuery = '';
+      }
+
+      // Ensure the item is visible
+      filterFaqs();
+
+      // Open target FAQ
+      targetDetails.open = true;
+
+      // Scroll into view with header breathing room
+      requestAnimationFrame(() => {
+        targetDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      // Highlight target question visually
+      targetDetails.classList.remove('faq-targeted');
+      void targetDetails.offsetWidth; // trigger reflow for animation restart
+      targetDetails.classList.add('faq-targeted');
+      setTimeout(() => {
+        targetDetails.classList.remove('faq-targeted');
+      }, 2500);
+    }
+
     // Open target FAQ item if hash is present in URL
     if (window.location.hash) {
-      const targetId = window.location.hash.slice(1);
-      const targetDetails = document.getElementById(targetId) as HTMLDetailsElement | null;
-      if (targetDetails && targetDetails.classList.contains('faq-accordion-item')) {
-        targetDetails.open = true;
-        targetDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      setTimeout(openTargetFaq, 100);
     }
+
+    // Listen for hash change (e.g. clicking footer links while already on /faq)
+    window.addEventListener('hashchange', () => openTargetFaq());
+
+    // Also handle direct in-page anchor clicks
+    document.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement)?.closest('a');
+      if (!target) return;
+      const href = target.getAttribute('href');
+      if (!href) return;
+      if (href.includes('#')) {
+        const hash = href.slice(href.indexOf('#'));
+        if (hash.length > 1) {
+          const el = document.getElementById(hash.slice(1));
+          if (el && el.classList.contains('faq-accordion-item')) {
+            setTimeout(() => openTargetFaq(hash), 10);
+          }
+        }
+      }
+    });
 
     searchInput?.addEventListener('input', () => {
       currentQuery = searchInput.value.trim().toLowerCase();
@@ -259,6 +321,29 @@ const categories = [
 </script>
 
 <style>
+  .faq-accordion-item {
+    scroll-margin-top: 6rem;
+  }
+  @media (min-width: 1024px) {
+    .faq-accordion-item {
+      scroll-margin-top: 7rem;
+    }
+  }
+
+  .faq-targeted {
+    animation: faq-target-glow 2.5s ease-out;
+  }
+
+  @keyframes faq-target-glow {
+    0% {
+      background-color: rgba(232, 184, 75, 0.14);
+      border-radius: var(--radius-card, 12px);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
   /* Phones and tablets: one column, the categories a single scrolling strip. */
   .faq-grid {
     display: flex;

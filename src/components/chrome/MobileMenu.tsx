@@ -48,10 +48,28 @@ export default function MobileMenu(props: MobileMenuProps) {
         <nav className="flex flex-col gap-6" aria-label={t('nav.aria_mobile')}>
           {getLocalizedNavLinks(locale).map((link) => {
             const active = isActive(pathname, link.href);
+            const resolved = resolveHref(link.href, pathname);
+            const isPricing = resolved.includes('#pricing');
             return (
               <a
                 key={link.href}
-                href={resolveHref(link.href, pathname)}
+                href={resolved}
+                onClick={
+                  isPricing
+                    ? (e) => {
+                        const target = document.getElementById('pricing');
+                        if (target) {
+                          e.preventDefault();
+                          window.history.pushState(null, '', resolved);
+                          const root = document.documentElement;
+                          const prev = root.style.scrollBehavior;
+                          root.style.scrollBehavior = 'auto';
+                          target.scrollIntoView({ behavior: 'instant', block: 'start' });
+                          root.style.scrollBehavior = prev;
+                        }
+                      }
+                    : undefined
+                }
                 className={cx([
                   'mobile-nav-link cursor-pointer rounded-chip text-2xl font-semibold focus-visible:focus-ring',
                   active

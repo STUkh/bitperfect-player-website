@@ -1,0 +1,7 @@
+{
+  "id": "background-killing-prevention",
+  "category": "battery",
+  "q": "Why does playback stop in the background?",
+  "a": "Battery savers on some phones can stop playback. This affects Samsung, Xiaomi and OnePlus devices. In Android Settings > Apps > Battery, set Bitperfect Player to Unrestricted. Then lock the app in recent tasks.",
+  "order": 20
+}

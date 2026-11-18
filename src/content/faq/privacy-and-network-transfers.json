@@ -1,0 +1,7 @@
+{
+  "id": "privacy-and-network-transfers",
+  "category": "license",
+  "q": "What does the app send over the internet?",
+  "a": "Your audio files, library, history and favourites stay on your phone. There are no ads and no analytics. The app goes online for album art, lyrics, AutoEQ profiles, internet radio, model downloads and subscription checks. Crash reports can be turned off in settings.",
+  "order": 23
+}

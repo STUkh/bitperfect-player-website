@@ -1,0 +1,7 @@
+{
+  "id": "what-is-bit-perfect",
+  "category": "engine",
+  "q": "What does bit-perfect mean?",
+  "a": "Your DAC gets the file's exact data. Android's system mixer often resamples sound to 48 kHz and 16-bit. Bitperfect Player skips that mixer. It sends files unchanged to a USB DAC. The badge shows when the sound is not bit-perfect.",
+  "order": 1
+}

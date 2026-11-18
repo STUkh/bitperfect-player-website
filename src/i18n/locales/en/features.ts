@@ -8,9 +8,9 @@ export const features = {
   // Features Index: Header
   "features_index.meta_title": "Features",
   "features_index.meta_description":
-    "Six features you can use today: direct USB DAC output, a 32-band parametric EQ, a local lossless library, casting, a DSP rack and AI Enhancer.",
+    "Direct USB DAC output, a 32-band parametric EQ, a local lossless library, casting, a DSP rack and AI Enhancer.",
   "features_index.header_eyebrow": "Core capabilities",
-  "features_index.header_title": "Six features, built on bit-perfect playback",
+  "features_index.header_title": "Features built on bit-perfect playback",
   "features_index.header_subtitle":
     "Plays straight to your USB DAC. Adds an EQ with up to 32 bands, a local library, two-way streaming, a DSP rack and AI Enhancer.",
   "features_index.catalog_eyebrow": "Technical details",
@@ -50,12 +50,13 @@ export const features = {
   "features_index.compat_min_android": "Android {minAndroid} or newer.",
   "features_index.compat_chips_toggle": "See the supported neural chips",
   "features_index.compat_chips_guide": "Read the AI Enhancer guide",
+  "features_index.check_compatibility": "Check compatibility",
 
   // Features Index: Technical FAQ
 
   // Features Index: Closing Action
   "features_index.cta_eyebrow": "All features included",
-  "features_index.cta_title_prefix": "Six features. ",
+  "features_index.cta_title_prefix": "Every feature. ",
   "features_index.cta_title_highlight": "All in one plan.",
   "features_index.cta_subtitle":
     "One annual subscription covers every feature. There are no other tiers.",
