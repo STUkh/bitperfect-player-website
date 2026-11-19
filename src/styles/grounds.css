@@ -59,7 +59,7 @@
 }
 
 /* ── halftone · light ── the privacy band, the /features compatibility band, a light beat ──
-   A fine halftone: dots large in the upper corners, thinning to nothing toward
+   A wide-pitch halftone (about 34px between dots at 1440, 28px on a phone): dots large in the upper corners, thinning to nothing toward
    the middle and the foot. The plate is 2400x1100 and pinned to the top. */
 .ground-halftone {
   --ground-image: url('/grounds/halftone.svg');
@@ -70,7 +70,7 @@
 }
 @media (max-width: 1023px) {
   .ground-halftone {
-    --ground-size: 960px auto;
+    --ground-size: 1200px auto;
     --ground-position: left top;
   }
 }

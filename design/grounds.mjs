@@ -141,19 +141,21 @@ function polyline(pts) {
 
 /* ── halftone · light ────────────────────────────────────────────────────────
    A printed dot screen whose dots swell toward the two top corners and vanish
-   before they reach the centred headline. Paper, not pixels. */
+   before they reach the centred headline. Paper, not pixels. A wide 56px pitch
+   (2026-11, was 18), about 34px on screen at 1440: a dense screen read as
+   clutter, an open one as a quiet grid. */
 {
   const W = 2400,
     H = 1100,
-    s = 18;
+    s = 56;
   let dots = "";
   for (let y = s / 2; y < H; y += s) {
     for (let x = s / 2; x < W; x += s) {
       const dl = Math.hypot(x / W, (y / H) * 0.55);
       const dr = Math.hypot((W - x) / W, (y / H) * 0.55);
       const t = Math.max(0, 1 - Math.min(dl, dr) / 0.5);
-      const rad = 3.6 * t ** 1.35;
-      if (rad > 0.45)
+      const rad = 5 * t ** 1.1;
+      if (rad > 1)
         dots += `<circle cx="${Math.round(x)}" cy="${Math.round(y)}" r="${f1(rad)}"/>`;
     }
   }

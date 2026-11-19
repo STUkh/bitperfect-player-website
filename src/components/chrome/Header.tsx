@@ -37,11 +37,10 @@ export default function Header({ pathname = '/', locale }: HeaderProps) {
       >
         <Container>
           <nav className="flex h-16 items-center justify-between lg:h-20" aria-label={t('nav.aria_main')}>
-            {/* Logo. The -mx/-my pair cancels the padding, so the hover wash gets
-          room to breathe without moving the wordmark by a pixel. */}
+            {/* Logo */}
             <a
               href={withBase('/')}
-              className="group -mx-2 -my-1 flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1 transition-colors duration-[var(--d-ui)] ease-ui hover:bg-white/[0.045] active:bg-white/[0.07] focus-visible:focus-ring"
+              className="flex cursor-pointer items-center gap-2.5 rounded-lg focus-visible:focus-ring"
             >
               <Logo size="md" />{' '}
               {/* The wordmark must never wrap to two lines beside a 32px mark: on a

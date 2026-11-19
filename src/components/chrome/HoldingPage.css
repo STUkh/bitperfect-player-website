@@ -114,23 +114,12 @@
   border-bottom: 1px solid var(--color-border-subtle);
 }
 
-/* The -mx/-my pair cancels the padding, so the hover wash has room without
-   moving the wordmark by a pixel. Same treatment as the site header. */
 .holding-wordmark {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
-  margin: -0.25rem -0.5rem;
-  padding: 0.25rem 0.5rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background-color var(--d-ui) var(--ease-ui);
-}
-.holding-wordmark:hover {
-  background-color: rgba(255, 255, 255, 0.045);
-}
-.holding-wordmark:active {
-  background-color: rgba(255, 255, 255, 0.07);
 }
 
 /*
