@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro check && astro build",
+    "postinstall": "node scripts/patch-keystatic.cjs",
+    "dev": "node scripts/patch-keystatic.cjs && astro dev",
+    "build": "node scripts/patch-keystatic.cjs && astro check && astro build",
     "seo": "node scripts/seo-check.mjs",
     "preview": "astro preview",
     "astro": "astro",
