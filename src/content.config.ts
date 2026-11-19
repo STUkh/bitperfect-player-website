@@ -6,7 +6,7 @@ import { glob } from 'astro/loaders';
  * Represents site-wide configuration, pricing, URLs, socials, and compatibility.
  */
 const settings = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: './src/content/settings' }),
+  loader: glob({ pattern: 'site.json', base: './src/content/settings' }),
   schema: z.object({
     name: z.string(),
     tagline: z.string(),
@@ -273,8 +273,18 @@ const guides = defineCollection({
   }),
 });
 
+/**
+ * Media & Screenshots Collection (Singleton)
+ * Configures uploaded screenshots and app visual assets.
+ */
+const media = defineCollection({
+  loader: glob({ pattern: 'media.json', base: './src/content/settings' }),
+  schema: z.record(z.string().nullable().optional()),
+});
+
 export const collections = {
   settings,
+  media,
   faq,
   features,
   pages,

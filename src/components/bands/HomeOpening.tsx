@@ -5,7 +5,7 @@ import Phone from '../devices/Phone';
 import { phoneGeometry } from '../devices/phone-geometry';
 import { useBehaviour } from '../_lib/behaviour';
 import { pro } from '../../data/site';
-import { screens } from '../../data/screens';
+import { screens, type ScreenName } from '../../data/screens';
 import { fanStyle } from '../devices/phone-fan';
 import { withBase } from '../../utils/nav';
 import { setupHomeOpening } from './HomeOpening.client';
@@ -77,6 +77,9 @@ export interface HomeOpeningProps {
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
   screensHeading?: string;
+  leftScreen?: ScreenName;
+  centerScreen?: ScreenName;
+  rightScreen?: ScreenName;
 }
 
 export default function HomeOpening({
@@ -88,6 +91,9 @@ export default function HomeOpening({
   secondaryCtaLabel = 'See what it does',
   secondaryCtaHref = withBase('#features'),
   screensHeading = 'Bit-perfect sound with studio-grade control.',
+  leftScreen = 'eq',
+  centerScreen = 'now-playing-hero',
+  rightScreen = 'library',
 }: HomeOpeningProps = {}) {
   const ref = useBehaviour<HTMLElement>(setupHomeOpening);
 
@@ -165,13 +171,13 @@ export default function HomeOpening({
               aria-label="Three app screens: Now Playing, equaliser and library"
             >
               <div className="ho-side ho-left" data-phone="left">
-                <Phone screen="eq" fill frameSizes={SIDE_SIZES} eager />
+                <Phone screen={leftScreen} fill frameSizes={SIDE_SIZES} eager />
               </div>
               <div className="ho-centre" data-phone="centre" style={{ borderRadius: HERO_RADIUS }}>
                 {/* 300px: the same module as the lineup the hero phone travels into. */}
                 <div className="ho-hero-phone">
                   <Phone
-                    screen="now-playing-hero"
+                    screen={centerScreen}
                     fill
                     frameSizes={CENTRE_SIZES}
                     priority
@@ -180,7 +186,7 @@ export default function HomeOpening({
                 </div>
               </div>
               <div className="ho-side ho-right" data-phone="right">
-                <Phone screen="library" fill frameSizes={SIDE_SIZES} eager />
+                <Phone screen={rightScreen} fill frameSizes={SIDE_SIZES} eager />
               </div>
             </div>
           </div>

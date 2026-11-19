@@ -1,0 +1,9 @@
+{
+  "nowPlaying": "/screens/now-playing-hero.webp",
+  "eq": "/screens/eq.webp",
+  "dsp": "/screens/dsp.webp",
+  "library": "/screens/library.webp",
+  "output": "/screens/output.webp",
+  "signalPath": "/screens/signal-path.webp",
+  "receiver": "/screens/receiver.webp"
+}

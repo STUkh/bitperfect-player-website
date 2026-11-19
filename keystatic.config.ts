@@ -4,6 +4,30 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 // In production builds (`astro build` / Cloudflare Pages), use GitHub storage mode.
 const isProd = import.meta.env.PROD;
 
+const SCREEN_OPTIONS = [
+  { label: 'Now Playing (Hero - Wagner)', value: 'now-playing-hero' },
+  { label: 'Now Playing (Handel)', value: 'now-playing' },
+  { label: 'Equalizer (Parametric Multi-band)', value: 'eq' },
+  { label: 'Equalizer (Presets)', value: 'eq-presets' },
+  { label: 'Equalizer (Filters)', value: 'eq-filters' },
+  { label: 'DSP Engine Matrix', value: 'dsp' },
+  { label: 'DSP Sheet', value: 'dsp-sheet' },
+  { label: 'Music Library (Grid)', value: 'library' },
+  { label: 'Music Sources & Storage', value: 'sources' },
+  { label: 'Track List View', value: 'tracks' },
+  { label: 'Album View', value: 'album' },
+  { label: 'USB DAC & Direct Path', value: 'output' },
+  { label: 'Signal Path (Stages & Latency)', value: 'signal-path' },
+  { label: 'Signal Clean (Bit-perfect Verified)', value: 'signal-clean' },
+  { label: 'Receiver Mode', value: 'receiver' },
+  { label: 'Casting Screen', value: 'cast' },
+  { label: 'Track Info & Audio Codecs', value: 'track-info' },
+  { label: 'Fidelity Analysis', value: 'fidelity' },
+  { label: 'AI Enhancer', value: 'ai-enhancer' },
+  { label: 'AI Neural Accelerator', value: 'ai-neural' },
+  { label: 'AI Karaoke (Stem Isolation)', value: 'ai-karaoke' },
+];
+
 export default config({
   storage: isProd
     ? {
@@ -23,12 +47,62 @@ export default config({
     navigation: {
       'Pages & Layouts': ['pages'],
       'Features & Catalog': ['features'],
+      'App Screens & Media': ['media'],
       'Support & Guides': ['faq', 'guides'],
       'Legal & Policies': ['legal'],
       'Global Settings': ['settings'],
     },
   },
   singletons: {
+    media: singleton({
+      label: 'App Screenshots & Media',
+      path: 'src/content/settings/media',
+      format: { data: 'json' },
+      schema: {
+        nowPlaying: fields.image({
+          label: 'Now Playing (Hero Screen)',
+          description: 'Upload replacement for hero player view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+        eq: fields.image({
+          label: 'Equalizer Screen',
+          description: 'Upload replacement for parametric EQ view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+        dsp: fields.image({
+          label: 'DSP & Audio Effects Screen',
+          description: 'Upload replacement for DSP pipeline view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+        library: fields.image({
+          label: 'Music Library Screen',
+          description: 'Upload replacement for album grid view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+        output: fields.image({
+          label: 'Output / USB DAC Screen',
+          description: 'Upload replacement for direct DAC output view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+        signalPath: fields.image({
+          label: 'Signal Path Screen',
+          description: 'Upload replacement for bit-perfect signal chain view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+        receiver: fields.image({
+          label: 'Receiver Mode Screen',
+          description: 'Upload replacement for casting receiver view',
+          directory: 'public/screens',
+          publicPath: '/screens/',
+        }),
+      },
+    }),
     settings: singleton({
       label: 'Site Settings',
       path: 'src/content/settings/site',
@@ -147,6 +221,21 @@ export default config({
                 screensHeading: fields.text({
                   label: 'Phone Showcase Heading',
                   defaultValue: 'Bit-perfect sound with studio-grade control.',
+                }),
+                leftScreen: fields.select({
+                  label: 'Left Phone Screen',
+                  defaultValue: 'eq',
+                  options: SCREEN_OPTIONS,
+                }),
+                centerScreen: fields.select({
+                  label: 'Center Phone Screen (Hero)',
+                  defaultValue: 'now-playing-hero',
+                  options: SCREEN_OPTIONS,
+                }),
+                rightScreen: fields.select({
+                  label: 'Right Phone Screen',
+                  defaultValue: 'library',
+                  options: SCREEN_OPTIONS,
                 }),
               }),
             },
