@@ -37,9 +37,9 @@
     0 26px 56px -26px rgba(0, 0, 0, 0.75);
 }
 .plan-founder {
-  --plan-edge: color-mix(in srgb, var(--color-gold) 46%, transparent);
-  --plan-rim: color-mix(in srgb, var(--color-gold-glint) 30%, transparent);
-  --plan-lit: color-mix(in srgb, var(--color-gold) 24%, transparent);
+  --plan-edge: color-mix(in srgb, var(--color-gold) 20%, rgba(255, 255, 255, 0.08));
+  --plan-rim: color-mix(in srgb, var(--color-gold-glint) 14%, transparent);
+  --plan-lit: color-mix(in srgb, var(--color-gold) 10%, transparent);
   --plan-base-top: var(--color-lacquer-gold-top);
   --plan-base-bottom: var(--color-lacquer-gold-bottom);
 }
@@ -56,8 +56,8 @@
 }
 .plan-founder .plan-sheen {
   background:
-    linear-gradient(112deg, transparent 26%, color-mix(in srgb, var(--color-gold-sheen) 9%, transparent) 46%, color-mix(in srgb, var(--color-gold-sheen) 2%, transparent) 60%, transparent 74%),
-    radial-gradient(70% 38% at 50% 0%, color-mix(in srgb, var(--color-gold-glint) 10%, transparent) 0%, transparent 100%);
+    linear-gradient(112deg, transparent 26%, color-mix(in srgb, var(--color-gold-sheen) 4%, transparent) 46%, color-mix(in srgb, var(--color-gold-sheen) 1%, transparent) 60%, transparent 74%),
+    radial-gradient(70% 38% at 50% 0%, color-mix(in srgb, var(--color-gold-glint) 4%, transparent) 0%, transparent 100%);
 }
 
 .plan-chip {

@@ -1,0 +1,103 @@
+---
+import Band from '../sections/Band';
+import SectionHeading from '../sections/SectionHeading';
+import FeatureMark from '../primitives/FeatureMark';
+
+export interface RackModule {
+  title: string;
+  specs: string;
+  desc: string;
+  badge?: string;
+}
+
+export interface Props {
+  id?: string;
+  tone?: 'graphite' | 'ivory';
+  title?: string;
+  titleAccent?: string;
+  lede?: string;
+  modules?: RackModule[];
+}
+
+const {
+  id = 'studio-rack',
+  tone = 'graphite',
+  title = 'Studio sound processing.',
+  titleAccent = '64-bit precision engine.',
+  lede = 'Precision studio DSP algorithms for uncompromising acoustic fidelity.',
+  modules = [],
+} = Astro.props as Props;
+
+const onWhite = tone === 'ivory';
+---
+
+<Band
+  id={id}
+  tone={tone}
+  ground={onWhite ? 'ground-halftone' : 'ground-samples'}
+  space="spacious"
+  containerClassName="lg:px-20"
+  className="scroll-mt-20 border-t border-border-subtle/40"
+>
+  <div class:list={['flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between pb-10 border-b', onWhite ? 'border-band-rule' : 'border-border-subtle/40']}>
+    <div class="max-w-[820px]">
+      <SectionHeading
+        tone={tone}
+        title={title}
+        titleAccent={titleAccent}
+        titleClassName="text-headline-m lg:text-headline"
+        reveal={0}
+      />
+      {lede && (
+        <p class:list={['mt-4 text-body-sm leading-[1.65] text-pretty lg:text-lede', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+          {lede}
+        </p>
+      )}
+    </div>
+
+    <div class="flex items-center gap-3 shrink-0">
+      <span class:list={['inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider', onWhite ? 'bg-band-gold-ink/15 text-band-gold-ink' : 'bg-gold/10 text-gold border border-gold/20']}>
+        <FeatureMark name="dsp" size={14} className={onWhite ? 'text-band-gold-ink' : 'text-gold'} />
+        Studio Rack
+      </span>
+    </div>
+  </div>
+
+  <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+    {modules.map((mod, i) => (
+      <div
+        class:list={[
+          'group relative flex flex-col justify-between rounded-2xl border p-7 sm:p-8 transition-all duration-300',
+          onWhite
+            ? 'border-band-rule bg-white shadow-xs hover:border-band-gold-ink/40'
+            : 'border-border-subtle bg-surface-raised/40 hover:border-gold/40'
+        ]}
+      >
+        <div>
+          <div class="flex items-start justify-between gap-4">
+            <span class:list={['font-mono text-xs font-bold uppercase tracking-wider', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+              0{i + 1}
+            </span>
+            {mod.badge && (
+              <span class:list={['rounded-full px-2.5 py-0.5 text-micro font-bold uppercase tracking-wider', onWhite ? 'bg-band-gold-ink/10 text-band-gold-ink' : 'bg-gold/10 text-gold-light border border-gold/20']}>
+                {mod.badge}
+              </span>
+            )}
+          </div>
+
+          <h3 class:list={['mt-4 text-title-sm font-bold sm:text-title', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+            {mod.title}
+          </h3>
+
+          <p class:list={['mt-1 font-mono text-xs font-semibold tabular-nums', onWhite ? 'text-band-ink-muted' : 'text-text-tertiary']}>
+            {mod.specs}
+          </p>
+
+          <p class:list={['mt-3.5 text-body-sm leading-relaxed text-pretty', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+            {mod.desc}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</Band>

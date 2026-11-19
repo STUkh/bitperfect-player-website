@@ -846,6 +846,87 @@ body::after {
   }
 }
 
+/* ── The band heading code ───────────────────────────────────────────────────
+   DESIGN.md, "The One Headline Rule" and "The Heading Rhythm Rule". Every band
+   on the landing opens the same way: one headline voice, one lede, and the
+   same two gaps after them. These are roles, not sizes: a band writes
+   `type-headline`, never a step from the ramp, so a band can no longer drift to
+   its own size (Privacy had reached 96px, over the hero's 72px h1, while
+   Pricing sat at 56px).
+
+   Steps, phone then from `lg`:
+     type-headline   40 / 72px, 700   the hero h1 and every band h2
+     type-lede       16 / 20px, 400   the paragraph under a band headline
+     type-item       21 / 24px, 600   the h3 of a column entry under a band
+     type-item-body  15px, 1.6        the line under an item title
+     stack-lede      16 / 24px        headline to lede
+     stack-content   40 / 64px        heading block to the band's content
+   Band padding stays the `section-default` step (56 / 112px). */
+@theme {
+  --spacing-heading-lede: 1rem;
+  --spacing-heading-lede-lg: 1.5rem;
+  --spacing-heading-content: 2.5rem;
+  --spacing-heading-content-lg: 4rem;
+}
+
+@utility type-headline {
+  font-size: var(--text-headline-m);
+  line-height: var(--text-headline-m--line-height);
+  letter-spacing: var(--text-headline-m--letter-spacing);
+  font-weight: var(--text-headline-m--font-weight);
+  text-wrap: balance;
+  @variant lg {
+    font-size: var(--text-headline);
+    line-height: var(--text-headline--line-height);
+    letter-spacing: var(--text-headline--letter-spacing);
+    font-weight: var(--text-headline--font-weight);
+    /* The Word-Spacing Rule: 0.04em at the 72px step. */
+    word-spacing: 0.04em;
+  }
+}
+
+@utility type-lede {
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+  text-wrap: pretty;
+  @variant lg {
+    font-size: var(--text-body-lg);
+  }
+}
+
+@utility type-item {
+  font-size: var(--text-title-sm);
+  line-height: var(--text-title-sm--line-height);
+  letter-spacing: var(--text-title-sm--letter-spacing);
+  font-weight: 600;
+  text-wrap: balance;
+  @variant lg {
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    letter-spacing: var(--text-title--letter-spacing);
+  }
+}
+
+@utility type-item-body {
+  font-size: var(--text-small);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+@utility stack-lede {
+  margin-top: var(--spacing-heading-lede);
+  @variant lg {
+    margin-top: var(--spacing-heading-lede-lg);
+  }
+}
+
+@utility stack-content {
+  margin-top: var(--spacing-heading-content);
+  @variant lg {
+    margin-top: var(--spacing-heading-content-lg);
+  }
+}
+
 /* ── Custom Utilities ── */
 @utility focus-ring {
   outline-style: solid;

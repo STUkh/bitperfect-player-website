@@ -84,6 +84,15 @@
   margin: 88px 0 0;
   text-align: center;
 }
+/* The heading is a band headline (`type-headline`, 72px from lg), wider than the
+   two 280px phone tracks it spans. From lg it breaks out of them, centred, so it
+   sets in two lines instead of four. The pinned stage resets the width. */
+@media (min-width: 1024px) {
+  .ho-heading {
+    justify-self: center;
+    width: min(1040px, calc(100vw - 160px));
+  }
+}
 .ho-side {
   order: 4;
   margin-top: 40px;
@@ -249,6 +258,7 @@
     position: absolute;
     left: 0;
     right: 0;
+    width: auto;
     top: max(9vh, 104px);
     margin: 0;
     opacity: 0;

@@ -1,0 +1,65 @@
+---
+import Band from '../sections/Band';
+import SectionHeading from '../sections/SectionHeading';
+
+export interface Props {
+  id?: string;
+  tone?: 'graphite' | 'ivory';
+  title?: string;
+  titleAccent?: string;
+  facts?: Array<{ title: string; desc: string }>;
+}
+
+const {
+  id = 'statement',
+  tone = 'graphite',
+  title = 'The difference you hear.',
+  titleAccent = 'Pure bit-for-bit transmission.',
+  facts = [],
+} = Astro.props as Props;
+
+const onWhite = tone === 'ivory';
+---
+
+<Band
+  id={id}
+  tone={tone}
+  ground={onWhite ? 'ground-halftone' : 'ground-interference'}
+  space="spacious"
+  className="border-t border-border-subtle/40"
+>
+  <div class="mx-auto max-w-4xl text-center">
+    <SectionHeading
+      tone={tone}
+      title={title}
+      titleAccent={titleAccent}
+      titleClassName="text-headline-m lg:text-headline"
+      reveal={0}
+    />
+  </div>
+
+  {facts && facts.length > 0 && (
+    <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      {facts.map((fact, i) => (
+        <div
+          class:list={[
+            'flex flex-col justify-between rounded-2xl border p-7 sm:p-8',
+            onWhite ? 'border-band-rule bg-white' : 'border-border-subtle bg-surface-raised/40'
+          ]}
+        >
+          <div>
+            <span class:list={['font-mono text-xs font-bold uppercase tracking-wider', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+              0{i + 1}
+            </span>
+            <h3 class:list={['mt-4 text-title-sm font-bold', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+              {fact.title}
+            </h3>
+            <p class:list={['mt-2.5 text-body-sm leading-relaxed', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+              {fact.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</Band>

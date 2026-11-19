@@ -56,27 +56,27 @@
         "backgroundVariant": "",
         "title": "Beyond bit-perfect. ",
         "titleAccent": "Studio sound processing.",
-        "lede": "When you want untouched sound, Bitperfect delivers pure bit-exact transmission. When you want to tailor your listening, our 64-bit audio engine offers precision studio algorithms for uncompromising fidelity.",
+        "lede": "",
         "capabilities": [
           {
-            "title": "8× Studio Upsampling",
-            "specs": "Up to 768 kHz · Sinc & polyphase filters",
-            "desc": "Linear- and minimum-phase oversampling pushing anti-aliasing artifacts far beyond human hearing."
+            "title": "8× upsampling",
+            "specs": "Up to 384 kHz, with linear or minimum phase filters.",
+            "desc": ""
           },
           {
-            "title": "Clip Guard (True-Peak Limiter)",
-            "specs": "-0.6 dBTP ceiling · Inter-sample detection",
-            "desc": "Catches inter-sample digital peaks cleanly without audible compression, distortion, or pumping."
+            "title": "Inter-sample headroom",
+            "specs": "Lowers the level just enough that peaks never clip inside the DAC.",
+            "desc": ""
           },
           {
-            "title": "32-Band Parametric & AutoEQ",
-            "specs": "7 filter shapes · 5,000+ headphone profiles",
-            "desc": "Studio bell, shelf, and notch filters with one-tap calibration against measured AutoEQ targets."
+            "title": "32-band parametric EQ",
+            "specs": "Seven filter shapes and AutoEQ profiles for your headphones.",
+            "desc": ""
           },
           {
-            "title": "Crossfeed & Harmonic Tuning",
-            "specs": "Bauer, Meier & BS2B · Vacuum tube voicings",
-            "desc": "Natural loudspeaker acoustic crossfeed for headphones, plus warm analogue even-order harmonics."
+            "title": "Crossfeed and tube warmth",
+            "specs": "Three crossfeed presets for headphones, plus even and odd harmonics.",
+            "desc": ""
           }
         ]
       }

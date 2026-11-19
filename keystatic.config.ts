@@ -81,6 +81,30 @@ const SCREEN_OPTIONS = [
   { label: 'AI Karaoke (Stem Isolation)', value: 'ai-karaoke' },
 ];
 
+const TONE_OPTIONS = [
+  { label: 'Auto (Alternating Checkerboard Rhythm)', value: 'auto' },
+  { label: 'Graphite (Dark Luxury)', value: 'graphite' },
+  { label: 'Ivory (Light Editorial)', value: 'ivory' },
+];
+
+const MEDIA_SIDE_OPTIONS = [
+  { label: 'Auto (Left/Right Alternating Rhythm)', value: 'auto' },
+  { label: 'Left (Mockup Left, Text Right)', value: 'left' },
+  { label: 'Right (Mockup Right, Text Left)', value: 'right' },
+];
+
+const GROUND_OPTIONS = [
+  { label: 'Auto (Smart Design Ground)', value: 'auto' },
+  { label: 'None (Pure Flat Ground)', value: 'none' },
+  { label: 'Harmonograph (Resonance Rings)', value: 'ground-harmonograph' },
+  { label: 'Halftone (Audiophile Dot Matrix)', value: 'ground-halftone' },
+  { label: 'Samples (Waveform Bars)', value: 'ground-samples' },
+  { label: 'Interference (Acoustic Moire)', value: 'ground-interference' },
+  { label: 'Mesh (Harmonic Coordinate Grid)', value: 'ground-mesh' },
+  { label: 'Horizon (Subtle Floor Glow)', value: 'ground-horizon' },
+  { label: 'Ripples (Concentric Soundwaves)', value: 'ground-ripples' },
+];
+
 export default config({
   storage: isProd
     ? {
@@ -394,22 +418,19 @@ export default config({
           }),
           { label: 'Neural Chip Families', itemLabel: (p) => p.fields.name.value || 'Family' }
         ),
-        liteModeGroups: fields.array(
-          fields.object({
-            chip: fields.text({ label: 'Processor Line' }),
-            devices: fields.text({ label: 'Device Examples' }),
-          }),
-          {
-            label: 'Lite Mode Processor Groups',
-            itemLabel: (p) => (p.fields.chip.value ? `${p.fields.chip.value}: ${p.fields.devices.value}` : 'Group'),
-          }
-        ),
         enhancerModes: fields.array(
           fields.object({
             id: fields.text({ label: 'Mode ID' }),
             title: fields.text({ label: 'Mode Title' }),
             body: fields.text({ label: 'Description', multiline: true }),
-            needs: fields.text({ label: 'Hardware Requirement' }),
+            facts: fields.array(
+              fields.object({
+                value: fields.text({ label: 'Big value (e.g. 9 MB)' }),
+                label: fields.text({ label: 'What it means', multiline: true }),
+              }),
+              { label: 'Key facts (Lite mode card)', itemLabel: (p) => p.fields.value.value || 'Fact' }
+            ),
+            phones: fields.text({ label: 'Typical phones (Lite mode card)' }),
           }),
           { label: 'Enhancer Operational Modes', itemLabel: (p) => p.fields.title.value || 'Mode' }
         ),
@@ -533,16 +554,15 @@ export default config({
                 title: fields.text({ label: 'Headline', defaultValue: 'Beyond bit-perfect. ' }),
                 titleAccent: fields.text({ label: 'Headline Accent', defaultValue: 'Studio sound processing.' }),
                 lede: fields.text({
-                  label: 'Lede Description',
+                  label: 'Lede Description (optional, leave empty for the headline alone)',
                   multiline: true,
-                  defaultValue:
-                    'When you want untouched sound, Bitperfect delivers pure bit-exact transmission. When you want to tailor your listening, our 64-bit audio engine offers precision studio algorithms for uncompromising fidelity.',
+                  defaultValue: '',
                 }),
                 capabilities: fields.array(
                   fields.object({
                     title: fields.text({ label: 'Algorithm Title' }),
-                    specs: fields.text({ label: 'Technical Specs' }),
-                    desc: fields.text({ label: 'Description', multiline: true }),
+                    specs: fields.text({ label: 'One line under the title' }),
+                    desc: fields.text({ label: 'Extra line (optional, usually empty)', multiline: true }),
                   }),
                   { label: 'Engine Capabilities', itemLabel: (p) => p.fields.title.value || 'Capability' }
                 ),
@@ -874,6 +894,26 @@ export default config({
             eyebrow: fields.text({ label: 'Eyebrow' }),
             title: fields.text({ label: 'Title' }),
             body: fields.text({ label: 'Body', multiline: true }),
+            screen: fields.select({
+              label: 'Screen Mockup',
+              options: SCREEN_OPTIONS,
+              defaultValue: 'now-playing',
+            }),
+            tone: fields.select({
+              label: 'Tone / Color Scheme',
+              options: TONE_OPTIONS,
+              defaultValue: 'auto',
+            }),
+            mediaSide: fields.select({
+              label: 'Media Alignment',
+              options: MEDIA_SIDE_OPTIONS,
+              defaultValue: 'auto',
+            }),
+            ground: fields.select({
+              label: 'Ground Pattern',
+              options: GROUND_OPTIONS,
+              defaultValue: 'auto',
+            }),
             chips: fields.array(
               fields.object({
                 label: fields.text({ label: 'Label' }),
@@ -892,6 +932,249 @@ export default config({
             signalStates: fields.checkbox({ label: 'Signal States' }),
           }),
           { label: 'Beats', itemLabel: (p) => p.fields.title.value || 'Beat' }
+        ),
+        blocks: fields.blocks(
+          {
+            mediaBeat: {
+              label: 'Editorial Screen Beat (Phone Mockup + Specs)',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID (Optional)' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone / Color Scheme',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                mediaSide: fields.select({
+                  label: 'Media Alignment',
+                  options: MEDIA_SIDE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                ground: fields.select({
+                  label: 'Ground Pattern / Texture',
+                  options: GROUND_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                eyebrow: fields.text({ label: 'Eyebrow / Kicker' }),
+                title: fields.text({ label: 'Headline' }),
+                body: fields.text({ label: 'Body Description', multiline: true }),
+                screen: fields.select({
+                  label: 'Phone Screen Mockup',
+                  options: SCREEN_OPTIONS,
+                  defaultValue: 'now-playing',
+                }),
+                stats: fields.array(
+                  fields.object({
+                    label: fields.text({ label: 'Stat Label' }),
+                    value: fields.text({ label: 'Stat Value' }),
+                  }),
+                  {
+                    label: 'Metric Stats (2-column key figures)',
+                    itemLabel: (p) =>
+                      p.fields.label.value ? `${p.fields.label.value}: ${p.fields.value.value}` : 'Stat',
+                  }
+                ),
+                chips: fields.array(
+                  fields.object({
+                    label: fields.text({ label: 'Chip Label' }),
+                    active: fields.checkbox({ label: 'Active (Gold Highlight)' }),
+                  }),
+                  {
+                    label: 'Format / Mode Chips',
+                    itemLabel: (p) => p.fields.label.value || 'Chip',
+                  }
+                ),
+                note: fields.text({ label: 'Technical Note (Optional)' }),
+                signalStates: fields.checkbox({ label: 'Show USB DAC Signal Telemetry' }),
+                actionLabel: fields.text({ label: 'Action Button Label (Optional)' }),
+                actionHref: fields.text({ label: 'Action Target URL (Optional)' }),
+              }),
+            },
+            signalPathComparison: {
+              label: 'Signal Path Comparison (Android vs Bit-perfect)',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'signal-path' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                ground: fields.select({
+                  label: 'Ground Pattern',
+                  options: GROUND_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'Title', defaultValue: 'The signal path, drawn to scale.' }),
+                titleAccent: fields.text({ label: 'Title Accent' }),
+                lede: fields.text({
+                  label: 'Lede Subtitle',
+                  multiline: true,
+                  defaultValue:
+                    'Operating systems normally route audio through a system mixer that forces 48 kHz resampling. Bitperfect Player opens a direct hardware path.',
+                }),
+                note: fields.text({ label: 'Live Signal Verification Note' }),
+              }),
+            },
+            studioRack: {
+              label: 'Studio Rack (Multi-Module Grid)',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'rack' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                ground: fields.select({
+                  label: 'Ground Pattern',
+                  options: GROUND_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'Headline', defaultValue: 'Studio Rack Architecture' }),
+                titleAccent: fields.text({ label: 'Headline Accent' }),
+                lede: fields.text({ label: 'Lede Description', multiline: true }),
+                modules: fields.array(
+                  fields.object({
+                    title: fields.text({ label: 'Module Title' }),
+                    desc: fields.text({ label: 'Description', multiline: true }),
+                    badge: fields.text({ label: 'Technical Badge' }),
+                    href: fields.text({ label: 'Target URL (Optional)' }),
+                  }),
+                  {
+                    label: 'Rack Modules',
+                    itemLabel: (p) => p.fields.title.value || 'Module',
+                  }
+                ),
+              }),
+            },
+            specSheet: {
+              label: 'Technical Specifications & Facts',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'specifications' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                ground: fields.select({
+                  label: 'Ground Pattern',
+                  options: GROUND_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'Section Title', defaultValue: 'Specifications' }),
+                lede: fields.text({
+                  label: 'Section Lede',
+                  multiline: true,
+                  defaultValue: 'Every technical figure verified against actual hardware output.',
+                }),
+                specs: fields.array(
+                  fields.object({
+                    label: fields.text({ label: 'Parameter' }),
+                    value: fields.text({ label: 'Value' }),
+                  }),
+                  {
+                    label: 'Specifications Table',
+                    itemLabel: (p) =>
+                      p.fields.label.value ? `${p.fields.label.value}: ${p.fields.value.value}` : 'Spec',
+                  }
+                ),
+                facts: fields.array(fields.text({ label: 'Verified Fact Item' }), {
+                  label: 'Bullet Facts List',
+                }),
+              }),
+            },
+            factStatement: {
+              label: 'Editorial Fact Statement',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'facts' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                ground: fields.select({
+                  label: 'Ground Pattern',
+                  options: GROUND_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'Headline' }),
+                titleAccent: fields.text({ label: 'Headline Accent (Gold)' }),
+                facts: fields.array(fields.text({ label: 'Statement Item' }), {
+                  label: 'Bullet Facts / Statements',
+                }),
+              }),
+            },
+            richText: {
+              label: 'Rich Text Article Section',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'article' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                ground: fields.select({
+                  label: 'Ground Pattern',
+                  options: GROUND_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'Section Title' }),
+                content: fields.markdoc({
+                  label: 'Article Content (Markdoc)',
+                  components: markdocComponents,
+                }),
+              }),
+            },
+            faqAccordion: {
+              label: 'FAQ Accordion',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'faq' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'FAQ Heading', defaultValue: 'Frequently Asked Questions' }),
+                items: fields.array(
+                  fields.object({
+                    q: fields.text({ label: 'Question' }),
+                    a: fields.text({ label: 'Answer', multiline: true }),
+                  }),
+                  {
+                    label: 'Questions & Answers',
+                    itemLabel: (p) => p.fields.q.value || 'Q&A',
+                  }
+                ),
+              }),
+            },
+            closingCta: {
+              label: 'Closing Conversion CTA',
+              schema: fields.object({
+                id: fields.text({ label: 'Anchor ID', defaultValue: 'download' }),
+                enabled: fields.checkbox({ label: 'Enabled', defaultValue: true }),
+                tone: fields.select({
+                  label: 'Tone',
+                  options: TONE_OPTIONS,
+                  defaultValue: 'auto',
+                }),
+                title: fields.text({ label: 'Headline', defaultValue: 'Ready to hear your music bit for bit?' }),
+                body: fields.text({
+                  label: 'Lede Subtitle',
+                  multiline: true,
+                  defaultValue:
+                    'Install the app from Google Play and connect your DAC. No account, no ads.',
+                }),
+                buttonLabel: fields.text({ label: 'Button Label', defaultValue: 'Get it on Google Play' }),
+                buttonHref: fields.text({ label: 'Custom Target URL (Optional)' }),
+              }),
+            },
+          },
+          { label: 'Feature Page Sections (Modular Builder)' }
         ),
         cta: fields.object({
           title: fields.text({ label: 'CTA Title' }),

@@ -1,0 +1,184 @@
+---
+import FeatureMediaBeat from './FeatureMediaBeat.astro';
+import FeatureSignalPath from './FeatureSignalPath.astro';
+import FeatureStudioRack from './FeatureStudioRack.astro';
+import FeatureSpecSheet from './FeatureSpecSheet.astro';
+import FeatureFactStatement from './FeatureFactStatement.astro';
+import FeatureRichText from './FeatureRichText.astro';
+import FeatureFaqAccordion from './FeatureFaqAccordion.astro';
+import FeatureClosingCta from './FeatureClosingCta.astro';
+
+export interface Props {
+  blocks: any[];
+  slug: string;
+}
+
+const { blocks = [], slug } = Astro.props as Props;
+
+// Smart Checkerboard State Engine
+// The Feature Header is always Graphite (dark), so the first auto section becomes Ivory (light).
+let currentTone: 'graphite' | 'ivory' = 'graphite';
+let beatIndex = 0;
+
+const resolvedSections = blocks
+  .filter((block) => block && (block.enabled === undefined || block.enabled === true))
+  .map((block, idx) => {
+    const type = block.type || block.discriminant;
+    const props = block.props || block.value || block;
+
+    // 1. Resolve Tone via Smart Checkerboard
+    let resolvedTone: 'graphite' | 'ivory';
+    if (props.tone && (props.tone === 'graphite' || props.tone === 'ivory')) {
+      resolvedTone = props.tone;
+    } else {
+      resolvedTone = currentTone === 'graphite' ? 'ivory' : 'graphite';
+    }
+    currentTone = resolvedTone;
+
+    // 2. Resolve Media Side (Left/Right)
+    let resolvedMediaSide: 'left' | 'right';
+    if (props.mediaSide && (props.mediaSide === 'left' || props.mediaSide === 'right')) {
+      resolvedMediaSide = props.mediaSide;
+    } else {
+      resolvedMediaSide = resolvedTone === 'ivory' ? 'right' : 'left';
+    }
+
+    // 3. Resolve Ground Texture
+    let resolvedGround: string;
+    if (props.ground && props.ground !== 'auto') {
+      resolvedGround = props.ground;
+    } else {
+      if (resolvedTone === 'ivory') {
+        resolvedGround = beatIndex % 2 === 0 ? 'ground-harmonograph' : 'ground-halftone';
+      } else {
+        resolvedGround = beatIndex % 2 === 0 ? 'ground-samples' : 'ground-interference';
+      }
+    }
+
+    if (type === 'mediaBeat') {
+      beatIndex++;
+    }
+
+    return {
+      type,
+      props,
+      resolvedTone,
+      resolvedMediaSide,
+      resolvedGround,
+      index: idx,
+      beatIndex: beatIndex - 1,
+    };
+  });
+---
+
+{
+  resolvedSections.map((sec) => {
+    const { type, props, resolvedTone, resolvedMediaSide, resolvedGround, beatIndex: bIdx } = sec;
+
+    switch (type) {
+      case 'mediaBeat':
+        return (
+          <FeatureMediaBeat
+            slug={slug}
+            index={bIdx}
+            id={props.id}
+            title={props.title}
+            eyebrow={props.eyebrow}
+            body={props.body}
+            screen={props.screen}
+            tone={resolvedTone}
+            mediaSide={resolvedMediaSide}
+            ground={resolvedGround}
+            stats={props.stats}
+            chips={props.chips}
+            note={props.note}
+            signalStates={props.signalStates}
+            actionLink={props.actionLink}
+          />
+        );
+
+      case 'signalPath':
+      case 'signalPathComparison':
+        return (
+          <FeatureSignalPath
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            titleAccent={props.titleAccent}
+            lede={props.lede}
+            note={props.note}
+          />
+        );
+
+      case 'studioRack':
+        return (
+          <FeatureStudioRack
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            titleAccent={props.titleAccent}
+            lede={props.lede}
+            modules={props.modules}
+          />
+        );
+
+      case 'specSheet':
+        return (
+          <FeatureSpecSheet
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            lede={props.lede}
+            specs={props.specs}
+            facts={props.facts}
+          />
+        );
+
+      case 'factStatement':
+        return (
+          <FeatureFactStatement
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            titleAccent={props.titleAccent}
+            facts={props.facts}
+          />
+        );
+
+      case 'richText':
+        return (
+          <FeatureRichText
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            content={props.content}
+          />
+        );
+
+      case 'faqAccordion':
+        return (
+          <FeatureFaqAccordion
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            items={props.items}
+          />
+        );
+
+      case 'closingCta':
+        return (
+          <FeatureClosingCta
+            id={props.id}
+            tone={resolvedTone}
+            title={props.title}
+            lede={props.body || props.lede}
+            buttonLabel={props.buttonLabel}
+            buttonHref={props.buttonHref}
+          />
+        );
+
+      default:
+        return null;
+    }
+  })
+}

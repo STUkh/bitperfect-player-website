@@ -48,6 +48,8 @@ export interface FeaturePage {
   /** The label in the device screen's title row. */
   screenTitle: string;
   cta: { title: string; body: string };
+  screens?: string[];
+  blocks?: any[];
 }
 
 interface FeaturePageJsonData {
@@ -56,6 +58,8 @@ interface FeaturePageJsonData {
   beats: any[];
   screenTitle: string;
   cta: { title: string; body: string };
+  screens?: string[];
+  blocks?: any[];
 }
 
 function extractFeaturePage(data: FeaturePageJsonData): FeaturePage {
@@ -65,6 +69,8 @@ function extractFeaturePage(data: FeaturePageJsonData): FeaturePage {
     beats: data.beats as Beat[],
     screenTitle: data.screenTitle,
     cta: data.cta,
+    screens: data.screens,
+    blocks: data.blocks,
   };
 }
 

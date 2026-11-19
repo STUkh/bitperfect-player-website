@@ -66,13 +66,13 @@ export default function FeaturesTeaser({
 }: FeaturesTeaserProps = {}) {
   const activeItems = customItems && customItems.length > 0 ? customItems : defaultItems;
   return (
-    <section id="features" className={`${backgroundVariant ? 'flow-surface ' : ''}ground features-ground relative scroll-mt-20 overflow-hidden bg-surface-base section-spacious`}>
+    <section id="features" className={`${backgroundVariant ? 'flow-surface ' : ''}ground features-ground relative scroll-mt-20 overflow-hidden bg-surface-base section-default`}>
       {backgroundVariant && <FlowBackdrop variant={backgroundVariant} />}
       <Container className="lg:px-20">
-        <div className="flex items-end justify-between gap-12 lg:mb-15">
+        <div className="flex items-end justify-between gap-12">
           <div className="max-w-[620px]">
             <h2
-              className="r-rise text-headline-sm-m text-balance text-text-primary lg:text-headline-sm"
+              className="r-rise type-headline text-text-primary"
               style={{ '--i': '0' } as CSSProperties}
             >
               {title}
@@ -86,7 +86,7 @@ export default function FeaturesTeaser({
             <span>{catalogLabel}</span>
           </a>
         </div>
-        <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-0 lg:grid-cols-3 lg:gap-6">
+        <div className="stack-content grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {activeItems.map((item, i) => (
             <FeatureLinkCard
               key={item.slug}

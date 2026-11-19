@@ -73,6 +73,7 @@ const unlocks = [
 const disclosures = [
   t('pricing.disclosure_usd'),
   t('pricing.disclosure_inapp'),
+  t('pricing.disclosure_nopayment'),
   t('pricing.disclosure_devices'),
   t('pricing.disclosure_trial'),
   t('pricing.disclosure_cancel'),
@@ -81,8 +82,8 @@ const disclosures = [
 /**
  * Pricing band. No props; prices and copy are the site's own.
  *
- * Fifth band of the landing page, after PrivacyBand and before CTASection. Graphite
- * surface (`bg-surface-base`, anchor `#pricing`) over the `pricing-backdrop`
+ * Fifth band of the landing page, after PrivacyBand and before CTASection. Raised graphite
+ * surface (`bg-surface-raised`, anchor `#pricing`) over the `pricing-backdrop`
  * photograph with an overhead wash and a stage glow.
  *
  * Content: heading and lede, then TWO lacquered plan cards side by side on a subgrid
@@ -100,7 +101,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
   return (
     <section
       id="pricing"
-      className={`${backgroundVariant ? "flow-surface " : ""}relative scroll-mt-20 overflow-hidden bg-surface-base section-default`}
+      className={`${backgroundVariant ? "flow-surface " : ""}relative scroll-mt-20 overflow-hidden bg-surface-raised section-default`}
     >
       {backgroundVariant ? <FlowBackdrop variant={backgroundVariant} /> : (<>
       <div className="pricing-backdrop pointer-events-none absolute inset-0 z-0" aria-hidden="true">
@@ -120,16 +121,16 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
       <Container className="relative z-[2]">
         <SectionHeading
           tone="graphite"
-          className="lg:mx-auto lg:mb-13 lg:max-w-column lg:text-center"
+          className="lg:mx-auto lg:max-w-pricing lg:text-center"
           title={t('pricing.heading')}
-          titleClassName="text-section-sm lg:text-headline-sm"
+          titleClassName="type-headline"
           lede={t('pricing.subheading')}
-          ledeClassName="mt-3.5 text-base leading-[1.6] text-pretty lg:mx-auto lg:mt-5 lg:max-w-measure-lede lg:text-body-lg"
+          ledeClassName="stack-lede type-lede lg:mx-auto lg:max-w-measure-lede"
           reveal={0}
         />
 
         <div
-          className="r-rise mx-auto mt-[26px] grid max-w-[920px] grid-cols-1 items-stretch gap-5 md:grid-cols-2 lg:mt-0 lg:gap-6"
+          className="r-rise stack-content mx-auto grid max-w-[920px] grid-cols-1 items-stretch gap-5 md:grid-cols-2 lg:gap-6"
           style={stagger(2)}
         >
           {plans.map((p) => (
@@ -218,8 +219,7 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
           className="r-rise mt-[34px] border-t border-border-subtle pt-6 lg:mx-auto lg:mt-18 lg:max-w-pricing lg:pt-[34px]"
           style={stagger(3)}
         >
-          <span className="block text-caption text-text-tertiary lg:mb-[26px] lg:text-center">{t('pricing.covers_title')}</span>
-          <div className="mt-[18px] lg:mt-0 lg:grid lg:grid-cols-3">
+          <div className="lg:grid lg:grid-cols-3">
             {unlocks.map((unlock, i) => (
               <div
                 key={unlock.name}
@@ -231,6 +231,9 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
                 <span className="block text-body-sm font-semibold tracking-title text-balance text-text-primary lg:text-body-lg">
                   {unlock.name}
                 </span>
+                <p className="mt-2 text-caption leading-[1.6] text-pretty text-text-tertiary lg:mt-2.5 lg:text-small lg:leading-[1.62]">
+                  {unlock.desc}
+                </p>
                 {/* The one entry with a hardware condition gets a way to check it. */}
                 {unlock.isAi && (
                   <a
@@ -240,9 +243,6 @@ export default function PricingSection({ backgroundVariant }: FlowProps) {
                     {t('pricing.check_compatibility')}
                   </a>
                 )}
-                <p className="mt-2 text-caption leading-[1.6] text-pretty text-text-tertiary lg:mt-2.5 lg:text-small lg:leading-[1.62]">
-                  {unlock.desc}
-                </p>
               </div>
             ))}
           </div>

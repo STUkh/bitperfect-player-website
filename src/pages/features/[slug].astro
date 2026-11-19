@@ -27,20 +27,15 @@ import ContentLayout from '../../layouts/ContentLayout.astro';
 import Container from '../../components/primitives/Container';
 import PlayCta from '../../components/primitives/PlayCta';
 import CloseBand from '../../components/sections/CloseBand';
-import Band from '../../components/sections/Band';
-import MediaSplit from '../../components/sections/MediaSplit';
-import SectionHeading from '../../components/sections/SectionHeading';
 import SpecList from '../../components/sections/SpecList';
 import PagerPair from '../../components/sections/PagerPair';
 import FeatureMark from '../../components/primitives/FeatureMark';
-import { CHECK_SOLID_PATH } from '../../components/primitives/glyphs';
-import FeatureScreens from '../../components/devices/FeatureScreens';
+import FeatureBlockRenderer from '../../components/features/FeatureBlockRenderer.astro';
 import { indexOrder, getLocalizedFeaturePage } from '../../data/feature-pages';
 import { getLocalizedFeatureBySlug } from '../../data/features';
-import { signalStateColors, signalStateKeys, type SignalStateKey } from '../../data/colors';
 import { withBase } from '../../utils/nav';
 import { getLocalizedFeatureName } from '../../data/navigation';
-import { useTranslations, type UIKey } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
   const order = [...indexOrder];
@@ -71,13 +66,6 @@ const feature = getLocalizedFeatureBySlug(slug, lang);
 /* The name on the trail, the h1 and both pagers is the same string the visitor
    clicked to get here. See `featureRoutes` in src/data/navigation.ts. */
 const name = getLocalizedFeatureName(slug, lang);
-
-
-const getSignalStateLabel = (key: SignalStateKey) => {
-  const i18nKey = `feature_detail.signal_state.${key}` as UIKey;
-  const translated = t(i18nKey);
-  return translated && translated !== i18nKey ? translated : signalStateColors[key].label;
-};
 
 /**
  * The signal path, drawn to scale.
@@ -113,6 +101,50 @@ const SIGNAL_PATH = {
 
 const showSignalPath = slug === 'usb-dac';
 
+const rawBlocks = page.blocks;
+const featureBlocks =
+  rawBlocks && rawBlocks.length > 0
+    ? rawBlocks
+    : [
+        ...(showSignalPath
+          ? [
+              {
+                type: 'signalPathComparison',
+                enabled: true,
+                props: {
+                  id: 'signal-path',
+                  title: t('feature_detail.signal_path_title'),
+                  titleAccent: '',
+                  lede: t('feature_detail.signal_path_subtitle'),
+                  note: SIGNAL_PATH.note,
+                },
+              },
+            ]
+          : []),
+        ...page.beats.map((beat, i) => ({
+          type: 'mediaBeat',
+          enabled: true,
+          props: {
+            ...beat,
+            screen: (page.screens && page.screens[i]) || undefined,
+          },
+        })),
+        ...(feature?.specs && feature.specs.length > 0
+          ? [
+              {
+                type: 'specSheet',
+                enabled: true,
+                props: {
+                  id: 'specifications',
+                  title: t('feature_detail.specifications_title'),
+                  lede: t('feature_detail.specifications_subtitle'),
+                  specs: feature.specs,
+                  facts: feature.facts,
+                },
+              },
+            ]
+          : []),
+      ];
 ---
 
 <ContentLayout title={name} description={page.lede}>
@@ -180,479 +212,8 @@ const showSignalPath = slug === 'usb-dac';
     </Container>
   </section>
 
-  {/* ── The signal path comparison, on white ivory (usb-dac only) ──
-      Follows the dark Feature Header so the route alternates:
-      Dark (Header) -> Light (Signal Path) -> Dark (Beat 0) -> Light (Beat 1) -> Dark (Beat 2) -> Light (Beat 3) -> Dark (Beat 4). */}
-  {
-    showSignalPath && (
-      <Band tone="ivory" space="default">
-        {/* Section Heading - Centered */}
-        <div class="mx-auto max-w-3xl text-center">
-          <span class="text-xs font-semibold tracking-wider uppercase text-band-gold-ink">
-            {t('feature_detail.signal_path_eyebrow')}
-          </span>
-          <h2 class="mt-2 text-section-m text-band-ink lg:text-headline">
-            {t('feature_detail.signal_path_title')}
-          </h2>
-          <p class="mt-3 text-body leading-relaxed text-pretty text-band-ink-muted lg:mt-4 lg:text-lede">
-            {t('feature_detail.signal_path_subtitle')}
-          </p>
-        </div>
-
-        {/* ── The 2-Column Comparative Architecture (No nested boxes) ── */}
-        <div class="mt-10 grid grid-cols-1 gap-6 lg:mt-14 lg:grid-cols-2 lg:gap-8">
-          {/* Card 1: Standard Android Path */}
-          <div class="flex flex-col justify-between rounded-2xl border border-band-rule bg-white p-6 sm:p-8">
-            <div>
-              {/* Header */}
-              <div class="flex items-center justify-between border-b border-band-rule pb-5">
-                <div class="flex items-center gap-2.5">
-                  <span class="h-2.5 w-2.5 rounded-full bg-band-ink/40" aria-hidden="true" />
-                  <span class="text-xs font-semibold uppercase tracking-wider text-band-ink">
-                    {t('feature_detail.signal_path_android')}
-                  </span>
-                </div>
-                <span class="text-xs font-medium uppercase text-band-ink-muted">
-                  7 {t('feature_detail.signal_path_stages')}
-                </span>
-              </div>
-
-              {/* Delivery Output Metric */}
-              <div class="border-b border-band-rule pb-5 pt-4">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <span class="block text-xs font-medium uppercase tracking-wider text-band-ink-muted">
-                      {t('feature_detail.signal_path_reaches_dac')}
-                    </span>
-                    <span class="mt-1 block text-2xl font-bold tracking-tight text-band-ink tabular-nums">
-                      48 kHz / 16-bit
-                    </span>
-                  </div>
-                  <span class="rounded-full border border-band-rule bg-black/[0.04] px-3 py-1 text-xs font-semibold text-band-ink-muted">
-                    Resampled
-                  </span>
-                </div>
-              </div>
-
-              {/* 7 Vertical Pipeline Stages */}
-              <div class="relative pt-6 pl-1">
-                {/* Continuous vertical timeline connector line */}
-                <div class="absolute left-[13.5px] top-10 bottom-6 w-px bg-band-rule/80" aria-hidden="true" />
-
-                <div class="flex flex-col space-y-5">
-                  {[
-                    {
-                      num: '01',
-                      name: t('feature.usb-dac.signal_path.android.stage.0'),
-                      note: '192 kHz / 24-bit',
-                      detail: 'Original high-resolution master file',
-                      status: 'gold'
-                    },
-                    {
-                      num: '02',
-                      name: t('feature.usb-dac.signal_path.android.stage.1'),
-                      note: 'Shared audio pipe',
-                      detail: 'Enters Android shared system audio server',
-                      status: 'gray'
-                    },
-                    {
-                      num: '03',
-                      name: t('feature.usb-dac.signal_path.android.stage.2'),
-                      note: 'Forced to 48 kHz',
-                      detail: 'OS resamples all audio to fixed 48 kHz clock',
-                      status: 'gray'
-                    },
-                    {
-                      num: '04',
-                      name: t('feature.usb-dac.signal_path.android.stage.3'),
-                      note: 'Mixed with system sounds',
-                      detail: 'Blended with notifications, ringtones and chimes',
-                      status: 'gray'
-                    },
-                    {
-                      num: '05',
-                      name: t('feature.usb-dac.signal_path.android.stage.4'),
-                      note: 'Digital attenuation',
-                      detail: 'Volume lowered by digital bit reduction',
-                      status: 'gray'
-                    },
-                    {
-                      num: '06',
-                      name: t('feature.usb-dac.signal_path.android.stage.5'),
-                      note: 'Truncated to 16-bit',
-                      detail: '24-bit dynamic range crushed down to 16-bit',
-                      status: 'gray'
-                    },
-                    {
-                      num: '07',
-                      name: t('feature.usb-dac.signal_path.android.stage.6'),
-                      note: '48 kHz / 16-bit stream',
-                      detail: 'Compromised audio stream delivered to USB DAC',
-                      status: 'gray'
-                    },
-                  ].map((st) => (
-                    <div class="relative flex items-start gap-3.5">
-                      {/* Node Icon */}
-                      <span class:list={[
-                        'relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs tabular-nums',
-                        st.status === 'gold' && 'bg-band-gold-ink text-white font-bold shadow-xs',
-                        st.status === 'gray' && 'border border-band-rule bg-black/[0.04] text-band-ink-muted/80 font-medium'
-                      ]}>
-                        {st.num}
-                      </span>
-                      {/* Content */}
-                      <div class="min-w-0 flex-1 pt-0.5">
-                        <div class="flex flex-wrap items-baseline justify-between gap-x-2">
-                          <span class:list={[
-                            'text-sm sm:text-base',
-                            st.status === 'gold' ? 'font-semibold text-band-ink' : 'font-medium text-band-ink-muted'
-                          ]}>
-                            {st.name}
-                          </span>
-                          <span class:list={[
-                            'text-xs sm:text-[13px] tabular-nums',
-                            st.status === 'gold' ? 'font-bold text-band-gold-ink' : 'font-medium text-band-ink-muted/80'
-                          ]}>
-                            {st.note}
-                          </span>
-                        </div>
-                        <span class:list={[
-                          'mt-0.5 block text-xs sm:text-[13px] leading-relaxed',
-                          st.status === 'gold' ? 'text-band-ink-muted' : 'text-band-ink-muted/70'
-                        ]}>
-                          {st.detail}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Verdict */}
-            <div class="mt-8 flex items-center justify-between border-t border-band-rule pt-4 text-xs sm:text-sm text-band-ink-muted">
-              <span>Final signal state:</span>
-              <span class="font-semibold text-amber-800">
-                Resampled & Altered
-              </span>
-            </div>
-          </div>
-
-          {/* Card 2: Bitperfect Player Direct Path */}
-          <div class="relative flex flex-col justify-between rounded-2xl border-2 border-band-gold-ink/35 bg-gradient-to-b from-[#faf7f0] to-white p-6 sm:p-8 shadow-sm">
-            <div class="flex flex-1 flex-col">
-              {/* Header */}
-              <div class="flex items-center justify-between border-b border-band-gold-ink/20 pb-5">
-                <div class="flex items-center gap-2.5">
-                  <span class="h-2.5 w-2.5 rounded-full bg-band-gold-ink" aria-hidden="true" />
-                  <span class="text-xs font-bold uppercase tracking-wider text-band-gold-ink">
-                    {t('feature_detail.signal_path_ours')}
-                  </span>
-                </div>
-                <span class="text-xs font-bold uppercase text-band-gold-ink">
-                  4 {t('feature_detail.signal_path_stages')} · Direct Lock
-                </span>
-              </div>
-
-              {/* Delivery Output Metric */}
-              <div class="border-b border-band-gold-ink/20 pb-5 pt-4">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <span class="block text-xs font-semibold uppercase tracking-wider text-band-gold-ink">
-                      {t('feature_detail.signal_path_reaches_dac')}
-                    </span>
-                    <span class="mt-1 block text-2xl font-bold tracking-tight text-band-gold-ink tabular-nums">
-                      192 kHz / 24-bit
-                    </span>
-                  </div>
-                  <span class="rounded-full bg-band-gold-ink/15 px-3 py-1 text-xs font-bold text-band-gold-ink">
-                    Bit-Perfect
-                  </span>
-                </div>
-              </div>
-
-              {/* 4 Direct Stages with continuous gold line and balanced spacing */}
-              <div class="relative flex flex-1 flex-col justify-between pt-6 pl-1">
-                {/* Continuous vertical timeline connector line in gold */}
-                <div class="absolute left-[13.5px] top-10 bottom-6 w-px bg-band-gold-ink/35" aria-hidden="true" />
-
-                <div class="flex flex-1 flex-col justify-between gap-6 py-2">
-                  {[
-                    {
-                      num: '01',
-                      name: t('feature.usb-dac.signal_path.ours.stage.0'),
-                      note: '192 kHz / 24-bit',
-                      detail: 'High-res audio streamed directly from storage into RAM'
-                    },
-                    {
-                      num: '02',
-                      name: t('feature.usb-dac.signal_path.ours.stage.1'),
-                      note: 'Bypasses system mixer',
-                      detail: 'Exclusive hardware claim locks the port; no system sound can intervene'
-                    },
-                    {
-                      num: '03',
-                      name: t('feature.usb-dac.signal_path.ours.stage.2'),
-                      note: '0 mixers, 0 resamplers',
-                      detail: 'Zero software volume attenuation; every sample sent to USB untouched'
-                    },
-                    {
-                      num: '04',
-                      name: t('feature.usb-dac.signal_path.ours.stage.3'),
-                      note: 'DAC follows file clock',
-                      detail: 'Hardware DAC locks onto native sampling frequency (up to 768 kHz / DSD512)'
-                    },
-                  ].map((st) => (
-                    <div class="relative flex items-start gap-3.5">
-                      {/* Node Icon */}
-                      <span class="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-band-gold-ink text-white shadow-xs">
-                        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fill-rule="evenodd" d={CHECK_SOLID_PATH} clip-rule="evenodd" />
-                        </svg>
-                      </span>
-                      {/* Content */}
-                      <div class="min-w-0 flex-1 pt-0.5">
-                        <div class="flex flex-wrap items-baseline justify-between gap-x-2">
-                          <span class="text-sm sm:text-base font-bold text-band-ink">{st.name}</span>
-                          <span class="text-xs sm:text-[13px] font-bold text-band-gold-ink tabular-nums">{st.note}</span>
-                        </div>
-                        <span class="mt-0.5 block text-xs sm:text-[13px] text-band-ink-muted leading-relaxed">{st.detail}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Verdict */}
-            <div class="mt-8 flex items-center justify-between border-t border-band-gold-ink/20 pt-4 text-xs sm:text-sm text-band-ink-muted">
-              <span>Final signal state:</span>
-              <span class="font-bold text-band-gold-ink">
-                ✓ 100% Bit-Perfect
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Three Counts (All Zero) - Open Airy Layout ── */}
-        <div class="mt-12 border-t border-band-rule pt-10 lg:mt-16 lg:pt-12">
-          <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10 sm:divide-x sm:divide-band-rule">
-            <div class="sm:pr-8">
-              <span class="block text-section-m font-bold tabular-nums text-band-gold-ink lg:text-section">0</span>
-              <span class="mt-2 block text-xs font-bold tracking-wider text-band-ink uppercase">
-                {t('feature_detail.signal_path_resamples')}
-              </span>
-              <p class="mt-1.5 text-caption text-band-ink-muted leading-relaxed">
-                None. Your DAC's internal oscillator clocks directly to the file's native sampling rate.
-              </p>
-            </div>
-            <div class="pt-6 sm:pt-0 sm:px-8">
-              <span class="block text-section-m font-bold tabular-nums text-band-gold-ink lg:text-section">0</span>
-              <span class="mt-2 block text-xs font-bold tracking-wider text-band-ink uppercase">
-                {t('feature_detail.signal_path_mixers')}
-              </span>
-              <p class="mt-1.5 text-caption text-band-ink-muted leading-relaxed">
-                Bypasses the Android system mixer entirely with a direct, exclusive USB driver.
-              </p>
-            </div>
-            <div class="pt-6 sm:pt-0 sm:pl-8">
-              <span class="block text-section-m font-bold tabular-nums text-band-gold-ink lg:text-section">0</span>
-              <span class="mt-2 block text-xs font-bold tracking-wider text-band-ink uppercase">
-                {t('feature_detail.signal_path_conversions')}
-              </span>
-              <p class="mt-1.5 text-caption text-band-ink-muted leading-relaxed">
-                Full 24-bit and 32-bit dynamic range preserved without software volume attenuation.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Live Signal Badge Verification Note - Clean & Minimal ── */}
-        <div class="mt-10 flex flex-col items-start gap-3 rounded-xl bg-black/[0.02] px-5 py-4 sm:flex-row sm:items-center sm:gap-4">
-          <span class="shrink-0 rounded-full bg-band-gold-ink/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#614100]">
-            Bit-perfect
-          </span>
-          <p class="text-caption text-pretty text-band-ink-muted leading-relaxed">
-            {SIGNAL_PATH.note}
-          </p>
-        </div>
-      </Band>
-    )
-  }
-
-  {/* ── The beats, as alternating bands ──
-      One beat per section, the art side and the ground colour flipping together:
-      dark with the art left, then white with the art right, and on down.
-
-      Three things keep that from reading as stripes, all of them lifted from sites
-      that ship this pattern well. The split is never 50/50 (Linear runs 8/4 of
-      twelve, Stripe 2fr/1fr) because equal columns leave a dead gutter down the
-      middle. The vertical padding differs per band, the white ones running taller.
-      And the LAST beat breaks the alternation entirely and goes full width, because
-      four identical flips is a zigzag and a zigzag is a template.
-
-      The art is the app's own screen for that beat. Every route already has four,
-      and they already map one to one onto the four beats, so the page argues with
-      the product rather than with a placeholder.
-
-      Mobile order is authored, not inherited: the order utilities are scoped to
-      `lg:`, so at 390 the DOM order rules and the screen comes first in EVERY
-      section. `flex-direction: row-reverse` would flip half of them. */}
-  {
-    page.beats.map((beat, i) => {
-      /* Strict alternation across both 4-beat routes and 5-beat usb-dac:
-         - On 4-beat routes (after Dark Header): Beat 0 Light -> Beat 1 Dark -> Beat 2 Light -> Beat 3 Dark.
-         - On 5-beat usb-dac (after Dark Header + Light Signal Path): Beat 0 Dark -> Beat 1 Light -> Beat 2 Dark -> Beat 3 Light -> Beat 4 Dark.
-         Every route ends its final beat on Dark, flowing into the Light Specification band below.
-      */
-      const onWhite = (page.beats.length - 1 - i) % 2 === 1;
-      const artLeft = !onWhite;
-      /* Each beat draws its own ground, cycling within its colour so the two
-         light beats differ and the two dark beats differ. Beats of one colour
-         sit two apart, so the order also counts back from the end: the last
-         dark beat, above the drafting-paper spec band, always gets samples. */
-      const sameColourFromEnd = Math.floor((page.beats.length - 1 - i) / 2);
-      const ground = onWhite
-        ? ['ground-harmonograph', 'ground-halftone'][sameColourFromEnd % 2]
-        : ['ground-samples', 'ground-interference'][sameColourFromEnd % 2];
-      const tone = onWhite ? 'ivory' : 'graphite';
-      return (
-        <Band tone={tone} ground={ground} space={onWhite ? 'spacious' : 'default'}>
-          {/* The screen (art) is first in the DOM, so it leads cleanly on mobile
-              before the copy. 6 of 12 columns each from `lg`, art centred in its own. */}
-          <MediaSplit
-            split="6/6"
-            mediaFirst
-            mediaSide={artLeft ? 'left' : 'right'}
-            copyClassName="flex flex-col gap-3.5 lg:gap-4"
-          >
-            <FeatureScreens slot="media" slug={slug} state={i} />
-
-            <SectionHeading
-              className="contents"
-              tone={tone}
-              title={beat.title}
-              lede={beat.body}
-              ledeClassName="max-w-measure text-body text-pretty lg:text-body-lg"
-              reveal={1}
-            />
-
-            {beat.stats && (
-              <SpecList
-                tone={tone}
-                items={beat.stats}
-                labelTone="accent"
-                close="none"
-                className="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
-                style="--i: 3"
-                rowClassName="flex flex-col gap-1 pt-3.5"
-                labelClassName="text-label tracking-micro uppercase"
-                valueClassName="text-body-lg font-semibold tabular-nums"
-              />
-            )}
-
-            {beat.chips && (
-              <div class="r-rise mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small tabular-nums" style="--i: 3">
-                {beat.chips.map((chip, idx) => (
-                  <span
-                    class:list={[
-                      chip.active
-                        ? onWhite
-                          ? 'font-semibold text-band-gold-ink'
-                          : 'font-semibold text-gold'
-                        : onWhite
-                          ? 'text-band-ink-muted'
-                          : 'text-text-secondary',
-                    ]}
-                  >
-                    {chip.label}
-                    {idx < beat.chips!.length - 1 && (
-                      <span class="ml-2 text-text-tertiary/40">·</span>
-                    )}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {slug === 'ai-enhancer' && beat.chips && (
-              <div class="r-rise mt-2" style="--i: 3">
-                <a
-                  href={withBase('compatibility')}
-                  class:list={[
-                    'focus-visible:focus-ring inline-flex items-center text-small font-semibold transition-colors',
-                    onWhite ? 'text-band-gold-ink hover:underline' : 'text-gold hover:text-gold-light',
-                  ]}
-                >
-                  Check compatibility
-                </a>
-              </div>
-            )}
-
-            {beat.signalStates && (
-              <div
-                class:list={[
-                  'r-rise mt-2 flex flex-wrap gap-x-5 gap-y-2.5 border-t pt-4',
-                  onWhite ? 'border-band-rule' : 'border-border-subtle',
-                ]}
-                style="--i: 3"
-              >
-                {signalStateKeys.map((key) => {
-                  const state = signalStateColors[key];
-                  return (
-                    <span class="inline-flex items-center gap-2 py-1 text-xs font-semibold">
-                      <span class="h-2.5 w-2.5 shrink-0 rounded-full" style={`background-color: ${state.hex};`} aria-hidden="true" />
-                      <span class={onWhite ? 'text-band-ink' : 'text-text-primary'}>{getSignalStateLabel(key)}</span>
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-
-            {beat.note && (
-              <p
-                class:list={[
-                  'r-rise mt-2 border-t pt-3.5 text-small tabular-nums text-pretty',
-                  onWhite
-                    ? 'border-band-rule text-band-ink-muted'
-                    : 'border-border-subtle text-text-secondary',
-                ]}
-                style="--i: 3"
-              >
-                {beat.note}
-              </p>
-            )}
-          </MediaSplit>
-        </Band>
-      );
-    })
-  }
-
-  {/* The seam between the rail and the white band: a hairline, no image. */}
-  <div class="h-px w-full bg-gradient-to-r from-transparent via-border-subtle to-transparent" />
-
-  {/* ── White specification band: the numbers, in full ── */}
-  <Band tone="ivory">
-    <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
-      <SectionHeading
-        tone="ivory"
-        className="lg:col-span-4"
-        title={t('feature_detail.specifications_title')}
-        titleClassName="text-section-sm font-bold lg:text-section-lg"
-        lede={t('feature_detail.specifications_subtitle')}
-        ledeClassName="mt-4 max-w-measure-card text-body lg:mt-5"
-      />
-
-      <SpecList
-        tone="ivory"
-        items={feature?.specs ?? []}
-        close="grid-2"
-        className="grid grid-cols-1 gap-x-12 lg:col-span-8 lg:grid-cols-2"
-        rowClassName="flex flex-col gap-1.5 py-4 lg:py-5"
-        labelClassName="mono-spec text-micro uppercase tracking-wider"
-        valueClassName="text-body-lg font-semibold tabular-nums"
-      />
-    </div>
-  </Band>
+  {/* ── Dynamic Modular Feature Sections (Smart Checkerboard Rhythm) ── */}
+  <FeatureBlockRenderer blocks={featureBlocks} slug={slug} />
 
   {/* ── Prev and next ──
       Walks indexOrder and wraps at both ends, so the six routes form one ring

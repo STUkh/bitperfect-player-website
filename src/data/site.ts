@@ -80,6 +80,7 @@ export function getLocalizedDisclosures(lang?: string): string[] {
   return [
     t("pricing.disclosure_usd"),
     t("pricing.disclosure_inapp"),
+    t("pricing.disclosure_nopayment"),
     t("pricing.disclosure_devices"),
     t("pricing.disclosure_trial"),
     t("pricing.disclosure_cancel"),

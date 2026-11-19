@@ -153,6 +153,30 @@ const faq = defineCollection({
 });
 
 /**
+ * Block item schema for dynamic modular page builders (Pages and Features collections)
+ * Supports both Keystatic { discriminant, value } structure and { id, type, enabled, props }
+ */
+const pageBlockSchema = z.union([
+  z
+    .object({
+      discriminant: z.string(),
+      value: z.record(z.unknown()),
+    })
+    .transform((b) => ({
+      id: typeof b.value.id === 'string' ? b.value.id : undefined,
+      type: b.discriminant,
+      enabled: typeof b.value.enabled === 'boolean' ? b.value.enabled : true,
+      props: b.value,
+    })),
+  z.object({
+    id: z.string().optional(),
+    type: z.string(),
+    enabled: z.boolean().default(true).optional(),
+    props: z.record(z.unknown()).optional(),
+  }),
+]);
+
+/**
  * Features Collection
  * Complete feature route definitions, combining technical capabilities and landing page composition.
  */
@@ -190,31 +214,39 @@ const features = defineCollection({
       })
     ),
     screenTitle: z.string(),
-    beats: z.array(
-      z.object({
-        eyebrow: z.string(),
-        title: z.string(),
-        body: z.string(),
-        chips: z
-          .array(
-            z.object({
-              label: z.string(),
-              active: z.boolean().optional(),
-            })
-          )
-          .optional(),
-        stats: z
-          .array(
-            z.object({
-              label: z.string(),
-              value: z.string(),
-            })
-          )
-          .optional(),
-        note: z.string().optional(),
-        signalStates: z.boolean().optional(),
-      })
-    ),
+    screens: z.array(z.string()).optional(),
+    beats: z
+      .array(
+        z.object({
+          eyebrow: z.string(),
+          title: z.string(),
+          body: z.string(),
+          screen: z.string().optional(),
+          tone: z.enum(['auto', 'graphite', 'ivory']).default('auto').optional(),
+          mediaSide: z.enum(['auto', 'left', 'right']).default('auto').optional(),
+          ground: z.string().optional(),
+          chips: z
+            .array(
+              z.object({
+                label: z.string(),
+                active: z.boolean().optional(),
+              })
+            )
+            .optional(),
+          stats: z
+            .array(
+              z.object({
+                label: z.string(),
+                value: z.string(),
+              })
+            )
+            .optional(),
+          note: z.string().optional(),
+          signalStates: z.boolean().optional(),
+        })
+      )
+      .default([]),
+    blocks: z.array(pageBlockSchema).optional(),
     cta: z.object({
       title: z.string(),
       body: z.string(),
@@ -222,30 +254,6 @@ const features = defineCollection({
     order: z.number().optional(),
   }),
 });
-
-/**
- * Block item schema for Pages collection
- * Supports both Keystatic { discriminant, value } structure and { id, type, enabled, props }
- */
-const pageBlockSchema = z.union([
-  z
-    .object({
-      discriminant: z.string(),
-      value: z.record(z.unknown()),
-    })
-    .transform((b) => ({
-      id: typeof b.value.id === 'string' ? b.value.id : undefined,
-      type: b.discriminant,
-      enabled: typeof b.value.enabled === 'boolean' ? b.value.enabled : true,
-      props: b.value,
-    })),
-  z.object({
-    id: z.string().optional(),
-    type: z.string(),
-    enabled: z.boolean().default(true).optional(),
-    props: z.record(z.unknown()).optional(),
-  }),
-]);
 
 /**
  * Pages Collection
@@ -353,18 +361,13 @@ const neuralChips = defineCollection({
         ),
       })
     ),
-    liteModeGroups: z.array(
-      z.object({
-        chip: z.string(),
-        devices: z.string(),
-      })
-    ),
     enhancerModes: z.array(
       z.object({
         id: z.string(),
         title: z.string(),
-        body: z.string(),
-        needs: z.string(),
+        body: z.string().optional(),
+        facts: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+        phones: z.string().optional(),
       })
     ),
     systemRequirements: z.array(

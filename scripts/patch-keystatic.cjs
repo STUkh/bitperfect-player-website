@@ -41,13 +41,32 @@ for (const relPath of targetFiles) {
     console.log(`[patch-keystatic] Injected HTTP error reporting into ${relPath}`);
   }
 
-  // 3. Enhance error reporting in try/catch around tokenDataResultType.create
+  // 3. Normalize OAuth token response to support both GitHub Apps and standard OAuth Apps
+  const parseJsonTarget = "const _tokenData = await tokenRes.json();";
+  const parseJsonPatched =
+    "const _tokenData = await tokenRes.json();\n  if (_tokenData && _tokenData.access_token) {\n    if (typeof _tokenData.expires_in !== 'number') _tokenData.expires_in = 28800;\n    if (typeof _tokenData.refresh_token !== 'string') _tokenData.refresh_token = '';\n    if (typeof _tokenData.refresh_token_expires_in !== 'number') _tokenData.refresh_token_expires_in = 15552000;\n    if (typeof _tokenData.scope !== 'string') _tokenData.scope = '';\n  }";
+
+  if (content.includes(parseJsonTarget) && !content.includes("_tokenData.expires_in = 28800")) {
+    content = content.replace(parseJsonTarget, parseJsonPatched);
+    console.log(`[patch-keystatic] Injected OAuth token normalization into ${relPath}`);
+  }
+
+  // 4. Enhance error reporting in try/catch around tokenDataResultType.create
   const catchTarget = "  try {\n    tokenData = tokenDataResultType.create(_tokenData);\n  } catch {\n    return {\n      status: 401,\n      body: 'Authorization failed'\n    };\n  }";
   const catchPatched = "  try {\n    tokenData = tokenDataResultType.create(_tokenData);\n  } catch (_oauthErr) {\n    const _errDetail = typeof _tokenData === 'object' && _tokenData ? JSON.stringify(_tokenData) : String(_oauthErr);\n    return {\n      status: 401,\n      body: 'Authorization failed: ' + _errDetail\n    };\n  }";
 
   if (content.includes(catchTarget)) {
     content = content.replace(catchTarget, catchPatched);
     console.log(`[patch-keystatic] Injected catch error reporting into ${relPath}`);
+  }
+
+  // 5. Make getTokenCookies resilient to empty refresh_token
+  const cookiesTarget = "  const headers = [['Set-Cookie', cookie.serialize('keystatic-gh-access-token', tokenData.access_token, {\n    sameSite: 'lax',\n    secure: process.env.NODE_ENV === 'production',\n    maxAge: tokenData.expires_in,\n    expires: new Date(Date.now() + tokenData.expires_in * 1000),\n    path: '/'\n  })], ['Set-Cookie', cookie.serialize('keystatic-gh-refresh-token', await encryptValue(tokenData.refresh_token, config.secret), {\n    sameSite: 'lax',\n    secure: process.env.NODE_ENV === 'production',\n    httpOnly: true,\n    maxAge: tokenData.refresh_token_expires_in,\n    expires: new Date(Date.now() + tokenData.refresh_token_expires_in * 100),\n    path: '/'\n  })]];";
+  const cookiesPatched = "  const headers = [['Set-Cookie', cookie.serialize('keystatic-gh-access-token', tokenData.access_token, {\n    sameSite: 'lax',\n    secure: process.env.NODE_ENV === 'production',\n    maxAge: tokenData.expires_in,\n    expires: new Date(Date.now() + tokenData.expires_in * 1000),\n    path: '/'\n  })]];\n  if (tokenData.refresh_token && config && config.secret) {\n    try {\n      headers.push(['Set-Cookie', cookie.serialize('keystatic-gh-refresh-token', await encryptValue(tokenData.refresh_token, config.secret), {\n        sameSite: 'lax',\n        secure: process.env.NODE_ENV === 'production',\n        httpOnly: true,\n        maxAge: tokenData.refresh_token_expires_in,\n        expires: new Date(Date.now() + tokenData.refresh_token_expires_in * 100),\n        path: '/'\n      })]);\n    } catch (_encErr) {}\n  }";
+
+  if (content.includes(cookiesTarget)) {
+    content = content.replace(cookiesTarget, cookiesPatched);
+    console.log(`[patch-keystatic] Injected resilient getTokenCookies into ${relPath}`);
   }
 
   fs.writeFileSync(filePath, content, 'utf8');

@@ -1,0 +1,63 @@
+---
+import Band from '../sections/Band';
+import Container from '../primitives/Container';
+import SectionHeading from '../sections/SectionHeading';
+
+export interface Props {
+  id?: string;
+  tone?: 'ivory' | 'graphite';
+  title?: string;
+  items?: Array<{ q: string; a: string }>;
+}
+
+const {
+  id = 'faq',
+  tone = 'ivory',
+  title = 'Frequently Asked Questions',
+  items = [],
+} = Astro.props as Props;
+
+const onWhite = tone === 'ivory';
+---
+
+<Band
+  id={id}
+  tone={tone}
+  ground={onWhite ? 'ground-halftone' : 'ground-interference'}
+  space="spacious"
+  className="border-t border-border-subtle/40"
+>
+  <Container className="max-w-3xl">
+    <SectionHeading
+      tone={tone}
+      title={title}
+      titleClassName="text-headline-sm lg:text-headline-m text-center"
+      reveal={0}
+    />
+
+    {items && items.length > 0 && (
+      <div class="mt-10 space-y-4">
+        {items.map((item) => (
+          <details
+            class:list={[
+              'group rounded-xl border p-5 transition-all duration-200',
+              onWhite
+                ? 'border-band-rule bg-white shadow-xs open:border-band-gold-ink/40'
+                : 'border-border-subtle bg-surface-raised/40 open:border-gold/40'
+            ]}
+          >
+            <summary class:list={['flex cursor-pointer items-center justify-between font-bold text-body-lg list-none', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+              <span>{item.q}</span>
+              <span class:list={['ml-4 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs transition-transform duration-200 group-open:rotate-180', onWhite ? 'bg-black/[0.04] text-band-ink' : 'bg-white/10 text-text-primary']}>
+                ▼
+              </span>
+            </summary>
+            <p class:list={['mt-4 text-body leading-relaxed pt-3 border-t', onWhite ? 'border-band-rule text-band-ink-muted' : 'border-border-subtle text-text-secondary']}>
+              {item.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    )}
+  </Container>
+</Band>

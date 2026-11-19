@@ -5,7 +5,7 @@ import Button from '../primitives/Button';
 import SectionHeading from './SectionHeading';
 
 /**
- * The closing call to action of a page: a centred band on a rosette ground with an
+ * The closing call to action of a page: a centred band on a warm gold glow with an
  * eyebrow, a title, one line of copy, a primary (gold) button and an optional
  * secondary (graphite) one, large. Put it just above the Footer.
  */
@@ -53,7 +53,7 @@ export default function ClosingBanner(props: ClosingBannerProps) {
   const maxWidthClass = maxWidth === '760px' ? 'max-w-column' : 'max-w-page-head';
 
   return (
-    <Band ground="ground-rosette" className="border-t border-border-subtle bg-surface-raised">
+    <Band ground="ground-glow" className="border-t border-border-subtle bg-surface-raised">
       <div className={cx(['mx-auto', maxWidthClass])}>
         {top != null && <div className="w-full flex flex-col items-center text-center">{top}</div>}
         <SectionHeading

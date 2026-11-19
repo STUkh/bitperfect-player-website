@@ -1,0 +1,64 @@
+---
+import Band from '../sections/Band';
+import SectionHeading from '../sections/SectionHeading';
+import SpecList from '../sections/SpecList';
+
+export interface Props {
+  id?: string;
+  tone?: 'ivory' | 'graphite';
+  title?: string;
+  lede?: string;
+  specs?: Array<{ label: string; value: string }>;
+  facts?: string[];
+}
+
+const {
+  id = 'specifications',
+  tone = 'ivory',
+  title = 'Specifications',
+  lede = 'Every technical figure verified against actual hardware output.',
+  specs = [],
+  facts = [],
+} = Astro.props as Props;
+
+const onWhite = tone === 'ivory';
+---
+
+<Band id={id} tone={tone} ground={onWhite ? 'ground-harmonograph' : 'ground-samples'} space="spacious">
+  <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-4">
+      <SectionHeading
+        tone={tone}
+        title={title}
+        titleClassName="text-section-sm font-bold lg:text-section-lg"
+        lede={lede}
+        ledeClassName="mt-4 max-w-measure-card text-body lg:mt-5"
+      />
+
+      {facts && facts.length > 0 && (
+        <ul role="list" class:list={['mt-6 space-y-2.5 text-small border-t pt-5', onWhite ? 'border-band-rule text-band-ink-muted' : 'border-border-subtle text-text-secondary']}>
+          {facts.map((fact) => (
+            <li class="flex items-start gap-2.5">
+              <span class:list={['mt-1 h-1.5 w-1.5 shrink-0 rounded-full', onWhite ? 'bg-band-gold-ink' : 'bg-gold']} aria-hidden="true" />
+              <span>{fact}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <div class="lg:col-span-8">
+      {specs && specs.length > 0 && (
+        <SpecList
+          tone={tone}
+          items={specs}
+          close="grid-2"
+          className="grid grid-cols-1 gap-x-12 sm:grid-cols-2"
+          rowClassName="flex flex-col gap-1.5 py-4 lg:py-5"
+          labelClassName="mono-spec text-micro uppercase tracking-wider"
+          valueClassName="text-body-lg font-semibold tabular-nums"
+        />
+      )}
+    </div>
+  </div>
+</Band>

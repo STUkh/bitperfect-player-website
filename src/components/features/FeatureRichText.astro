@@ -1,0 +1,45 @@
+---
+import Band from '../sections/Band';
+import Container from '../primitives/Container';
+
+export interface Props {
+  id?: string;
+  tone?: 'graphite' | 'ivory';
+  title?: string;
+  content?: string;
+}
+
+const {
+  id = 'rich-text',
+  tone = 'graphite',
+  title,
+  content = '',
+} = Astro.props as Props;
+
+const onWhite = tone === 'ivory';
+---
+
+<Band
+  id={id}
+  tone={tone}
+  ground={onWhite ? 'ground-harmonograph' : 'ground-samples'}
+  space="spacious"
+  className="border-t border-border-subtle/40"
+>
+  <Container className="max-w-3xl">
+    {title && (
+      <h2 class:list={['mb-8 text-headline-sm font-bold', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+        {title}
+      </h2>
+    )}
+    <div
+      class:list={[
+        'prose max-w-none text-body leading-relaxed',
+        onWhite
+          ? 'prose-stone text-band-ink-muted prose-headings:text-band-ink prose-a:text-band-gold-ink'
+          : 'prose-invert text-text-secondary prose-headings:text-text-primary prose-a:text-gold'
+      ]}
+      set:html={content}
+    />
+  </Container>
+</Band>

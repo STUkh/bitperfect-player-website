@@ -84,7 +84,11 @@
     {
       "eyebrow": "Exclusive mode",
       "title": "Only one app uses your DAC",
-      "body": "Bitperfect takes over your USB DAC while music plays, so other apps cannot use it. The operating system asks your permission once."
+      "body": "Bitperfect takes over your USB DAC while music plays, so other apps cannot use it. The operating system asks your permission once.",
+      "screen": "output",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Rate switching",
@@ -103,19 +107,31 @@
           "label": "DSD",
           "value": "DoP and native"
         }
-      ]
+      ],
+      "screen": "track-info",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Hardware",
       "title": "Dongles and desktop DACs, same path",
       "body": "Works with UAC1 and UAC2 DACs, from a USB-C dongle to a desktop DAC. If your DAC has hardware volume, Bitperfect Player uses it. With Bit-perfect lock on, DACs without volume stay fixed at 0 dBFS line level. Use an external amplifier, or unlock software volume for sensitive headphones.",
-      "note": "0 dBFS is full line level. Use external volume controls when connecting sensitive headphones."
+      "note": "0 dBFS is full line level. Use external volume controls when connecting sensitive headphones.",
+      "screen": "now-playing",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Honesty",
       "title": "The badge tells you what reached the DAC",
       "body": "Bit-perfect shows only when nothing changes the file. Enhanced shows when AI Enhancer is active. Resampled shows if rate or depth changed. Lossy marks lossy files or connections. Unknown shows when state cannot be confirmed.",
-      "signalStates": true
+      "signalStates": true,
+      "screen": "signal-clean",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "DSD",
@@ -130,12 +146,205 @@
           "label": "Transport",
           "value": "Native or DoP"
         }
-      ]
+      ],
+      "screen": "playback",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     }
   ],
   "cta": {
     "title": "Plug in a DAC and hear your files bit for bit.",
     "body": "Bit-perfect USB output, in the same subscription as every other feature."
   },
-  "order": 1
+  "order": 1,
+  "screens": [
+    "output",
+    "track-info",
+    "now-playing",
+    "signal-clean",
+    "playback"
+  ],
+  "blocks": [
+    {
+      "discriminant": "signalPathComparison",
+      "value": {
+        "id": "signal-path",
+        "enabled": true,
+        "tone": "auto",
+        "ground": "auto",
+        "title": "The signal path, drawn to scale.",
+        "titleAccent": "",
+        "lede": "Operating systems normally route audio through a system mixer that forces 48 kHz resampling. Bitperfect Player opens a direct hardware path.",
+        "note": "Verified against actual hardware telemetry on USB Audio Class 1 & 2 DACs."
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Exclusive mode",
+        "title": "Only one app uses your DAC",
+        "body": "Bitperfect takes over your USB DAC while music plays, so other apps cannot use it. The operating system asks your permission once.",
+        "screen": "output",
+        "stats": [],
+        "chips": [],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Rate switching",
+        "title": "Your DAC follows each file's rate",
+        "body": "Your DAC switches to each track's own rate, such as 44.1 kHz or 192 kHz. If your DAC cannot play a rate, the badge says Resampled.",
+        "screen": "track-info",
+        "stats": [
+          {
+            "label": "PCM",
+            "value": "up to 768 kHz"
+          },
+          {
+            "label": "Bit depth",
+            "value": "16, 24 and 32"
+          },
+          {
+            "label": "DSD",
+            "value": "DoP and native"
+          }
+        ],
+        "chips": [],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Hardware",
+        "title": "Dongles and desktop DACs, same path",
+        "body": "Works with UAC1 and UAC2 DACs, from a USB-C dongle to a desktop DAC. If your DAC has hardware volume, Bitperfect Player uses it. With Bit-perfect lock on, DACs without volume stay fixed at 0 dBFS line level. Use an external amplifier, or unlock software volume for sensitive headphones.",
+        "screen": "now-playing",
+        "stats": [],
+        "chips": [],
+        "note": "0 dBFS is full line level. Use external volume controls when connecting sensitive headphones.",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Honesty",
+        "title": "The badge tells you what reached the DAC",
+        "body": "Bit-perfect shows only when nothing changes the file. Enhanced shows when AI Enhancer is active. Resampled shows if rate or depth changed. Lossy marks lossy files or connections. Unknown shows when state cannot be confirmed.",
+        "screen": "signal-clean",
+        "stats": [],
+        "chips": [],
+        "note": "",
+        "signalStates": true,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "DSD",
+        "title": "Two ways to send DSD, picked for you",
+        "body": "Your DAC gets DSD64 to DSD512 as native DSD if it can take it, or as DoP if not. The app picks for you, and you can change it. If neither works, the file is converted to PCM and the badge says so.",
+        "screen": "playback",
+        "stats": [
+          {
+            "label": "Range",
+            "value": "DSD64 to DSD512"
+          },
+          {
+            "label": "Transport",
+            "value": "Native or DoP"
+          }
+        ],
+        "chips": [],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "specSheet",
+      "value": {
+        "id": "specifications",
+        "enabled": true,
+        "tone": "auto",
+        "ground": "auto",
+        "title": "Specifications",
+        "lede": "Every technical figure verified against actual hardware output.",
+        "specs": [
+          {
+            "label": "USB standard",
+            "value": "USB Audio Class 1 and 2, direct connection"
+          },
+          {
+            "label": "Max PCM",
+            "value": "Up to 32-bit / 768 kHz, DAC permitting"
+          },
+          {
+            "label": "DSD support",
+            "value": "DSD64 to DSD512, DoP and native"
+          },
+          {
+            "label": "Resampling",
+            "value": "None, if your DAC supports the file rate"
+          },
+          {
+            "label": "Access mode",
+            "value": "Exclusive: other apps cannot use the DAC"
+          },
+          {
+            "label": "Volume and balance",
+            "value": "Your DAC's hardware, when available"
+          }
+        ],
+        "facts": [
+          "Works with UAC1 and UAC2 USB DACs, dongles and desktop units",
+          "Automatic sample rate switching between tracks",
+          "Uses hardware volume and balance controls when your DAC has them",
+          "Shows when software volume is used below 100%",
+          "Up to 32-bit / 768 kHz PCM and DSD512, if your DAC supports them",
+          "Bit-perfect passthrough for FLAC, ALAC, WAV and DSD"
+        ]
+      }
+    }
+  ]
 }

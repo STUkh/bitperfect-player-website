@@ -53,20 +53,20 @@ export default function StatementBand({
       ground="ground-statement"
       containerClassName="lg:px-20"
     >
-      <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-16">
+      <div className="grid items-start gap-10 lg:gap-16 xl:grid-cols-12">
         <SectionHeading
-          className="lg:col-span-8"
+          className="xl:col-span-8"
           title={title}
           titleAccent={titleAccent}
-          titleClassName="text-headline-m lg:text-headline"
+          titleClassName="type-headline"
           reveal={1}
         />
         <RuleList
           items={activeFacts.map((fact) => ({ title: fact.title, body: fact.desc }))}
-          className="flex flex-col lg:col-span-4"
+          className="flex flex-col xl:col-span-4"
           itemClassName="py-5 lg:py-[26px]"
           titleClassName="text-base font-semibold tracking-title lg:text-[17px]"
-          bodyClassName="mt-1.5 text-sm leading-[1.6] text-pretty lg:text-[15px]"
+          bodyClassName="mt-1.5 type-item-body"
         />
       </div>
     </Band>

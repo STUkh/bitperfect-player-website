@@ -59,16 +59,16 @@ export default function PrivacyBand({
       <SectionHeading
         className="flex flex-col lg:items-center lg:text-center"
         title={title}
-        titleClassName="text-headline-sm-m lg:max-w-[16ch] lg:text-headline-xl"
+        titleClassName="type-headline lg:max-w-[16ch]"
         reveal={0}
       />
       <RuleList
         layout="columns"
         items={activeCommitments.map((c) => ({ title: c.title, body: c.desc }))}
-        className="mt-[30px] lg:mt-[68px] lg:grid-cols-3"
+        className="stack-content lg:grid-cols-3"
         itemClassName="py-5 lg:pt-[34px] lg:pb-0"
-        titleClassName="text-[17px] font-semibold tracking-title lg:text-[19px]"
-        bodyClassName="mt-1.5 text-sm leading-[1.62] text-pretty lg:mt-2.5 lg:text-[15px]"
+        titleClassName="type-item"
+        bodyClassName="mt-2.5 type-item-body"
       />
       <ImageSlot
         name="home-privacy"

@@ -1,0 +1,54 @@
+---
+import CloseBand from '../sections/CloseBand';
+import PlayCta from '../primitives/PlayCta';
+import Button from '../primitives/Button';
+import { site } from '../../data/site';
+
+export interface Props {
+  id?: string;
+  tone?: 'ivory' | 'graphite';
+  title?: string;
+  lede?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+
+const {
+  id = 'closing-cta',
+  tone = 'ivory',
+  title = 'Ready to hear your music bit for bit?',
+  lede = 'Install the app from Google Play and connect your DAC.',
+  buttonLabel = 'Get it on Google Play',
+  buttonHref,
+} = Astro.props as Props;
+
+const isExternalCustom = buttonHref && buttonHref.trim().length > 0 && buttonHref !== site.playUrl;
+---
+
+<CloseBand
+  id={id}
+  tone={tone}
+  title={title}
+  titleClassName="max-w-[22ch] text-headline-sm-m lg:text-headline-sm"
+  lede={lede}
+  ledeClassName="mt-4 max-w-measure text-body text-pretty lg:mt-[22px] lg:text-body-lg"
+>
+  {isExternalCustom ? (
+    <Button
+      href={buttonHref}
+      variant="primary"
+      size="lg"
+      className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
+      style="--i: 2"
+    >
+      <span>{buttonLabel}</span>
+    </Button>
+  ) : (
+    <PlayCta
+      label={buttonLabel}
+      size="lg"
+      className="r-rise mt-6 w-full lg:mt-8 lg:w-auto"
+      style="--i: 2"
+    />
+  )}
+</CloseBand>

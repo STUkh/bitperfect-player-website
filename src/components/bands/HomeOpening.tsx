@@ -133,7 +133,7 @@ export default function HomeOpening({
             <span className="hero-in mono-spec block text-micro tracking-kicker text-gold uppercase">
               {eyebrow}
             </span>
-            <h1 className="hero-in hero-in-2 ho-title text-headline-m text-balance text-text-primary lg:text-headline">
+            <h1 className="hero-in hero-in-2 ho-title type-headline text-text-primary">
               {title}
               <br /> <span className="text-gold inline font-inherit leading-inherit">{titleAccent}</span>
             </h1>
@@ -157,7 +157,7 @@ export default function HomeOpening({
 
           {/* No eyebrow: `The app itself` captioned a picture that captions itself
               (DESIGN.md, "The Eyebrow Budget Rule"). */}
-          <h2 className="ho-heading text-section-sm text-balance text-text-primary lg:text-headline-sm" data-heading="">
+          <h2 className="ho-heading type-headline text-text-primary" data-heading="">
             {screensHeading}
           </h2>
 

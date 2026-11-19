@@ -94,7 +94,11 @@
           "label": "Gain",
           "value": "-12.0 dB to +12.0 dB"
         }
-      ]
+      ],
+      "screen": "eq",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Filter shapes",
@@ -123,24 +127,201 @@
         {
           "label": "All pass"
         }
-      ]
+      ],
+      "screen": "eq-filters",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Q factor",
       "title": "From broad to narrow",
       "body": "Q runs from 0.10 to 10.0. A low Q gently changes a wide range. A high Q fixes one narrow peak and leaves the rest alone.",
-      "note": "Same gain, different Q. Q 0.7 covers about two octaves. Q 8.0 covers under a fifth of an octave."
+      "note": "Same gain, different Q. Q 0.7 covers about two octaves. Q 8.0 covers under a fifth of an octave.",
+      "screen": "eq-sculptor",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Bypass",
       "title": "One tap to hear the original file",
       "body": "Bypass turns the EQ off completely. The badge shows Bit-perfect again when nothing else changes the sound. Compare your curve with the original.",
-      "note": "With EQ active, the badge cannot show Bit-perfect. Bypassed, the EQ alters nothing."
+      "note": "With EQ active, the badge cannot show Bit-perfect. Bypassed, the EQ alters nothing.",
+      "screen": "eq-presets",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     }
   ],
   "cta": {
     "title": "Set a curve once, then listen.",
     "body": "Seven filter shapes and a one-tap bypass, included with everything else."
   },
-  "order": 2
+  "order": 2,
+  "screens": [
+    "eq",
+    "eq-filters",
+    "eq-sculptor",
+    "eq-presets"
+  ],
+  "blocks": [
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Bands",
+        "title": "Up to 32 independent bands",
+        "body": "Place each filter anywhere from 20 Hz to 20 kHz. Boost or cut it by up to 12 dB. You can enter a measured curve with its exact values.",
+        "screen": "eq",
+        "stats": [
+          {
+            "label": "Span",
+            "value": "20 Hz to 20 kHz"
+          },
+          {
+            "label": "Gain",
+            "value": "-12.0 dB to +12.0 dB"
+          }
+        ],
+        "chips": [],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Filter shapes",
+        "title": "Seven filter shapes, not just a bell",
+        "body": "A bell handles most fixes. The others can shelve the top end, cut deep rumble, or remove one resonance.",
+        "screen": "eq-filters",
+        "stats": [],
+        "chips": [
+          {
+            "label": "Bell",
+            "active": true
+          },
+          {
+            "label": "Low shelf"
+          },
+          {
+            "label": "High shelf"
+          },
+          {
+            "label": "Low pass"
+          },
+          {
+            "label": "High pass"
+          },
+          {
+            "label": "Notch"
+          },
+          {
+            "label": "All pass"
+          }
+        ],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Q factor",
+        "title": "From broad to narrow",
+        "body": "Q runs from 0.10 to 10.0. A low Q gently changes a wide range. A high Q fixes one narrow peak and leaves the rest alone.",
+        "screen": "eq-sculptor",
+        "stats": [],
+        "chips": [],
+        "note": "Same gain, different Q. Q 0.7 covers about two octaves. Q 8.0 covers under a fifth of an octave.",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Bypass",
+        "title": "One tap to hear the original file",
+        "body": "Bypass turns the EQ off completely. The badge shows Bit-perfect again when nothing else changes the sound. Compare your curve with the original.",
+        "screen": "eq-presets",
+        "stats": [],
+        "chips": [],
+        "note": "With EQ active, the badge cannot show Bit-perfect. Bypassed, the EQ alters nothing.",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "specSheet",
+      "value": {
+        "id": "specifications",
+        "enabled": true,
+        "tone": "auto",
+        "ground": "auto",
+        "title": "Specifications",
+        "lede": "Every technical figure verified against actual hardware output.",
+        "specs": [
+          {
+            "label": "EQ bands",
+            "value": "Up to 32, fully independent"
+          },
+          {
+            "label": "Filter shapes",
+            "value": "7 shapes"
+          },
+          {
+            "label": "Q factor range",
+            "value": "0.10 to 10.0"
+          },
+          {
+            "label": "Gain range",
+            "value": "-12.0 dB to +12.0 dB"
+          },
+          {
+            "label": "Bypass",
+            "value": "One tap to untouched audio"
+          },
+          {
+            "label": "Frequency span",
+            "value": "20 Hz to 20 kHz"
+          }
+        ],
+        "facts": [
+          "Up to 32 parametric bands per profile",
+          "Seven filter shapes: bell, shelves, passes, notch, all pass",
+          "Q factor scales continuously from 0.10 to 10.0",
+          "Gain range from -12.0 dB to +12.0 dB",
+          "Every band placed anywhere across 20 Hz to 20 kHz",
+          "One-tap bit-perfect bypass"
+        ]
+      }
+    }
+  ]
 }

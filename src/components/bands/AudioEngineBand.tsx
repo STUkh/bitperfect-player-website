@@ -1,129 +1,129 @@
 import type { FlowProps } from './FlowBackdrop';
 import Band from '../sections/Band';
 import SectionHeading from '../sections/SectionHeading';
-
-const defaultCapabilities = [
-  {
-    title: '8× Studio Upsampling',
-    specs: 'Up to 768 kHz · Sinc & polyphase filters',
-    desc: 'Linear- and minimum-phase oversampling pushing anti-aliasing artifacts far beyond human hearing.',
-    badge: '768 kHz FIR',
-  },
-  {
-    title: 'Clip Guard (True-Peak Limiter)',
-    specs: '-0.6 dBTP ceiling · Inter-sample detection',
-    desc: 'Catches inter-sample digital peaks cleanly without audible compression, distortion, or pumping.',
-    badge: '-0.6 dBTP Guard',
-  },
-  {
-    title: '32-Band Parametric & AutoEQ',
-    specs: '7 filter shapes · 5,000+ headphone profiles',
-    desc: 'Studio bell, shelf, and notch filters with one-tap calibration against measured AutoEQ targets.',
-    badge: '5,000+ Profiles',
-  },
-  {
-    title: 'Crossfeed & Harmonic Tuning',
-    specs: 'Bauer, Meier & BS2B · Vacuum tube voicings',
-    desc: 'Natural loudspeaker acoustic crossfeed for headphones, plus warm analogue even-order harmonics.',
-    badge: 'Analogue Voicing',
-  },
-];
+import { clsx as cx } from 'clsx';
+import { reveal } from '../sections/bands';
 
 /**
- * Audio Engine & DSP band.
- *
- * Graphite surface (`bg-surface-base`) following AiPlayerBand (Ivory) and
- * preceding StatementBand (Ivory). Bespoke 2×2 Master Studio Rack module layout:
- * editorial header with technical telemetry, followed by four precision DSP modules.
+ * Each capability is a title and one plain line of what it does. Checked against
+ * the app (bitperfect-player): upsampler max 384 kHz (`UPSAMPLER_MAX_RATE_OPTIONS_HZ`),
+ * linear or minimum phase; inter-sample headroom Auto or fixed -1 to -6 dB
+ * (`IspHeadroomMode`); PEQ 32 bands, 7 filter types (`EqFilterType`); crossfeed
+ * Subtle/Natural/Strong (`CrossfeedPreset`); harmonics "Tube Voice" with even/odd tilt.
  */
+const defaultCapabilities: AudioEngineCapability[] = [
+  { title: '8× upsampling', specs: 'Up to 384 kHz, with linear or minimum phase filters.' },
+  { title: 'Inter-sample headroom', specs: 'Lowers the level just enough that peaks never clip inside the DAC.' },
+  { title: '32-band parametric EQ', specs: 'Seven filter shapes and AutoEQ profiles for your headphones.' },
+  { title: 'Crossfeed and tube warmth', specs: 'Three crossfeed presets for headphones, plus even and odd harmonics.' },
+];
+
 export interface AudioEngineCapability {
   title: string;
+  /** One plain line under the title. */
   specs: string;
+  /** Optional longer line; leave empty, the cards read best with the title and one line. */
   desc?: string;
+  /** Unused since the 2026-11 redesign (no tags on the cards); kept so older content still parses. */
   badge?: string;
 }
 
 export interface AudioEngineBandProps extends FlowProps {
   title?: string;
   titleAccent?: string;
+  /** Optional paragraph beside the headline; empty by default. */
   lede?: string;
   capabilities?: AudioEngineCapability[];
 }
 
-const defaultBadges = ['768 kHz FIR', '-0.6 dBTP Guard', '5,000+ Profiles', 'Analogue Voicing'];
-
+/**
+ * Audio Engine & DSP band. Graphite with a warm glow only (`ground-engine`),
+ * between AiPlayerBand and StatementBand (both ivory). The headline on the left
+ * from xl, four capabilities on the right in a 2×2 open-cross grid of hairlines
+ * (no cards): a title and one line each. No kicker, no numbering, no badges.
+ */
 export default function AudioEngineBand({
   backgroundVariant,
   title = 'Beyond bit-perfect. ',
   titleAccent = 'Studio sound processing.',
-  lede = 'When you want untouched sound, Bitperfect delivers pure bit-exact transmission. When you want to tailor your listening, our 64-bit engine offers precision studio algorithms for uncompromising fidelity.',
+  lede,
   capabilities: customCapabilities,
 }: AudioEngineBandProps = {}) {
-  const activeCapabilities =
+  const capabilities =
     customCapabilities && customCapabilities.length > 0 ? customCapabilities : defaultCapabilities;
+  const hasLede = Boolean(lede?.trim());
+  // Keep "bit-perfect" on one line: a break at its hyphen reads as two words.
+  const titleNode = title
+    .split(/(bit-perfect)/i)
+    .map((part, i) => (i % 2 === 1 ? <span key={i} className="whitespace-nowrap">{part}</span> : part));
 
   return (
     <Band
       backgroundVariant={backgroundVariant}
       id="audio-engine"
       tone="graphite"
-      space="spacious"
       containerClassName="lg:px-20"
-      className="scroll-mt-20 border-t border-border-subtle/40"
+      className="ground ground-engine scroll-mt-20 border-t border-border-subtle/40"
     >
-      {/* Header lockup: Headline on the left, refined editorial lede on the right on desktop */}
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between pb-10 border-b border-border-subtle/40">
-        <div className="max-w-[640px]">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-            <span className="text-micro font-mono uppercase tracking-label text-gold font-medium">
-              64-Bit Studio DSP Engine
-            </span>
-          </div>
+      {/* From xl the headline sits left and the grid right; below xl the 72px
+          headline needs the full width, so it stacks over the grid. */}
+      <div className="grid grid-cols-1 items-start xl:grid-cols-12 xl:gap-12">
+        <div className="xl:col-span-6">
           <SectionHeading
             tone="graphite"
-            title={title}
+            title={titleNode}
             titleAccent={titleAccent}
-            titleClassName="text-headline-m lg:text-headline"
+            titleClassName="type-headline max-w-[16ch]"
             reveal={0}
           />
+          {hasLede && <p className="stack-lede max-w-measure-lede type-lede text-text-secondary">{lede}</p>}
         </div>
-        <p className="max-w-[420px] text-body-sm leading-relaxed text-text-secondary text-pretty lg:pb-1">
-          {lede}
-        </p>
-      </div>
 
-      {/* 2×2 Precision Studio Rack Grid */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-        {activeCapabilities.map((cap, i) => {
-          const badge = cap.badge || defaultBadges[i] || 'Studio DSP';
-          return (
-            <div
-              key={cap.title}
-              className="group relative rounded-2xl border border-border-subtle/80 bg-surface-raised/30 p-6 sm:p-7 hover:border-gold/40 hover:bg-surface-raised/50 transition-all duration-300"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-micro font-mono tracking-label text-text-tertiary">
-                  DSP · 0{i + 1}
-                </span>
-                <span className="text-micro font-mono uppercase tracking-label text-gold font-medium px-2.5 py-0.5 rounded-full bg-gold/[0.08] border border-gold/20">
-                  {badge}
-                </span>
-              </div>
-              <h3 className="mt-4 text-title-sm sm:text-title font-semibold tracking-title text-text-primary group-hover:text-gold transition-colors">
-                {cap.title}
-              </h3>
-              <span className="mt-1.5 block text-micro font-mono tracking-label text-text-secondary uppercase">
-                {cap.specs}
-              </span>
-              {cap.desc && (
-                <p className="mt-3 text-body-sm leading-relaxed text-text-secondary/90 text-pretty">
-                  {cap.desc}
-                </p>
-              )}
-            </div>
-          );
-        })}
+        {/* 2×2 on the site's hairlines, as an open cross: no rule over the grid,
+            and the rule between the columns and the one between the rows each
+            stop short of the centre, so they never meet. On phones a plain stack
+            with a full hairline between entries. */}
+        <ul role="list" className="stack-content grid grid-cols-1 sm:grid-cols-2 xl:col-span-6 xl:mt-3!">
+          {capabilities.map((cap, i) => {
+            const left = i % 2 === 0;
+            const topRow = i < 2;
+            return (
+              <li
+                key={cap.title}
+                className={cx(
+                  'r-rise relative py-7 sm:py-0',
+                  i > 0 && 'border-t border-border-subtle sm:border-t-0',
+                  i === 0 && 'pt-0',
+                  topRow ? 'sm:pb-10 lg:pb-12' : 'sm:pt-10 lg:pt-12',
+                  left ? 'sm:pr-10' : 'sm:pl-10',
+                )}
+                style={reveal(i + 1)}
+              >
+                {topRow && (
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      'absolute bottom-0 hidden h-px bg-border-subtle sm:block',
+                      left ? 'left-0 right-6' : 'left-6 right-0',
+                    )}
+                  />
+                )}
+                {left && (
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      'absolute right-0 hidden w-px bg-border-subtle sm:block',
+                      topRow ? 'top-0 bottom-6' : 'top-6 bottom-0',
+                    )}
+                  />
+                )}
+                <h3 className="type-item text-text-primary">{cap.title}</h3>
+                <p className="mt-2.5 type-item-body text-text-secondary">{cap.specs}</p>
+                {cap.desc?.trim() && <p className="mt-2.5 text-small text-pretty text-text-tertiary">{cap.desc}</p>}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </Band>
   );

@@ -73,15 +73,15 @@ export default function AiPlayerBand({
           className="flex flex-col items-center text-center"
           title={title}
           titleAccent={titleAccent}
-          titleClassName="text-headline-m lg:text-headline"
+          titleClassName="type-headline"
           reveal={0}
         />
-        <p className="mx-auto mt-4 max-w-[700px] text-body-sm leading-[1.65] text-pretty text-band-ink-muted lg:text-lede">
+        <p className="stack-lede mx-auto max-w-measure-lede type-lede text-band-ink-muted">
           {lede}
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 border-t border-band-rule pt-8 lg:mt-14 lg:grid-cols-3 lg:pt-10">
+      <div className="stack-content grid grid-cols-1 border-t border-band-rule pt-8 lg:grid-cols-3 lg:pt-10">
         {activeModules.map((module, idx) => (
           <div
             key={module.title}
@@ -93,10 +93,10 @@ export default function AiPlayerBand({
                 : 'border-t border-band-rule py-6 lg:border-t-0 lg:border-l lg:border-band-rule lg:py-0 lg:pl-8 xl:pl-10'
             }
           >
-            <h3 className="text-title-sm font-semibold tracking-title text-band-ink lg:text-title">
+            <h3 className="type-item text-band-ink">
               {module.title}
             </h3>
-            <p className="mt-2.5 text-sm leading-[1.65] text-pretty text-band-ink-muted lg:text-[15px]">
+            <p className="mt-2.5 type-item-body text-band-ink-muted">
               {module.description}
             </p>
             {module.note && (

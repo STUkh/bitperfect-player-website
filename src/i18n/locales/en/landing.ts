@@ -68,7 +68,9 @@ export const landing = {
   "pricing.disclosure_usd":
     "Prices in USD. Google Play sets the local price.",
   "pricing.disclosure_inapp":
-    "You pay in the app through Google Play. This site takes no payment or card details.",
+    "You pay in the app through Google Play.",
+  "pricing.disclosure_nopayment":
+    "This site takes no payment or card details.",
   // CTA section
   "cta.title": "Your music, bit for bit.",
   "cta.subtitle": "Install the app from Google Play and plug in your USB DAC.",

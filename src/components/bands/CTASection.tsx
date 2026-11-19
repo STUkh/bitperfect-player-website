@@ -40,9 +40,9 @@ export default function CTASection({
       containerClassName="relative"
       title={title}
       titleAccent={titleAccent}
-      titleClassName="text-headline-m max-w-[16ch] lg:text-headline"
+      titleClassName="type-headline max-w-[16ch]"
       lede={lede}
-      ledeClassName="mt-4 max-w-measure-short text-body-sm text-pretty lg:mt-6 lg:text-body-lg"
+      ledeClassName="stack-lede max-w-measure-short type-lede"
       action={
         <div className="r-rise mt-8 lg:mt-10" style={reveal(2)}>
           <PlayCta label={buttonLabel} size="lg" />

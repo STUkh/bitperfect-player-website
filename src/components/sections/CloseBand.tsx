@@ -39,7 +39,7 @@ export interface CloseBandProps extends ClassProps, FlowProps {
  * install. The title reveals at `--i: 0`, the lede at `1`; the action, passed
  * in, takes `2`. Padding is a `space` step (`default`); borders are the caller's.
  *
- * `ClosingBanner` is the other closing band: the rosette plate with two
+ * `ClosingBanner` is the other closing band: the warm-glow band with two
  * buttons, for the catalog and help pages.
  */
 export default function CloseBand(props: CloseBandProps) {

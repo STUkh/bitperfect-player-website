@@ -1,0 +1,176 @@
+---
+import Band from '../sections/Band';
+import MediaSplit from '../sections/MediaSplit';
+import SectionHeading from '../sections/SectionHeading';
+import SpecList from '../sections/SpecList';
+import FeatureScreens from '../devices/FeatureScreens';
+import { signalStateColors, signalStateKeys, type SignalStateKey } from '../../data/colors';
+import { withBase } from '../../utils/nav';
+import { useTranslations, type UIKey } from '../../i18n/utils';
+
+export interface Props {
+  slug: string;
+  index: number;
+  id?: string;
+  title: string;
+  eyebrow?: string;
+  body: string;
+  screen?: string;
+  tone?: 'graphite' | 'ivory';
+  mediaSide?: 'left' | 'right';
+  ground?: string;
+  stats?: Array<{ label: string; value: string }>;
+  chips?: Array<{ label: string; active?: boolean }>;
+  note?: string;
+  signalStates?: boolean;
+  actionLink?: { label?: string; href?: string };
+}
+
+const {
+  slug,
+  index,
+  id,
+  title,
+  eyebrow,
+  body,
+  screen,
+  tone = 'graphite',
+  mediaSide = 'left',
+  ground = 'ground-samples',
+  stats,
+  chips,
+  note,
+  signalStates,
+  actionLink,
+} = Astro.props as Props;
+
+const lang = Astro.currentLocale;
+const t = useTranslations(lang);
+const onWhite = tone === 'ivory';
+
+const getSignalStateLabel = (key: SignalStateKey) => {
+  const i18nKey = `feature_detail.signal_state.${key}` as UIKey;
+  const translated = t(i18nKey);
+  return translated && translated !== i18nKey ? translated : signalStateColors[key].label;
+};
+---
+
+<Band id={id} tone={tone} ground={ground} space={onWhite ? 'spacious' : 'default'}>
+  <MediaSplit
+    split="6/6"
+    mediaFirst
+    mediaSide={mediaSide}
+    copyClassName="flex flex-col gap-3.5 lg:gap-4"
+  >
+    <FeatureScreens slot="media" slug={slug} state={index} screen={screen} />
+
+    <SectionHeading
+      className="contents"
+      tone={tone}
+      eyebrow={eyebrow}
+      title={title}
+      lede={body}
+      ledeClassName="max-w-measure text-body text-pretty lg:text-body-lg"
+      reveal={1}
+    />
+
+    {stats && stats.length > 0 && (
+      <SpecList
+        tone={tone}
+        items={stats}
+        labelTone="accent"
+        close="none"
+        className="r-rise mt-2 grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
+        style="--i: 3"
+        rowClassName="flex flex-col gap-1 pt-3.5"
+        labelClassName="text-label tracking-micro uppercase"
+        valueClassName="text-body-lg font-semibold tabular-nums"
+      />
+    )}
+
+    {chips && chips.length > 0 && (
+      <div class="r-rise mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-small tabular-nums" style="--i: 3">
+        {chips.map((chip, idx) => (
+          <span
+            class:list={[
+              chip.active
+                ? onWhite
+                  ? 'font-semibold text-band-gold-ink'
+                  : 'font-semibold text-gold'
+                : onWhite
+                  ? 'text-band-ink-muted'
+                  : 'text-text-secondary',
+            ]}
+          >
+            {chip.label}
+            {idx < chips.length - 1 && (
+              <span class="ml-2 text-text-tertiary/40">·</span>
+            )}
+          </span>
+        ))}
+      </div>
+    )}
+
+    {actionLink && actionLink.label && actionLink.href && (
+      <div class="r-rise mt-2" style="--i: 3">
+        <a
+          href={actionLink.href.startsWith('http') ? actionLink.href : withBase(actionLink.href)}
+          class:list={[
+            'focus-visible:focus-ring inline-flex items-center text-small font-semibold transition-colors',
+            onWhite ? 'text-band-gold-ink hover:underline' : 'text-gold hover:text-gold-light',
+          ]}
+        >
+          {actionLink.label}
+        </a>
+      </div>
+    )}
+
+    {!actionLink && slug === 'ai-enhancer' && chips && (
+      <div class="r-rise mt-2" style="--i: 3">
+        <a
+          href={withBase('compatibility')}
+          class:list={[
+            'focus-visible:focus-ring inline-flex items-center text-small font-semibold transition-colors',
+            onWhite ? 'text-band-gold-ink hover:underline' : 'text-gold hover:text-gold-light',
+          ]}
+        >
+          Check compatibility
+        </a>
+      </div>
+    )}
+
+    {signalStates && (
+      <div
+        class:list={[
+          'r-rise mt-2 flex flex-wrap gap-x-5 gap-y-2.5 border-t pt-4',
+          onWhite ? 'border-band-rule' : 'border-border-subtle',
+        ]}
+        style="--i: 3"
+      >
+        {signalStateKeys.map((key) => {
+          const state = signalStateColors[key];
+          return (
+            <span class="inline-flex items-center gap-2 py-1 text-xs font-semibold">
+              <span class="h-2.5 w-2.5 shrink-0 rounded-full" style={`background-color: ${state.hex};`} aria-hidden="true" />
+              <span class={onWhite ? 'text-band-ink' : 'text-text-primary'}>{getSignalStateLabel(key)}</span>
+            </span>
+          );
+        })}
+      </div>
+    )}
+
+    {note && (
+      <p
+        class:list={[
+          'r-rise mt-2 border-t pt-3.5 text-small tabular-nums text-pretty',
+          onWhite
+            ? 'border-band-rule text-band-ink-muted'
+            : 'border-border-subtle text-text-secondary',
+        ]}
+        style="--i: 3"
+      >
+        {note}
+      </p>
+    )}
+  </MediaSplit>
+</Band>

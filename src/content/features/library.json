@@ -111,12 +111,20 @@
         {
           "label": "Genres"
         }
-      ]
+      ],
+      "screen": "library",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "On device",
       "title": "Search never leaves the phone",
-      "body": "Your library is indexed on the phone. Search by title, artist or album, with instant results. Missing covers download only when you ask."
+      "body": "Your library is indexed on the phone. Search by title, artist or album, with instant results. Missing covers download only when you ask.",
+      "screen": "sources",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Formats",
@@ -169,18 +177,232 @@
         {
           "label": "AAC"
         }
-      ]
+      ],
+      "screen": "tracks",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Playlists",
       "title": "It reads the playlists you already have",
       "body": "Import M3U, M3U8, PLS, XSPF, ASX and CUE playlists. It works even if the file extension is missing or wrong. Export any playlist as M3U or M3U8.",
-      "note": "Import six formats. Export two: M3U and M3U8."
+      "note": "Import six formats. Export two: M3U and M3U8.",
+      "screen": "album",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     }
   ],
   "cta": {
     "title": "Select your music folder. Indexing runs entirely on your phone.",
     "body": "No audio leaves your phone."
   },
-  "order": 3
+  "order": 3,
+  "screens": [
+    "library",
+    "sources",
+    "tracks",
+    "album"
+  ],
+  "blocks": [
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Views",
+        "title": "Eight ways to browse your music",
+        "body": "Sources, Recent, Favourites, Playlists, Albums, Artists, Tracks, Genres. Sources shows your real folders, the way you organised them.",
+        "screen": "library",
+        "stats": [],
+        "chips": [
+          {
+            "label": "Sources"
+          },
+          {
+            "label": "Recent"
+          },
+          {
+            "label": "Favourites"
+          },
+          {
+            "label": "Playlists"
+          },
+          {
+            "label": "Albums",
+            "active": true
+          },
+          {
+            "label": "Artists"
+          },
+          {
+            "label": "Tracks"
+          },
+          {
+            "label": "Genres"
+          }
+        ],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "On device",
+        "title": "Search never leaves the phone",
+        "body": "Your library is indexed on the phone. Search by title, artist or album, with instant results. Missing covers download only when you ask.",
+        "screen": "sources",
+        "stats": [],
+        "chips": [],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Formats",
+        "title": "Less common formats, played natively",
+        "body": "Plays the common formats, from FLAC and WAV to MP3 and AAC. Also the rarer ones: Monkey's Audio, WavPack, TAK, True Audio, Musepack and DSD disc images.",
+        "screen": "tracks",
+        "stats": [],
+        "chips": [
+          {
+            "label": "FLAC",
+            "active": true
+          },
+          {
+            "label": "ALAC"
+          },
+          {
+            "label": "WAV"
+          },
+          {
+            "label": "AIFF"
+          },
+          {
+            "label": "DSD"
+          },
+          {
+            "label": "DSD disc images"
+          },
+          {
+            "label": "Monkey's Audio"
+          },
+          {
+            "label": "WavPack"
+          },
+          {
+            "label": "True Audio"
+          },
+          {
+            "label": "TAK"
+          },
+          {
+            "label": "Musepack"
+          },
+          {
+            "label": "Opus"
+          },
+          {
+            "label": "Ogg Vorbis"
+          },
+          {
+            "label": "MP3"
+          },
+          {
+            "label": "AAC"
+          }
+        ],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Playlists",
+        "title": "It reads the playlists you already have",
+        "body": "Import M3U, M3U8, PLS, XSPF, ASX and CUE playlists. It works even if the file extension is missing or wrong. Export any playlist as M3U or M3U8.",
+        "screen": "album",
+        "stats": [],
+        "chips": [],
+        "note": "Import six formats. Export two: M3U and M3U8.",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "specSheet",
+      "value": {
+        "id": "specifications",
+        "enabled": true,
+        "tone": "auto",
+        "ground": "auto",
+        "title": "Specifications",
+        "lede": "Every technical figure verified against actual hardware output.",
+        "specs": [
+          {
+            "label": "Library views",
+            "value": "8, including albums, artists and genres"
+          },
+          {
+            "label": "Search",
+            "value": "Instant, on your phone"
+          },
+          {
+            "label": "Storage sources",
+            "value": "Phone, SD, USB OTG and network"
+          },
+          {
+            "label": "Formats played",
+            "value": "15, including FLAC, DSD and TAK"
+          },
+          {
+            "label": "Playlist import",
+            "value": "M3U, M3U8, PLS, XSPF, ASX, CUE"
+          },
+          {
+            "label": "Network use",
+            "value": "Index and search stay on your phone"
+          }
+        ],
+        "facts": [
+          "Sources, Recent, Favourites, Playlists, Albums, Artists, Tracks, Genres",
+          "Browse nested folders exactly as they are stored",
+          "Embedded artwork shows automatically. Missing covers download only when you ask",
+          "Playlist import: M3U, M3U8, PLS, XSPF, ASX and CUE",
+          "The library updates itself when files change on storage",
+          "No tracking and no remote lookups while you browse your library"
+        ]
+      }
+    }
+  ]
 }

@@ -184,26 +184,38 @@
   --ground-opacity: 0.5;
 }
 
-/* ── guilloche · dark ── the closing banner ──
-   One gold-line rosette rolls in from the right edge, large enough to be read
-   as engraving rather than a picture. It is masked to fade before the copy
-   column so the centred text keeps its contrast. */
-.ground-rosette {
-  --ground-image: url('/grounds/guilloche.svg');
-  --ground-size: 1100px 1100px;
-  --ground-position: 118% 20%;
-  --ground-opacity: 1;
-  --ground-mask: linear-gradient(90deg, transparent 38%, #000 78%);
-}
-/* The plate's strokes are 8% gold; brightened so they read at engraving strength. */
-.ground-rosette::before {
-  filter: brightness(2.6);
+/* ── glow · dark ── the closing banner ──
+   No drawn plate, only a warm glow rising from the foot of the band. The
+   guilloche rosette read as a fine mesh and a single gold arc as too much
+   (2026-11); the glow alone is the closing note. */
+.ground-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(50% 60% at 50% 115%, color-mix(in srgb, var(--color-gold) 12%, transparent) 0%, transparent 100%);
 }
 @media (max-width: 767px) {
-  .ground-rosette {
-    --ground-size: 700px 700px;
-    --ground-position: 130% 30%;
-    --ground-mask: linear-gradient(90deg, transparent 20%, #000 90%);
-    --ground-opacity: 0.7;
+  .ground-glow::after {
+    background: radial-gradient(90% 40% at 50% 110%, color-mix(in srgb, var(--color-gold) 12%, transparent) 0%, transparent 100%);
+  }
+}
+
+/* ── glow · dark ── the home Audio Engine band ──
+   No drawn plate, only a faint warm glow behind the capability grid. The
+   interference rings and the gold arcs that replaced them both read as clutter
+   behind the copy (2026-11). On a phone the glow drops to the list. */
+.ground-engine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(42% 62% at 74% 48%, color-mix(in srgb, var(--color-gold) 8%, transparent) 0%, transparent 100%);
+}
+@media (max-width: 1279px) {
+  .ground-engine::after {
+    background: radial-gradient(70% 45% at 50% 70%, color-mix(in srgb, var(--color-gold) 6%, transparent) 0%, transparent 100%);
   }
 }

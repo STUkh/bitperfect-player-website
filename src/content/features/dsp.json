@@ -96,7 +96,11 @@
         {
           "label": "Strong (BS2B)"
         }
-      ]
+      ],
+      "screen": "dsp",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Loudness",
@@ -113,13 +117,21 @@
         {
           "label": "Auto"
         }
-      ]
+      ],
+      "screen": "playback",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Character",
       "title": "Eight voicings, not measurements",
       "body": "Harmonic Tuning adds the sound of a valve amp. Eight voicings range from silky single-ended triode to bold push-pull. Four follow tube physics. The other four are our own voicings. Treat them as colour, not a copy of a real tube.",
-      "note": "Four follow tube physics, four are custom voicings. None is measured from real hardware."
+      "note": "Four follow tube physics, four are custom voicings. None is measured from real hardware.",
+      "screen": "dsp-sheet",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     },
     {
       "eyebrow": "Protection",
@@ -134,12 +146,180 @@
           "label": "Oversampling",
           "value": "4x"
         }
-      ]
+      ],
+      "screen": "fidelity",
+      "tone": "auto",
+      "mediaSide": "auto",
+      "ground": "auto"
     }
   ],
   "cta": {
     "title": "Shape the sound, or turn it all off.",
     "body": "Four modules: Crossfeed, ReplayGain, Harmonic Tuning, true-peak limiter. Bit-perfect lock turns them off."
   },
-  "order": 5
+  "order": 5,
+  "screens": [
+    "dsp",
+    "playback",
+    "dsp-sheet",
+    "fidelity"
+  ],
+  "blocks": [
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Crossfeed",
+        "title": "Soften hard-panned stereo on headphones",
+        "body": "Headphones send each channel to one ear only. A room never does that. Crossfeed mixes a little of each channel into the other. Three presets follow the Meier, Chu Moy and BS2B designs. Subtle is the gentlest. Natural is balanced. Strong sounds most like speakers.",
+        "screen": "dsp",
+        "stats": [],
+        "chips": [
+          {
+            "label": "Subtle (Meier)",
+            "active": true
+          },
+          {
+            "label": "Natural (Chu Moy)"
+          },
+          {
+            "label": "Strong (BS2B)"
+          }
+        ],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Loudness",
+        "title": "A mixed queue at one level",
+        "body": "ReplayGain reads the gain tags in your files, per track or per album. It evens out a mixed queue by changing level only, never by squashing dynamics. Album mode keeps quiet songs quiet within an album. Auto picks album or track for you.",
+        "screen": "playback",
+        "stats": [],
+        "chips": [
+          {
+            "label": "Track"
+          },
+          {
+            "label": "Album",
+            "active": true
+          },
+          {
+            "label": "Auto"
+          }
+        ],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Character",
+        "title": "Eight voicings, not measurements",
+        "body": "Harmonic Tuning adds the sound of a valve amp. Eight voicings range from silky single-ended triode to bold push-pull. Four follow tube physics. The other four are our own voicings. Treat them as colour, not a copy of a real tube.",
+        "screen": "dsp-sheet",
+        "stats": [],
+        "chips": [],
+        "note": "Four follow tube physics, four are custom voicings. None is measured from real hardware.",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "mediaBeat",
+      "value": {
+        "id": "",
+        "enabled": true,
+        "tone": "auto",
+        "mediaSide": "auto",
+        "ground": "auto",
+        "eyebrow": "Protection",
+        "title": "Stops clipping inside your DAC",
+        "body": "Lossy decoding can create peaks between samples. These clip in the converter, even when no single sample looks too loud. The limiter oversamples four times to find them. It keeps peaks under -0.6 dBTP. It switches on by itself when another stage could create them.",
+        "screen": "fidelity",
+        "stats": [
+          {
+            "label": "Ceiling",
+            "value": "-0.6 dBTP"
+          },
+          {
+            "label": "Oversampling",
+            "value": "4x"
+          }
+        ],
+        "chips": [],
+        "note": "",
+        "signalStates": false,
+        "actionLabel": "",
+        "actionHref": ""
+      }
+    },
+    {
+      "discriminant": "specSheet",
+      "value": {
+        "id": "specifications",
+        "enabled": true,
+        "tone": "auto",
+        "ground": "auto",
+        "title": "Specifications",
+        "lede": "Every technical figure verified against actual hardware output.",
+        "specs": [
+          {
+            "label": "DSP modules",
+            "value": "Crossfeed, ReplayGain, Harmonic Tuning, true-peak limiter"
+          },
+          {
+            "label": "Crossfeed",
+            "value": "Meier, Chu Moy or BS2B"
+          },
+          {
+            "label": "Loudness",
+            "value": "ReplayGain: track, album or auto"
+          },
+          {
+            "label": "Harmonic Tuning",
+            "value": "Eight tube voicings"
+          },
+          {
+            "label": "True-peak limiter",
+            "value": "Catches inter-sample peaks at -0.6 dBTP"
+          },
+          {
+            "label": "With AI Enhancer",
+            "value": "Switches off automatically"
+          }
+        ],
+        "facts": [
+          "Four modules: Crossfeed, ReplayGain, Harmonic Tuning, true-peak limiter",
+          "Crossfeed in three strengths: Meier, Chu Moy, BS2B",
+          "ReplayGain per track, per album or auto, read from file tags",
+          "Harmonic Tuning with eight tube voicings",
+          "True-peak limiter holds a -0.6 dBTP ceiling to catch inter-sample peaks",
+          "The rack switches off automatically while AI Enhancer is running"
+        ]
+      }
+    }
+  ]
 }

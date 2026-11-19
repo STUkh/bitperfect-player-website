@@ -82,36 +82,30 @@
       ]
     }
   ],
-  "liteModeGroups": [
-    {
-      "chip": "Google Tensor G1 to G4",
-      "devices": "Pixel 6, 7, 8 and 9 series"
-    },
-    {
-      "chip": "Samsung Exynos 2400, 2200, 1480, 1380",
-      "devices": "Galaxy S and Galaxy A series"
-    },
-    {
-      "chip": "Snapdragon 888, 870, 865, 855, 778G, 6 series",
-      "devices": "Older flagships and mid-range phones"
-    },
-    {
-      "chip": "Dimensity 7050, 7200, 1080, Helio",
-      "devices": "Mid-range and budget MediaTek phones"
-    }
-  ],
   "enhancerModes": [
     {
       "id": "npu",
-      "title": "Full model on the neural chip",
-      "body": "Phones with a supported Snapdragon or Dimensity neural chip run the full model there. The main processor stays free and battery use stays low.",
-      "needs": "Snapdragon 7 Gen 1 or newer, or Dimensity 7300 or newer."
+      "title": "Full model on the neural chip"
     },
     {
       "id": "lite",
       "title": "Lite mode on the main processor",
-      "body": "Every other phone runs a smaller model on the main processor. Google Pixel, Samsung Exynos and older Snapdragon phones work this way.",
-      "needs": "Any 64-bit phone on Android 8.0 or newer."
+      "body": "Phones without a supported neural chip run a smaller version of the model on the main processor. The faster the processor, the easier it keeps up.",
+      "facts": [
+        {
+          "value": "9 MB",
+          "label": "One small download. After that it works offline."
+        },
+        {
+          "value": "Speed check",
+          "label": "When you turn it on, the app tests your phone. If it cannot keep up, it stays off. You never hear a dropout."
+        },
+        {
+          "value": "Enhanced",
+          "label": "The badge says Enhanced while it works. You turn it on with the same switch."
+        }
+      ],
+      "phones": "Google Pixel, Samsung Galaxy with Exynos, older Snapdragon phones, budget MediaTek phones"
     }
   ],
   "systemRequirements": [
@@ -142,7 +136,7 @@
     {
       "id": "offline",
       "label": "Download and privacy",
-      "value": "One download of 10 to 60 MB",
+      "value": "One download of 9 to 60 MB",
       "note": "The model downloads once for your chip. After that it runs on the phone and works offline."
     }
   ]

@@ -1,0 +1,341 @@
+---
+import Band from '../sections/Band';
+import { CHECK_SOLID_PATH } from '../primitives/glyphs';
+import { useTranslations } from '../../i18n/utils';
+
+export interface Props {
+  id?: string;
+  tone?: 'ivory' | 'graphite';
+  title?: string;
+  titleAccent?: string;
+  lede?: string;
+  note?: string;
+}
+
+const {
+  id = 'signal-path',
+  tone = 'ivory',
+  title,
+  titleAccent,
+  lede,
+  note,
+} = Astro.props as Props;
+
+const lang = Astro.currentLocale;
+const t = useTranslations(lang);
+const onWhite = tone === 'ivory';
+
+const headingTitle = title ?? t('feature_detail.signal_path_title');
+const headingLede = lede ?? t('feature_detail.signal_path_subtitle');
+const noteText = note ?? 'Signal verification: live bit-for-bit badge confirms that no software mixer or resampler touched the audio stream.';
+---
+
+<Band id={id} tone={tone} ground={onWhite ? 'ground-halftone' : 'ground-samples'} space="default" aria-labelledby={`${id}-title`}>
+  {/* Section Heading - Centered */}
+  <div class="mx-auto max-w-3xl text-center">
+    <span class:list={['text-xs font-semibold tracking-wider uppercase', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+      {t('feature_detail.signal_path_eyebrow')}
+    </span>
+    <h2 id={`${id}-title`} class:list={['mt-2 text-section-m lg:text-headline', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+      {headingTitle} {titleAccent && <span class={onWhite ? 'text-band-gold-ink' : 'text-gold'}>{titleAccent}</span>}
+    </h2>
+    <p class:list={['mt-3 text-body leading-relaxed text-pretty lg:mt-4 lg:text-lede', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+      {headingLede}
+    </p>
+  </div>
+
+  {/* ── The 2-Column Comparative Architecture ── */}
+  <div class="mt-10 grid grid-cols-1 gap-6 lg:mt-14 lg:grid-cols-2 lg:gap-8">
+    {/* Card 1: Standard Android Path */}
+    <div class:list={[
+      'flex flex-col justify-between rounded-2xl border p-6 sm:p-8',
+      onWhite ? 'border-band-rule bg-white' : 'border-border-subtle bg-surface-raised/40'
+    ]}>
+      <div>
+        {/* Header */}
+        <div class:list={['flex items-center justify-between border-b pb-5', onWhite ? 'border-band-rule' : 'border-border-subtle']}>
+          <div class="flex items-center gap-2.5">
+            <span class:list={['h-2.5 w-2.5 rounded-full', onWhite ? 'bg-band-ink/40' : 'bg-text-tertiary']} aria-hidden="true" />
+            <span class:list={['text-xs font-semibold uppercase tracking-wider', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+              {t('feature_detail.signal_path_android')}
+            </span>
+          </div>
+          <span class:list={['text-xs font-medium uppercase', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+            7 {t('feature_detail.signal_path_stages')}
+          </span>
+        </div>
+
+        {/* Delivery Output Metric */}
+        <div class:list={['border-b pb-5 pt-4', onWhite ? 'border-band-rule' : 'border-border-subtle']}>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class:list={['block text-xs font-medium uppercase tracking-wider', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+                {t('feature_detail.signal_path_reaches_dac')}
+              </span>
+              <span class:list={['mt-1 block text-2xl font-bold tracking-tight tabular-nums', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+                48 kHz / 16-bit
+              </span>
+            </div>
+            <span class:list={[
+              'rounded-full border px-3 py-1 text-xs font-semibold',
+              onWhite ? 'border-band-rule bg-black/[0.04] text-band-ink-muted' : 'border-border-subtle bg-white/5 text-text-secondary'
+            ]}>
+              Resampled
+            </span>
+          </div>
+        </div>
+
+        {/* 7 Vertical Pipeline Stages */}
+        <div class="relative pt-6 pl-1">
+          <div class:list={['absolute left-[13.5px] top-10 bottom-6 w-px', onWhite ? 'bg-band-rule/80' : 'bg-border-subtle/50']} aria-hidden="true" />
+
+          <div class="flex flex-col space-y-5">
+            {[
+              {
+                num: '01',
+                name: t('feature.usb-dac.signal_path.android.stage.0'),
+                note: '192 kHz / 24-bit',
+                detail: 'Original high-resolution master file',
+                status: 'gold'
+              },
+              {
+                num: '02',
+                name: t('feature.usb-dac.signal_path.android.stage.1'),
+                note: 'Shared audio pipe',
+                detail: 'Enters Android shared system audio server',
+                status: 'gray'
+              },
+              {
+                num: '03',
+                name: t('feature.usb-dac.signal_path.android.stage.2'),
+                note: 'Forced to 48 kHz',
+                detail: 'OS resamples all audio to fixed 48 kHz clock',
+                status: 'gray'
+              },
+              {
+                num: '04',
+                name: t('feature.usb-dac.signal_path.android.stage.3'),
+                note: 'Mixed with system sounds',
+                detail: 'Blended with notifications, ringtones and chimes',
+                status: 'gray'
+              },
+              {
+                num: '05',
+                name: t('feature.usb-dac.signal_path.android.stage.4'),
+                note: 'Digital attenuation',
+                detail: 'Volume lowered by digital bit reduction',
+                status: 'gray'
+              },
+              {
+                num: '06',
+                name: t('feature.usb-dac.signal_path.android.stage.5'),
+                note: 'Truncated to 16-bit',
+                detail: '24-bit dynamic range crushed down to 16-bit',
+                status: 'gray'
+              },
+              {
+                num: '07',
+                name: t('feature.usb-dac.signal_path.android.stage.6'),
+                note: '48 kHz / 16-bit stream',
+                detail: 'Compromised audio stream delivered to USB DAC',
+                status: 'gray'
+              },
+            ].map((st) => (
+              <div class="relative flex items-start gap-3.5">
+                <span class:list={[
+                  'relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs tabular-nums',
+                  st.status === 'gold' && (onWhite ? 'bg-band-gold-ink text-white font-bold shadow-xs' : 'bg-gold text-surface-base font-bold shadow-xs'),
+                  st.status === 'gray' && (onWhite ? 'border border-band-rule bg-black/[0.04] text-band-ink-muted/80 font-medium' : 'border border-border-subtle bg-white/5 text-text-secondary font-medium')
+                ]}>
+                  {st.num}
+                </span>
+                <div class="min-w-0 flex-1 pt-0.5">
+                  <div class="flex flex-wrap items-baseline justify-between gap-x-2">
+                    <span class:list={[
+                      'text-sm sm:text-base',
+                      st.status === 'gold' ? (onWhite ? 'font-semibold text-band-ink' : 'font-semibold text-text-primary') : (onWhite ? 'font-medium text-band-ink-muted' : 'font-medium text-text-secondary')
+                    ]}>
+                      {st.name}
+                    </span>
+                    <span class:list={[
+                      'text-xs sm:text-[13px] tabular-nums',
+                      st.status === 'gold' ? (onWhite ? 'font-bold text-band-gold-ink' : 'font-bold text-gold') : (onWhite ? 'font-medium text-band-ink-muted/80' : 'font-medium text-text-tertiary')
+                    ]}>
+                      {st.note}
+                    </span>
+                  </div>
+                  <span class:list={[
+                    'mt-0.5 block text-xs sm:text-[13px] leading-relaxed',
+                    onWhite ? 'text-band-ink-muted/70' : 'text-text-secondary/70'
+                  ]}>
+                    {st.detail}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Verdict */}
+      <div class:list={['mt-8 flex items-center justify-between border-t pt-4 text-xs sm:text-sm', onWhite ? 'border-band-rule text-band-ink-muted' : 'border-border-subtle text-text-secondary']}>
+        <span>Final signal state:</span>
+        <span class="font-semibold text-amber-800 dark:text-amber-400">
+          Resampled & Altered
+        </span>
+      </div>
+    </div>
+
+    {/* Card 2: Bitperfect Player Direct Path */}
+    <div class:list={[
+      'relative flex flex-col justify-between rounded-2xl border-2 p-6 sm:p-8 shadow-sm',
+      onWhite
+        ? 'border-band-gold-ink/35 bg-gradient-to-b from-[#faf7f0] to-white'
+        : 'border-gold/40 bg-gradient-to-b from-surface-raised/80 to-surface-base'
+    ]}>
+      <div class="flex flex-1 flex-col">
+        {/* Header */}
+        <div class:list={['flex items-center justify-between border-b pb-5', onWhite ? 'border-band-gold-ink/20' : 'border-gold/20']}>
+          <div class="flex items-center gap-2.5">
+            <span class:list={['h-2.5 w-2.5 rounded-full', onWhite ? 'bg-band-gold-ink' : 'bg-gold']} aria-hidden="true" />
+            <span class:list={['text-xs font-bold uppercase tracking-wider', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+              {t('feature_detail.signal_path_ours')}
+            </span>
+          </div>
+          <span class:list={['text-xs font-bold uppercase', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+            4 {t('feature_detail.signal_path_stages')} · Direct Lock
+          </span>
+        </div>
+
+        {/* Delivery Output Metric */}
+        <div class:list={['border-b pb-5 pt-4', onWhite ? 'border-band-gold-ink/20' : 'border-gold/20']}>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class:list={['block text-xs font-semibold uppercase tracking-wider', onWhite ? 'text-band-gold-ink' : 'text-gold-light']}>
+                {t('feature_detail.signal_path_reaches_dac')}
+              </span>
+              <span class:list={['mt-1 block text-2xl font-bold tracking-tight tabular-nums', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+                192 kHz / 24-bit
+              </span>
+            </div>
+            <span class:list={[
+              'rounded-full px-3 py-1 text-xs font-bold',
+              onWhite ? 'bg-band-gold-ink/15 text-band-gold-ink' : 'bg-gold/15 text-gold'
+            ]}>
+              Bit-Perfect
+            </span>
+          </div>
+        </div>
+
+        {/* 4 Direct Stages */}
+        <div class="relative flex flex-1 flex-col justify-between pt-6 pl-1">
+          <div class:list={['absolute left-[13.5px] top-10 bottom-6 w-px', onWhite ? 'bg-band-gold-ink/35' : 'bg-gold/30']} aria-hidden="true" />
+
+          <div class="flex flex-1 flex-col justify-between gap-6 py-2">
+            {[
+              {
+                num: '01',
+                name: t('feature.usb-dac.signal_path.ours.stage.0'),
+                note: '192 kHz / 24-bit',
+                detail: 'High-res audio streamed directly from storage into RAM'
+              },
+              {
+                num: '02',
+                name: t('feature.usb-dac.signal_path.ours.stage.1'),
+                note: 'Bypasses system mixer',
+                detail: 'Exclusive hardware claim locks the port; no system sound can intervene'
+              },
+              {
+                num: '03',
+                name: t('feature.usb-dac.signal_path.ours.stage.2'),
+                note: '0 mixers, 0 resamplers',
+                detail: 'Zero software volume attenuation; every sample sent to USB untouched'
+              },
+              {
+                num: '04',
+                name: t('feature.usb-dac.signal_path.ours.stage.3'),
+                note: 'DAC follows file clock',
+                detail: 'Hardware DAC locks onto native sampling frequency (up to 768 kHz / DSD512)'
+              },
+            ].map((st) => (
+              <div class="relative flex items-start gap-3.5">
+                <span class:list={[
+                  'relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white shadow-xs',
+                  onWhite ? 'bg-band-gold-ink' : 'bg-gold text-surface-base'
+                ]}>
+                  <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d={CHECK_SOLID_PATH} clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <div class="min-w-0 flex-1 pt-0.5">
+                  <div class="flex flex-wrap items-baseline justify-between gap-x-2">
+                    <span class:list={['text-sm sm:text-base font-bold', onWhite ? 'text-band-ink' : 'text-text-primary']}>{st.name}</span>
+                    <span class:list={['text-xs sm:text-[13px] font-bold tabular-nums', onWhite ? 'text-band-gold-ink' : 'text-gold']}>{st.note}</span>
+                  </div>
+                  <span class:list={['mt-0.5 block text-xs sm:text-[13px] leading-relaxed', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>{st.detail}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Verdict */}
+      <div class:list={['mt-8 flex items-center justify-between border-t pt-4 text-xs sm:text-sm', onWhite ? 'border-band-gold-ink/20 text-band-ink-muted' : 'border-gold/20 text-text-secondary']}>
+        <span>Final signal state:</span>
+        <span class:list={['font-bold', onWhite ? 'text-band-gold-ink' : 'text-gold']}>
+          ✓ 100% Bit-Perfect
+        </span>
+      </div>
+    </div>
+  </div>
+
+  {/* ── Three Counts (All Zero) ── */}
+  <div class:list={['mt-12 border-t pt-10 lg:mt-16 lg:pt-12', onWhite ? 'border-band-rule' : 'border-border-subtle']}>
+    <div class:list={['grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10 sm:divide-x', onWhite ? 'sm:divide-band-rule' : 'sm:divide-border-subtle']}>
+      <div class="sm:pr-8">
+        <span class:list={['block text-section-m font-bold tabular-nums lg:text-section', onWhite ? 'text-band-gold-ink' : 'text-gold']}>0</span>
+        <span class:list={['mt-2 block text-xs font-bold tracking-wider uppercase', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+          {t('feature_detail.signal_path_resamples')}
+        </span>
+        <p class:list={['mt-1.5 text-caption leading-relaxed', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+          None. Your DAC's internal oscillator clocks directly to the file's native sampling rate.
+        </p>
+      </div>
+      <div class="pt-6 sm:pt-0 sm:px-8">
+        <span class:list={['block text-section-m font-bold tabular-nums lg:text-section', onWhite ? 'text-band-gold-ink' : 'text-gold']}>0</span>
+        <span class:list={['mt-2 block text-xs font-bold tracking-wider uppercase', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+          {t('feature_detail.signal_path_mixers')}
+        </span>
+        <p class:list={['mt-1.5 text-caption leading-relaxed', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+          Bypasses the Android system mixer entirely with a direct, exclusive USB driver.
+        </p>
+      </div>
+      <div class="pt-6 sm:pt-0 sm:pl-8">
+        <span class:list={['block text-section-m font-bold tabular-nums lg:text-section', onWhite ? 'text-band-gold-ink' : 'text-gold']}>0</span>
+        <span class:list={['mt-2 block text-xs font-bold tracking-wider uppercase', onWhite ? 'text-band-ink' : 'text-text-primary']}>
+          {t('feature_detail.signal_path_conversions')}
+        </span>
+        <p class:list={['mt-1.5 text-caption leading-relaxed', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+          Full 24-bit and 32-bit dynamic range preserved without software volume attenuation.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* ── Live Signal Badge Verification Note ── */}
+  <div class:list={[
+    'mt-10 flex flex-col items-start gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:gap-4',
+    onWhite ? 'bg-black/[0.02]' : 'bg-surface-raised/40'
+  ]}>
+    <span class:list={[
+      'shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider',
+      onWhite ? 'bg-band-gold-ink/15 text-[#614100]' : 'bg-gold/15 text-gold-light'
+    ]}>
+      Bit-perfect
+    </span>
+    <p class:list={['text-caption text-pretty leading-relaxed', onWhite ? 'text-band-ink-muted' : 'text-text-secondary']}>
+      {noteText}
+    </p>
+  </div>
+</Band>

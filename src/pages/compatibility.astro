@@ -5,32 +5,17 @@ import Band from '../components/sections/Band';
 import SectionHeading from '../components/sections/SectionHeading';
 import ClosingBanner from '../components/sections/ClosingBanner';
 import Card from '../components/primitives/Card';
-import {
-  enhancerModes,
-  liteModeGroups,
-  neuralChipFamilies,
-  systemRequirements,
-  type ChipDeviceMap,
-} from '../data/neural-chips';
+import { enhancerModes, neuralChipFamilies, systemRequirements } from '../data/neural-chips';
 import { withBase } from '../utils/nav';
 
 const title = 'Processor & Neural Chip Requirements | Bitperfect Player';
 const description =
   'Processor and neural chip requirements for Bitperfect Player on Android. Check NPU compatibility for Snapdragon, Dimensity, and Lite mode CPU execution.';
 
-/* Each mode plate carries its own processor list: the neural chip families for
-   the full model, the common processors without one for Lite mode. */
-type ChipGroup = { heading?: string; note?: string; rows: readonly ChipDeviceMap[] };
-const groupsFor = (modeId: string): ChipGroup[] =>
-  modeId === 'npu'
-    ? neuralChipFamilies.map((family) => ({
-        heading: family.name,
-        note: family.npuName.replace(' / NPU', ''),
-        rows: family.chips.map((chip) => family.examples.find((e) => e.chip === chip) ?? { chip, devices: '' }),
-      }))
-    : modeId === 'lite'
-      ? [{ rows: liteModeGroups }]
-      : [];
+/* The neural chip plate lists Snapdragon and Dimensity side by side, each chip
+   with the phones that carry it. Lite mode runs on any processor, so it lists none. */
+const chipRows = (family: (typeof neuralChipFamilies)[number]) =>
+  family.chips.map((chip) => ({ chip, devices: family.examples.find((e) => e.chip === chip)?.devices ?? '' }));
 ---
 
 <ContentLayout title={title} description={description}>
@@ -42,64 +27,73 @@ const groupsFor = (modeId: string): ChipGroup[] =>
     description="Yes, on any 64-bit phone with Android 8.0 or newer. A supported Snapdragon or Dimensity neural chip runs the full model; every other phone runs Lite mode."
   />
 
-  {/* ── How it runs: one lacquer plate per mode, each with its processor list ── */}
+  {/* ── How it runs: each mode as a heading; the neural chip mode gets one lacquer card per chip maker ── */}
   <Band aria-labelledby="enhancer-modes-title">
     <SectionHeading
       tone="graphite"
       titleId="enhancer-modes-title"
-      className="max-w-3xl"
       title="How AI Enhancer runs"
       titleClassName="text-section-sm text-balance lg:text-section-lg"
       lede="The app checks the processor once and picks the best way to run. You do not set anything."
-      ledeClassName="mt-4 max-w-measure-legal text-body text-pretty lg:mt-5 lg:text-body-lg"
+      ledeClassName="mt-4 text-body text-pretty lg:mt-5 lg:text-body-lg"
     />
 
-    <div class="mt-10 flex flex-col gap-6 lg:mt-14 lg:gap-8">
+    <div class="mt-10 flex flex-col gap-14 lg:mt-14 lg:gap-20">
       {
         enhancerModes.map((mode) => (
-          <Card
-            as="section"
+          <section
             id={mode.id === 'npu' ? 'supported-neural-chips' : `mode-${mode.id}`}
             aria-labelledby={`mode-${mode.id}-title`}
-            className="scroll-mt-24 grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14"
+            class="scroll-mt-24"
           >
-            <div class="lg:col-span-4">
-              <div class="lg:sticky lg:top-28">
-                <h3 id={`mode-${mode.id}-title`} class="text-title-lg font-bold text-balance text-text-primary lg:text-section-sm">
-                  {mode.title}
-                </h3>
-                <p class="mt-4 text-body text-pretty text-text-secondary lg:text-body-lg">{mode.body}</p>
-                <p class="mt-6 border-t border-border-subtle pt-5 text-body font-semibold text-pretty text-text-primary">
-                  {mode.needs}
-                </p>
-              </div>
-            </div>
+            {/* The chip cards speak for the neural chip mode, so its title stays for screen readers only. */}
+            <h3
+              id={`mode-${mode.id}-title`}
+              class:list={['text-title-lg font-bold text-balance text-text-primary', mode.id === 'npu' && 'sr-only']}
+            >
+              {mode.title}
+            </h3>
+            {mode.body && <p class="mt-2 text-body text-pretty text-text-secondary">{mode.body}</p>}
 
-            <div class="flex flex-col gap-10 lg:col-span-8">
-              {
-                groupsFor(mode.id).map((group) => (
-                  <div>
-                    {group.heading && (
-                      <div class="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                        <h4 class="text-title-sm font-bold text-text-primary lg:text-title">{group.heading}</h4>
-                        {group.note && <span class="text-small text-text-tertiary">{group.note}</span>}
-                      </div>
-                    )}
-                    <ul role="list">
-                      {group.rows.map((row) => (
-                        <li
-                          class="grid grid-cols-1 gap-1 border-t border-border-subtle py-4 sm:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] sm:gap-8"
-                        >
-                          <span class="text-body-lg font-semibold tabular-nums text-text-primary">{row.chip}</span>
-                          {row.devices && <span class="text-body-sm text-pretty text-text-secondary sm:pt-0.5">{row.devices}</span>}
+            {mode.id === 'npu' && (
+              <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+                {neuralChipFamilies.map((family) => (
+                  <Card as="section" aria-labelledby={`chips-${family.id}`} className="p-6 sm:p-8 lg:p-10">
+                    <h4 id={`chips-${family.id}`} class="text-title font-bold text-text-primary">
+                      {family.name}
+                    </h4>
+                    <p class="mt-1 text-small text-text-tertiary">{family.npuName.replace(' / NPU', '')}</p>
+                    <ul role="list" class="mt-6">
+                      {chipRows(family).map((row) => (
+                        <li class="border-t border-border-subtle py-3 last:pb-0">
+                          <span class="block text-body font-semibold tabular-nums text-text-primary">{row.chip}</span>
+                          {row.devices && <span class="mt-0.5 block text-small text-pretty text-text-secondary">{row.devices}</span>}
                         </li>
                       ))}
                     </ul>
-                  </div>
-                ))
-              }
-            </div>
-          </Card>
+                  </Card>
+                ))}
+              </div>
+            )}
+
+            {mode.facts && (
+              <Card className="mt-6 p-6 sm:p-8 lg:mt-8 lg:p-10">
+                <dl class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-border-subtle">
+                  {mode.facts.map((fact) => (
+                    <div class="md:px-8 md:first:pl-0 md:last:pr-0">
+                      <dt class="text-section-sm font-bold text-balance text-text-primary">{fact.value}</dt>
+                      <dd class="mt-3 text-body text-pretty text-text-secondary">{fact.label}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {mode.phones && (
+                  <p class="mt-8 border-t border-border-subtle pt-6 text-body text-pretty text-text-secondary lg:mt-10">
+                    <span class="font-semibold text-text-primary">Usually runs on:</span> {mode.phones}
+                  </p>
+                )}
+              </Card>
+            )}
+          </section>
         ))
       }
     </div>

@@ -154,7 +154,8 @@
     ],
     "disclosures": [
       "Prices in USD. Google Play sets the local currency equivalent at checkout.",
-      "Purchased in the app through Google Play billing. This site takes no payment and collects no card details.",
+      "Purchased in the app through Google Play billing.",
+      "This site takes no payment and collects no card details.",
       "Five devices included; more devices are a paid in-app add-on.",
       "Cancel during the trial and you pay nothing.",
       "Cancel anytime in Google Play Subscriptions."

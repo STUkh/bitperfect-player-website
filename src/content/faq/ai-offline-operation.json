@@ -2,6 +2,6 @@
   "id": "ai-offline-operation",
   "category": "ai",
   "q": "Do the AI features work offline?",
-  "a": "Yes. AI features require a one-time model download first. For AI Enhancer, the model is about 10 to 60 MB. After that, processing runs entirely offline. The app checks your subscription online at least once every 14 days. Your music, library, history and favourites stay on your phone.",
+  "a": "Yes. AI features require a one-time model download first. For AI Enhancer, the model is about 9 to 60 MB. After that, processing runs entirely offline. The app checks your subscription online at least once every 14 days. Your music, library, history and favourites stay on your phone.",
   "order": 12
 }
