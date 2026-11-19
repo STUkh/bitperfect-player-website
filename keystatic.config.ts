@@ -16,6 +16,18 @@ export default config({
     : {
         kind: 'local',
       },
+  ui: {
+    brand: {
+      name: 'Bitperfect Studio',
+    },
+    navigation: {
+      'Pages & Layouts': ['pages'],
+      'Features & Catalog': ['features'],
+      'Support & Guides': ['faq', 'guides'],
+      'Legal & Policies': ['legal'],
+      'Global Settings': ['settings'],
+    },
+  },
   singletons: {
     settings: singleton({
       label: 'Site Settings',
@@ -111,6 +123,7 @@ export default config({
       slugField: 'title',
       path: 'src/content/pages/*',
       format: { data: 'json' },
+      previewUrl: '/{slug}/',
       schema: {
         title: fields.slug({ name: { label: 'Page Title' } }),
         description: fields.text({ label: 'Page Description', multiline: true }),
@@ -488,6 +501,7 @@ export default config({
       slugField: 'id',
       path: 'src/content/features/*',
       format: { data: 'json' },
+      previewUrl: '/features/{slug}/',
       schema: {
         id: fields.slug({ name: { label: 'Feature ID' } }),
         slug: fields.text({ label: 'Slug' }),
