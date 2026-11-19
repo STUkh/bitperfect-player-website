@@ -1,0 +1,149 @@
+{
+  "liteModeNote": "Other phones run AI Enhancer in Lite mode on the main processor.",
+  "families": [
+    {
+      "id": "snapdragon",
+      "name": "Qualcomm Snapdragon",
+      "shortName": "Snapdragon",
+      "npuName": "Qualcomm Hexagon NPU",
+      "chips": [
+        "Snapdragon 8 Elite Gen 5",
+        "Snapdragon 8 Elite",
+        "Snapdragon 8 Gen 3",
+        "Snapdragon 8s Gen 3 / 8 Gen 2",
+        "Snapdragon 8+ Gen 1 / 8 Gen 1",
+        "Snapdragon 7+ Gen 3 / 7 Gen 3 / 7s Gen 2",
+        "Snapdragon 7+ Gen 2 / 7 Gen 1"
+      ],
+      "examples": [
+        {
+          "chip": "Snapdragon 8 Elite Gen 5",
+          "devices": "Xiaomi 17 series, OnePlus 15, Samsung Galaxy S26 Ultra"
+        },
+        {
+          "chip": "Snapdragon 8 Elite",
+          "devices": "Samsung Galaxy S25 series, OnePlus 13, Xiaomi 15, iQOO 13, Realme GT 7 Pro"
+        },
+        {
+          "chip": "Snapdragon 8 Gen 3",
+          "devices": "Samsung Galaxy S24 Ultra / S24+, OnePlus 12, Xiaomi 14 / 14 Pro, Sony Xperia 1 VI, ROG Phone 8"
+        },
+        {
+          "chip": "Snapdragon 8s Gen 3 / 8 Gen 2",
+          "devices": "Samsung Galaxy S23 Ultra / S23, OnePlus 11, Xiaomi 13, Poco F6, Motorola Edge 50 Ultra"
+        },
+        {
+          "chip": "Snapdragon 8+ Gen 1 / 8 Gen 1",
+          "devices": "Samsung Galaxy S22 Ultra / S22, Nothing Phone (2), OnePlus 10T, Xiaomi 12 Pro"
+        },
+        {
+          "chip": "Snapdragon 7+ Gen 3 / 7 Gen 3 / 7s Gen 2",
+          "devices": "OnePlus Nord 4, Realme GT 6T, Poco X6 5G, Redmi Note 13 Pro 5G"
+        },
+        {
+          "chip": "Snapdragon 7+ Gen 2 / 7 Gen 1",
+          "devices": "Poco F5, Xiaomi 13 Lite, Motorola Razr 40"
+        }
+      ]
+    },
+    {
+      "id": "dimensity",
+      "name": "MediaTek Dimensity",
+      "shortName": "Dimensity",
+      "npuName": "MediaTek APU / NPU",
+      "chips": [
+        "Dimensity 9400 / 9400+",
+        "Dimensity 9300 / 9300+ / 9350",
+        "Dimensity 8400 / 8400-Ultra / 8450",
+        "Dimensity 8300 / 8300-Ultra / 8350",
+        "Dimensity 7300 / 7300-Energy / 7350"
+      ],
+      "examples": [
+        {
+          "chip": "Dimensity 9400 / 9400+",
+          "devices": "Vivo X200 Pro, Oppo Find X8 Pro, iQOO Neo 10 Pro"
+        },
+        {
+          "chip": "Dimensity 9300 / 9300+ / 9350",
+          "devices": "Vivo X100 Pro / X100, iQOO Neo 9 Pro, Xiaomi 14T Pro"
+        },
+        {
+          "chip": "Dimensity 8400 / 8400-Ultra / 8450",
+          "devices": "Poco X7 Pro, Redmi K80E"
+        },
+        {
+          "chip": "Dimensity 8300 / 8300-Ultra / 8350",
+          "devices": "Poco X6 Pro, Xiaomi 14T"
+        },
+        {
+          "chip": "Dimensity 7300 / 7300-Energy / 7350",
+          "devices": "CMF Phone 1, Nothing Phone (2a) Plus, Motorola Edge 50 Neo"
+        }
+      ]
+    }
+  ],
+  "liteModeGroups": [
+    {
+      "chip": "Google Tensor G1 to G4",
+      "devices": "Pixel 6, 7, 8 and 9 series"
+    },
+    {
+      "chip": "Samsung Exynos 2400, 2200, 1480, 1380",
+      "devices": "Galaxy S and Galaxy A series"
+    },
+    {
+      "chip": "Snapdragon 888, 870, 865, 855, 778G, 6 series",
+      "devices": "Older flagships and mid-range phones"
+    },
+    {
+      "chip": "Dimensity 7050, 7200, 1080, Helio",
+      "devices": "Mid-range and budget MediaTek phones"
+    }
+  ],
+  "enhancerModes": [
+    {
+      "id": "npu",
+      "title": "Full model on the neural chip",
+      "body": "Phones with a supported Snapdragon or Dimensity neural chip run the full model there. The main processor stays free and battery use stays low.",
+      "needs": "Snapdragon 7 Gen 1 or newer, or Dimensity 7300 or newer."
+    },
+    {
+      "id": "lite",
+      "title": "Lite mode on the main processor",
+      "body": "Every other phone runs a smaller model on the main processor. Google Pixel, Samsung Exynos and older Snapdragon phones work this way.",
+      "needs": "Any 64-bit phone on Android 8.0 or newer."
+    }
+  ],
+  "systemRequirements": [
+    {
+      "id": "android",
+      "label": "Android",
+      "value": "Android 8.0 or newer, 64-bit",
+      "note": "Every feature of the player runs on it. AI Enhancer picks its mode from the processor."
+    },
+    {
+      "id": "audio",
+      "label": "Audio AI Enhancer works on",
+      "value": "44.1 and 48 kHz PCM",
+      "note": "Hi-res PCM and DSD play untouched. It also stays off with Bit-perfect lock and during AI Karaoke."
+    },
+    {
+      "id": "guard",
+      "label": "If the phone falls behind",
+      "value": "It switches itself off",
+      "note": "When the phone cannot keep up in real time, AI Enhancer turns off. You hear the original track, never a dropout."
+    },
+    {
+      "id": "dac",
+      "label": "USB DAC",
+      "value": "USB Audio Class 1 and 2",
+      "note": "Plug in over USB-C or an OTG adapter. No driver needed."
+    },
+    {
+      "id": "offline",
+      "label": "Download and privacy",
+      "value": "One download of 10 to 60 MB",
+      "note": "The model downloads once for your chip. After that it runs on the phone and works offline."
+    }
+  ]
+}

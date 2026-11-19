@@ -1,0 +1,32 @@
+[
+  {
+    "id": "engine",
+    "name": "Core engine",
+    "description": "Direct USB output, precise processing and one switch for untouched sound."
+  },
+  {
+    "id": "dsp",
+    "name": "Sound processing",
+    "description": "EQ, room and headphone correction, tube-style colour and exact volume steps."
+  },
+  {
+    "id": "hardware",
+    "name": "Hardware & outputs",
+    "description": "Direct output to USB DACs, digital audio players and the phone's own port, if supported."
+  },
+  {
+    "id": "ai",
+    "name": "On-device AI",
+    "description": "Rebuilds the top octave on your phone. Separates vocals from instruments."
+  },
+  {
+    "id": "streaming",
+    "name": "Streaming & network",
+    "description": "High-resolution casting, receiver modes and plugins."
+  },
+  {
+    "id": "media",
+    "name": "Formats, radio & interface",
+    "description": "15 file formats, internet radio, a dark theme and Android Auto."
+  }
+]

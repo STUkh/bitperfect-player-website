@@ -1,0 +1,30 @@
+{
+  "number": 7,
+  "id": "pcm-to-dsd-converter",
+  "screens": [
+    "playback",
+    "signal-path",
+    "track-info"
+  ],
+  "title": "Real-time PCM to DSD conversion",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Converts PCM files to 1-bit DSD in real time as tracks play.",
+  "metaDescription": "Converts PCM files to 1-bit DSD as they play, up to DSD256 over DoP or DSD512 native. Made for delta-sigma DACs that sound best on DSD.",
+  "description": "Transforms PCM audio into 1-bit Direct Stream Digital using noise-shaping modulators. Supports DoP up to DSD256 and Native DSD up to DSD512. Real-time conversion to high rates requires a flagship processor.",
+  "audiophileBenefit": "Sends native 1-bit pulse streams to delta-sigma DACs that sound best on DSD.",
+  "specs": [
+    {
+      "label": "Target rates",
+      "value": "DSD64, DSD128, DSD256, DSD512"
+    },
+    {
+      "label": "Transport",
+      "value": "DoP up to DSD256, Native DSD up to DSD512"
+    },
+    {
+      "label": "Modulator",
+      "value": "3rd, 4th and 7th-order delta-sigma"
+    }
+  ]
+}

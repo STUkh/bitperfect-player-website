@@ -1,10 +1,30 @@
 import { useTranslations, type UIKey } from "../i18n/utils";
+import siteSettings from "../content/settings/site.json";
 
-export const navLinks = [
-  { label: "Features", href: "/features" },
-  { label: "Price", href: "/#pricing" },
-  { label: "FAQ", href: "/faq" },
-] as const;
+export interface NavLinkItem {
+  label: string;
+  href: string;
+}
+
+export interface FooterLinkGroup {
+  title: string;
+  href: string;
+  links: NavLinkItem[];
+}
+
+export interface FooterLinksMap {
+  features: FooterLinkGroup;
+  faq: FooterLinkGroup;
+  legal: FooterLinkGroup;
+}
+
+export const navLinks: readonly NavLinkItem[] = (siteSettings.nav && siteSettings.nav.length > 0)
+  ? siteSettings.nav
+  : [
+      { label: "Features", href: "/features" },
+      { label: "Price", href: "/#pricing" },
+      { label: "FAQ", href: "/faq" },
+    ];
 
 export const featureRoutes = [
   { slug: "usb-dac", name: "Direct USB DAC output" },
@@ -51,7 +71,7 @@ export const getLocalizedNavLinks = (lang?: string) => {
   });
 };
 
-export const footerLinks = {
+export const footerLinks: FooterLinksMap = ((siteSettings as Record<string, unknown>).footerLinks as FooterLinksMap) ?? {
   features: {
     title: "Features",
     href: "/features",
@@ -91,4 +111,4 @@ export const footerLinks = {
       },
     ],
   },
-} as const;
+};

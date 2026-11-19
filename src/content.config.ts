@@ -33,6 +33,25 @@ const settings = defineCollection({
         })
       )
       .optional(),
+    footerLinks: z
+      .object({
+        features: z.object({
+          title: z.string(),
+          href: z.string(),
+          links: z.array(z.object({ label: z.string(), href: z.string() })),
+        }),
+        faq: z.object({
+          title: z.string(),
+          href: z.string(),
+          links: z.array(z.object({ label: z.string(), href: z.string() })),
+        }),
+        legal: z.object({
+          title: z.string(),
+          href: z.string(),
+          links: z.array(z.object({ label: z.string(), href: z.string() })),
+        }),
+      })
+      .optional(),
     pro: z.object({
       name: z.string(),
       currency: z.string(),
@@ -282,11 +301,90 @@ const media = defineCollection({
   schema: z.record(z.string().nullable().optional()),
 });
 
+/**
+ * Technical Catalog Collection
+ * 27 in-depth audio engine capabilities and hardware features.
+ */
+const catalog = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/catalog' }),
+  schema: z.object({
+    number: z.number(),
+    id: z.string(),
+    screens: z.array(z.string()).optional(),
+    title: z.string(),
+    category: z.enum(['engine', 'dsp', 'hardware', 'ai', 'streaming', 'media']),
+    categoryLabel: z.string(),
+    summary: z.string(),
+    metaDescription: z.string().optional(),
+    metaTitle: z.string().optional(),
+    description: z.string(),
+    audiophileBenefit: z.string(),
+    specs: z.array(
+      z.object({
+        label: z.string(),
+        value: z.string(),
+      })
+    ),
+    badge: z.string().optional(),
+    sdkUrl: z.string().optional(),
+  }),
+});
+
+/**
+ * Neural Chips & Hardware Matrix (Singleton)
+ * Configures supported NPU chips, devices, and fallback tiers.
+ */
+const neuralChips = defineCollection({
+  loader: glob({ pattern: 'neural-chips.json', base: './src/content/settings' }),
+  schema: z.object({
+    liteModeNote: z.string(),
+    families: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        shortName: z.string(),
+        npuName: z.string(),
+        chips: z.array(z.string()),
+        examples: z.array(
+          z.object({
+            chip: z.string(),
+            devices: z.string(),
+          })
+        ),
+      })
+    ),
+    liteModeGroups: z.array(
+      z.object({
+        chip: z.string(),
+        devices: z.string(),
+      })
+    ),
+    enhancerModes: z.array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        body: z.string(),
+        needs: z.string(),
+      })
+    ),
+    systemRequirements: z.array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        value: z.string(),
+        note: z.string(),
+      })
+    ),
+  }),
+});
+
 export const collections = {
   settings,
   media,
+  neuralChips,
   faq,
   features,
+  catalog,
   pages,
   legal,
   guides,

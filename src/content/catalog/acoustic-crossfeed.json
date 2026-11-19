@@ -1,0 +1,29 @@
+{
+  "number": 15,
+  "id": "acoustic-crossfeed",
+  "screens": [
+    "dsp-sheet",
+    "dsp",
+    "now-playing"
+  ],
+  "title": "Acoustic crossfeed",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Simulates natural loudspeaker stereo imaging on headphones to reduce fatigue.",
+  "description": "Mixes a frequency-filtered, delayed share of each channel into the opposite ear. Emulates natural acoustic speaker listening. Three presets follow Meier, Chu Moy and BS2B models. Softens harsh hard-panned stereo recordings on headphones.",
+  "audiophileBenefit": "Transforms extreme left-right headphone separation into a fatigue-free forward soundstage.",
+  "specs": [
+    {
+      "label": "Circuit models",
+      "value": "Meier, Chu Moy and BS2B"
+    },
+    {
+      "label": "Preset levels",
+      "value": "Subtle, Natural and Strong"
+    },
+    {
+      "label": "Application",
+      "value": "Stereo audio on headphones"
+    }
+  ]
+}

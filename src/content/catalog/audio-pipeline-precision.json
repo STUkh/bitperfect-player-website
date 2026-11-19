@@ -1,0 +1,30 @@
+{
+  "number": 2,
+  "id": "audio-pipeline-precision",
+  "screens": [
+    "playback",
+    "dsp",
+    "signal-path"
+  ],
+  "title": "32-bit and 64-bit processing",
+  "category": "engine",
+  "categoryLabel": "Core engine",
+  "summary": "Switch internal processing between 32-bit and 64-bit floating point.",
+  "metaDescription": "Choose 32-bit or 64-bit float for sound processing and volume. 32-bit saves battery. 64-bit gives the lowest rounding noise.",
+  "description": "32-bit float is the efficient default and uses less battery. 64-bit float delivers the lowest quantisation error across sound processing and volume. Native DSD passes directly to the DAC without float processing.",
+  "audiophileBenefit": "Preserves maximum dynamic range and avoids quantisation error during sound processing.",
+  "specs": [
+    {
+      "label": "Precision options",
+      "value": "32-bit and 64-bit float"
+    },
+    {
+      "label": "Default mode",
+      "value": "32-bit float (lower battery use)"
+    },
+    {
+      "label": "Studio mode",
+      "value": "64-bit float (lowest rounding noise)"
+    }
+  ]
+}

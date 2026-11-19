@@ -1,0 +1,29 @@
+{
+  "number": 26,
+  "id": "android-auto-integration",
+  "screens": [
+    "library",
+    "album",
+    "now-playing-hero"
+  ],
+  "title": "Android Auto integration",
+  "category": "media",
+  "categoryLabel": "Formats, radio & interface",
+  "summary": "Your local library, favourites and radio streams on your car dashboard.",
+  "description": "Browse Recent tracks, Favourites, Playlists, Albums, Artists and Radio from your car touchscreen. Search your library directly from the dashboard. Steering wheel buttons control playback and track skipping.",
+  "audiophileBenefit": "Enjoy your local lossless library on the road with clear, distraction-free vehicle controls.",
+  "specs": [
+    {
+      "label": "Platform",
+      "value": "Native Android Auto media interface"
+    },
+    {
+      "label": "Vehicle controls",
+      "value": "Touchscreen, rotary dial and steering wheel keys"
+    },
+    {
+      "label": "Library access",
+      "value": "Albums, artists, playlists, favourites and radio"
+    }
+  ]
+}

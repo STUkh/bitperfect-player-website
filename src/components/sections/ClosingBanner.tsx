@@ -10,8 +10,8 @@ import SectionHeading from './SectionHeading';
  * secondary (graphite) one, large. Put it just above the Footer.
  */
 export interface ClosingBannerProps {
-  /** Small gold uppercase label above the title. */
-  eyebrow: string;
+  /** Small gold uppercase label above the title. Optional: most pages open on the title. */
+  eyebrow?: string;
   /** The band's heading (an `h2`). */
   title: string;
   /** One or two sentences under the title. */
@@ -61,7 +61,7 @@ export default function ClosingBanner(props: ClosingBannerProps) {
           eyebrow={eyebrow}
           eyebrowClassName="mono-spec text-eyebrow uppercase tracking-widest"
           title={title}
-          titleClassName="mt-4 max-w-xl text-section-sm font-bold lg:text-section-lg"
+          titleClassName={cx([eyebrow && 'mt-4', 'max-w-xl text-section-sm font-bold lg:text-section-lg'])}
           lede={description}
           ledeClassName="mt-3 max-w-xl text-body text-pretty"
         >

@@ -1,0 +1,29 @@
+{
+  "number": 25,
+  "id": "comprehensive-audio-formats",
+  "screens": [
+    "tracks",
+    "track-info",
+    "album"
+  ],
+  "title": "15 audio formats",
+  "category": "media",
+  "categoryLabel": "Formats, radio & interface",
+  "summary": "Plays 15 formats directly, including FLAC, ALAC, DSD and archival rips.",
+  "description": "Plays 15 formats directly. Lossless formats include FLAC, ALAC, WAV, AIFF and DSD disc images. Archival and lossy formats include Monkey's Audio, WavPack, TAK, Opus and MP3. Multichannel rips in standard layouts play too.",
+  "audiophileBenefit": "Plays your entire lossless and archival music collection natively without converting a single file.",
+  "specs": [
+    {
+      "label": "Lossless formats",
+      "value": "FLAC, ALAC, WAV, AIFF"
+    },
+    {
+      "label": "1-bit DSD",
+      "value": "DSF, DFF and DSD disc images"
+    },
+    {
+      "label": "Archival codecs",
+      "value": "Monkey's Audio, WavPack, TAK, True Audio, Musepack"
+    }
+  ]
+}

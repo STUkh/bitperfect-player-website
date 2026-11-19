@@ -1,0 +1,31 @@
+{
+  "number": 21,
+  "id": "on-device-ai",
+  "screens": [
+    "ai",
+    "ai-enhancer",
+    "ai-karaoke"
+  ],
+  "title": "On-device AI: Enhancer, Karaoke, Similar Tracks",
+  "metaTitle": "AI Enhancer, AI Karaoke, Similar Tracks",
+  "category": "ai",
+  "categoryLabel": "On-device AI",
+  "summary": "Rebuilds high frequencies, isolates vocals and finds similar tracks on your phone.",
+  "description": "Models download once, then run on your phone. AI Enhancer reconstructs harmonic detail between 14 and 22 kHz on 44.1 and 48 kHz tracks. AI Karaoke isolates vocals on 44.1 kHz-family files. Sonic Scan finds similar tracks.",
+  "audiophileBenefit": "Restores compressed tracks offline. Full model runs on a neural chip; Lite mode runs on other phones. The badge shows Enhanced while active.",
+  "specs": [
+    {
+      "label": "Compute",
+      "value": "Neural chip, with Lite mode on CPU"
+    },
+    {
+      "label": "Enhancer scope",
+      "value": "44.1 and 48 kHz tracks only"
+    },
+    {
+      "label": "Privacy",
+      "value": "Zero cloud uploads, 100% on device"
+    }
+  ],
+  "badge": "On-device neural"
+}

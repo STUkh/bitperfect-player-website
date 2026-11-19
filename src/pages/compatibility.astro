@@ -1,49 +1,151 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import Container from '../components/primitives/Container';
 import PageHeader from '../components/chrome/PageHeader';
+import Band from '../components/sections/Band';
+import SectionHeading from '../components/sections/SectionHeading';
 import ClosingBanner from '../components/sections/ClosingBanner';
-import SupportedDevices from '../components/devices/SupportedDevices';
+import Card from '../components/primitives/Card';
+import {
+  enhancerModes,
+  liteModeGroups,
+  neuralChipFamilies,
+  systemRequirements,
+  type ChipDeviceMap,
+} from '../data/neural-chips';
 import { withBase } from '../utils/nav';
 
 const title = 'Processor & Neural Chip Requirements | Bitperfect Player';
 const description =
   'Processor and neural chip requirements for Bitperfect Player on Android. Check NPU compatibility for Snapdragon, Dimensity, and Lite mode CPU execution.';
+
+/* Each mode plate carries its own processor list: the neural chip families for
+   the full model, the common processors without one for Lite mode. */
+type ChipGroup = { heading?: string; note?: string; rows: readonly ChipDeviceMap[] };
+const groupsFor = (modeId: string): ChipGroup[] =>
+  modeId === 'npu'
+    ? neuralChipFamilies.map((family) => ({
+        heading: family.name,
+        note: family.npuName.replace(' / NPU', ''),
+        rows: family.chips.map((chip) => family.examples.find((e) => e.chip === chip) ?? { chip, devices: '' }),
+      }))
+    : modeId === 'lite'
+      ? [{ rows: liteModeGroups }]
+      : [];
 ---
 
 <ContentLayout title={title} description={description}>
   <PageHeader
-    maxWidth="840px"
+    maxWidth="wide"
     backHref={withBase('/')}
     backLabel="Back to Home"
-    eyebrow="Hardware requirements"
-    title="Processor and neural chip requirements"
-    description="Hardware tiers for on-device AI Enhancer, supported Qualcomm Snapdragon and MediaTek Dimensity processors, and device compatibility for Bitperfect Player."
+    title="Will AI Enhancer run on your phone?"
+    description="Yes, on any 64-bit phone with Android 8.0 or newer. A supported Snapdragon or Dimensity neural chip runs the full model; every other phone runs Lite mode."
   />
 
-  <section class="section-compact">
-    <Container>
-      <article class="mx-auto max-w-[840px]">
-        <SupportedDevices
-          client:idle
-          variant="full"
-          tone="graphite"
-          id="supported-neural-chips"
-          showTiers={true}
-          showTroubleshootingLink={true}
-        />
-      </article>
-    </Container>
-  </section>
+  {/* ── How it runs: one lacquer plate per mode, each with its processor list ── */}
+  <Band aria-labelledby="enhancer-modes-title">
+    <SectionHeading
+      tone="graphite"
+      titleId="enhancer-modes-title"
+      className="max-w-3xl"
+      title="How AI Enhancer runs"
+      titleClassName="text-section-sm text-balance lg:text-section-lg"
+      lede="The app checks the processor once and picks the best way to run. You do not set anything."
+      ledeClassName="mt-4 max-w-measure-legal text-body text-pretty lg:mt-5 lg:text-body-lg"
+    />
+
+    <div class="mt-10 flex flex-col gap-6 lg:mt-14 lg:gap-8">
+      {
+        enhancerModes.map((mode) => (
+          <Card
+            as="section"
+            id={mode.id === 'npu' ? 'supported-neural-chips' : `mode-${mode.id}`}
+            aria-labelledby={`mode-${mode.id}-title`}
+            className="scroll-mt-24 grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14"
+          >
+            <div class="lg:col-span-4">
+              <div class="lg:sticky lg:top-28">
+                <h3 id={`mode-${mode.id}-title`} class="text-title-lg font-bold text-balance text-text-primary lg:text-section-sm">
+                  {mode.title}
+                </h3>
+                <p class="mt-4 text-body text-pretty text-text-secondary lg:text-body-lg">{mode.body}</p>
+                <p class="mt-6 border-t border-border-subtle pt-5 text-body font-semibold text-pretty text-text-primary">
+                  {mode.needs}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-10 lg:col-span-8">
+              {
+                groupsFor(mode.id).map((group) => (
+                  <div>
+                    {group.heading && (
+                      <div class="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <h4 class="text-title-sm font-bold text-text-primary lg:text-title">{group.heading}</h4>
+                        {group.note && <span class="text-small text-text-tertiary">{group.note}</span>}
+                      </div>
+                    )}
+                    <ul role="list">
+                      {group.rows.map((row) => (
+                        <li
+                          class="grid grid-cols-1 gap-1 border-t border-border-subtle py-4 sm:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] sm:gap-8"
+                        >
+                          <span class="text-body-lg font-semibold tabular-nums text-text-primary">{row.chip}</span>
+                          {row.devices && <span class="text-body-sm text-pretty text-text-secondary sm:pt-0.5">{row.devices}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+              }
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </Band>
+
+  {/* ── The rest of the phone: ivory hairline rows, as on /features ── */}
+  <Band tone="ivory" ground="ground-halftone" aria-labelledby="requirements-title">
+    <div class="grid grid-cols-1 items-start gap-9 lg:grid-cols-12 lg:gap-16">
+      <SectionHeading
+        tone="ivory"
+        titleId="requirements-title"
+        className="lg:col-span-4"
+        title="What else it needs"
+        titleClassName="text-section-sm text-balance lg:text-section-lg"
+        lede="The player runs on any 64-bit phone with Android 8.0 or newer. These are the limits that matter for AI Enhancer and USB DACs."
+        ledeClassName="mt-4 max-w-measure-card text-body text-pretty lg:mt-5"
+      />
+
+      <dl class="flex flex-col lg:col-span-8">
+        {
+          systemRequirements.map((row, i, all) => (
+            <div
+              class:list={[
+                'grid grid-cols-1 gap-2 border-t border-band-rule py-6 lg:grid-cols-[2fr_3fr] lg:gap-10 lg:py-8',
+                i === all.length - 1 && 'border-b',
+              ]}
+            >
+              <dt class="text-body font-semibold text-band-ink-muted lg:pt-1">{row.label}</dt>
+              <dd>
+                <p class="text-title-sm font-bold text-band-ink lg:text-title">{row.value}</p>
+                <p class="mt-2 max-w-measure text-small text-pretty text-band-ink-muted">{row.note}</p>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Band>
 
   <ClosingBanner
     maxWidth="760px"
-    eyebrow="Device check"
-    title="Not sure about your phone's processor?"
-    description="Send us your phone model and DAC details. We will confirm your exact compatibility tier."
+    title="Supported chip, but AI Enhancer is off?"
+    description="Some makers, Motorola among them, lock apps out of the neural chip. Send us your phone model and DAC and we will check it."
     primaryHref="mailto:support@bit-perfect.com"
     primaryLabel="Email phone and DAC details"
     secondaryHref={withBase('/faq/why-npu-ai-enhancer-not-working')}
-    secondaryLabel="AI Enhancer troubleshooting"
+    secondaryLabel="Troubleshooting guide"
   />
 </ContentLayout>

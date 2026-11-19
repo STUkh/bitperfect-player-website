@@ -4,7 +4,7 @@
   "playUrl": "https://play.google.com/store/apps/details?id=com.bitperfect.player",
   "apkUrl": null,
   "appStoreUrl": null,
-  "holding": false,
+  "holding": true,
   "contactEmail": "support@bit-perfect.com",
   "minAndroid": "8.0",
   "minSdk": 26,
@@ -40,10 +40,55 @@
       "href": "/features"
     },
     {
+      "label": "Price",
+      "href": "/#pricing"
+    },
+    {
       "label": "FAQ",
       "href": "/faq"
     }
   ],
+  "footerLinks": {
+    "features": {
+      "title": "Features",
+      "href": "/features",
+      "links": [
+        { "label": "Direct USB DAC", "href": "/features/usb-dac" },
+        { "label": "32-band parametric EQ", "href": "/features/eq" },
+        { "label": "DSP rack and crossfeed", "href": "/features/dsp" },
+        { "label": "Local lossless library", "href": "/features/library" },
+        { "label": "Casting and receiver mode", "href": "/features/casting" },
+        { "label": "On-device AI Enhancer", "href": "/features/ai-enhancer" },
+        { "label": "Processor & chip compatibility", "href": "/compatibility" },
+        { "label": "27 technical capabilities", "href": "/features/catalog" }
+      ]
+    },
+    "faq": {
+      "title": "FAQ",
+      "href": "/faq",
+      "links": [
+        { "label": "Check compatibility", "href": "/compatibility" },
+        { "label": "AI Enhancer troubleshooting", "href": "/faq/why-npu-ai-enhancer-not-working" },
+        { "label": "How direct USB output works", "href": "/faq#direct-hardware-bypass" },
+        { "label": "External USB DAC setup", "href": "/faq#need-external-dac" },
+        { "label": "Supported audio formats", "href": "/faq#supported-audio-formats" },
+        { "label": "All questions", "href": "/faq" }
+      ]
+    },
+    "legal": {
+      "title": "Legal and support",
+      "href": "/privacy",
+      "links": [
+        { "label": "Privacy policy", "href": "/privacy" },
+        { "label": "Terms of use", "href": "/terms" },
+        { "label": "Email support", "href": "mailto:support@bit-perfect.com" },
+        {
+          "label": "Get it on Google Play",
+          "href": "https://play.google.com/store/apps/details?id=com.bitperfect.player"
+        }
+      ]
+    }
+  },
   "pro": {
     "name": "Bitperfect Player",
     "currency": "USD",

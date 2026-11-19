@@ -1,0 +1,29 @@
+{
+  "number": 18,
+  "id": "multichannel-downmix",
+  "screens": [
+    "dsp",
+    "track-info",
+    "signal-path"
+  ],
+  "title": "Multichannel downmix",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Mixes 3.0 to 7.1 surround sound down to stereo with standard speaker balancing.",
+  "description": "Mixes 3.0 to 7.1 surround sound down to stereo with standard speaker balancing. Choose full level with clip protection, or a fixed 7.6 dB cut for 5.1.",
+  "audiophileBenefit": "Listen to surround DSD disc images on stereo headphones without losing the centre channel.",
+  "specs": [
+    {
+      "label": "Source layouts",
+      "value": "3.0 to 7.1 surround channels"
+    },
+    {
+      "label": "Overload protection",
+      "value": "True-peak limiter or fixed gain cut"
+    },
+    {
+      "label": "Supported media",
+      "value": "Multichannel rips and DSD disc images"
+    }
+  ]
+}

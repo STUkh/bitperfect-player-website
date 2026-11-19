@@ -1,0 +1,30 @@
+{
+  "number": 9,
+  "id": "dyadic-lossless-volume",
+  "screens": [
+    "playback",
+    "signal-clean",
+    "now-playing"
+  ],
+  "title": "Dyadic bit-exact volume steps",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Volume steps that lose zero bits when output depth exceeds file depth.",
+  "description": "Off by default. Applies mathematical dyadic step attenuation using pure bit shifts without roundoff error. Provides 85 exact steps for 16-bit files at 32-bit output. Provides 20 exact steps for 24-bit files at 32-bit output.",
+  "audiophileBenefit": "Attenuates volume with zero bit-depth truncation and zero added dither noise.",
+  "specs": [
+    {
+      "label": "16-bit to 32-bit",
+      "value": "85 bit-exact steps"
+    },
+    {
+      "label": "24-bit to 32-bit",
+      "value": "20 bit-exact steps"
+    },
+    {
+      "label": "Dither policy",
+      "value": "Zero dither needed for exact steps"
+    }
+  ],
+  "badge": "Mathematical precision"
+}

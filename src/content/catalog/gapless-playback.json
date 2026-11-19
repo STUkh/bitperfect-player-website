@@ -1,0 +1,30 @@
+{
+  "number": 10,
+  "id": "gapless-playback",
+  "screens": [
+    "now-playing",
+    "tracks",
+    "album"
+  ],
+  "title": "Gapless playback",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Continuous playback with zero silence or pauses between tracks.",
+  "metaDescription": "No silence between tracks. Classical movements, live recordings and concept albums play straight through, with sample-accurate transitions.",
+  "description": "Pre-loads and decodes upcoming audio before the active track finishes. Trims encoder delay and padding samples from lossy and lossless files automatically. Track transitions happen with sample-accurate timing.",
+  "audiophileBenefit": "Classical movements, live recordings and concept albums play without unwanted gaps.",
+  "specs": [
+    {
+      "label": "Handoff timing",
+      "value": "Sample-accurate transition"
+    },
+    {
+      "label": "Padding removal",
+      "value": "Trims encoder delay automatically"
+    },
+    {
+      "label": "Queue preparation",
+      "value": "Continuous background audio loading"
+    }
+  ]
+}

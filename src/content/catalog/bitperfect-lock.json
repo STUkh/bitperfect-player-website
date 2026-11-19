@@ -1,0 +1,31 @@
+{
+  "number": 6,
+  "id": "bitperfect-lock",
+  "screens": [
+    "playback",
+    "signal-clean",
+    "now-playing"
+  ],
+  "title": "Bit-perfect lock",
+  "category": "engine",
+  "categoryLabel": "Core engine",
+  "summary": "One switch disables sound processing and software volume.",
+  "metaDescription": "One switch turns off EQ, sound processing and software volume. Volume moves to your DAC. If your DAC lacks the file rate, the badge shows Resampled.",
+  "description": "Disables EQ, crossfeed, upsampling and volume attenuation in one tap. Volume moves to your DAC hardware control. If your DAC lacks hardware volume, output stays fixed at 0 dBFS line level. Use an external amplifier with volume control. Turn off the lock or use alternative volume if connecting sensitive headphones directly.",
+  "audiophileBenefit": "Guarantees unaltered sample delivery. If your DAC lacks the rate, the badge shows Resampled.",
+  "specs": [
+    {
+      "label": "Locked controls",
+      "value": "EQ, sound processing, volume and AI Enhancer"
+    },
+    {
+      "label": "Volume routing",
+      "value": "Hardware DAC control or 0 dBFS fixed line level"
+    },
+    {
+      "label": "Signal honesty",
+      "value": "Badge shows Resampled if rate differs"
+    }
+  ],
+  "badge": "Purist essential"
+}

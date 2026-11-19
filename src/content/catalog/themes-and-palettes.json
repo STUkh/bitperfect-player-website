@@ -1,0 +1,29 @@
+{
+  "number": 20,
+  "id": "themes-and-palettes",
+  "screens": [
+    "now-playing-hero",
+    "library",
+    "eq-sculptor"
+  ],
+  "title": "Dark theme and accent colours",
+  "category": "media",
+  "categoryLabel": "Formats, radio & interface",
+  "summary": "Dark interface with eleven accent colours designed for low-light listening.",
+  "description": "A clean dark theme built on deep charcoal backgrounds. Eleven selectable accent colours include champagne gold, cobalt, teal, amber and rose. High-contrast typography ensures readability in dim listening rooms.",
+  "audiophileBenefit": "A calm, dark screen that minimises glare during late-night listening sessions.",
+  "specs": [
+    {
+      "label": "Accent colours",
+      "value": "11 presets, gold by default"
+    },
+    {
+      "label": "Background",
+      "value": "OLED-friendly dark graphite"
+    },
+    {
+      "label": "Typography",
+      "value": "Distraction-free high contrast"
+    }
+  ]
+}

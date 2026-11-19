@@ -1,0 +1,31 @@
+{
+  "number": 1,
+  "id": "direct-sound-path",
+  "screens": [
+    "signal-clean",
+    "output",
+    "track-info"
+  ],
+  "title": "Direct sound path",
+  "category": "engine",
+  "categoryLabel": "Core engine",
+  "summary": "Bit-perfect audio to your USB DAC. Bypasses the system mixer.",
+  "metaDescription": "Plays your files straight to your USB DAC, past the system mixer. PCM and DSD keep their original rate and depth, if your DAC supports them.",
+  "description": "Standard system mixers resample audio to 48 kHz on many devices. Bitperfect Player sends files straight to your USB DAC instead. PCM and DSD play at their original rate and depth, if your DAC supports them.",
+  "audiophileBenefit": "You hear your files untouched, with no unwanted resampling or dither.",
+  "specs": [
+    {
+      "label": "Mixer bypass",
+      "value": "Direct to your DAC"
+    },
+    {
+      "label": "Sample rates",
+      "value": "Up to 768 kHz, if your DAC supports it"
+    },
+    {
+      "label": "Signal verification",
+      "value": "Live Bit-perfect badge"
+    }
+  ],
+  "badge": "Core architecture"
+}

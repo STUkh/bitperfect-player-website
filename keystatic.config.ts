@@ -1,8 +1,61 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
+import { block, wrapper } from '@keystatic/core/content-components';
 
 // When running locally in development (`astro dev`), use local filesystem storage.
 // In production builds (`astro build` / Cloudflare Pages), use GitHub storage mode.
 const isProd = import.meta.env.PROD;
+
+const markdocComponents = {
+  callout: wrapper({
+    label: 'Callout Note',
+    description: 'Highlighted callout banner for notes, tips, warnings, and alerts',
+    schema: {
+      tone: fields.select({
+        label: 'Tone',
+        options: [
+          { label: 'Note (Neutral info)', value: 'note' },
+          { label: 'Tip (Recommendation)', value: 'tip' },
+          { label: 'Warning (Cautionary notice)', value: 'warning' },
+          { label: 'Caution (Critical warning)', value: 'caution' },
+        ],
+        defaultValue: 'note',
+      }),
+      title: fields.text({ label: 'Callout Title (Optional)' }),
+    },
+  }),
+  specBadge: block({
+    label: 'Spec / Status Badge',
+    description: 'Compact visual badge or tag',
+    schema: {
+      label: fields.text({ label: 'Badge Label' }),
+      tone: fields.select({
+        label: 'Color Tone',
+        options: [
+          { label: 'Gold (Brand Highlight)', value: 'gold' },
+          { label: 'Neutral (Monospace Meta)', value: 'neutral' },
+          { label: 'Green (Bit-perfect Verified)', value: 'verified' },
+        ],
+        defaultValue: 'gold',
+      }),
+    },
+  }),
+  actionButton: block({
+    label: 'Action CTA Button',
+    description: 'Interactive button link to download or related page',
+    schema: {
+      label: fields.text({ label: 'Button Label' }),
+      href: fields.text({ label: 'Target URL' }),
+      variant: fields.select({
+        label: 'Visual Style',
+        options: [
+          { label: 'Primary (Gold Filled)', value: 'primary' },
+          { label: 'Secondary (Subtle Hairline)', value: 'secondary' },
+        ],
+        defaultValue: 'primary',
+      }),
+    },
+  }),
+};
 
 const SCREEN_OPTIONS = [
   { label: 'Now Playing (Hero - Wagner)', value: 'now-playing-hero' },
@@ -46,11 +99,11 @@ export default config({
     },
     navigation: {
       'Pages & Layouts': ['pages'],
-      'Features & Catalog': ['features'],
+      'Features & Catalog': ['features', 'catalog'],
       'App Screens & Media': ['media'],
       'Support & Guides': ['faq', 'guides'],
       'Legal & Policies': ['legal'],
-      'Global Settings': ['settings'],
+      'Global Settings': ['settings', 'neuralChips'],
     },
   },
   singletons: {
@@ -217,6 +270,41 @@ export default config({
           }),
           { label: 'Navigation Links', itemLabel: (p) => p.fields.label.value || 'Link' }
         ),
+        footerLinks: fields.object({
+          features: fields.object({
+            title: fields.text({ label: 'Features Column Title', defaultValue: 'Features' }),
+            href: fields.text({ label: 'Features Column URL', defaultValue: '/features' }),
+            links: fields.array(
+              fields.object({
+                label: fields.text({ label: 'Link Label' }),
+                href: fields.text({ label: 'Link URL' }),
+              }),
+              { label: 'Feature Links', itemLabel: (p) => p.fields.label.value || 'Link' }
+            ),
+          }),
+          faq: fields.object({
+            title: fields.text({ label: 'FAQ Column Title', defaultValue: 'FAQ' }),
+            href: fields.text({ label: 'FAQ Column URL', defaultValue: '/faq' }),
+            links: fields.array(
+              fields.object({
+                label: fields.text({ label: 'Link Label' }),
+                href: fields.text({ label: 'Link URL' }),
+              }),
+              { label: 'FAQ Links', itemLabel: (p) => p.fields.label.value || 'Link' }
+            ),
+          }),
+          legal: fields.object({
+            title: fields.text({ label: 'Legal Column Title', defaultValue: 'Legal and support' }),
+            href: fields.text({ label: 'Legal Column URL', defaultValue: '/privacy' }),
+            links: fields.array(
+              fields.object({
+                label: fields.text({ label: 'Link Label' }),
+                href: fields.text({ label: 'Link URL' }),
+              }),
+              { label: 'Legal Links', itemLabel: (p) => p.fields.label.value || 'Link' }
+            ),
+          }),
+        }),
         pro: fields.object({
           name: fields.text({ label: 'Product Name', defaultValue: 'Bitperfect Player' }),
           currency: fields.text({ label: 'Currency', defaultValue: 'USD' }),
@@ -272,6 +360,68 @@ export default config({
           { label: 'Compatibility Matrix', itemLabel: (p) => p.fields.what.value || 'Item' }
         ),
         signalStates: fields.ignored(),
+      },
+    }),
+    neuralChips: singleton({
+      label: 'Processor & NPU Matrix',
+      path: 'src/content/settings/neural-chips',
+      format: { data: 'json' },
+      schema: {
+        liteModeNote: fields.text({
+          label: 'Lite Mode Summary Note',
+          defaultValue: 'Other phones run AI Enhancer in Lite mode on the main processor.',
+        }),
+        families: fields.array(
+          fields.object({
+            id: fields.text({ label: 'Family ID (e.g. snapdragon, dimensity)' }),
+            name: fields.text({ label: 'Full Family Name (e.g. Qualcomm Snapdragon)' }),
+            shortName: fields.text({ label: 'Short Name (e.g. Snapdragon)' }),
+            npuName: fields.text({ label: 'NPU Architecture Name (e.g. Qualcomm Hexagon NPU)' }),
+            chips: fields.array(fields.text({ label: 'Chip Model' }), {
+              label: 'Supported Chip Models',
+              itemLabel: (p) => p.value || 'Chip',
+            }),
+            examples: fields.array(
+              fields.object({
+                chip: fields.text({ label: 'Chip' }),
+                devices: fields.text({ label: 'Representative Devices' }),
+              }),
+              {
+                label: 'Device Examples',
+                itemLabel: (p) => (p.fields.chip.value ? `${p.fields.chip.value}: ${p.fields.devices.value}` : 'Example'),
+              }
+            ),
+          }),
+          { label: 'Neural Chip Families', itemLabel: (p) => p.fields.name.value || 'Family' }
+        ),
+        liteModeGroups: fields.array(
+          fields.object({
+            chip: fields.text({ label: 'Processor Line' }),
+            devices: fields.text({ label: 'Device Examples' }),
+          }),
+          {
+            label: 'Lite Mode Processor Groups',
+            itemLabel: (p) => (p.fields.chip.value ? `${p.fields.chip.value}: ${p.fields.devices.value}` : 'Group'),
+          }
+        ),
+        enhancerModes: fields.array(
+          fields.object({
+            id: fields.text({ label: 'Mode ID' }),
+            title: fields.text({ label: 'Mode Title' }),
+            body: fields.text({ label: 'Description', multiline: true }),
+            needs: fields.text({ label: 'Hardware Requirement' }),
+          }),
+          { label: 'Enhancer Operational Modes', itemLabel: (p) => p.fields.title.value || 'Mode' }
+        ),
+        systemRequirements: fields.array(
+          fields.object({
+            id: fields.text({ label: 'Requirement ID' }),
+            label: fields.text({ label: 'Label' }),
+            value: fields.text({ label: 'Requirement Value' }),
+            note: fields.text({ label: 'Technical Note', multiline: true }),
+          }),
+          { label: 'System Requirements', itemLabel: (p) => p.fields.label.value || 'Requirement' }
+        ),
       },
     }),
   },
@@ -643,6 +793,7 @@ export default config({
                       publicPath: '/img/',
                     },
                   },
+                  components: markdocComponents,
                 }),
               }),
             },
@@ -746,7 +897,69 @@ export default config({
           title: fields.text({ label: 'CTA Title' }),
           body: fields.text({ label: 'CTA Body', multiline: true }),
         }),
+        screens: fields.array(
+          fields.select({
+            label: 'Screen',
+            options: SCREEN_OPTIONS,
+          }),
+          { label: 'Screen Mockups (in beat order)', itemLabel: (p) => p.value || 'Screen' }
+        ),
         order: fields.integer({ label: 'Order' }),
+      },
+    }),
+    catalog: collection({
+      label: 'Technical Catalog (27 Capabilities)',
+      slugField: 'id',
+      path: 'src/content/catalog/*',
+      format: { data: 'json' },
+      previewUrl: '/features/catalog/{id}/',
+      schema: {
+        number: fields.integer({
+          label: 'Catalog Number (1-27)',
+          validation: { min: 1, max: 99 },
+        }),
+        id: fields.slug({ name: { label: 'Feature ID / Slug' } }),
+        title: fields.text({ label: 'Feature Title' }),
+        category: fields.select({
+          label: 'Category',
+          options: [
+            { label: 'Core engine', value: 'engine' },
+            { label: 'Sound processing (DSP)', value: 'dsp' },
+            { label: 'Hardware & outputs', value: 'hardware' },
+            { label: 'On-device AI', value: 'ai' },
+            { label: 'Streaming & network', value: 'streaming' },
+            { label: 'Formats & interface', value: 'media' },
+          ],
+          defaultValue: 'engine',
+        }),
+        categoryLabel: fields.text({ label: 'Category Label', defaultValue: 'Core engine' }),
+        summary: fields.text({ label: 'Summary / Lede', multiline: true }),
+        metaTitle: fields.text({ label: 'Meta Title (Optional)' }),
+        metaDescription: fields.text({ label: 'Meta Description (Optional)', multiline: true }),
+        description: fields.text({ label: 'Detailed How-It-Works Description', multiline: true }),
+        audiophileBenefit: fields.text({ label: 'What You Hear / Audiophile Benefit', multiline: true }),
+        badge: fields.text({ label: 'Badge / Architecture Pill (Optional)' }),
+        sdkUrl: fields.text({ label: 'Developer SDK URL (Optional)' }),
+        screens: fields.array(
+          fields.select({
+            label: 'Mockup Screen',
+            options: SCREEN_OPTIONS,
+          }),
+          {
+            label: 'Associated App Screens (Opening, How it works, What you hear)',
+            itemLabel: (p) => p.value || 'Screen',
+          }
+        ),
+        specs: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Spec Parameter' }),
+            value: fields.text({ label: 'Spec Value' }),
+          }),
+          {
+            label: 'Technical Specifications Table',
+            itemLabel: (p) => (p.fields.label.value ? `${p.fields.label.value}: ${p.fields.value.value}` : 'Spec'),
+          }
+        ),
       },
     }),
     legal: collection({
@@ -768,6 +981,7 @@ export default config({
               publicPath: '/img/',
             },
           },
+          components: markdocComponents,
         }),
       },
     }),
@@ -794,6 +1008,7 @@ export default config({
               publicPath: '/img/',
             },
           },
+          components: markdocComponents,
         }),
       },
     }),

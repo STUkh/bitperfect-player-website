@@ -1,0 +1,34 @@
+{
+  "number": 11,
+  "id": "full-ram-playback",
+  "screens": [
+    "playback",
+    "track-info",
+    "now-playing"
+  ],
+  "title": "Full RAM playback",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Loads tracks into memory before playback so storage stays idle.",
+  "metaDescription": "Loads tracks into memory before they play, so storage stays idle. Larger files, such as DSD disc images, stream ahead without gaps.",
+  "description": "Whole file read-ahead loads tracks into memory based on available system RAM. This prevents Android from stopping playback under memory pressure. Larger files like DSD disc images use continuous streaming prefetch without gaps.",
+  "audiophileBenefit": "Keeps storage idle during playback for cached tracks, with smooth streaming for larger files.",
+  "specs": [
+    {
+      "label": "Storage activity",
+      "value": "Zero disk reads during playback for cached files"
+    },
+    {
+      "label": "Memory allocation",
+      "value": "Dynamic allocation based on available RAM"
+    },
+    {
+      "label": "Large file playback",
+      "value": "Continuous streaming prefetch without gaps"
+    },
+    {
+      "label": "Read-ahead modes",
+      "value": "Auto, Short, Long, Whole file"
+    }
+  ]
+}

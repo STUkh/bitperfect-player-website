@@ -1,0 +1,29 @@
+{
+  "number": 13,
+  "id": "harmonic-tuning",
+  "screens": [
+    "dsp",
+    "dsp-sheet",
+    "fidelity"
+  ],
+  "title": "Harmonic tuning",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Eight tube-style voicings, from warm single-ended triode to punchy push-pull.",
+  "description": "Eight voicings inspired by classic vacuum tubes, including 300B, KT88, EL34 and 12AX7 profiles. Adds controlled second through eighth-order harmonics to digital audio. An adjustable drive control dials in the exact colour you want.",
+  "audiophileBenefit": "Adds tube-style harmonic colour to your music, by choice.",
+  "specs": [
+    {
+      "label": "Tube voicings",
+      "value": "8 profiles including 300B and KT88"
+    },
+    {
+      "label": "Harmonic spectrum",
+      "value": "Controlled 2nd to 8th harmonics"
+    },
+    {
+      "label": "Customisation",
+      "value": "Drive level and per-harmonic faders"
+    }
+  ]
+}

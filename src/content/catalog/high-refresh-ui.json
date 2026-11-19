@@ -1,0 +1,29 @@
+{
+  "number": 5,
+  "id": "high-refresh-ui",
+  "screens": [
+    "library",
+    "tracks",
+    "now-playing-hero"
+  ],
+  "title": "Smooth scrolling on high-refresh screens",
+  "category": "media",
+  "categoryLabel": "Formats, radio & interface",
+  "summary": "Library and player screens scroll smoothly at your display's full refresh rate.",
+  "description": "The interface adapts to 60 Hz, 90 Hz and 120 Hz screens automatically. Fast scrolling through large music libraries stays fluid. Screen animations never interrupt audio playback.",
+  "audiophileBenefit": "Browse tens of thousands of tracks with zero audio stutter or dropouts.",
+  "specs": [
+    {
+      "label": "Display support",
+      "value": "60 Hz, 90 Hz and 120 Hz"
+    },
+    {
+      "label": "Audio isolation",
+      "value": "Screen updates never interrupt audio"
+    },
+    {
+      "label": "Visual style",
+      "value": "Near-black dark theme"
+    }
+  ]
+}

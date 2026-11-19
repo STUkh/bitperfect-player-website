@@ -1,6 +1,5 @@
 import type { FlowProps } from './FlowBackdrop';
 import Band from '../sections/Band';
-import ImageSlot from '../primitives/ImageSlot';
 import RuleList from '../sections/RuleList';
 import SectionHeading from '../sections/SectionHeading';
 
@@ -20,18 +19,14 @@ const defaultFacts = [
 ];
 
 /**
- * Statement band. No props; the copy is the site's own.
+ * Statement band.
  *
  * Directly follows AudioEngineBand and precedes FeaturesTeaser. Ivory surface
  * (`bg-band-ivory`) on the `ground-statement` backdrop, and the second of the page's
- * light bands. Hairlines and space only: no cards, glass, icons or shadows (DESIGN.md,
- * "The Ivory Band Has No Shadows").
+ * light bands. Hairlines and space only: no cards, glass, icons or shadows.
  *
- * Content: an 8/4 split on desktop with the claim on the left ("The system mixer changes
- * your music on the way out. This app sends it to your USB DAC unchanged.", accent in
- * `band-gold-ink`) and three facts on a hairline stack to the right, then an ivory
- * `ImageSlot` (`home-statement`, phone to DAC to headphones). Static text; no data or
- * i18n reads.
+ * Content: 40/60 (5/7) split on desktop with the claim on the left and three facts on
+ * a hairline stack to the right.
  */
 export interface StatementFact {
   title: string;
@@ -74,14 +69,6 @@ export default function StatementBand({
           bodyClassName="mt-1.5 text-sm leading-[1.6] text-pretty lg:text-[15px]"
         />
       </div>
-      <ImageSlot
-        name="home-statement"
-        variant="ivory"
-        ratio="var(--listening-art-ratio, 16 / 9)"
-        ships="2560x1440"
-        alt="A phone connected by USB to a DAC and wired headphones."
-        className="r-rise mt-10 sm:[--listening-art-ratio:2/1] lg:mt-18"
-      />
     </Band>
   );
 }

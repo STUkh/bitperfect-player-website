@@ -407,7 +407,11 @@ for (const file of files) {
               ? targetPath + "/"
               : targetPath;
           const ids = pageIds.get(normTarget);
-          if (ids && !ids.has(hash)) {
+          const fallbackIds =
+            normTarget === "/" || normTarget === "" || normTarget === "/index.html"
+              ? pageIds.get("/preview/home/") || pageIds.get("/preview/home")
+              : undefined;
+          if (ids && !ids.has(hash) && (!fallbackIds || !fallbackIds.has(hash))) {
             broken.add(`${raw} (anchor #${hash} missing in ${normTarget})`);
           }
         }

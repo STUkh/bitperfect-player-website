@@ -1,0 +1,31 @@
+{
+  "number": 4,
+  "id": "symphony-rust-engine",
+  "screens": [
+    "tracks",
+    "track-info",
+    "album"
+  ],
+  "title": "One engine for all formats",
+  "category": "engine",
+  "categoryLabel": "Core engine",
+  "summary": "Decodes 15 formats in one engine. No conversion needed.",
+  "metaDescription": "Plays 15 formats with no conversion first: FLAC, ALAC, WAV and DSD, plus Monkey's Audio, WavPack, TAK and True Audio.",
+  "description": "Plays FLAC, ALAC, WAV, DSD and archival formats directly. Every file plays without prior conversion.",
+  "audiophileBenefit": "Smooth, stutter-free playback across all lossless and DSD formats.",
+  "specs": [
+    {
+      "label": "Format coverage",
+      "value": "Lossless, lossy and DSD"
+    },
+    {
+      "label": "Architecture",
+      "value": "Unified audio engine"
+    },
+    {
+      "label": "Archival codecs",
+      "value": "Monkey's Audio, WavPack, TAK, True Audio"
+    }
+  ],
+  "badge": "Playback engine"
+}

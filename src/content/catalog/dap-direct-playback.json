@@ -1,0 +1,31 @@
+{
+  "number": 19,
+  "id": "dap-direct-playback",
+  "screens": [
+    "output",
+    "signal-clean",
+    "now-playing"
+  ],
+  "title": "DAP direct playback",
+  "category": "hardware",
+  "categoryLabel": "Hardware & outputs",
+  "summary": "Direct bit-perfect output for supported digital audio players.",
+  "metaDescription": "Bit-perfect output on HiBy, iBasso, Astell&Kern and other portable players. Skips system resampling. The player's own volume and gain stay in charge.",
+  "description": "Integrates with audio architectures on HiBy, iBasso, Astell&Kern and other Android DAPs. Bypasses standard system resampling. The portable player manages analogue volume and gain stages directly.",
+  "audiophileBenefit": "Drives balanced 4.4 mm and 2.5 mm outputs with bit-perfect sound and zero external adapters.",
+  "specs": [
+    {
+      "label": "Supported brands",
+      "value": "HiBy, iBasso, Astell&Kern and other Android DAPs"
+    },
+    {
+      "label": "Output routing",
+      "value": "Dedicated hardware direct path"
+    },
+    {
+      "label": "Volume control",
+      "value": "Player hardware volume control"
+    }
+  ],
+  "badge": "Portable players"
+}

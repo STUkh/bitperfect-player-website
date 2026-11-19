@@ -1,0 +1,30 @@
+{
+  "number": 23,
+  "id": "universal-casting",
+  "screens": [
+    "cast",
+    "cast-sheet",
+    "signal-path"
+  ],
+  "title": "Casting to speakers and TVs",
+  "category": "streaming",
+  "categoryLabel": "Streaming & network",
+  "summary": "Stream music to DLNA/UPnP and cast-enabled speakers and TVs.",
+  "metaDescription": "Stream your local music over Wi-Fi to DLNA/UPnP and cast-enabled speakers and TVs. Files play unchanged up to 24-bit and 96 kHz, if the device supports it.",
+  "description": "Streams local music over your Wi-Fi network. Files play unchanged when supported by your receiving device, up to 24-bit and 96 kHz.",
+  "audiophileBenefit": "Enjoy your lossless library on living room speakers without quality loss.",
+  "specs": [
+    {
+      "label": "Protocols",
+      "value": "DLNA/UPnP and cast-enabled devices"
+    },
+    {
+      "label": "Cast ceiling",
+      "value": "Up to 24-bit / 96 kHz"
+    },
+    {
+      "label": "Stream honesty",
+      "value": "Badge indicates when stream is converted"
+    }
+  ]
+}

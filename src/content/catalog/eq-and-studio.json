@@ -1,0 +1,30 @@
+{
+  "number": 12,
+  "id": "eq-and-studio",
+  "screens": [
+    "eq",
+    "eq-filters",
+    "eq-presets"
+  ],
+  "title": "EQ and sound processing",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Four EQ modes: tone sliders, 10-band graphic EQ, 32-band parametric EQ, and AutoEQ.",
+  "description": "Tone sliders adjust sound up to 6 dB. Graphic EQ offers 10 bands. Parametric mode provides up to 32 bands in seven filter shapes, with Q from 0.10 to 10.0. AutoEQ downloads headphone profiles.",
+  "audiophileBenefit": "Corrects headphone frequency response and room acoustics with surgical precision.",
+  "specs": [
+    {
+      "label": "Parametric bands",
+      "value": "Up to 32 bands, -12 to +12 dB"
+    },
+    {
+      "label": "Filter shapes",
+      "value": "7 types, Q from 0.10 to 10.0"
+    },
+    {
+      "label": "Headphone profiles",
+      "value": "5,000+ AutoEQ profiles"
+    }
+  ],
+  "badge": "Equaliser suite"
+}

@@ -1,0 +1,33 @@
+{
+  "number": 17,
+  "id": "native-direct-output",
+  "screens": [
+    "output",
+    "signal-path",
+    "signal-clean"
+  ],
+  "title": "Native direct output",
+  "category": "hardware",
+  "categoryLabel": "Hardware & outputs",
+  "summary": "Direct hardware audio path to internal DACs and headphone jacks on supported devices.",
+  "description": "Routes audio directly to integrated DAC chips on supported phones. Availability depends on your phone's internal DAC chip and OS firmware. An external USB DAC is recommended for guaranteed bit-perfect output across all devices. It is off by default and yields when you connect a USB DAC.",
+  "audiophileBenefit": "Enables direct playback from internal headphone ports on supported hardware.",
+  "specs": [
+    {
+      "label": "Routing",
+      "value": "Direct internal hardware path"
+    },
+    {
+      "label": "Compatibility",
+      "value": "Depends on DAC chip and OS firmware"
+    },
+    {
+      "label": "Recommended setup",
+      "value": "External USB DAC for guaranteed bit-perfect sound"
+    },
+    {
+      "label": "Priority",
+      "value": "Yields automatically to USB DACs"
+    }
+  ]
+}

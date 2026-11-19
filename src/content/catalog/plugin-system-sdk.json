@@ -1,0 +1,32 @@
+{
+  "number": 22,
+  "id": "plugin-system-sdk",
+  "screens": [
+    "sources",
+    "library",
+    "tracks"
+  ],
+  "title": "Plugin system and public SDK",
+  "category": "streaming",
+  "categoryLabel": "Streaming & network",
+  "summary": "Expand your player with optional add-on apps using a public SDK.",
+  "metaDescription": "Add audio sources, metadata and sound processing with optional add-on apps. Each plugin is signed and checked before it connects. The SDK is public.",
+  "description": "Plugins run as separate standalone apps. The player verifies cryptographic signatures before allowing connection. Developers can build new audio sources, catalogue views, metadata providers and custom sound processing modules.",
+  "audiophileBenefit": "Keep your player core lean while expanding sources and sound processing when needed.",
+  "specs": [
+    {
+      "label": "Architecture",
+      "value": "Cryptographically signed Android apps"
+    },
+    {
+      "label": "Capabilities",
+      "value": "Audio sources, metadata and sound processing"
+    },
+    {
+      "label": "Public SDK",
+      "value": "Open developer repository on GitHub"
+    }
+  ],
+  "sdkUrl": "https://github.com/STUkh/bitperfect-player-plugin-SDK",
+  "badge": "Optional add-ons"
+}

@@ -1,0 +1,29 @@
+{
+  "number": 8,
+  "id": "audiophile-src-resamplers",
+  "screens": [
+    "playback",
+    "signal-path",
+    "dsp"
+  ],
+  "title": "Six sample rate converters",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Choose from six sample rate converters, from low-power to studio reference.",
+  "description": "Includes Half-band, FFT polyphase, Sinc-256 light, Sinc-256, Sinc-512 and 1024-tap studio reference filters. Choose linear phase or minimum phase independently. Active only when output rates differ from the source file.",
+  "audiophileBenefit": "Eliminates pre-ringing or preserves phase accuracy to match your DAC's acoustic response.",
+  "specs": [
+    {
+      "label": "Converter options",
+      "value": "6 selectable algorithms"
+    },
+    {
+      "label": "Phase control",
+      "value": "Linear phase or minimum phase"
+    },
+    {
+      "label": "Peak precision",
+      "value": "1024-tap studio reference filter"
+    }
+  ]
+}

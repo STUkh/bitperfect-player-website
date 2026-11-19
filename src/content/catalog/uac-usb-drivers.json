@@ -1,0 +1,31 @@
+{
+  "number": 3,
+  "id": "uac-usb-drivers",
+  "screens": [
+    "output",
+    "track-info",
+    "now-playing"
+  ],
+  "title": "UAC1 and UAC2 USB DAC support",
+  "category": "engine",
+  "categoryLabel": "Core engine",
+  "summary": "Dedicated USB Audio Class 1 and 2 communication for your DAC.",
+  "metaDescription": "Talks to UAC1 and UAC2 USB DACs directly. Each track plays at its native rate, up to 768 kHz, if your DAC supports it.",
+  "description": "Replaces standard Android USB audio once permitted. The app reads your DAC capabilities and matches each track rate. Compatible with UAC1 and UAC2 hardware.",
+  "audiophileBenefit": "Each track plays at its native rate, up to 768 kHz, when supported by your DAC.",
+  "specs": [
+    {
+      "label": "Protocols",
+      "value": "UAC1 and UAC2"
+    },
+    {
+      "label": "Rate switching",
+      "value": "Automatic per track"
+    },
+    {
+      "label": "DAC communication",
+      "value": "Direct hardware access"
+    }
+  ],
+  "badge": "Direct USB"
+}

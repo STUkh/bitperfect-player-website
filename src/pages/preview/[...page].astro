@@ -17,7 +17,7 @@ import BackgroundFlow from '../../components/preview/BackgroundFlow.astro';
 import { featureRoutes } from '../../data/navigation';
 
 export function getStaticPaths() {
-  if (!import.meta.env.DEV) return [];
+  if (!import.meta.env.DEV) return [{ params: { page: 'home' } }];
   return [{ params: { page: undefined } }, { params: { page: 'home' } }, { params: { page: 'backgrounds' } }, { params: { page: 'background-flow' } }];
 }
 

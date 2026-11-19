@@ -1,0 +1,30 @@
+{
+  "number": 14,
+  "id": "audiophile-upsampler",
+  "screens": [
+    "dsp",
+    "signal-path",
+    "track-info"
+  ],
+  "title": "Audiophile upsampler up to 8x",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Upsamples audio by 2x, 4x or 8x with a selectable ceiling.",
+  "metaDescription": "Upsamples by 2x, 4x or 8x with linear or minimum phase filters. Pick a 96, 192 or 384 kHz ceiling. Output never goes past your DAC's top rate.",
+  "description": "Multiplies incoming sample rates by 2x, 4x or 8x using linear or minimum phase filters. 44.1 kHz and 48 kHz tracks reach 352.8 kHz or 384 kHz. Choose a ceiling of 96, 192 or 384 kHz. Output never exceeds your DAC's maximum rate.",
+  "audiophileBenefit": "Pushes digital reconstruction filter imaging artefacts far beyond the audible frequency spectrum.",
+  "specs": [
+    {
+      "label": "Rate multipliers",
+      "value": "2x, 4x or 8x"
+    },
+    {
+      "label": "Output ceiling",
+      "value": "96, 192 or 384 kHz"
+    },
+    {
+      "label": "Hardware limit",
+      "value": "Capped by your DAC's maximum rate"
+    }
+  ]
+}

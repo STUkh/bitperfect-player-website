@@ -1,0 +1,29 @@
+{
+  "number": 16,
+  "id": "convolution-engine",
+  "screens": [
+    "dsp-sheet",
+    "dsp",
+    "fidelity"
+  ],
+  "title": "Convolution engine",
+  "category": "dsp",
+  "categoryLabel": "Sound processing",
+  "summary": "Applies custom impulse-response WAV files for headphone and room acoustic correction.",
+  "description": "Loads standard FIR impulse-response WAV files directly from your device storage. Supports mono, stereo and true-stereo correction filters. Short filters run with zero latency. Longer room-correction filters run with partitioned efficiency.",
+  "audiophileBenefit": "Applies laboratory-grade acoustic correction filters to achieve reference headphone or room frequency response.",
+  "specs": [
+    {
+      "label": "Filter formats",
+      "value": "WAV FIR impulse responses (PCM)"
+    },
+    {
+      "label": "Zero latency",
+      "value": "Filters up to 512 taps"
+    },
+    {
+      "label": "Filter capacity",
+      "value": "Up to 131,072 taps per channel"
+    }
+  ]
+}

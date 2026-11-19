@@ -1,0 +1,29 @@
+{
+  "number": 27,
+  "id": "internet-radio",
+  "screens": [
+    "sources",
+    "library",
+    "now-playing"
+  ],
+  "title": "Internet radio search",
+  "category": "media",
+  "categoryLabel": "Formats, radio & interface",
+  "summary": "Search global online radio stations. Filter by codec and stream bitrate.",
+  "description": "Search community stations by audio codec (MP3, AAC or FLAC) and minimum bitrate. Custom stream URLs paste directly into the player. Organise favourite stations in folders. Real-time song titles and bitrates display during playback.",
+  "audiophileBenefit": "Listen to lossless FLAC broadcasts and high-bitrate radio stations alongside your local music library.",
+  "specs": [
+    {
+      "label": "Station directory",
+      "value": "Community directory searched in real time"
+    },
+    {
+      "label": "Stream codecs",
+      "value": "FLAC, AAC and MP3"
+    },
+    {
+      "label": "Metadata display",
+      "value": "Live track titles and stream bitrate"
+    }
+  ]
+}
