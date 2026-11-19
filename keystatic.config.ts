@@ -1,14 +1,16 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
-const isGitHub = process.env.KEYSTATIC_STORAGE_KIND === 'github';
+// When running locally in development (`astro dev`), use local filesystem storage.
+// In production builds (`astro build` / Cloudflare Pages), use GitHub storage mode.
+const isProd = import.meta.env.PROD;
 
 export default config({
-  storage: isGitHub
+  storage: isProd
     ? {
         kind: 'github',
         repo: {
-          owner: process.env.KEYSTATIC_GITHUB_OWNER || 'bitperfect-player',
-          name: process.env.KEYSTATIC_GITHUB_REPO || 'bitperfect-player-website',
+          owner: 'STUkh',
+          name: 'bitperfect-player-website',
         },
       }
     : {
