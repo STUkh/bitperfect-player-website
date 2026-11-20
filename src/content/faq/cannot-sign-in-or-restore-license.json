@@ -1,0 +1,7 @@
+{
+  "id": "cannot-sign-in-or-restore-license",
+  "category": "license",
+  "q": "What should I do if the app won't sign in or restore my license?",
+  "a": "Make sure you have the latest version of Bitperfect Player installed from the App Store (or Google Play Store). We occasionally require client updates to ensure security, maintain compatibility, and update backend communication. Outdated app versions may be blocked from signing in, reaching the verification service, or passing license and subscription checks until you update to the latest release.",
+  "order": 25
+}

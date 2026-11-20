@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** November 13, 2026
+**Last updated:** November 20, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -227,10 +227,13 @@ to your data when the App verifies that access.
   advertising identifiers, and the pseudonymous account identifier described in Section
   2.11. It receives no name, contact details or music library data. See RevenueCat's
   [privacy policy](https://www.revenuecat.com/privacy).
-- **Installation verification.** The platform's integrity service checks that the
+- **Installation verification and version checks.** The platform's integrity service checks that the
   installed App and device meet release security requirements. Our verification service
-  receives the verification result and device details needed to confirm authorization.
-  We do not receive your store account name, password, card details, or advertising ID.
+  receives the verification result, app client version, and device details needed to confirm
+  authorization and ensure minimum version compatibility. If an installed client is outdated
+  or deprecated, access or license verification may be refused until the latest version is
+  installed from the app store. We do not receive your store account name, password, card details,
+  or advertising ID.
 - **Device registry.** To enforce the personal device limit (five installations with the
   base subscription, or 10, 15, or 20 with active device-capacity packs) and let you
   remove old installations, a secure device registry hosted in the European Union

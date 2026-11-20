@@ -2,12 +2,12 @@
 title: "Terms of Use"
 description: "Terms for using Bitperfect Player: the subscription, free trial, billing, cancellation and refunds."
 effectiveDate: "August 31, 2026"
-lastUpdated: "November 13, 2026"
+lastUpdated: "November 20, 2026"
 ---
 
 **Effective date:** August 31, 2026
 
-**Last updated:** November 13, 2026
+**Last updated:** November 20, 2026
 
 These Terms of Use ("Terms") govern your use of the Bitperfect Player app ("the App").
 They cover the subscription, the free trial, billing, cancellation and refunds, and the
@@ -220,7 +220,10 @@ support@bit-perfect.com. A store's family- or device-sharing feature does not ex
 personal licence in Section 3.
 
 Restoring requires the store's services to be reachable and your store account to be in
-good standing; neither is within our control.
+good standing; neither is within our control. Restoring access and signing in also require
+running a supported version of the App: if an older version has been deprecated or superseded
+by a mandatory update, you must update to the latest version available in the App Store or
+Google Play Store before your subscription can be verified or restored.
 
 ## 8. Access to the App
 
@@ -233,6 +236,13 @@ subscription is active.
 Access also depends on things outside our control: your device, its operating system, its
 storage and permissions, your network, your audio hardware, and the app store's own
 services. Interruptions caused by any of those are not a failure of the subscription.
+
+**Mandatory client updates and minimum versions.** We may from time to time update the App,
+discontinue support for older client versions, or require mandatory updates to maintain
+system integrity, security, and compatibility with backend services. If a minimum client
+version is enforced, older or outdated versions of the App may be blocked from signing in,
+accessing backend features, or completing license verification until updated to the latest
+version available in the relevant app store.
 
 ## 9. Support
 
@@ -254,8 +264,9 @@ subscription. Support may be provided in English only.
 - **Your hearing and your equipment.** You are responsible for the volume levels you set
   and for the equipment you connect, particularly external amplifiers, DACs, and
   headphones.
-- **Your device.** You are responsible for keeping your device, its operating system, and
-  its storage in a state where the App can run.
+- **Your device and updates.** You are responsible for keeping your device, its operating
+  system, and its storage in a state where the App can run, and for keeping the App updated
+  to the latest version available in the App Store or Google Play Store.
 - **No misuse.** Do not attempt to break, bypass, or reverse the App's subscription or
   licence checks, do not interfere with its operation or with the stores' services, and do
   not use the App to infringe anyone's rights or to break any law that applies to you.
@@ -373,7 +384,9 @@ uninstalling the App.
 
 The App changes as it is developed: features may be added, altered, suspended, or withdrawn
 at any time, and support for particular devices, operating-system versions, protocols, or
-formats may end, without liability.
+formats may end, without liability. We reserve the right to deploy mandatory client updates,
+retire older client builds, and restrict or terminate access from outdated versions that
+have not been updated to the latest release available in the applicable app store.
 
 These Terms may be updated as that happens. Material changes will be reflected by an
 updated "Last updated" date above and, where required by applicable law or store policy,

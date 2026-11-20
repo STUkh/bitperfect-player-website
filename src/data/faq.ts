@@ -26,6 +26,7 @@ import costAndPlans from '../content/faq/cost-and-plans.json';
 import deviceAllowance from '../content/faq/device-allowance.json';
 import privacyAndNetworkTransfers from '../content/faq/privacy-and-network-transfers.json';
 import doINeedAnAccount from '../content/faq/do-i-need-an-account.json';
+import cannotSignInOrRestoreLicense from '../content/faq/cannot-sign-in-or-restore-license.json';
 
 export interface FAQItem {
   id: string;
@@ -61,6 +62,7 @@ export const allFaqItems: FAQItem[] = [
   deviceAllowance,
   privacyAndNetworkTransfers,
   doINeedAnAccount,
+  cannotSignInOrRestoreLicense,
 ];
 
 export const faqItems = allFaqItems;
