@@ -1,6 +1,6 @@
 **Effective date:** August 5, 2026
 
-**Last updated:** November 20, 2026
+**Last updated:** November 24, 2026
 
 This Privacy Policy describes what the Bitperfect Player app ("the App") collects, why it
 collects it, and what control you have over your data. The terms governing your use of the
@@ -31,11 +31,12 @@ Contact: support@bit-perfect.com
 - Artwork, song lyrics and headphone correction profiles are fetched from
   public, third-party providers as you use those features. These are
   retrievals into your device, not uploads of your library.
-- You sign in with a Google account before you first use the App. We keep a
-  pseudonymous account record, not your name or email address, so that your
-  subscription, free trial and promotional access work on all your devices, and a
-  backup of your App settings and EQ presets. Section 2.11 describes what we store and
-  how to delete your account.
+- You sign in with a Google account, or with your email address and a one-time code
+  sent to it, before you first use the App. We keep a pseudonymous account record and
+  the contact email address of your account, so that your subscription, free trial and
+  promotional access work on all your devices, and a backup of your App settings and EQ
+  presets. We do not store your name. We use your email address only for account and
+  service messages. Section 2.11 describes what we store and how to delete your account.
 - An active subscription registers your App installations: five with the base
   subscription, or 10, 15, or 20 with active device-capacity packs. A secure device
   registry hosted in the European Union holds pseudonymous device verification
@@ -197,16 +198,17 @@ plugins.
 
 ### 2.9 What we do NOT collect
 
-We do not collect, and the App does not request: your name, your email address
-(except at sign-in, as described in Section 2.11), phone number, precise or approximate location, contacts, calendar,
+We do not collect, and the App does not request: your name, phone number, precise or
+approximate location, contacts, calendar,
 photos/videos outside the music-library scan scope you grant, biometric
 data, or any advertising identifier. We do not run any advertising SDK. We
 do not sell personal data, and we do not share personal data with third
 parties for their own marketing or advertising purposes. The outbound data
 flows are the feature and service flows disclosed in this Section 2: crash reporting
 in 2.1, artwork lookups in 2.6, the lyrics and headphone-profile lookups in 2.7,
-subscription verification and protected-component delivery in 2.10, and promotional
-code verification in 2.12. They exist to operate features you use, not to monetize your data,
+subscription verification and protected-component delivery in 2.10, sign-in emails and
+the contact address in 2.11, and promotional code verification in 2.12. Your email address
+is the one contact detail we store; Section 2.11 states how. They exist to operate features you use, not to monetize your data,
 and no recipient receives the data for its own advertising as far as its published
 terms describe.
 
@@ -259,18 +261,37 @@ to your data when the App verifies that access.
 
 ### 2.11 Your account
 
-You sign in with a Google account before you first use the App. Installations that already
-had access before sign-in was introduced keep working without it. On a device without
-Google Play services, the App shows a short code, and you sign in with it on another
-device.
+You sign in before you first use the App, in one of two ways:
 
-At sign-in, the App sends the sign-in token from Google to our verification service. We
-check the token and keep:
+- **Google.** Sign in with a Google account.
+- **Email address.** Enter your email address. The App sends a 6-digit sign-in code to it,
+  and you enter the code in the App. Email sign-in is not offered on Android TV.
 
-- **A pseudonymous account identifier.** This is a one-way keyed hash of the identifier
-  Google gives your account. We do not store your name or email address. Your email
-  address is sent back to the App only so that it can show which account is signed in, and
-  it stays on your device.
+Installations that already had access before sign-in was introduced keep working without it.
+On a device without Google Play services, the App shows a short code, and you sign in with it
+on another device.
+
+At Google sign-in, the App sends the sign-in token from Google to our verification service.
+At email sign-in, the App sends your address to our verification service, and the code is sent
+to your address by email through Cloudflare Email Service. We check the token or the code and keep:
+
+- **A pseudonymous account identifier.** This is a one-way keyed hash of the identifier Google
+  gives your account, or, for email sign-in, of your email address. We do not store your name.
+- **A contact email address.** When Google reports your Google address as verified, or when you
+  confirm an email sign-in, we store that address with your account. We use it only for account
+  and service messages: sign-in codes, and notices about your account and subscription. We do not
+  send newsletters or marketing, we do not sell the address, and we do not share it except with
+  our processor, Cloudflare. Our service does not write the address to its logs. The App shows it to you
+  so that you can see which account is signed in.
+- **Sign-in identifier hashes.** A one-way keyed hash of your normalized email address, and a
+  one-way keyed hash of your Google account identifier. A matching hash links an email sign-in and
+  a Google sign-in to the same account. A Google address links only when Google verifies it and it
+  is a Gmail or Google Workspace address.
+- **Sign-in codes.** An email sign-in code is valid for 10 minutes. We store only a keyed hash of
+  the code. We delete the code after it is used or when it expires.
+- **Abuse-protection counters.** To limit the sign-in codes sent and the wrong code attempts, we
+  count them per email address and per device, and under abuse pressure also per network address.
+  The counters hold keyed hashes of these values, for the current UTC day only.
 - **The link between your account and your installations,** so that your subscription,
   free trial or promotional access works on each installation where you sign in.
 - **A backup of your settings.** While you are signed in, the App backs up its settings and
@@ -285,14 +306,18 @@ check the token and keep:
 **Retention.** Installation links and the settings backup are deleted automatically 400
 days after their last use. The device trial record is deleted after 400 days. The account
 trial record, and the pseudonymous account identifier on a promotional voucher you
-redeemed, are kept to prevent repeated trials and repeated voucher use.
+redeemed, are kept to prevent repeated trials and repeated voucher use. Your contact email
+address is deleted when the account has no installations left (checked by a daily cleanup)
+and when you delete your account. The sign-in identifier hashes are kept until you delete
+your account. Sign-in codes are deleted after use or when they expire. Abuse-protection
+counters are kept for the current UTC day only.
 
 **Deleting your account.** In the App: Settings → Account → Delete account, or on the
 subscription screen: Sign out → Delete account. Without the App: on our
 [account deletion page](/delete-account/). Deletion removes your installation links, your
-settings backup, and the free-trial and promotional access of your account. It does not
-cancel a store subscription. The trial records described above stay, so a free trial cannot
-be claimed twice.
+settings backup, your contact email address, your sign-in identifier hashes, and the
+free-trial and promotional access of your account. It does not cancel a store subscription.
+The trial records described above stay, so a free trial cannot be claimed twice.
 
 We do not sell account data or use it for advertising.
 
@@ -372,7 +397,7 @@ subscription-management provider described in Section 2.10, is based in the Unit
 States; the purchase or entitlement record, the installation identifier and your
 pseudonymous account identifier (Section 2.11) may be processed there. The verification service, device registry, account records, settings backups and
 promotional code verification described in Sections 2.10 to 2.12 are operated on Cloudflare and hosted in the
-European Union.
+European Union. Sign-in emails are sent through Cloudflare Email Service, which processes your email address to deliver them.
 
 ## 7. Security
 
